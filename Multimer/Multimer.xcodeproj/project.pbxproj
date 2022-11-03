@@ -19,6 +19,7 @@
 		1E482BE22913553F00175B78 /* UIStackView+addArrangedSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BE12913553F00175B78 /* UIStackView+addArrangedSubviews.swift */; };
 		1E482BE62913558D00175B78 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BE52913558D00175B78 /* Tag.swift */; };
 		1E482BE82913559600175B78 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BE72913559600175B78 /* Timer.swift */; };
+		1E482BEA29138A3900175B78 /* UIView+snapshotCellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BE929138A3900175B78 /* UIView+snapshotCellStyle.swift */; };
 		1E48FE992911F9240090B246 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FE982911F9240090B246 /* AppDelegate.swift */; };
 		1E48FE9B2911F9240090B246 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FE9A2911F9240090B246 /* SceneDelegate.swift */; };
 		1E48FE9D2911F9240090B246 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FE9C2911F9240090B246 /* MainViewController.swift */; };
@@ -59,6 +60,7 @@
 		1E482BE12913553F00175B78 /* UIStackView+addArrangedSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+addArrangedSubviews.swift"; sourceTree = "<group>"; };
 		1E482BE52913558D00175B78 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		1E482BE72913559600175B78 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
+		1E482BE929138A3900175B78 /* UIView+snapshotCellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+snapshotCellStyle.swift"; sourceTree = "<group>"; };
 		1E48FE952911F9240090B246 /* Multimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E48FE982911F9240090B246 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E48FE9A2911F9240090B246 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 		1E482BE32913555000175B78 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				1E482BE929138A3900175B78 /* UIView+snapshotCellStyle.swift */,
 				1E482BE12913553F00175B78 /* UIStackView+addArrangedSubviews.swift */,
 				1E482BD72913545E00175B78 /* UIPickerView+SetFixedLabels.swift */,
 			);
@@ -320,6 +323,7 @@
 				1E482BE62913558D00175B78 /* Tag.swift in Sources */,
 				1E48FE9B2911F9240090B246 /* SceneDelegate.swift in Sources */,
 				1E482BE02913551700175B78 /* TimerTableViewDelegate.swift in Sources */,
+				1E482BEA29138A3900175B78 /* UIView+snapshotCellStyle.swift in Sources */,
 				1E482BD82913545E00175B78 /* UIPickerView+SetFixedLabels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

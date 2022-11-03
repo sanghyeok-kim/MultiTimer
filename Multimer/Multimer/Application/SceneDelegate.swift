@@ -11,11 +11,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let initialViewController = ViewController()
+        let initialViewController = MainViewController()
+//        let initialViewController = TimerSettingViewController()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = initialViewController
         window?.makeKeyAndVisible()
     }
 }
-
