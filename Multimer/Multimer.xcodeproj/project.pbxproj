@@ -7,9 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E482BD02912887B00175B78 /* TimerSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BCF2912887B00175B78 /* TimerSettingViewController.swift */; };
+		1E482BD22913538800175B78 /* TimerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BD12913538800175B78 /* TimerViewCell.swift */; };
+		1E482BD4291353F400175B78 /* TimePickerViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BD3291353F400175B78 /* TimePickerViewDataSource.swift */; };
+		1E482BD6291353FF00175B78 /* TimePickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BD5291353FF00175B78 /* TimePickerViewDelegate.swift */; };
+		1E482BD82913545E00175B78 /* UIPickerView+SetFixedLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BD72913545E00175B78 /* UIPickerView+SetFixedLabels.swift */; };
+		1E482BDA291354E900175B78 /* TimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BD9291354E900175B78 /* TimeType.swift */; };
+		1E482BDC291354F500175B78 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BDB291354F500175B78 /* Time.swift */; };
+		1E482BDE2913550A00175B78 /* TimerTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BDD2913550A00175B78 /* TimerTableViewDataSource.swift */; };
+		1E482BE02913551700175B78 /* TimerTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BDF2913551700175B78 /* TimerTableViewDelegate.swift */; };
+		1E482BE22913553F00175B78 /* UIStackView+addArrangedSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BE12913553F00175B78 /* UIStackView+addArrangedSubviews.swift */; };
+		1E482BE62913558D00175B78 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BE52913558D00175B78 /* Tag.swift */; };
+		1E482BE82913559600175B78 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BE72913559600175B78 /* Timer.swift */; };
 		1E48FE992911F9240090B246 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FE982911F9240090B246 /* AppDelegate.swift */; };
 		1E48FE9B2911F9240090B246 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FE9A2911F9240090B246 /* SceneDelegate.swift */; };
-		1E48FE9D2911F9240090B246 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FE9C2911F9240090B246 /* ViewController.swift */; };
+		1E48FE9D2911F9240090B246 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FE9C2911F9240090B246 /* MainViewController.swift */; };
 		1E48FEA22911F9250090B246 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E48FEA12911F9250090B246 /* Assets.xcassets */; };
 		1E48FEA52911F9250090B246 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E48FEA32911F9250090B246 /* LaunchScreen.storyboard */; };
 		1E48FEB02911F9250090B246 /* MultimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FEAF2911F9250090B246 /* MultimerTests.swift */; };
@@ -35,10 +47,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E482BCF2912887B00175B78 /* TimerSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSettingViewController.swift; sourceTree = "<group>"; };
+		1E482BD12913538800175B78 /* TimerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewCell.swift; sourceTree = "<group>"; };
+		1E482BD3291353F400175B78 /* TimePickerViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewDataSource.swift; sourceTree = "<group>"; };
+		1E482BD5291353FF00175B78 /* TimePickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewDelegate.swift; sourceTree = "<group>"; };
+		1E482BD72913545E00175B78 /* UIPickerView+SetFixedLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPickerView+SetFixedLabels.swift"; sourceTree = "<group>"; };
+		1E482BD9291354E900175B78 /* TimeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeType.swift; sourceTree = "<group>"; };
+		1E482BDB291354F500175B78 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		1E482BDD2913550A00175B78 /* TimerTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableViewDataSource.swift; sourceTree = "<group>"; };
+		1E482BDF2913551700175B78 /* TimerTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableViewDelegate.swift; sourceTree = "<group>"; };
+		1E482BE12913553F00175B78 /* UIStackView+addArrangedSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+addArrangedSubviews.swift"; sourceTree = "<group>"; };
+		1E482BE52913558D00175B78 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		1E482BE72913559600175B78 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		1E48FE952911F9240090B246 /* Multimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Multimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E48FE982911F9240090B246 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E48FE9A2911F9240090B246 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1E48FE9C2911F9240090B246 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1E48FE9C2911F9240090B246 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1E48FEA12911F9250090B246 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E48FEA42911F9250090B246 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E48FEA62911F9250090B246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -74,6 +98,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E482BE32913555000175B78 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				1E482BE12913553F00175B78 /* UIStackView+addArrangedSubviews.swift */,
+				1E482BD72913545E00175B78 /* UIPickerView+SetFixedLabels.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		1E482BE42913556100175B78 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				1E48FE982911F9240090B246 /* AppDelegate.swift */,
+				1E48FE9A2911F9240090B246 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		1E48FE8C2911F9240090B246 = {
 			isa = PBXGroup;
 			children = (
@@ -97,9 +139,19 @@
 		1E48FE972911F9240090B246 /* Multimer */ = {
 			isa = PBXGroup;
 			children = (
-				1E48FE982911F9240090B246 /* AppDelegate.swift */,
-				1E48FE9A2911F9240090B246 /* SceneDelegate.swift */,
-				1E48FE9C2911F9240090B246 /* ViewController.swift */,
+				1E482BE42913556100175B78 /* Application */,
+				1E482BE32913555000175B78 /* Extension */,
+				1E482BE72913559600175B78 /* Timer.swift */,
+				1E482BE52913558D00175B78 /* Tag.swift */,
+				1E48FE9C2911F9240090B246 /* MainViewController.swift */,
+				1E482BDF2913551700175B78 /* TimerTableViewDelegate.swift */,
+				1E482BDD2913550A00175B78 /* TimerTableViewDataSource.swift */,
+				1E482BD12913538800175B78 /* TimerViewCell.swift */,
+				1E482BCF2912887B00175B78 /* TimerSettingViewController.swift */,
+				1E482BDB291354F500175B78 /* Time.swift */,
+				1E482BD9291354E900175B78 /* TimeType.swift */,
+				1E482BD5291353FF00175B78 /* TimePickerViewDelegate.swift */,
+				1E482BD3291353F400175B78 /* TimePickerViewDataSource.swift */,
 				1E48FEA12911F9250090B246 /* Assets.xcassets */,
 				1E48FEA32911F9250090B246 /* LaunchScreen.storyboard */,
 				1E48FEA62911F9250090B246 /* Info.plist */,
@@ -254,9 +306,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E48FE9D2911F9240090B246 /* ViewController.swift in Sources */,
+				1E482BD6291353FF00175B78 /* TimePickerViewDelegate.swift in Sources */,
+				1E482BD22913538800175B78 /* TimerViewCell.swift in Sources */,
+				1E482BDC291354F500175B78 /* Time.swift in Sources */,
+				1E482BE82913559600175B78 /* Timer.swift in Sources */,
+				1E48FE9D2911F9240090B246 /* MainViewController.swift in Sources */,
+				1E482BDA291354E900175B78 /* TimeType.swift in Sources */,
+				1E482BD4291353F400175B78 /* TimePickerViewDataSource.swift in Sources */,
 				1E48FE992911F9240090B246 /* AppDelegate.swift in Sources */,
+				1E482BDE2913550A00175B78 /* TimerTableViewDataSource.swift in Sources */,
+				1E482BD02912887B00175B78 /* TimerSettingViewController.swift in Sources */,
+				1E482BE22913553F00175B78 /* UIStackView+addArrangedSubviews.swift in Sources */,
+				1E482BE62913558D00175B78 /* Tag.swift in Sources */,
 				1E48FE9B2911F9240090B246 /* SceneDelegate.swift in Sources */,
+				1E482BE02913551700175B78 /* TimerTableViewDelegate.swift in Sources */,
+				1E482BD82913545E00175B78 /* UIPickerView+SetFixedLabels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,7 +418,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -408,7 +472,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
