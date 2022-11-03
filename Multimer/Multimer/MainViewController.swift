@@ -15,27 +15,30 @@ class MainViewController: UIViewController {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.register(TimerViewCell.self, forCellReuseIdentifier: TimerViewCell.identifier)
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
+        tableView.addGestureRecognizer(longPressRecognizer)
+        
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
-        view.addSubview(tableView)
-//        tableView.backgroundColor = .red
         
         layout()
+    }
+    
+    @objc func longPressed(sender: UILongPressGestureRecognizer) {
+        tableViewDataSource.swapByLongPress(with: sender, to: tableView)
     }
 }
 
 private extension MainViewController {
     func layout() {
-        layoutTableView()
-    }
-    
-    func layoutTableView() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
         
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
