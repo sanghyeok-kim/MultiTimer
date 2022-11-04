@@ -5,14 +5,10 @@
 //  Created by 김상혁 on 2022/11/03.
 //
 
-import UIKit
+import RxSwift
+import RxCocoa
 
-final class TimerViewCell: UITableViewCell {
-    
-    static var identifier: String {
-        String(describing: self)
-    }
-    
+final class TimerViewCell: UITableViewCell, Identifiable, ViewType {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .systemGreen // FIXME: 삭제
@@ -65,6 +61,8 @@ final class TimerViewCell: UITableViewCell {
         return button
     }()
     
+    private var disposeBag = DisposeBag()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layout()
@@ -76,10 +74,23 @@ final class TimerViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(title: String, tag: String?, time: String) {
-        titleLabel.text = title
-        tagLabel.text = tag
-        timeLabel.text = time
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+    
+    func bind(to viewModel: TimerCellViewModel) {
+        let input = TimerCellViewModel.Input(
+            toggleButtonDidTap: toggleButton.rx.tap.asObservable()
+        )
+        
+        let output = viewModel.transform(from: input)
+        
+        output.timer.bind { [weak self] timer in
+            self?.titleLabel.text = timer.name
+            self?.tagLabel.text = timer.tag
+            self?.timeLabel.text = timer.time
+        }.disposed(by: disposeBag)
     }
 }
 
