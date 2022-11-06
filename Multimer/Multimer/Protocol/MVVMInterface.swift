@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/11/03.
 //
 
-import Foundation
+import RxSwift
 
 enum ViewModelTable {
     static var viewModelMap = [String: AnyObject?]()
@@ -15,7 +15,7 @@ protocol ViewModelType: AnyObject {
     associatedtype Input
     associatedtype Output
     
-    func transform(from input: Input) -> Output
+    func transform(from input: Input, disposeBag: DisposeBag) -> Output
 }
 
 protocol ViewType: AnyObject {
