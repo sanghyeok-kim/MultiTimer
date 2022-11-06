@@ -102,9 +102,10 @@ final class TimerViewCell: UITableViewCell, Identifiable, ViewType {
             self?.tagLabel.text = timer.tag
         }.disposed(by: disposeBag)
         
-        output.time.bind { [weak self] time in
-            self?.timeLabel.text = time.formattedString
-        }.disposed(by: disposeBag)
+        output.time
+            .map { $0.formattedString }
+            .bind(to: timeLabel.rx.text)
+            .disposed(by: disposeBag)
         
         output.toggleButtonIsSelected
             .bind(to: toggleButton.rx.isSelected)
