@@ -52,12 +52,18 @@ final class TimerViewCell: UITableViewCell, Identifiable, ViewType {
     private lazy var toggleButton: UIButton = {
         let button = UIButton()
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 36)
-        let buttonImage = UIImage(
+        let playImage = UIImage(
             systemName: "play.circle",
             withConfiguration: imageConfig
         )?.withTintColor(.systemTeal, renderingMode: .alwaysOriginal)
         
-        button.setImage(buttonImage, for: .normal)
+        let stopImage = UIImage(
+            systemName: "pause.circle",
+            withConfiguration: imageConfig
+        )?.withTintColor(.systemTeal, renderingMode: .alwaysOriginal)
+        
+        button.setImage(playImage, for: .normal)
+        button.setImage(stopImage, for: .selected)
         return button
     }()
     
@@ -65,8 +71,9 @@ final class TimerViewCell: UITableViewCell, Identifiable, ViewType {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
+        contentView.isUserInteractionEnabled = false
         layout()
-        
     }
     
     @available(*, unavailable)
@@ -76,21 +83,32 @@ final class TimerViewCell: UITableViewCell, Identifiable, ViewType {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        titleLabel.text = nil
+        tagLabel.text = nil
+        timeLabel.text = nil
         disposeBag = DisposeBag()
     }
     
     func bind(to viewModel: TimerCellViewModel) {
+        
         let input = TimerCellViewModel.Input(
             toggleButtonDidTap: toggleButton.rx.tap.asObservable()
         )
         
-        let output = viewModel.transform(from: input)
+        let output = viewModel.transform(from: input, disposeBag: disposeBag)
         
         output.timer.bind { [weak self] timer in
             self?.titleLabel.text = timer.name
             self?.tagLabel.text = timer.tag
-            self?.timeLabel.text = timer.time
         }.disposed(by: disposeBag)
+        
+        output.time.bind { [weak self] time in
+            self?.timeLabel.text = time.formattedString
+        }.disposed(by: disposeBag)
+        
+        output.toggleButtonIsSelected
+            .bind(to: toggleButton.rx.isSelected)
+            .disposed(by: disposeBag)
     }
 }
 

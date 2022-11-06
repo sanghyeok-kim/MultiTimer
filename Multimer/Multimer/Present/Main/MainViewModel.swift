@@ -10,8 +10,6 @@ import RxRelay
 
 final class MainViewModel: ViewModelType {
     
-    private let disposBag = DisposeBag()
-    
     struct Input {
         let cellDidSwipe: Observable<Int>
 //        let cellDidMove: Observable<(from: Int, to: Int)>
@@ -21,7 +19,7 @@ final class MainViewModel: ViewModelType {
         var timerCellViewModels = BehaviorRelay<[TimerCellViewModel]>(value: [])
     }
     
-    func transform(from input: Input) -> Output {
+    func transform(from input: Input, disposeBag: DisposeBag) -> Output {
         let output = Output()
         
         // FIXME: 영구저장소에서 불러오기

@@ -18,12 +18,13 @@ final class MainViewController: UIViewController, ViewType {
 //    private lazy var tableViewDropDelegate = TimerTableViewDropDelegate()
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.rowHeight = 100
         tableView.register(TimerViewCell.self, forCellReuseIdentifier: TimerViewCell.identifier)
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
 //        tableView.dragDelegate = tableViewDragDelegate
 //        tableView.dropDelegate = tableViewDropDelegate
-//        tableView.dragInteractionEnabled = true
+        tableView.dragInteractionEnabled = true
         
 //        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
 //        tableView.addGestureRecognizer(longPressRecognizer)
@@ -43,7 +44,7 @@ final class MainViewController: UIViewController, ViewType {
             cellDidSwipe: tableViewDelegate.cellDidSwipe.asObservable()
 //            cellDidMove: tableViewDelegate.cellDidMove.asObservable()
         )
-        let output = viewModel.transform(from: input)
+        let output = viewModel.transform(from: input, disposeBag: disposeBag)
         
         output.timerCellViewModels.bind { [weak self] cellViewModels in
             guard let self = self else { return }
