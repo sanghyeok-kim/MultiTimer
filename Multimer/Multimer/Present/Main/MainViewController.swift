@@ -48,7 +48,7 @@ final class MainViewController: UIViewController, ViewType {
         
         output.timerCellViewModels.bind { [weak self] cellViewModels in
             guard let self = self else { return }
-            self.tableViewDataSource.append(timerCellViewModels: cellViewModels)
+            self.tableViewDataSource.update(timerCellViewModels: cellViewModels)
         }.disposed(by: disposeBag)
     }
     

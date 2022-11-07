@@ -9,14 +9,10 @@ import UIKit
 
 final class TimerTableViewDataSource: NSObject, UITableViewDataSource {
     
-//    var timers = [Timer(id: UUID(), name: "알림1", tag: "태그1", time: "10:20"),
-//                  Timer(id: UUID(), name: "알림2", tag: "태그2", time: "01:50"),
-//                  Timer(id: UUID(), name: "알림3", tag: "태그3", time: "11:40:20")]
-//    var timers: [Timer] = []
     private var timerCellViewModels: [TimerCellViewModel] = []
     
-    func append(timerCellViewModels: [TimerCellViewModel]) {
-        self.timerCellViewModels.append(contentsOf: timerCellViewModels)
+    func update(timerCellViewModels: [TimerCellViewModel]) {
+        self.timerCellViewModels = timerCellViewModels
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,7 +27,6 @@ final class TimerTableViewDataSource: NSObject, UITableViewDataSource {
         
         let timerCellViewModel = timerCellViewModels[indexPath.row]
         cell.viewModel = timerCellViewModel
-//        cell.set(title: timerCellViewModel.name, tag: timerCellViewModel.tag, time: timerCellViewModel.time)
         return cell
     }
     

@@ -16,7 +16,7 @@ final class MainViewModel: ViewModelType {
     }
     
     struct Output {
-        var timerCellViewModels = BehaviorRelay<[TimerCellViewModel]>(value: [])
+        let timerCellViewModels = BehaviorRelay<[TimerCellViewModel]>(value: [])
     }
     
     func transform(from input: Input, disposeBag: DisposeBag) -> Output {
@@ -27,6 +27,13 @@ final class MainViewModel: ViewModelType {
             TimerCellViewModel(timer: timer)
         }
         output.timerCellViewModels.accept(timerCellViewModels)
+        
+        input.cellDidSwipe // TODO: Simplify or RxDataSource 도입 고려
+            .withLatestFrom(output.timerCellViewModels) { index, viewModels in
+                viewModels.filter { $0 !== viewModels[index] }
+            }
+            .bind(to: output.timerCellViewModels)
+            .disposed(by: disposeBag)
         
         return output
     }
