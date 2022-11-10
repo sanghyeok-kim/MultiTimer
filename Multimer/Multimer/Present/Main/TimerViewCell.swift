@@ -44,7 +44,6 @@ final class TimerViewCell: UITableViewCell, Identifiable, ViewType {
         timerStackView.distribution = .equalSpacing
         timerStackView.alignment = .leading
         timerStackView.addArrangedSubviews([titleStackView, timeLabel])
-        
         timerStackView.backgroundColor = .orange // FIXME: 삭제
         return timerStackView
     }()
@@ -57,15 +56,30 @@ final class TimerViewCell: UITableViewCell, Identifiable, ViewType {
             withConfiguration: imageConfig
         )?.withTintColor(.systemTeal, renderingMode: .alwaysOriginal)
         
-        let stopImage = UIImage(
+        let pauseImage = UIImage(
             systemName: "pause.circle",
             withConfiguration: imageConfig
         )?.withTintColor(.systemTeal, renderingMode: .alwaysOriginal)
         
         button.setImage(playImage, for: .normal)
-        button.setImage(stopImage, for: .selected)
+        button.setImage(pauseImage, for: .selected)
         return button
     }()
+    
+    private lazy var restartButton: UIButton = {
+        let button = UIButton()
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 36)
+        
+        let restartImage = UIImage(
+            systemName: "repeat.circle",
+            withConfiguration: imageConfig
+        )?.withTintColor(.magenta, renderingMode: .alwaysOriginal)
+        
+        button.setImage(restartImage, for: .normal)
+        return button
+    }()
+    
+    private let cellTapButton = UIButton()
     
     private var disposeBag = DisposeBag()
     
@@ -90,17 +104,20 @@ final class TimerViewCell: UITableViewCell, Identifiable, ViewType {
     }
     
     func bind(to viewModel: TimerCellViewModel) {
-        
         let input = TimerCellViewModel.Input(
-            toggleButtonDidTap: toggleButton.rx.tap.asObservable()
+            cellDidTap: cellTapButton.rx.tap.asObservable(),
+            toggleButtonDidTap: toggleButton.rx.tap.asObservable(),
+            restartButtonDidTap: restartButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(from: input, disposeBag: disposeBag)
         
-        output.timer.bind { [weak self] timer in
-            self?.titleLabel.text = timer.name
-            self?.tagLabel.text = timer.tag
-        }.disposed(by: disposeBag)
+        output.timer
+            .withUnretained(self)
+            .bind { `self`, timer in
+                self.titleLabel.text = timer.name
+                self.tagLabel.text = timer.tag
+            }.disposed(by: disposeBag)
         
         output.time
             .map { $0.formattedString }
@@ -110,6 +127,14 @@ final class TimerViewCell: UITableViewCell, Identifiable, ViewType {
         output.toggleButtonIsSelected
             .bind(to: toggleButton.rx.isSelected)
             .disposed(by: disposeBag)
+        
+        output.toggleButtonIsHidden
+            .bind(to: toggleButton.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        output.restartButtonIsHidden
+            .bind(to: restartButton.rx.isHidden)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -117,8 +142,18 @@ final class TimerViewCell: UITableViewCell, Identifiable, ViewType {
 
 private extension TimerViewCell {
     func layout() {
+        addSubview(cellTapButton)
         addSubview(timerStackView)
         addSubview(toggleButton)
+        addSubview(restartButton)
+        
+        bringSubviewToFront(toggleButton)
+        
+        cellTapButton.translatesAutoresizingMaskIntoConstraints = false
+        cellTapButton.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        cellTapButton.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        cellTapButton.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        cellTapButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         
         timerStackView.translatesAutoresizingMaskIntoConstraints = false
         timerStackView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -127,5 +162,10 @@ private extension TimerViewCell {
         toggleButton.translatesAutoresizingMaskIntoConstraints = false
         toggleButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
         toggleButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        restartButton.translatesAutoresizingMaskIntoConstraints = false
+        restartButton.trailingAnchor.constraint(equalTo: toggleButton.trailingAnchor).isActive = true
+        restartButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 }
+
