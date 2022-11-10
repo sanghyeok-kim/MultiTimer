@@ -9,7 +9,7 @@ import UIKit
 
 final class TimePickerViewDelegate: NSObject, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let time = TimeType.allCases[component].range[row]
+        let time = TimeType[component].range[row]
         return String(format: "%3d", time)
     }
 }

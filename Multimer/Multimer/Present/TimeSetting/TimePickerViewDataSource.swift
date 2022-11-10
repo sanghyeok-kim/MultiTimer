@@ -9,10 +9,10 @@ import UIKit
 
 final class TimePickerViewDataSource: NSObject, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return TimeType.allCases.count
+        return TimeType.count
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return TimeType.allCases[component].range.count
+        return TimeType[component].rangeCount
     }
 }

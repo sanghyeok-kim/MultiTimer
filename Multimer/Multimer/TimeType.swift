@@ -12,6 +12,14 @@ enum TimeType: CaseIterable {
     case minute
     case second
     
+    static subscript(index: Int) -> Self {
+        return Self.allCases[index]
+    }
+    
+    static var count: Int {
+        return Self.allCases.count
+    }
+    
     var title: String {
         switch self {
         case .hour:
@@ -32,5 +40,9 @@ enum TimeType: CaseIterable {
         case .second:
             return (0...59).map { $0 }
         }
+    }
+    
+    var rangeCount: Int {
+        return range.count
     }
 }
