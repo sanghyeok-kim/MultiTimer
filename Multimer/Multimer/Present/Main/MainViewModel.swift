@@ -72,19 +72,15 @@ final class MainViewModel: ViewModelType {
             .share()
         
         // TimerCellViewModels 구성
-        let cellViewModels = userTimers
+        userTimers
             .map { timers -> [TimerCellViewModel] in
                 return timers.map { TimerCellViewModel(timer: $0) }
             }
-            .share()
-        
-        cellViewModels
             .bind(to: output.timerCellViewModels) // FIXME: VC에게 전달하지말고 Coordinator에게 전달
             .disposed(by: disposeBag)
         
-        
         // 탭한 cell의 TimerSettingViewModel을 생성해서 push 하는 로직
-        cellViewModels
+        output.timerCellViewModels
             .flatMapLatest { cellViewModels -> Observable<TimerSettingViewModel> in
                 // 모든 cellViewModel의 ouput.timerSettingViewModel 이벤트를 하나의 스트림으로 bind
                 let timerSettingViewModel = cellViewModels.map { $0.output.timerSettingViewModel.asObservable() }
