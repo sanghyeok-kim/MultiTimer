@@ -18,7 +18,6 @@ final class TimerCellViewModel: ViewModelType {
     
     struct Output {
         let timer: BehaviorRelay<Timer>
-//        let time: BehaviorSubject<Time>
         let time: BehaviorRelay<Time> // FIXME: Relay -> onComplete 처리 가능하도록 변경
         let toggleButtonIsSelected = BehaviorRelay<Bool>(value: false)
         let toggleButtonIsHidden = BehaviorRelay<Bool>(value: false)
@@ -34,10 +33,8 @@ final class TimerCellViewModel: ViewModelType {
     
     init(timer: Timer) {
         self.currentTotalSeconds = timer.time.totalSeconds
-//        self.initialTime = timer.time
         output = Output(
             timer: BehaviorRelay<Timer>(value: timer),
-//            time: BehaviorSubject<Time>(value: timer.time)
             time: BehaviorRelay<Time>(value: timer.time)
         )
     }
@@ -82,14 +79,14 @@ final class TimerCellViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        output.time
-            .subscribe(onCompleted: { [weak self] in // unretained?
-                guard let self = self else { return }
-                self.output.toggleButtonIsSelected.accept(false)
-                self.output.toggleButtonIsHidden.accept(true)
-                self.output.restartButtonIsHidden.accept(false)
-            })
-            .disposed(by: disposeBag)
+//        output.time
+//            .subscribe(onCompleted: { [weak self] in // unretained?
+//                guard let self = self else { return }
+//                self.output.toggleButtonIsSelected.accept(false)
+//                self.output.toggleButtonIsHidden.accept(true)
+//                self.output.restartButtonIsHidden.accept(false)
+//            })
+//            .disposed(by: disposeBag)
         
         restartButtonDidTap
             .withUnretained(self)
@@ -110,9 +107,17 @@ final class TimerCellViewModel: ViewModelType {
             .bind(to: output.timerSettingViewModel)
             .disposed(by: disposeBag)
         
-        settingViewModel
+        let changedTimer = settingViewModel
             .flatMapLatest { $0.output.newTimer }
+            .share()
+        
+        changedTimer
             .bind(to: output.timer)
+            .disposed(by: disposeBag)
+        
+        changedTimer
+            .map { $0.time }
+            .bind(to: output.time)
             .disposed(by: disposeBag)
         
         return output
