@@ -65,8 +65,14 @@ final class TimerCellViewModel: ViewModelType {
                 }
                 .take(until: { $0 < 0 })
                 .map { Time(totalSeconds: $0) }
-                .do { self.currentTotalSeconds = $0.totalSeconds }
                 .bind(to: self.output.time)
+            }
+            .disposed(by: disposeBag)
+        
+        output.time
+            .withUnretained(self)
+            .bind { `self`, time in
+                self.currentTotalSeconds = time.totalSeconds
             }
             .disposed(by: disposeBag)
         
