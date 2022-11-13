@@ -8,7 +8,7 @@
 import RxSwift
 import RxCocoa
 
-final class TimerViewCell: UITableViewCell, Identifiable, ViewType {
+final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .systemGreen // FIXME: 삭제

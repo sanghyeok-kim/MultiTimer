@@ -29,6 +29,7 @@ final class TimerCellViewModel: ViewModelType {
     private var timerDisposable: Disposable? = nil
     private var currentTotalSeconds: Int
     
+    let identifier = UUID()
     let output: Output
     
     init(timer: Timer) {
@@ -130,3 +131,12 @@ final class TimerCellViewModel: ViewModelType {
     }
 }
 
+extension TimerCellViewModel: Hashable {
+    static func == (lhs: TimerCellViewModel, rhs: TimerCellViewModel) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+    }
+}

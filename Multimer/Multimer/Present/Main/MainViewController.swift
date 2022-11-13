@@ -14,14 +14,15 @@ final class MainViewController: UIViewController, ViewType {
     private let disposeBag = DisposeBag()
     
     private lazy var tableViewDelegate = TimerTableViewDelegate()
-    private lazy var tableViewDataSource = TimerTableViewDataSource()
+    
 //    private lazy var tableViewDragDelegate = TimerTableViewDragDelegate()
 //    private lazy var tableViewDropDelegate = TimerTableViewDropDelegate()
+    
+    private lazy var tableViewDiffableDataSource = TimerTableViewDiffableDataSource(tableView: tableView)
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = 100
         tableView.register(TimerViewCell.self, forCellReuseIdentifier: TimerViewCell.identifier)
-        tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
 //        tableView.dragDelegate = tableViewDragDelegate
 //        tableView.dropDelegate = tableViewDropDelegate
@@ -29,7 +30,6 @@ final class MainViewController: UIViewController, ViewType {
         
 //        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
 //        tableView.addGestureRecognizer(longPressRecognizer)
-        
         return tableView
     }()
     
@@ -57,14 +57,10 @@ final class MainViewController: UIViewController, ViewType {
         
         let output = viewModel.transform(from: input, disposeBag: disposeBag)
         
-        //1. 맨 처음 영구 저장소에서 받아온 저장되어있는 타이머 불러올 때 [Timer] -> reload X
-        //2. 새로운 타이머를 추가했을 때 [Timer] + Timer -> reloadRows(at:)
-        //3. 타이머를 삭제했을 때 [Timer] - Timer -> deleteRows(at:)
         output.timerCellViewModels
             .withUnretained(self)
             .bind { `self`, cellViewModels in
-                self.tableViewDataSource.update(timerCellViewModels: cellViewModels)
-                self.tableView.reloadData()
+                self.tableViewDiffableDataSource.update(with: cellViewModels)
             }
             .disposed(by: disposeBag)
         

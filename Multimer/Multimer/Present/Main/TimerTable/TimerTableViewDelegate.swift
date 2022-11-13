@@ -17,7 +17,6 @@ final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
         
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completion) in
             self?.cellDidSwipe.accept(indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
         }
         deleteAction.image = UIImage(systemName: "trash")
         
