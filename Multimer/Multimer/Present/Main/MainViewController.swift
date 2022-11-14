@@ -71,6 +71,9 @@ final class MainViewController: UIViewController, ViewType {
     private func bindOutput(from viewModel: MainViewModel) {
         let output = viewModel.output
         
+        output.timerCellViewModels
+            .bind(onNext: tableViewDiffableDataSource.update)
+            .disposed(by: disposeBag)
         
         output.pushTimerSettingViewModel
             .withUnretained(self)
