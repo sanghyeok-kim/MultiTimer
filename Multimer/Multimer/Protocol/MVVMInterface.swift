@@ -14,12 +14,14 @@ enum ViewModelTable {
 protocol ViewModelType: AnyObject {
     associatedtype Input
     associatedtype Output
-    
-    func transform(from input: Input, disposeBag: DisposeBag) -> Output
+
+    var input: Input { get }
+    var output: Output { get }
 }
 
 protocol ViewType: AnyObject {
     associatedtype ViewModel
+    
     func bind(to viewModel: ViewModel)
 }
 

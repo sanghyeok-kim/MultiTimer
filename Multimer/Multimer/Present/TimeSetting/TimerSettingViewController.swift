@@ -7,6 +7,7 @@
 
 import RxSwift
 import RxRelay
+import RxAppState
 
 extension UITextField {
   func addLeftPadding(inset: Double) {
@@ -54,17 +55,6 @@ final class TimerSettingViewController: UIViewController, ViewType {
         let button = UIButton()
         button.setTitle("완료", for: .normal)
         button.setTitleColor(UIColor.label, for: .normal)
-//        button.addAction(UIAction(handler: { [weak self] _ in
-//            let hour = self?.timePickerView.selectedRow(inComponent: 0)
-//            let minute = self?.timePickerView.selectedRow(inComponent: 1)
-//            let seconds = self?.timePickerView.selectedRow(inComponent: 2)
-//
-//            // FIXME: 삭제
-//            print(hour)
-//            print(minute)
-//            print(seconds)
-//
-//        }), for: .touchUpInside)
         return button
     }()
     
@@ -74,6 +64,13 @@ final class TimerSettingViewController: UIViewController, ViewType {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        nameTextField.rx.controlEvent(.editingDidEndOnExit)
+            .withUnretained(self)
+            .bind { `self`, _ in
+                self.nameTextField.resignFirstResponder()
+            }
+            .disposed(by: disposeBag)
+        
         layout()
     }
     
@@ -82,39 +79,42 @@ final class TimerSettingViewController: UIViewController, ViewType {
     }
     
     func bind(to viewModel: TimerSettingViewModel) {
+        bindInput(to: viewModel)
+        bindOutput(from: viewModel)
+    }
+    
+    private func bindInput(to viewModel: TimerSettingViewModel) {
         // 초기 이벤트 하나는 발생시켜야하므로 PublishRelay가 아닌 BehaviorRelay 사용
         // (초기 이벤트 하나를 발생시켜야 하는 이유 -> VM에서 CombineLatest로 받으므로, 모든 이벤트가 Combine되지 않으면 tap 이벤트가 호출되지 않음)
 //        let timePickerViewDidEit = BehaviorRelay<(hour: Int, minute: Int, second: Int)>(value: (0, 0, 0))
-        let timePickerViewDidEit = PublishRelay<(hour: Int, minute: Int, second: Int)>()
+        let input = viewModel.input
         
-        let input = TimerSettingViewModel.Input(
-            completeButtonDidTap: completeButton.rx.tap.asObservable(),
-//            nameTextFieldDidEdit: nameTextField.rx.text.orEmpty.asObservable(),
-            nameTextFieldDidEdit: nameTextField.rx.textChanged.skip(1).asObservable(),
-            timePickerViewDidEdit: timePickerViewDidEit.asObservable()
-        )
+        rx.viewDidLoad
+            .bind(to: input.viewDidLoad)
+            .disposed(by: disposeBag)
         
-        nameTextField.rx.controlEvent(.editingDidEndOnExit)
-            .withUnretained(self)
-            .bind { `self`, _ in
-                self.nameTextField.resignFirstResponder()
-            }
+        completeButton.rx.tap
+            .bind(to: input.completeButtonDidTap)
+            .disposed(by: disposeBag)
+        
+        nameTextField.rx.textChanged.skip(1)
+            .bind(to: input.nameTextFieldDidEdit)
             .disposed(by: disposeBag)
         
         timePickerView.rx.itemSelected
             .withUnretained(self)
-            .bind { `self`, _ in // TODO: Simplify
-                let hour = self.timePickerView.selectedRow(inComponent: 0) // TODO: 하드코딩 개선
+            .map { `self`, _ -> (Int, Int, Int) in
+                let hour = self.timePickerView.selectedRow(inComponent: 0) // TODO: 하드코딩 개선, Simplify
                 let minute = self.timePickerView.selectedRow(inComponent: 1)
                 let second = self.timePickerView.selectedRow(inComponent: 2)
-                Observable
-                    .just((hour, minute, second))
-                    .bind(to: timePickerViewDidEit)
-                    .disposed(by: self.disposeBag)
+                return (hour, minute, second)
             }
+            .bind(to: input.timePickerViewDidEdit)
             .disposed(by: disposeBag)
-        
-        let output = viewModel.transform(from: input, disposeBag: disposeBag)
+    }
+    
+    private func bindOutput(from viewModel: TimerSettingViewModel) {
+        let output = viewModel.output
         
         output.timer
             .withUnretained(self)

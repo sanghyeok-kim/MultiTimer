@@ -11,32 +11,24 @@ import RxRelay
 final class TimerSettingViewModel: ViewModelType {
     
     struct Input {
-        let completeButtonDidTap: Observable<Void>
-        let nameTextFieldDidEdit: Observable<String?>
-        let timePickerViewDidEdit: Observable<(hour: Int, minute: Int, second: Int)>
+        let viewDidLoad = PublishRelay<Void>()
+        let completeButtonDidTap = PublishRelay<Void>()
+        let nameTextFieldDidEdit = PublishRelay<String?>()
+        let timePickerViewDidEdit = PublishRelay<(hour: Int, minute: Int, second: Int)>()
     }
     
     struct Output {
         let timer: BehaviorRelay<Timer>
-        let newTimer = PublishSubject<Timer>()
+        let newTimer = PublishRelay<Timer>()
     }
     
     let output: Output
+    let input = Input()
+    
+    private let disposeBag = DisposeBag()
     
     init(timer: Timer) {
         self.output = Output(timer: BehaviorRelay<Timer>(value: timer))
-    }
-    
-    func transform(from input: Input, disposeBag: DisposeBag) -> Output {
-//        let name = input.nameTextFieldDidEdit
-//            .withLatestFrom(output.timer) {
-//                return ($0, $1)
-//            }
-//            .map { name, timer -> Timer in
-//                timer.name = name!
-//                return timer
-//            }
-//            .share()
         
         let timerState = Observable
             .combineLatest(
@@ -49,6 +41,18 @@ final class TimerSettingViewModel: ViewModelType {
             )
             .share()
         
+//        input.viewDidLoad
+//            .withLatestFrom(output.timer)
+//            .map { ($0.name, $0.time.dividedSeconds) }
+//            .bind(to: timerState) //timerState는 Observable -> 이벤트 받지 못함, 이벤트 방출만 가능
+//            .disposed(by: disposeBag)
+//
+//        input.viewDidLoad
+//            .withLatestFrom(output.timer)
+//            .map { $0.name }
+//            .bind(to: input.nameTextFieldDidEdit) //input.nameTextFieldDidEdit는 Observable -> 이벤트 받지 못함, 이벤트 방출만 가능
+//            .disposed(by: disposeBag)
+        
         input.nameTextFieldDidEdit.bind {
             print("textfield: \($0)")
         }.disposed(by: disposeBag)
@@ -59,6 +63,7 @@ final class TimerSettingViewModel: ViewModelType {
         
         let completeButtonDidTap = input.completeButtonDidTap.share()
         
+        // TODO: 기존에 타이머 실행중일 경우에 대한 로직 처리
         completeButtonDidTap
             .withLatestFrom(timerState)
             .withUnretained(self) { `self`, timerState -> Timer in
@@ -66,14 +71,9 @@ final class TimerSettingViewModel: ViewModelType {
                 print("last value: \(name)\(time)")
                 return self.makeTimer(with: name, time: time)
             }
-        
 //            .distinctUntilChanged() // TODO: 버튼 여러번 누르면 무시 기능 추가 - 이거 아니면 tap 자체에 debounce, throttle로 할지?
             .bind(to: output.newTimer)
             .disposed(by: disposeBag)
-        
-        
-        
-        return output
     }
     
     private func makeTimer(with name: String?, time: (hour: Int, minute: Int, second: Int)) -> Timer {

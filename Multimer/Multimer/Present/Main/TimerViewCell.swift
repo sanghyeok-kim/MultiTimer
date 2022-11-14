@@ -104,13 +104,28 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     }
     
     func bind(to viewModel: TimerCellViewModel) {
-        let input = TimerCellViewModel.Input(
-            cellDidTap: cellTapButton.rx.tap.asObservable(),
-            toggleButtonDidTap: toggleButton.rx.tap.asObservable(),
-            restartButtonDidTap: restartButton.rx.tap.asObservable()
-        )
+        bindInput(to: viewModel)
+        bindOutput(from: viewModel)
+    }
+    
+    private func bindInput(to viewModel: TimerCellViewModel) {
+        let input = viewModel.input
         
-        let output = viewModel.transform(from: input, disposeBag: disposeBag)
+        cellTapButton.rx.tap
+            .bind(to: input.cellDidTap)
+            .disposed(by: disposeBag)
+        
+        toggleButton.rx.tap
+            .bind(to: input.toggleButtonDidTap)
+            .disposed(by: disposeBag)
+        
+        restartButton.rx.tap
+            .bind(to: input.restartButtonDidTap)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindOutput(from viewModel: TimerCellViewModel) {
+        let output = viewModel.output
         
         output.timer
             .withUnretained(self)

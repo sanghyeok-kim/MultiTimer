@@ -37,10 +37,10 @@ final class MainUseCase {
 final class MainViewModel: ViewModelType {
     
     struct Input {
-        let viewDidLoad: Observable<Void>
-        let cellDidSwipe: Observable<Int>
-//        let cellDidMove: Observable<(from: Int, to: Int)>
-        let addTimerButtonDidTap: Observable<Void>
+        let viewDidLoad = PublishRelay<Void>()
+        let cellDidSwipe = PublishRelay<Int>()
+//        let cellDidMove = PublishRelay<(from: Int, to: Int)>()
+        let addTimerButtonDidTap = PublishRelay<Void>()
     }
     
     struct Output {
@@ -49,8 +49,11 @@ final class MainViewModel: ViewModelType {
         let presentTimerSettingViewModel = PublishRelay<TimerSettingViewModel>()
     }
     
+    let input = Input()
+    let output = Output()
+    
+    private let disposeBag = DisposeBag()
     private let mainUseCase: MainUseCase
-//    private let output: Output
     
     init(mainUseCase: MainUseCase) {
 //        self.timers = fetchUserTimers()
@@ -59,38 +62,35 @@ final class MainViewModel: ViewModelType {
 //            TimerCellViewModel(timer: timer)
 //        }
         self.mainUseCase = mainUseCase
-    }
-    
-    func transform(from input: Input, disposeBag: DisposeBag) -> Output {
-        let output = Output()
+        
+        // MARK: - Handel ViewDidLoad From Input
         
         let userTimers = input.viewDidLoad
             .withUnretained(self)
-            .map { `self`, _ in
+            .map { `self`, _ in // FIXME: flatMapLatest 비동기 fetch로 변경
                 self.mainUseCase.fetchUserTimers()
             }
             .share()
         
-        // TimerCellViewModels 구성
         userTimers
             .map { timers -> [TimerCellViewModel] in
-                return timers.map { TimerCellViewModel(timer: $0) }
+                return timers.map { TimerCellViewModel(timer: $0, timerUseCase: TimerUseCase()) } // TimerCellViewModels 구성
             }
             .bind(to: output.timerCellViewModels) // FIXME: VC에게 전달하지말고 Coordinator에게 전달
             .disposed(by: disposeBag)
         
-        // 탭한 cell의 TimerSettingViewModel을 생성해서 push 하는 로직
+        // MARK: - Bind TimerSettingViewModel from TimerCellViewModel Output
+        
         output.timerCellViewModels
             .flatMapLatest { cellViewModels -> Observable<TimerSettingViewModel> in
-                // 모든 cellViewModel의 ouput.timerSettingViewModel 이벤트를 하나의 스트림으로 bind
                 let timerSettingViewModel = cellViewModels.map { $0.output.timerSettingViewModel.asObservable() }
                 return .merge(timerSettingViewModel)
             }
             .bind(to: output.pushTimerSettingViewModel)
             .disposed(by: disposeBag)
         
+        // MARK: - Handle AddTimerButtonDidTap from Input
         
-        // 새로운 TimerSettingViewModel 추가 로직
         let newTimerSettingViewModel = input.addTimerButtonDidTap
             .map { TimerSettingViewModel(timer: Timer(time: Time())) }
             .share()
@@ -101,7 +101,7 @@ final class MainViewModel: ViewModelType {
         
         newTimerSettingViewModel
             .flatMap { $0.output.newTimer }
-            .map { TimerCellViewModel(timer: $0) }
+            .map { TimerCellViewModel(timer: $0, timerUseCase: TimerUseCase()) }
             .withLatestFrom(output.timerCellViewModels) { newTimerCellViewModel, currentCellViewModels in
                 var currentCellViewModels = currentCellViewModels
                 currentCellViewModels.append(newTimerCellViewModel)
@@ -110,15 +110,13 @@ final class MainViewModel: ViewModelType {
             .bind(to: output.timerCellViewModels)
             .disposed(by: disposeBag)
         
+        // MARK: - Handle CellDidSwipe from Input
         
-        // Cell Swipe-to-delete 이벤트 처리 로직
         input.cellDidSwipe
             .withLatestFrom(output.timerCellViewModels) { index, viewModels in
                 viewModels.filter { $0 !== viewModels[index] }
             }
             .bind(to: output.timerCellViewModels)
             .disposed(by: disposeBag)
-        
-        return output
     }
 }

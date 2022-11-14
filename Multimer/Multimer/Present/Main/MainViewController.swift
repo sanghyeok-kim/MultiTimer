@@ -48,23 +48,29 @@ final class MainViewController: UIViewController, ViewType {
     }
     
     func bind(to viewModel: MainViewModel) {
-        let input = MainViewModel.Input(
-            viewDidLoad: rx.viewDidLoad.asObservable(),
-            cellDidSwipe: tableViewDelegate.cellDidSwipe.asObservable(),
-            addTimerButtonDidTap: addTimerBarButtonItem.rx.tap.asObservable()
-//            cellDidMove: tableViewDelegate.cellDidMove.asObservable()
-        )
+        bindInput(to: viewModel)
+        bindOutput(from: viewModel)
+    }
+    
+    private func bindInput(to viewModel: MainViewModel) {
+        let input = viewModel.input
         
-        let output = viewModel.transform(from: input, disposeBag: disposeBag)
-        
-        output.timerCellViewModels
-            .withUnretained(self)
-            .bind { `self`, cellViewModels in
-                self.tableViewDiffableDataSource.update(with: cellViewModels)
-            }
+        rx.viewDidLoad
+            .bind(to: input.viewDidLoad)
             .disposed(by: disposeBag)
         
-        // FIXME: append된 경우엔 마지막 index만 reload하면 됨, swipe-to-delete 발생시 reloadData하면 안됨
+        tableViewDelegate.cellDidSwipe
+            .bind(to: input.cellDidSwipe)
+            .disposed(by: disposeBag)
+        
+        addTimerBarButtonItem.rx.tap
+            .bind(to: input.addTimerButtonDidTap)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindOutput(from viewModel: MainViewModel) {
+        let output = viewModel.output
+        
         
         output.pushTimerSettingViewModel
             .withUnretained(self)
