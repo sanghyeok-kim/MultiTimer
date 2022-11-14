@@ -11,9 +11,9 @@ import RxRelay
 final class TimerCellViewModel: ViewModelType {
     
     struct Input {
-        let cellDidTap: Observable<Void>
-        let toggleButtonDidTap: Observable<Void>
-        let restartButtonDidTap: Observable<Void>
+        let cellDidTap = PublishRelay<Void>()
+        let toggleButtonDidTap = PublishRelay<Void>()
+        let restartButtonDidTap = PublishRelay<Void>()
     }
     
     struct Output {
@@ -25,77 +25,72 @@ final class TimerCellViewModel: ViewModelType {
         let timerSettingViewModel = PublishRelay<TimerSettingViewModel>()
     }
     
-    // TODO: UseCase로 분리
-    private var timerDisposable: Disposable? = nil
-    private var currentTotalSeconds: Int
-    
-    let identifier = UUID()
+    let input = Input()
     let output: Output
     
-    init(timer: Timer) {
-        self.currentTotalSeconds = timer.time.totalSeconds
+    let identifier = UUID()
+    private let disposeBag = DisposeBag()
+    private var remainingSeconds: Int
+    
+    init(timer: Timer, timerUseCase: TimerUseCase) {
         output = Output(
             timer: BehaviorRelay<Timer>(value: timer),
             time: BehaviorRelay<Time>(value: timer.time)
         )
-    }
-    
-    func transform(from input: Input, disposeBag: DisposeBag) -> Output {
-        let toggleButtonDidTap = input.toggleButtonDidTap.share()
-        let restartButtonDidTap = input.restartButtonDidTap.share()
-        let cellDidTap = input.cellDidTap.share()
+        self.remainingSeconds = timer.time.totalSeconds
         
-        toggleButtonDidTap
-            .scan(output.toggleButtonIsSelected.value) { lastState, newState in
-                !lastState
-            }
+        // MARK: - Handle ToggleButtonDidTap from Input
+        
+        let isTimerRunning = input.toggleButtonDidTap
+            .withLatestFrom(output.toggleButtonIsSelected)
+            .share()
+        
+        isTimerRunning
+            .filter { $0 }
+            .map { _ in }
+            .bind(onNext: timerUseCase.pauseTimer)
+            .disposed(by: disposeBag)
+        
+        isTimerRunning
+            .filter { !$0 }
+            .map { _ in }
+            .bind(onNext: timerUseCase.startTimer)
+            .disposed(by: disposeBag)
+        
+        isTimerRunning
+            .map { !$0 }
             .bind(to: output.toggleButtonIsSelected)
             .disposed(by: disposeBag)
         
-        toggleButtonDidTap
-            .withLatestFrom(output.toggleButtonIsSelected)
-            .filter { $0 }
-            .withUnretained(self)
-            .bind { `self`, _ in
-                self.timerDisposable = Observable<Int>.interval(
-                    .seconds(1),
-                    scheduler: ConcurrentDispatchQueueScheduler(queue: .global(qos: .background))
-                )
-                .scan(self.currentTotalSeconds) { lastState, newState in
-                    lastState - 1
-                }
-                .take(until: { $0 < 0 })
-                .map { Time(totalSeconds: $0) }
-                .bind(to: self.output.time)
+        // MARK: - Handle TimeIntervalEvent from UseCase
+        
+        //timerIntervalEvent에서 이벤트 발생시 -> currentTotalSeconds에서 1을 뺀 값을 방출하는 timerEvent 생성
+        let timerEvent = timerUseCase.timeIntervalEvent
+            .withUnretained(self) { `self`, _ in
+                self.remainingSeconds - 1
             }
+            .share()
+        
+        //timerIntervalEvent에서 이벤트 발생시 -> currentTotalSeconds를 갱신하고 time을 output으로 전달
+        timerEvent
+            .map { Time(totalSeconds: $0) }
+            .withUnretained(self) { `self`, time -> Time in
+                self.remainingSeconds = time.totalSeconds
+                return time
+            }
+            .bind(to: output.time)
             .disposed(by: disposeBag)
         
-        output.time
-            .withUnretained(self)
-            .bind { `self`, time in
-                self.currentTotalSeconds = time.totalSeconds
-            }
+        //timerIntervalEvent에서 이벤트 발생시 -> 방출된 값이 0이 되면 타이머 invalidate
+        timerEvent
+            .filter { $0 == .zero }
+            .map { _ in }
+            .bind(onNext: timerUseCase.stopTimer)
             .disposed(by: disposeBag)
         
-        toggleButtonDidTap
-            .withLatestFrom(output.toggleButtonIsSelected)
-            .filter { !$0 }
-            .withUnretained(self)
-            .bind { `self`, _ in
-                self.timerDisposable?.dispose()
-            }
-            .disposed(by: disposeBag)
+        // MARK: - Handle RestartButtonDidTap from Input
         
-//        output.time
-//            .subscribe(onCompleted: { [weak self] in // unretained?
-//                guard let self = self else { return }
-//                self.output.toggleButtonIsSelected.accept(false)
-//                self.output.toggleButtonIsHidden.accept(true)
-//                self.output.restartButtonIsHidden.accept(false)
-//            })
-//            .disposed(by: disposeBag)
-        
-        restartButtonDidTap
+        input.restartButtonDidTap
             .withUnretained(self)
             .bind { `self`, _ in
                 self.output.toggleButtonIsHidden.accept(false)
@@ -105,7 +100,9 @@ final class TimerCellViewModel: ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        let settingViewModel = cellDidTap
+        // MARK: - Handle CellDidTap from Input
+        
+        let settingViewModel = input.cellDidTap
             .withLatestFrom(output.timer)
             .map { TimerSettingViewModel(timer: $0) }
             .share()
@@ -114,11 +111,18 @@ final class TimerCellViewModel: ViewModelType {
             .bind(to: output.timerSettingViewModel)
             .disposed(by: disposeBag)
         
+        // MARK: - Handle NewTimer from SettingViewModel Output
+        
         let changedTimer = settingViewModel
             .flatMapLatest { $0.output.newTimer }
             .share()
         
         changedTimer
+            .withUnretained(self)
+            .do { `self`, timer in
+                self.remainingSeconds = timer.time.totalSeconds
+            }
+            .map { $0.1 }
             .bind(to: output.timer)
             .disposed(by: disposeBag)
         
@@ -127,7 +131,15 @@ final class TimerCellViewModel: ViewModelType {
             .bind(to: output.time)
             .disposed(by: disposeBag)
         
-        return output
+        changedTimer
+            .map { _ in }
+            .bind(onNext: timerUseCase.stopTimer)
+            .disposed(by: disposeBag)
+        
+        changedTimer
+            .map { _ in false }
+            .bind(to: output.toggleButtonIsSelected)
+            .disposed(by: disposeBag)
     }
 }
 
