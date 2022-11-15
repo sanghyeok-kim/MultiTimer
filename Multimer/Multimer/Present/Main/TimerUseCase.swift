@@ -10,38 +10,44 @@ import RxRelay
 
 final class TimerUseCase {
     
-    private var timerState: TimerState = .stopped
-    private var timer: DispatchSourceTimer? = nil
-    let timeIntervalEvent = PublishRelay<Void>()
+    private var timerState: TimerState = .finished
+    private var dispatchSourceTimer: DispatchSourceTimer? = nil
+    let time: BehaviorRelay<Time>
+    
+    init(time: Time) {
+        self.time = BehaviorRelay<Time>(value: time)
+    }
     
     func startTimer() {
-        if timer == nil {
-            timer = DispatchSource.makeTimerSource(queue: .global(qos: .background))
+        if dispatchSourceTimer == nil {
+            dispatchSourceTimer = DispatchSource.makeTimerSource(queue: .global())
         }
         
-        timer?.schedule(deadline: .now() + 1, repeating: 1)
-        timer?.setEventHandler { [weak self] in
-            self?.timeIntervalEvent.accept(())
+        dispatchSourceTimer?.schedule(deadline: .now() + 1, repeating: 1)
+        dispatchSourceTimer?.setEventHandler { [weak self] in
+            guard let self = self else { return }
+            let currentTime = self.time.value
+            let newTime = Time(totalSeconds: currentTime.totalSeconds - 1)
+            self.time.accept(newTime)
         }
         
-        timer?.resume()
+        dispatchSourceTimer?.resume()
         timerState = .running
     }
     
     func pauseTimer() {
-        timer?.suspend()
+        dispatchSourceTimer?.suspend()
         timerState = .paused
     }
     
     func stopTimer() {
-        //suspended일 때 nil을 대입하면 런타임 에러
         if timerState == .paused {
-            timer?.resume()
+            dispatchSourceTimer?.resume()
         }
         
-        timer?.cancel()
-        timerState = .stopped
-        timer = nil
+        dispatchSourceTimer?.cancel()
+        timerState = .finished
+        dispatchSourceTimer = nil
     }
 }
 
@@ -49,6 +55,6 @@ private extension TimerUseCase {
     enum TimerState {
         case running
         case paused
-        case stopped
+        case finished
     }
 }

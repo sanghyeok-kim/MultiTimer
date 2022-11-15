@@ -104,6 +104,7 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     }
     
     func bind(to viewModel: TimerCellViewModel) {
+        defer { viewModel.input.cellDidLoad.accept(()) }
         bindInput(to: viewModel)
         bindOutput(from: viewModel)
     }
