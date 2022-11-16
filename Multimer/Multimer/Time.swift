@@ -16,13 +16,13 @@ struct Time: Codable {
     
     var formattedString: String {
         let (hour, minute, second) = dividedSeconds
-        let hourString = hour == 0 ? "" : String(format: "%02d:", hour)
+        let hourString = hour == .zero ? "" : String(format: "%02d:", hour)
         let minuteString = String(format: "%02d:", minute)
         let secondString = String(format: "%02d", second)
         return "\(hourString)\(minuteString)\(secondString)"
     }
     
-    init(totalSeconds: Int = 0) {
+    init(totalSeconds: Int = .zero) {
         self.totalSeconds = totalSeconds
     }
     

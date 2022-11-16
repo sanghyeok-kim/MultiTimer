@@ -8,17 +8,26 @@
 import Foundation
 
 final class Timer: NSObject, Codable {
-    let id: UUID
-    var name: String?
+    var id = UUID()
+    var name: String
     var tag: String?
     var time: Time
 //    var sound:
 //    var repeatCount
     
-    init(name: String? = nil, tag: String? = nil, time: Time) {
-        self.id = UUID()
+    var totalSeconds: Int {
+        return time.totalSeconds
+    }
+    
+    init(name: String = "타이머", tag: String? = nil, time: Time = Time()) {
         self.name = name
         self.tag = tag
+        self.time = time
+    }
+    
+    init(timer: Timer, time: Time) {
+        self.name = timer.name
+        self.tag = timer.tag
         self.time = time
     }
     

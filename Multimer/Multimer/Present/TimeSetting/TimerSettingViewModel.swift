@@ -13,7 +13,7 @@ final class TimerSettingViewModel: ViewModelType {
     struct Input {
         let viewDidLoad = PublishRelay<Void>()
         let completeButtonDidTap = PublishRelay<Void>()
-        let nameTextFieldDidEdit = PublishRelay<String?>()
+        let nameTextFieldDidEdit = PublishRelay<String>()
         let timePickerViewDidEdit = PublishRelay<(hour: Int, minute: Int, second: Int)>()
     }
     
@@ -76,7 +76,7 @@ final class TimerSettingViewModel: ViewModelType {
             .disposed(by: disposeBag)
     }
     
-    private func makeTimer(with name: String?, time: (hour: Int, minute: Int, second: Int)) -> Timer {
+    private func makeTimer(with name: String, time: (hour: Int, minute: Int, second: Int)) -> Timer {
         let newTime = Time(hour: time.hour, minute: time.minute, second: time.second)
         return Timer(name: name, time: newTime) //TODO: Tag도 추가
     }

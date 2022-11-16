@@ -10,15 +10,24 @@ import RxRelay
 
 final class TimerUseCase {
     
-    private var timerState: TimerState = .finished
+    let timer: BehaviorRelay<Timer>
+    var initialTimer: Timer
+    private var timerState: TimerState = .ready
     private var dispatchSourceTimer: DispatchSourceTimer? = nil
-    let time: BehaviorRelay<Time>
     
-    init(time: Time) {
-        self.time = BehaviorRelay<Time>(value: time)
+    var currentTimer: Timer {
+        return timer.value
+    }
+    
+    init(timer: Timer) {
+        self.timer = BehaviorRelay<Timer>(value: timer)
+        self.initialTimer = timer
     }
     
     func startTimer() {
+        let startTime = Date()
+        let initialSeconds = currentTimer.totalSeconds
+        
         if dispatchSourceTimer == nil {
             dispatchSourceTimer = DispatchSource.makeTimerSource(queue: .global())
         }
@@ -26,9 +35,16 @@ final class TimerUseCase {
         dispatchSourceTimer?.schedule(deadline: .now() + 1, repeating: 1)
         dispatchSourceTimer?.setEventHandler { [weak self] in
             guard let self = self else { return }
-            let currentTime = self.time.value
-            let newTime = Time(totalSeconds: currentTime.totalSeconds - 1)
-            self.time.accept(newTime)
+            
+            //2. 1초마다 (startTime - 다시 계산한 현재 시간) 차이 계산해서 elapsedTime에 저장
+            let elapsedTime = Int(Date().timeIntervalSince(startTime))
+            
+            if elapsedTime >= initialSeconds {
+                self.timer.accept(Timer(timer: self.currentTimer, time: Time()))
+            } else {
+                let newTime = Time(totalSeconds: initialSeconds - elapsedTime)
+                self.timer.accept(Timer(timer: self.currentTimer, time: newTime))
+            }
         }
         
         dispatchSourceTimer?.resume()
@@ -49,10 +65,23 @@ final class TimerUseCase {
         timerState = .finished
         dispatchSourceTimer = nil
     }
+    
+    func resetTimer() {
+        stopTimer()
+        self.timer.accept(initialTimer)
+        timerState = .ready
+    }
+    
+    func changeTimer(with newTimer: Timer) {
+        stopTimer()
+        timer.accept(newTimer)
+        initialTimer = newTimer
+    }
 }
 
 private extension TimerUseCase {
     enum TimerState {
+        case ready
         case running
         case paused
         case finished

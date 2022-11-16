@@ -97,7 +97,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
             .bind(to: input.completeButtonDidTap)
             .disposed(by: disposeBag)
         
-        nameTextField.rx.textChanged.skip(1)
+        nameTextField.rx.textChanged.orEmpty.skip(1)
             .bind(to: input.nameTextFieldDidEdit)
             .disposed(by: disposeBag)
         

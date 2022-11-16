@@ -74,7 +74,7 @@ final class MainViewModel: ViewModelType {
         
         userTimers
             .map { timers -> [TimerCellViewModel] in
-                return timers.map { TimerCellViewModel(timer: $0, timerUseCase: TimerUseCase(time: $0.time)) }
+                return timers.map { TimerCellViewModel(timerUseCase: TimerUseCase(timer: $0)) }
             }
             .bind(to: output.timerCellViewModels) // FIXME: VC에게 전달하지말고 Coordinator에게 전달
             .disposed(by: disposeBag)
@@ -101,7 +101,7 @@ final class MainViewModel: ViewModelType {
         
         newTimerSettingViewModel
             .flatMap { $0.output.newTimer }
-            .map { TimerCellViewModel(timer: $0, timerUseCase: TimerUseCase(time: $0.time)) }
+            .map { TimerCellViewModel(timerUseCase: TimerUseCase(timer: $0)) }
             .withLatestFrom(output.timerCellViewModels) { newTimerCellViewModel, currentCellViewModels in
                 var currentCellViewModels = currentCellViewModels
                 currentCellViewModels.append(newTimerCellViewModel)
