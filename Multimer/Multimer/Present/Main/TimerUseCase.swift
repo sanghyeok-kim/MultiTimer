@@ -14,6 +14,7 @@ final class TimerUseCase {
     var initialTimer: Timer
     private var timerState: TimerState = .ready
     private var dispatchSourceTimer: DispatchSourceTimer? = nil
+    private let timerNotificationIdentifier = UUID()
     
     var currentTimer: Timer {
         return timer.value
@@ -25,6 +26,14 @@ final class TimerUseCase {
     }
     
     func startTimer() {
+        let content = UNMutableNotificationContent()
+        content.title = "타이머 종료"
+        content.body = "\(timer.value.name) 종료"
+        content.sound = .default
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(currentTimer.totalSeconds), repeats: false)
+        let request = UNNotificationRequest(identifier: "\(timerNotificationIdentifier)", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
         let startTime = Date()
         let initialSeconds = currentTimer.totalSeconds
         
@@ -54,6 +63,7 @@ final class TimerUseCase {
     func pauseTimer() {
         dispatchSourceTimer?.suspend()
         timerState = .paused
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(timerNotificationIdentifier)"])
     }
     
     func stopTimer() {
