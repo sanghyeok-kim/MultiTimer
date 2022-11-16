@@ -35,11 +35,33 @@ final class TimerCellViewModel: ViewModelType {
     init(timerUseCase: TimerUseCase) {
         self.timerUseCase = timerUseCase
         
-        // MARK: - Handle CellDidLoad from Input
+        // MARK: - Handle Timer from UseCase
         
-        timerUseCase.timer
+        let timerEvent = timerUseCase.timer
             .observe(on: MainScheduler.instance)
+            .share()
+        
+        timerEvent
             .bind(to: output.timer)
+            .disposed(by: disposeBag)
+        
+        let timerExpired = timerEvent
+            .map { $0.time.totalSeconds }
+            .filter { $0 == .zero }
+            .map { _ in }
+            .share()
+        
+        timerExpired
+            .bind(onNext: timerUseCase.stopTimer)
+            .disposed(by: disposeBag)
+        
+        timerExpired
+            .withUnretained(self)
+            .bind { `self`, _ in
+                self.output.restartButtonIsHidden.accept(false)
+                self.output.toggleButtonIsHidden.accept(true)
+                self.output.toggleButtonIsSelected.accept(false)
+            }
             .disposed(by: disposeBag)
         
         // MARK: - Handle ToggleButtonDidTap from Input
@@ -65,30 +87,8 @@ final class TimerCellViewModel: ViewModelType {
             .bind(to: output.toggleButtonIsSelected)
             .disposed(by: disposeBag)
         
-        // MARK: - Handle Time from UseCase
         
-        let timerExpired = timerUseCase.timer
-            .observe(on: MainScheduler.instance)
-            .map { $0.time.totalSeconds }
-            .filter { $0 == .zero }
-            .map { _ in }
-            .share()
-        
-        timerExpired
-            .bind(onNext: timerUseCase.stopTimer)
-            .disposed(by: disposeBag)
-        
-        timerExpired
-            .withUnretained(self)
-            .bind { `self`, _ in
-                self.output.restartButtonIsHidden.accept(false)
-                self.output.toggleButtonIsHidden.accept(true)
-                self.output.toggleButtonIsSelected.accept(false)
-            }
-            .disposed(by: disposeBag)
-        
-        
-        // MARK: - Handle RestartButtonDidTap from Input
+        // MARK: - Handle ResetButtonDidTap from Input
         
         input.resetButtonDidTap
             .withUnretained(self)
