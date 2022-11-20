@@ -32,4 +32,9 @@ final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
         config.performsFirstActionWithFullSwipe = true
         return config
     }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: TimerViewCell.identifier,for: indexPath) as? TimerViewCell
+        cell?.viewModel = nil
+    }
 }
