@@ -11,7 +11,6 @@ import RxAppState
 
 final class MainViewController: UIViewController, ViewType {
     
-    private let disposeBag = DisposeBag()
     
     private lazy var tableViewDelegate = TimerTableViewDelegate()
     
@@ -40,6 +39,9 @@ final class MainViewController: UIViewController, ViewType {
         return barButtonItem
     }()
     
+    private let disposeBag = DisposeBag()
+    var viewModel: MainViewModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -47,12 +49,7 @@ final class MainViewController: UIViewController, ViewType {
         layout()
     }
     
-    func bind(to viewModel: MainViewModel) {
-        bindInput(to: viewModel)
-        bindOutput(from: viewModel)
-    }
-    
-    private func bindInput(to viewModel: MainViewModel) {
+    func bindInput(to viewModel: MainViewModel) {
         let input = viewModel.input
         
         rx.viewDidLoad
@@ -68,7 +65,7 @@ final class MainViewController: UIViewController, ViewType {
             .disposed(by: disposeBag)
     }
     
-    private func bindOutput(from viewModel: MainViewModel) {
+    func bindOutput(from viewModel: MainViewModel) {
         let output = viewModel.output
         
         output.timerCellViewModels
@@ -79,7 +76,7 @@ final class MainViewController: UIViewController, ViewType {
             .withUnretained(self)
             .bind { `self`, viewModel in
                 let timerSettingViewController = TimerSettingViewController()
-                timerSettingViewController.viewModel = viewModel
+                timerSettingViewController.bind(to: viewModel)
                 self.navigationController?.pushViewController(timerSettingViewController, animated: true)
             }
             .disposed(by: disposeBag)
@@ -88,7 +85,7 @@ final class MainViewController: UIViewController, ViewType {
             .withUnretained(self)
             .bind { `self`, viewModel in
                 let timerSettingViewController = TimerSettingViewController()
-                timerSettingViewController.viewModel = viewModel
+                timerSettingViewController.bind(to: viewModel)
                 self.present(timerSettingViewController, animated: true)
             }
             .disposed(by: disposeBag)

@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 mainRepository: MainRepository()
             )
         )
-        initialViewController.viewModel = viewModel
+        initialViewController.bind(to: viewModel)
 //        let initialViewController = TimerSettingViewController()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)

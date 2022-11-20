@@ -59,6 +59,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
     }()
     
     private let disposeBag = DisposeBag()
+    var viewModel: TimerSettingViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,12 +79,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
         self.view.endEditing(true)
     }
     
-    func bind(to viewModel: TimerSettingViewModel) {
-        bindInput(to: viewModel)
-        bindOutput(from: viewModel)
-    }
-    
-    private func bindInput(to viewModel: TimerSettingViewModel) {
+    func bindInput(to viewModel: TimerSettingViewModel) {
         // 초기 이벤트 하나는 발생시켜야하므로 PublishRelay가 아닌 BehaviorRelay 사용
         // (초기 이벤트 하나를 발생시켜야 하는 이유 -> VM에서 CombineLatest로 받으므로, 모든 이벤트가 Combine되지 않으면 tap 이벤트가 호출되지 않음)
 //        let timePickerViewDidEit = BehaviorRelay<(hour: Int, minute: Int, second: Int)>(value: (0, 0, 0))
@@ -113,7 +109,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
             .disposed(by: disposeBag)
     }
     
-    private func bindOutput(from viewModel: TimerSettingViewModel) {
+    func bindOutput(from viewModel: TimerSettingViewModel) {
         let output = viewModel.output
         
         output.timer

@@ -7,10 +7,6 @@
 
 import RxSwift
 
-enum ViewModelTable {
-    static var viewModelMap = [String: AnyObject?]()
-}
-
 protocol ViewModelType: AnyObject {
     associatedtype Input
     associatedtype Output
@@ -20,27 +16,18 @@ protocol ViewModelType: AnyObject {
 }
 
 protocol ViewType: AnyObject {
-    associatedtype ViewModel
+    associatedtype ViewModel: ViewModelType
     
-    func bind(to viewModel: ViewModel)
+    var viewModel: ViewModel? { get set }
+    
+    func bindInput(to viewModel: ViewModel)
+    func bindOutput(from viewModel: ViewModel)
 }
 
 extension ViewType {
-    var identifier: String {
-        return String(describing: self)
-    }
-    
-    var viewModel: ViewModel? {
-        get {
-            guard let viewModel = ViewModelTable.viewModelMap[identifier] as? ViewModel else {
-                return nil
-            }
-            return viewModel
-        } set {
-            if let viewModel = newValue {
-                bind(to: viewModel)
-            }
-            ViewModelTable.viewModelMap[identifier] = newValue as? AnyObject
-        }
+    func bind(to viewModel: ViewModel) {
+        self.viewModel = viewModel
+        bindInput(to: viewModel)
+        bindOutput(from: viewModel)
     }
 }

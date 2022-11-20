@@ -82,6 +82,7 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     private let cellTapButton = UIButton()
     
     private var disposeBag = DisposeBag()
+    var viewModel: TimerCellViewModel?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -103,12 +104,7 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
         disposeBag = DisposeBag()
     }
     
-    func bind(to viewModel: TimerCellViewModel) {
-        bindInput(to: viewModel)
-        bindOutput(from: viewModel)
-    }
-    
-    private func bindInput(to viewModel: TimerCellViewModel) {
+    func bindInput(to viewModel: TimerCellViewModel) {
         let input = viewModel.input
         
         cellTapButton.rx.tap
@@ -124,7 +120,7 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
             .disposed(by: disposeBag)
     }
     
-    private func bindOutput(from viewModel: TimerCellViewModel) {
+    func bindOutput(from viewModel: TimerCellViewModel) {
         let output = viewModel.output
         
         output.timer
