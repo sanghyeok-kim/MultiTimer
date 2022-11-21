@@ -11,10 +11,9 @@ import RxRelay
 final class TimerCellViewModel: ViewModelType {
     
     struct Input {
-        let cellDidLoad = PublishRelay<Void>()
-        let cellDidTap = PublishRelay<Void>()
         let toggleButtonDidTap = PublishRelay<Void>()
         let resetButtonDidTap = PublishRelay<Void>()
+        let cellDidTap = PublishRelay<Void>()
     }
     
     struct Output {
@@ -29,78 +28,42 @@ final class TimerCellViewModel: ViewModelType {
     let output = Output()
     let timerUseCase: TimerUseCase
     
+    var isActive = false
     let identifier = UUID()
     private let disposeBag = DisposeBag()
     
     init(timerUseCase: TimerUseCase) {
         self.timerUseCase = timerUseCase
         
-        // MARK: - Handle Timer from UseCase
+        // MARK: - Handle Event from Input
         
-        let timerEvent = timerUseCase.timer
-            .observe(on: MainScheduler.instance)
-            .share()
+        handleToggleButtonDidTapFromInput()
+        handleResetButtonDidTapFromInput()
+        handleCellDidTapFromInput(with: timerUseCase)
         
-        timerEvent
-            .bind(to: output.timer)
-            .disposed(by: disposeBag)
+        // MARK: - Handle Event from UseCase
         
-        let timerExpired = timerEvent
-            .map { $0.time.totalSeconds }
-            .filter { $0 == .zero }
-            .map { _ in }
-            .share()
-        
-        timerExpired
-            .bind(onNext: timerUseCase.stopTimer)
-            .disposed(by: disposeBag)
-        
-        timerExpired
-            .withUnretained(self)
-            .bind { `self`, _ in
-                self.output.restartButtonIsHidden.accept(false)
-                self.output.toggleButtonIsHidden.accept(true)
-                self.output.toggleButtonIsSelected.accept(false)
-            }
-            .disposed(by: disposeBag)
-        
-        // MARK: - Handle ToggleButtonDidTap from Input
-        
-        let isTimerRunning = input.toggleButtonDidTap
+        handleTimerEventFromUseCase()
+    }
+}
+
+// MARK: - Event Handling Function
+
+private extension TimerCellViewModel {
+    func handleToggleButtonDidTapFromInput() {
+        input.toggleButtonDidTap
             .withLatestFrom(output.toggleButtonIsSelected)
-            .share()
-        
-        isTimerRunning
-            .filter { $0 }
-            .map { _ in }
-            .bind(onNext: timerUseCase.pauseTimer)
+            .bind(onNext: toggleTimer)
             .disposed(by: disposeBag)
-        
-        isTimerRunning
-            .filter { !$0 }
-            .map { _ in }
-            .bind(onNext: timerUseCase.startTimer)
-            .disposed(by: disposeBag)
-        
-        isTimerRunning
-            .map { !$0 }
-            .bind(to: output.toggleButtonIsSelected)
-            .disposed(by: disposeBag)
-        
-        
-        // MARK: - Handle ResetButtonDidTap from Input
-        
+    }
+    
+    func handleResetButtonDidTapFromInput() {
         input.resetButtonDidTap
-            .withUnretained(self)
-            .bind { `self`, _ in
-                self.output.restartButtonIsHidden.accept(true)
-                self.output.toggleButtonIsHidden.accept(false)
-                timerUseCase.resetTimer()
-            }
+            .bind(onNext: resetTimer)
             .disposed(by: disposeBag)
-        
-        // MARK: - Handle CellDidTap from Input
-        
+    }
+    
+    func handleCellDidTapFromInput(with timerUseCase: TimerUseCase) {
         let settingViewModel = input.cellDidTap
             .map { TimerSettingViewModel(timer: timerUseCase.initialTimer) }
             .share()
@@ -109,26 +72,69 @@ final class TimerCellViewModel: ViewModelType {
             .bind(to: output.timerSettingViewModel)
             .disposed(by: disposeBag)
         
-        // MARK: - Handle NewTimer from SettingViewModel Output
-        
-        let changedTimer = settingViewModel
+        settingViewModel
             .flatMapLatest { $0.output.newTimer }
-            .share()
-        
-        changedTimer
-            .bind(onNext: timerUseCase.changeTimer)
-            .disposed(by: disposeBag)
-        
-        changedTimer
-            .map { _ in false }
-            .bind(to: output.toggleButtonIsSelected)
+            .bind(onNext: changeTimer)
             .disposed(by: disposeBag)
     }
     
-    deinit {
-        timerUseCase.stopTimer() // TODO: cell 삭제해도 deinit 안되는거 고치기
+    func handleTimerEventFromUseCase() {
+        let timerEvent = timerUseCase.timer
+            .observe(on: MainScheduler.instance)
+            .share()
+        
+        timerEvent
+            .bind(to: output.timer)
+            .disposed(by: disposeBag)
+        
+        timerEvent
+            .map { $0.time.totalSeconds }
+            .filter { $0 == .zero }
+            .map { _ in }
+            .bind(onNext: stopTimer)
+            .disposed(by: disposeBag)
     }
 }
+
+// MARK: - Supporting Function
+
+private extension TimerCellViewModel {
+    func toggleTimer(by isRunning: Bool) {
+        switch isRunning {
+        case true: timerUseCase.pauseTimer()
+        case false: timerUseCase.startTimer()
+        }
+        isActive = !isRunning
+        output.toggleButtonIsSelected.accept(!isRunning)
+    }
+    
+    func stopTimer() {
+        timerUseCase.stopTimer()
+        output.toggleButtonIsSelected.accept(false)
+        output.toggleButtonIsHidden.accept(true)
+        output.restartButtonIsHidden.accept(false)
+    }
+    
+    func resetTimer() {
+        timerUseCase.resetTimer()
+        isActive = false
+        output.toggleButtonIsHidden.accept(false)
+        output.restartButtonIsHidden.accept(true)
+    }
+    
+    func readyTimer() {
+        output.toggleButtonIsSelected.accept(false)
+        output.toggleButtonIsHidden.accept(false)
+        output.restartButtonIsHidden.accept(true)
+    }
+    
+    func changeTimer(to newTimer: Timer) {
+        timerUseCase.changeTimer(to: newTimer)
+        readyTimer()
+    }
+}
+
+// MARK: - Adopt Hashable
 
 extension TimerCellViewModel: Hashable {
     static func == (lhs: TimerCellViewModel, rhs: TimerCellViewModel) -> Bool {

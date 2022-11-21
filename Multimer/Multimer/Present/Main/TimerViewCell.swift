@@ -124,15 +124,7 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
         let output = viewModel.output
         
         output.timer
-            .withUnretained(self)
-            .bind { `self`, timer in
-                self.titleLabel.text = timer.name
-                self.tagLabel.backgroundColor = timer.tag?.color.rgb
-            }.disposed(by: disposeBag)
-        
-        output.timer
-            .map { $0.time.formattedString }
-            .bind(to: timeLabel.rx.text)
+            .bind(onNext: configureUI)
             .disposed(by: disposeBag)
         
         output.toggleButtonIsSelected
@@ -149,7 +141,17 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     }
 }
 
-// MARK: - View Layout
+// MARK: - UI Configuration
+
+private extension TimerViewCell {
+    func configureUI(with timer: Timer) {
+        titleLabel.text = timer.name
+        tagLabel.backgroundColor = timer.tag?.color.rgb
+        timeLabel.text = timer.time.formattedString
+    }
+}
+
+// MARK: - UI Layout
 
 private extension TimerViewCell {
     func layout() {
@@ -179,4 +181,3 @@ private extension TimerViewCell {
         resetButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 }
-
