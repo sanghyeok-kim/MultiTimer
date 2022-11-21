@@ -39,6 +39,14 @@ final class TimerSettingViewController: UIViewController, ViewType {
         return pickerView
     }()
     
+    private lazy var tagScrollView: TagScrollView = {
+        let scrollView = TagScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.backgroundColor = .systemGray6
+        return scrollView
+    }()
+    
     private lazy var nameTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray5
@@ -89,6 +97,10 @@ final class TimerSettingViewController: UIViewController, ViewType {
             .bind(to: input.viewDidLoad)
             .disposed(by: disposeBag)
         
+        tagScrollView.tagDidSelect
+            .bind(to: input.tagDidSelect)
+            .disposed(by: disposeBag)
+        
         completeButton.rx.tap
             .bind(to: input.completeButtonDidTap)
             .disposed(by: disposeBag)
@@ -118,6 +130,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
                 self.nameTextField.placeholder = timer.name
                 self.nameTextField.text = timer.name
                 self.timePickerView.selectRows(by: timer.time, animated: true)
+                self.tagScrollView.tagDidSelect.accept(timer.tag)
             }
             .disposed(by: disposeBag)
         
@@ -134,13 +147,20 @@ final class TimerSettingViewController: UIViewController, ViewType {
 
 private extension TimerSettingViewController {
     func layout() {
+        view.addSubview(tagScrollView)
         view.addSubview(nameTextField)
         view.addSubview(timePickerView)
         view.addSubview(completeButton)
         
+        tagScrollView.translatesAutoresizingMaskIntoConstraints = false
+        tagScrollView.bottomAnchor.constraint(equalTo: nameTextField.topAnchor, constant: -20).isActive = true
+        tagScrollView.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor).isActive = true
+        tagScrollView.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor).isActive = true
+        tagScrollView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.12).isActive = true
+        
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.bottomAnchor.constraint(equalTo: timePickerView.topAnchor, constant: -16).isActive = true
-        nameTextField.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        nameTextField.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.12).isActive = true
         nameTextField.leadingAnchor.constraint(equalTo: timePickerView.leadingAnchor).isActive = true
         nameTextField.trailingAnchor.constraint(equalTo: timePickerView.trailingAnchor).isActive = true
         

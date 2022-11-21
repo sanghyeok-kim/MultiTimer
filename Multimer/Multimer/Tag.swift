@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Tag {
-    let id: UUID
-    var name: String
-    var icon: Int // FIXME: Int -> 색상 또는 이모지로 변경
+struct Tag: Codable {
+//    var name: String
+    var isSelected: Bool = false
+    var color: TagColor
 }

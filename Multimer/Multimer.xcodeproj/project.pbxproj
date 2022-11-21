@@ -38,6 +38,11 @@
 		1EBEEFDE2921061B00299CE7 /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEEFDD2921061B00299CE7 /* TableViewSection.swift */; };
 		1EBEEFE02922446A00299CE7 /* TimerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEEFDF2922446A00299CE7 /* TimerUseCase.swift */; };
 		1EBEEFE2292262E600299CE7 /* TimerTableViewDiffableDataSource+Rx+update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEEFE1292262E600299CE7 /* TimerTableViewDiffableDataSource+Rx+update.swift */; };
+		1EBEEFE4292515C800299CE7 /* UITextField+addLeftPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEEFE3292515C800299CE7 /* UITextField+addLeftPadding.swift */; };
+		1EBEEFE62925451E00299CE7 /* TagScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEEFE52925451E00299CE7 /* TagScrollView.swift */; };
+		1EBEEFE82925B73000299CE7 /* TagColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEEFE72925B73000299CE7 /* TagColor.swift */; };
+		1EBEEFEA2925B85700299CE7 /* TagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEEFE92925B85700299CE7 /* TagButton.swift */; };
+		1EBEF029292909DD00299CE7 /* TimerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEF027292909DD00299CE7 /* TimerModel.xcdatamodeld */; };
 		1EBFEE152919270D00747606 /* TimerSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBFEE142919270D00747606 /* TimerSettingViewModel.swift */; };
 		1EBFEE17291ABE1900747606 /* UITextField+Rx+textChanged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBFEE16291ABE1900747606 /* UITextField+Rx+textChanged.swift */; };
 		284E6114050224D9C3E7E23D /* Pods_Multimer_MultimerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C8B8D20E646F7DD1F545138 /* Pods_Multimer_MultimerUITests.framework */; };
@@ -100,6 +105,11 @@
 		1EBEEFDD2921061B00299CE7 /* TableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
 		1EBEEFDF2922446A00299CE7 /* TimerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerUseCase.swift; sourceTree = "<group>"; };
 		1EBEEFE1292262E600299CE7 /* TimerTableViewDiffableDataSource+Rx+update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimerTableViewDiffableDataSource+Rx+update.swift"; sourceTree = "<group>"; };
+		1EBEEFE3292515C800299CE7 /* UITextField+addLeftPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+addLeftPadding.swift"; sourceTree = "<group>"; };
+		1EBEEFE52925451E00299CE7 /* TagScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagScrollView.swift; sourceTree = "<group>"; };
+		1EBEEFE72925B73000299CE7 /* TagColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagColor.swift; sourceTree = "<group>"; };
+		1EBEEFE92925B85700299CE7 /* TagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButton.swift; sourceTree = "<group>"; };
+		1EBEF028292909DD00299CE7 /* TimerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimerModel.xcdatamodel; sourceTree = "<group>"; };
 		1EBFEE142919270D00747606 /* TimerSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSettingViewModel.swift; sourceTree = "<group>"; };
 		1EBFEE16291ABE1900747606 /* UITextField+Rx+textChanged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Rx+textChanged.swift"; sourceTree = "<group>"; };
 		27CD492903CB856CACDA9E64 /* Pods-Multimer-MultimerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer-MultimerUITests.release.xcconfig"; path = "Target Support Files/Pods-Multimer-MultimerUITests/Pods-Multimer-MultimerUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -160,6 +170,7 @@
 				1E482BD72913545E00175B78 /* UIPickerView+SetFixedLabels.swift */,
 				1EBFEE16291ABE1900747606 /* UITextField+Rx+textChanged.swift */,
 				1EBEEFE1292262E600299CE7 /* TimerTableViewDiffableDataSource+Rx+update.swift */,
+				1EBEEFE3292515C800299CE7 /* UITextField+addLeftPadding.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -198,10 +209,12 @@
 		1E48FE972911F9240090B246 /* Multimer */ = {
 			isa = PBXGroup;
 			children = (
+				1EBEF02A292909E200299CE7 /* CoreData */,
 				1EBFEE102917888300747606 /* Protocol */,
 				1E482BE42913556100175B78 /* Application */,
 				1E482BE32913555000175B78 /* Extension */,
 				1EBFEE0F2917884A00747606 /* Present */,
+				1EBEEFE72925B73000299CE7 /* TagColor.swift */,
 				1E482BE72913559600175B78 /* Timer.swift */,
 				1E482BDB291354F500175B78 /* Time.swift */,
 				1E482BE52913558D00175B78 /* Tag.swift */,
@@ -231,10 +244,20 @@
 			path = MultimerUITests;
 			sourceTree = "<group>";
 		};
+		1EBEF02A292909E200299CE7 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				1EBEF027292909DD00299CE7 /* TimerModel.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		1EBFEE0D2917883900747606 /* TimeSetting */ = {
 			isa = PBXGroup;
 			children = (
 				1E482BCF2912887B00175B78 /* TimerSettingViewController.swift */,
+				1EBEEFE52925451E00299CE7 /* TagScrollView.swift */,
+				1EBEEFE92925B85700299CE7 /* TagButton.swift */,
 				1EBFEE142919270D00747606 /* TimerSettingViewModel.swift */,
 				1E482BD5291353FF00175B78 /* TimePickerViewDelegate.swift */,
 				1E482BD3291353F400175B78 /* TimePickerViewDataSource.swift */,
@@ -538,16 +561,21 @@
 				1EBEEFE2292262E600299CE7 /* TimerTableViewDiffableDataSource+Rx+update.swift in Sources */,
 				1E482BD22913538800175B78 /* TimerViewCell.swift in Sources */,
 				1E482BDC291354F500175B78 /* Time.swift in Sources */,
+				1EBEEFEA2925B85700299CE7 /* TagButton.swift in Sources */,
 				1E482BE82913559600175B78 /* Timer.swift in Sources */,
+				1EBEEFE82925B73000299CE7 /* TagColor.swift in Sources */,
 				1E48FE9D2911F9240090B246 /* MainViewController.swift in Sources */,
 				1E482BDA291354E900175B78 /* TimeType.swift in Sources */,
 				1EBEEFE02922446A00299CE7 /* TimerUseCase.swift in Sources */,
 				1E482BD4291353F400175B78 /* TimePickerViewDataSource.swift in Sources */,
+				1EBEEFE4292515C800299CE7 /* UITextField+addLeftPadding.swift in Sources */,
 				1E9BA3C92914CF5400B39E9C /* TimerCellViewModel.swift in Sources */,
 				1E9BA3C52914CDCE00B39E9C /* TimerTableViewDropDelegate.swift in Sources */,
+				1EBEF029292909DD00299CE7 /* TimerModel.xcdatamodeld in Sources */,
 				1EBFEE152919270D00747606 /* TimerSettingViewModel.swift in Sources */,
 				1E48FE992911F9240090B246 /* AppDelegate.swift in Sources */,
 				1E482BDE2913550A00175B78 /* TimerTableViewDataSource.swift in Sources */,
+				1EBEEFE62925451E00299CE7 /* TagScrollView.swift in Sources */,
 				1E482BD02912887B00175B78 /* TimerSettingViewController.swift in Sources */,
 				1E9BA3C32914CDC600B39E9C /* TimerTableViewDragDelegate.swift in Sources */,
 				1EBEEFDE2921061B00299CE7 /* TableViewSection.swift in Sources */,
@@ -898,6 +926,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1EBEF027292909DD00299CE7 /* TimerModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1EBEF028292909DD00299CE7 /* TimerModel.xcdatamodel */,
+			);
+			currentVersion = 1EBEF028292909DD00299CE7 /* TimerModel.xcdatamodel */;
+			path = TimerModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1E48FE8D2911F9240090B246 /* Project object */;
 }

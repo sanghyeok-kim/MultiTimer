@@ -17,7 +17,7 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     
     private lazy var tagLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .brown // FIXME: 삭제
+        label.widthAnchor.constraint(equalToConstant: 20).isActive = true
         return label
     }()
     
@@ -99,7 +99,7 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = nil
-        tagLabel.text = nil
+        tagLabel.backgroundColor = nil
         timeLabel.text = nil
         disposeBag = DisposeBag()
     }
@@ -127,7 +127,7 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
             .withUnretained(self)
             .bind { `self`, timer in
                 self.titleLabel.text = timer.name
-                self.tagLabel.text = timer.tag
+                self.tagLabel.backgroundColor = timer.tag?.color.rgb
             }.disposed(by: disposeBag)
         
         output.timer
