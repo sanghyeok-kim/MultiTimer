@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Tag" representedClassName="TagMO" syncable="YES" codeGenerationType="category">
+        <attribute name="isSelected" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="color" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TagColor"/>
+    </entity>
+    <entity name="TagColor" representedClassName="TagColorMO" syncable="YES" codeGenerationType="category">
+        <attribute name="rawValue" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Time" representedClassName="TimeMO" syncable="YES" codeGenerationType="category">
+        <attribute name="totalSeconds" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Timer" representedClassName="TimerMO" syncable="YES" codeGenerationType="category">
+        <attribute name="name" attributeType="String"/>
+        <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag"/>
+        <relationship name="time" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Time"/>
+    </entity>
+    <elements>
+        <element name="Time" positionX="-54" positionY="-9" width="128" height="44"/>
+        <element name="Timer" positionX="-63" positionY="-18" width="128" height="74"/>
+        <element name="TagColor" positionX="-45" positionY="0" width="128" height="44"/>
+        <element name="Tag" positionX="-45" positionY="0" width="128" height="59"/>
+    </elements>
+</model>

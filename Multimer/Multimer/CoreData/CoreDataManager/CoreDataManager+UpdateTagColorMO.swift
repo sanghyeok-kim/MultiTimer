@@ -1,0 +1,22 @@
+//
+//  CoreDataManager+UpdateTagColorMO.swift
+//  Multimer
+//
+//  Created by 김상혁 on 2022/11/23.
+//
+
+import Foundation
+import CoreData
+
+extension CoreDataManager {
+    func update(tagColorMO: TagColorMO,
+                rawValue: Int,
+                completion: (() -> Void)? = nil) {
+        mainContext.perform { [weak self] in
+            guard let self = self else { return }
+            defer { completion?() }
+            tagColorMO.update(rawValue: rawValue)
+            self.saveMainContext()
+        }
+    }
+}
