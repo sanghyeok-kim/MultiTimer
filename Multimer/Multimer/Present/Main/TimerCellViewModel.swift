@@ -22,13 +22,13 @@ final class TimerCellViewModel: ViewModelType {
         let toggleButtonIsHidden = BehaviorRelay<Bool>(value: false)
         let restartButtonIsHidden = BehaviorRelay<Bool>(value: true)
         let timerSettingViewModel = PublishRelay<TimerSettingViewModel>()
+        let isActive = BehaviorRelay<Bool>(value: false)
     }
     
     let input = Input()
     let output = Output()
     let timerUseCase: TimerUseCase
     
-    var isActive = false
     let identifier = UUID()
     private let disposeBag = DisposeBag()
     
@@ -37,33 +37,39 @@ final class TimerCellViewModel: ViewModelType {
         
         // MARK: - Handle Event from Input
         
-        handleToggleButtonDidTapFromInput()
-        handleResetButtonDidTapFromInput()
-        handleCellDidTapFromInput(with: timerUseCase)
+        handleToggleButtonDidTap()
+        handleResetButtonDidTap()
+        handleCellDidTap(with: timerUseCase)
         
         // MARK: - Handle Event from UseCase
         
-        handleTimerEventFromUseCase()
+        handleTimerEvent()
     }
 }
 
 // MARK: - Event Handling Function
 
 private extension TimerCellViewModel {
-    func handleToggleButtonDidTapFromInput() {
+    func handleToggleButtonDidTap() {
         input.toggleButtonDidTap
             .withLatestFrom(output.toggleButtonIsSelected)
-            .bind(onNext: toggleTimer)
+            .withUnretained(self)
+            .bind { `self`, isRunning in
+                self.toggleTimer(by: isRunning)
+            }
             .disposed(by: disposeBag)
     }
     
-    func handleResetButtonDidTapFromInput() {
+    func handleResetButtonDidTap() {
         input.resetButtonDidTap
-            .bind(onNext: resetTimer)
+            .withUnretained(self)
+            .bind { `self`, _ in
+                self.resetTimer()
+            }
             .disposed(by: disposeBag)
     }
     
-    func handleCellDidTapFromInput(with timerUseCase: TimerUseCase) {
+    func handleCellDidTap(with timerUseCase: TimerUseCase) {
         let settingViewModel = input.cellDidTap
             .map { TimerSettingViewModel(timer: timerUseCase.initialTimer) }
             .share()
@@ -74,11 +80,14 @@ private extension TimerCellViewModel {
         
         settingViewModel
             .flatMapLatest { $0.output.newTimer }
-            .bind(onNext: changeTimer)
+            .withUnretained(self)
+            .bind { `self`, newTimer in
+                self.changeTimer(to: newTimer)
+            }
             .disposed(by: disposeBag)
     }
     
-    func handleTimerEventFromUseCase() {
+    func handleTimerEvent() {
         let timerEvent = timerUseCase.timer
             .observe(on: MainScheduler.instance)
             .share()
@@ -91,7 +100,12 @@ private extension TimerCellViewModel {
             .map { $0.time.totalSeconds }
             .filter { $0 == .zero }
             .map { _ in }
-            .bind(onNext: stopTimer)
+            .withUnretained(self)
+            .bind { `self`, _ in
+                self.stopTimer()
+            }
+            .disposed(by: disposeBag)
+        
             .disposed(by: disposeBag)
     }
 }
@@ -104,7 +118,7 @@ private extension TimerCellViewModel {
         case true: timerUseCase.pauseTimer()
         case false: timerUseCase.startTimer()
         }
-        isActive = !isRunning
+        output.isActive.accept(true)
         output.toggleButtonIsSelected.accept(!isRunning)
     }
     
@@ -116,21 +130,20 @@ private extension TimerCellViewModel {
     }
     
     func resetTimer() {
+        timerUseCase.stopTimer()
         timerUseCase.resetTimer()
-        isActive = false
-        output.toggleButtonIsHidden.accept(false)
-        output.restartButtonIsHidden.accept(true)
-    }
-    
-    func readyTimer() {
+        timerUseCase.removeNotification()
+        output.isActive.accept(false)
         output.toggleButtonIsSelected.accept(false)
         output.toggleButtonIsHidden.accept(false)
         output.restartButtonIsHidden.accept(true)
     }
     
     func changeTimer(to newTimer: Timer) {
+        timerUseCase.stopTimer()
         timerUseCase.changeTimer(to: newTimer)
-        readyTimer()
+        timerUseCase.removeNotification()
+        resetTimer()
     }
 }
 
