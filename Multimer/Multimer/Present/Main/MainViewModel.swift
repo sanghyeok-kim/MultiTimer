@@ -120,6 +120,8 @@ private extension MainViewModel {
             .bind(to: fetchedTimerCellViewModels)
             .disposed(by: disposeBag)
     }
+    
+    func handleAddTimerButtonDidTap() {
         let newTimerSettingViewModel = input.addTimerButtonDidTap
             .map { TimerSettingViewModel(timer: Timer(time: Time())) }
             .share()
@@ -129,29 +131,37 @@ private extension MainViewModel {
             .disposed(by: disposeBag)
         
         newTimerSettingViewModel
-            .flatMap { $0.output.newTimer }
+            .flatMapLatest { $0.output.newTimer }
             .map { TimerCellViewModel(timerUseCase: TimerUseCase(timer: $0)) }
-            .withLatestFrom(output.timerCellViewModels) { newTimerCellViewModel, currentCellViewModels in
+            .withLatestFrom(fetchedTimerCellViewModels) { newTimerCellViewModel, currentCellViewModels in
                 var currentCellViewModels = currentCellViewModels
                 currentCellViewModels.append(newTimerCellViewModel)
                 return currentCellViewModels
             }
-            .bind(to: output.timerCellViewModels)
+            .bind(to: fetchedTimerCellViewModels)
+            .disposed(by: disposeBag)
+    }
+    
     func handleFetchedUserTimer() {
         mainUseCase.fetchUserTimers()
             .map { $0.map { TimerCellViewModel(timerUseCase: TimerUseCase(timer: $0)) } }
             .bind(to: fetchedTimerCellViewModels) // FIXME: VC에게 전달하지말고 Coordinator에게 전달
             .disposed(by: disposeBag)
     }
+    
+    func handleEventFromFetchedTimerCellViewModels() {
+        fetchedTimerCellViewModels
+            .flatMapLatest { Observable<Bool>.merge($0.map { $0.output.isActive.skip(1).asObservable() }) }
+            .withLatestFrom(fetchedTimerCellViewModels)
+            .bind(to: fetchedTimerCellViewModels)
             .disposed(by: disposeBag)
         
-        // MARK: - Handle CellDidSwipe from Input
-        
-        input.cellDidSwipe
-            .withLatestFrom(output.timerCellViewModels) { index, viewModels in
-                viewModels.filter { $0 !== viewModels[index] }
+        fetchedTimerCellViewModels
+            .flatMapLatest { cellViewModels -> Observable<TimerSettingViewModel> in
+                let timerSettingViewModel = cellViewModels.map { $0.output.timerSettingViewModel.asObservable() }
+                return .merge(timerSettingViewModel)
             }
-            .bind(to: output.timerCellViewModels)
+            .bind(to: output.pushTimerSettingViewModel)
             .disposed(by: disposeBag)
     }
 }
