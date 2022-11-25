@@ -10,26 +10,32 @@ import RxRelay
 
 final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
     
-    let cellDidSwipe = PublishRelay<Int>()
-//    let cellDidMove = PublishRelay<(from: Int, to: Int)>() // TODO: cell 드래그-드롭 이동 구현
+    let cellDidSwipeFromTrailing = PublishRelay<Int>()
+    let cellDidSwipeFromLeading = PublishRelay<Int>()
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
+
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completion) in
-            self?.cellDidSwipe.accept(indexPath.row)
+            self?.cellDidSwipeFromTrailing.accept(indexPath.row)
         }
         deleteAction.image = UIImage(systemName: "trash")
-        
-        // TODO: 타이머 초기화 구현
+
+        let config = UISwipeActionsConfiguration(actions: [deleteAction])
+        config.performsFirstActionWithFullSwipe = true
+        return config
+    }
+
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
         let resetAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, completion) in
-//            self?.creditCardList.remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: .fade)
+            self?.cellDidSwipeFromLeading.accept(indexPath.row)
+            completion(true)
         }
         resetAction.image = UIImage(systemName: "stop.circle")
         resetAction.backgroundColor = .systemBlue
-        
-        let config = UISwipeActionsConfiguration(actions: [deleteAction, resetAction])
-        config.performsFirstActionWithFullSwipe = true
+
+        let config = UISwipeActionsConfiguration(actions: [resetAction])
+        config.performsFirstActionWithFullSwipe = false
         return config
     }
     

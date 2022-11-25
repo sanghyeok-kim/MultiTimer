@@ -37,9 +37,9 @@ final class MainUseCase {
 final class MainViewModel: ViewModelType {
     
     struct Input {
-        let viewDidLoad = PublishRelay<Void>()
-        let cellDidSwipe = PublishRelay<Int>()
         let filteringSegmentDidTap = PublishRelay<TimerFilteringCondition>()
+        let cellDidSwipeFromLeading = PublishRelay<Int>()
+        let cellDidSwipeFromTrailing = PublishRelay<Int>()
 //        let cellDidMove = PublishRelay<(from: Int, to: Int)>()
         let addTimerButtonDidTap = PublishRelay<Void>()
     }
@@ -59,36 +59,28 @@ final class MainViewModel: ViewModelType {
     private let mainUseCase: MainUseCase
     
     init(mainUseCase: MainUseCase) {
-//        self.timers = fetchUserTimers()
-//
-//        let timerCellViewModels = Timer.generateMock().map { timer in
-//            TimerCellViewModel(timer: timer)
-//        }
         self.mainUseCase = mainUseCase
         
         // MARK: - Event Handling from Input
         
-        let userTimers = input.viewDidLoad
-            .withUnretained(self)
-            .map { `self`, _ in // FIXME: flatMapLatest 비동기 fetch로 변경
-                self.mainUseCase.fetchUserTimers()
-            }
-            .share()
         handleFilteringSegmentDidTapOrFetchedTimerCellViewModels()
+        handleCellDidSwipeFromLeading()
+        handleCellDidSwipeFromTrailing()
+        handleAddTimerButtonDidTap()
         
-        userTimers
-            .map { timers -> [TimerCellViewModel] in
-                return timers.map { TimerCellViewModel(timerUseCase: TimerUseCase(timer: $0)) }
-            }
-            .bind(to: output.timerCellViewModels) // FIXME: VC에게 전달하지말고 Coordinator에게 전달
-            .disposed(by: disposeBag)
+        // MARK: - Event Handling from UseCase
         
-        // MARK: - Bind TimerSettingViewModel from TimerCellViewModel Output
+        handleFetchedUserTimer()
         
-        output.timerCellViewModels
-            .flatMapLatest { cellViewModels -> Observable<TimerSettingViewModel> in
-                let timerSettingViewModel = cellViewModels.map { $0.output.timerSettingViewModel.asObservable() }
-                return .merge(timerSettingViewModel)
+        // MARK: - Event Handling from FetchedTimerCellViewModels
+        
+        handleEventFromFetchedTimerCellViewModels()
+    }
+}
+
+// MARK: - Event Handling Function
+
+private extension MainViewModel {
     func handleFilteringSegmentDidTapOrFetchedTimerCellViewModels() {
         Observable.combineLatest(input.filteringSegmentDidTap, fetchedTimerCellViewModels)
             .map { (condition, fetchedViewModels) -> [TimerCellViewModel] in
@@ -100,9 +92,34 @@ final class MainViewModel: ViewModelType {
             .bind(to: output.filteredTimerCellViewModels)
             .disposed(by: disposeBag)
     }
+    
+    func handleCellDidSwipeFromLeading() {
+        input.cellDidSwipeFromLeading
+            .withLatestFrom(output.filteredTimerCellViewModels) { index, viewModels in
+                viewModels[index]
+            }
+            .bind {
+                $0.input.resetButtonDidTap.accept(())
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func handleCellDidSwipeFromTrailing() {
+        let cellViewModelToDelete = input.cellDidSwipeFromTrailing
+            .withLatestFrom(output.filteredTimerCellViewModels) { index, viewModels -> TimerCellViewModel in
+                let cellViewModelToDelete = viewModels[index]
+                cellViewModelToDelete.timerUseCase.removeNotification()
+                return cellViewModelToDelete
+            }
+            .share()
         
-        // MARK: - Handle AddTimerButtonDidTap from Input
-        
+        cellViewModelToDelete
+            .withLatestFrom(fetchedTimerCellViewModels) { cellViewModelToDelete, viewModels in
+                viewModels.filter { $0.identifier != cellViewModelToDelete.identifier }
+            }
+            .bind(to: fetchedTimerCellViewModels)
+            .disposed(by: disposeBag)
+    }
         let newTimerSettingViewModel = input.addTimerButtonDidTap
             .map { TimerSettingViewModel(timer: Timer(time: Time())) }
             .share()
