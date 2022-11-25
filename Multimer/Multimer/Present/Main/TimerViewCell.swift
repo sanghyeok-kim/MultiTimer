@@ -79,6 +79,14 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
         return button
     }()
     
+    private lazy var progressView: UIProgressView = {
+        let progressView = UIProgressView()
+        progressView.progressTintColor = .systemGray
+        progressView.isUserInteractionEnabled = false
+        progressView.alpha = 0.1
+        return progressView
+    }()
+    
     private let cellTapButton = UIButton()
     
     private var disposeBag = DisposeBag()
@@ -138,6 +146,10 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
         output.restartButtonIsHidden
             .bind(to: resetButton.rx.isHidden)
             .disposed(by: disposeBag)
+        
+        output.progess
+            .bind(to: progressView.rx.progress)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -159,6 +171,7 @@ private extension TimerViewCell {
         addSubview(timerStackView)
         addSubview(toggleButton)
         addSubview(resetButton)
+        addSubview(progressView)
         
         bringSubviewToFront(toggleButton)
         
@@ -179,5 +192,11 @@ private extension TimerViewCell {
         resetButton.translatesAutoresizingMaskIntoConstraints = false
         resetButton.trailingAnchor.constraint(equalTo: toggleButton.trailingAnchor).isActive = true
         resetButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        progressView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        progressView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        progressView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
 }

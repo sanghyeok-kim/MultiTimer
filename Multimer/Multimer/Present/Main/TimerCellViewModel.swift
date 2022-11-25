@@ -22,6 +22,7 @@ final class TimerCellViewModel: ViewModelType {
         let toggleButtonIsHidden = BehaviorRelay<Bool>(value: false)
         let restartButtonIsHidden = BehaviorRelay<Bool>(value: true)
         let timerSettingViewModel = PublishRelay<TimerSettingViewModel>()
+        let progess = BehaviorRelay<Float>(value: .zero)
         let isActive = BehaviorRelay<Bool>(value: false)
     }
     
@@ -106,6 +107,14 @@ private extension TimerCellViewModel {
             }
             .disposed(by: disposeBag)
         
+        timerEvent
+            .withUnretained(self)
+            .map { `self`, timer in
+                let initialSeconds = self.timerUseCase.initialTimer.totalSeconds
+                let currentSeconds = timer.totalSeconds
+                return Float(initialSeconds - currentSeconds) / Float(initialSeconds)
+            }
+            .bind(to: output.progess)
             .disposed(by: disposeBag)
     }
 }
