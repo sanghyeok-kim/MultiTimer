@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import MobileCoreServices
+import CoreData
 
-final class Timer: NSObject, Codable {
-    var id = UUID()
+//final class Timer: NSObject, Codable {
+struct Timer {
     var name: String
     var tag: Tag?
     var time: Time
@@ -142,4 +142,18 @@ final class Timer: NSObject, Codable {
 //            return timer
 //        } // catch?
 //    }
+}
+
+extension Timer: Equatable {
+    static func == (lhs: Timer, rhs: Timer) -> Bool {
+        return (lhs.name == rhs.name) && (lhs.tag == rhs.tag) && (lhs.time == rhs.time)
+    }
+}
+
+extension Timer: ManagedObjectConvertible {
+    func toManagedObejct(in context: NSManagedObjectContext) -> TimerMO {
+        let timerMO = TimerMO(context: context)
+        timerMO.update(name: name, tag: tag, time: time, context: context)
+        return timerMO
+    }
 }

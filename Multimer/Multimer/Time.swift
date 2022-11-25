@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import CoreData
 
-struct Time: Codable {
+struct Time: Codable, Equatable {
     var totalSeconds: Int
     
     var dividedSeconds: (hour: Int, minute: Int, second: Int) { // TODO: 변수명 다시 생각해보자
@@ -32,3 +33,10 @@ struct Time: Codable {
     }
 }
 
+extension Time: ManagedObjectConvertible {
+    func toManagedObejct(in context: NSManagedObjectContext) -> TimeMO {
+        let timeMO = TimeMO(context: context)
+        timeMO.update(totalSeconds: totalSeconds)
+        return timeMO
+    }
+}

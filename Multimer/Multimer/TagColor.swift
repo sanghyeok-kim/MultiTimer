@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 enum TagColor: Int, CaseIterable, Codable {
     case red
@@ -32,5 +33,13 @@ enum TagColor: Int, CaseIterable, Codable {
         case .orange: return UIColor.orange
         case .indigo: return UIColor.systemIndigo
         }
+    }
+}
+
+extension TagColor: ManagedObjectConvertible {
+    func toManagedObejct(in context: NSManagedObjectContext) -> TagColorMO {
+        let tagColorMO = TagColorMO(context: context)
+        tagColorMO.update(rawValue: rawValue)
+        return tagColorMO
     }
 }

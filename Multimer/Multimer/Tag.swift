@@ -6,9 +6,18 @@
 //
 
 import Foundation
+import CoreData
 
-struct Tag: Codable {
+struct Tag: Codable, Equatable {
 //    var name: String
     var isSelected: Bool = false
     var color: TagColor
+}
+
+extension Tag: ManagedObjectConvertible {
+    func toManagedObejct(in context: NSManagedObjectContext) -> TagMO {
+        let tagMO = TagMO(context: context)
+        tagMO.update(isSelected: isSelected, color: color, context: context)
+        return tagMO
+    }
 }
