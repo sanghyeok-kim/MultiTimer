@@ -61,9 +61,27 @@ final class TimerSettingViewController: UIViewController, ViewType {
     
     private lazy var completeButton: UIButton = {
         let button = UIButton()
+        button.isEnabled = false
         button.setTitle("완료", for: .normal)
         button.setTitleColor(UIColor.label, for: .normal)
+        button.setTitleColor(UIColor.systemGray2, for: .disabled)
         return button
+    }()
+    
+    private lazy var cancelButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("취소", for: .normal)
+        button.setTitleColor(UIColor.label, for: .normal)
+        return button
+    }()
+    
+    private lazy var buttonStackView: UIStackView = {
+        //제공 해줌
+        let stackView = UIStackView(arrangedSubviews: [cancelButton, completeButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 88
+        stackView.distribution = .equalSpacing
+        return stackView
     }()
     
     private let disposeBag = DisposeBag()
@@ -101,11 +119,17 @@ final class TimerSettingViewController: UIViewController, ViewType {
             .bind(to: input.tagDidSelect)
             .disposed(by: disposeBag)
         
+        cancelButton.rx.tap
+            .bind(to: input.cancelButtonDidTap)
+            .disposed(by: disposeBag)
+        
         completeButton.rx.tap
             .bind(to: input.completeButtonDidTap)
             .disposed(by: disposeBag)
         
-        nameTextField.rx.textChanged.orEmpty.skip(1)
+        nameTextField.rx.textChanged
+            .orEmpty
+            .skip(1)
             .bind(to: input.nameTextFieldDidEdit)
             .disposed(by: disposeBag)
         
@@ -126,31 +150,54 @@ final class TimerSettingViewController: UIViewController, ViewType {
         
         output.timer
             .withUnretained(self)
-            .bind { `self`, timer in // TODO: 속성 더 추가
-                self.nameTextField.placeholder = timer.name
-                self.nameTextField.text = timer.name
-                self.timePickerView.selectRows(by: timer.time, animated: true)
-                self.tagScrollView.tagDidSelect.accept(timer.tag)
+            .bind { `self`, timer in
+                self.configureUI(with: timer)
             }
             .disposed(by: disposeBag)
         
+        // TODO: Coordinator로 제어
         output.newTimer
             .withUnretained(self)
             .bind { `self`, _ in
                 self.dismiss(animated: true)
+                self.navigationController?.popViewController(animated: true)
             }
+            .disposed(by: disposeBag)
+        
+        // TODO: Coordinator로 제어
+        output.timerSettingCancel
+            .withUnretained(self)
+            .bind { `self`, _ in
+                self.dismiss(animated: true)
+                self.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        output.completeButtonEnable
+            .bind(to: completeButton.rx.isEnabled)
             .disposed(by: disposeBag)
     }
 }
 
-// MARK: - View Layout
+// MARK: - UI Confiurating
+
+private extension TimerSettingViewController {
+    func configureUI(with timer: Timer) {
+        nameTextField.placeholder = timer.name
+        nameTextField.text = timer.name
+        timePickerView.selectRows(by: timer.time, animated: true)
+        tagScrollView.tagDidSelect.accept(timer.tag)
+    }
+}
+
+// MARK: - UI Layout
 
 private extension TimerSettingViewController {
     func layout() {
         view.addSubview(tagScrollView)
         view.addSubview(nameTextField)
         view.addSubview(timePickerView)
-        view.addSubview(completeButton)
+        view.addSubview(buttonStackView)
         
         tagScrollView.translatesAutoresizingMaskIntoConstraints = false
         tagScrollView.bottomAnchor.constraint(equalTo: nameTextField.topAnchor, constant: -20).isActive = true
@@ -168,9 +215,9 @@ private extension TimerSettingViewController {
         timePickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         timePickerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
-        completeButton.translatesAutoresizingMaskIntoConstraints = false
-        completeButton.topAnchor.constraint(equalTo: timePickerView.bottomAnchor, constant: 40).isActive = true
-        completeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.topAnchor.constraint(equalTo: timePickerView.bottomAnchor, constant: 40).isActive = true
+        buttonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 }
 
