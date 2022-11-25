@@ -132,7 +132,10 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
         let output = viewModel.output
         
         output.timer
-            .bind(onNext: configureUI)
+            .withUnretained(self)
+            .bind { `self`, timer in
+                self.configureUI(with: timer)
+            }
             .disposed(by: disposeBag)
         
         output.toggleButtonIsSelected

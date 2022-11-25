@@ -29,7 +29,10 @@ final class TagButton: UIButton {
             .disposed(by: disposeBag)
         
         selectedButtonColor
-            .bind(onNext: toggleSelected)
+            .withUnretained(self)
+            .bind { `self`, color in
+                self.toggleSelected(by: color)
+            }
             .disposed(by: disposeBag)
     }
     
