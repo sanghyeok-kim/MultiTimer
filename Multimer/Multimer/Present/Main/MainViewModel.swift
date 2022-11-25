@@ -39,15 +39,18 @@ final class MainViewModel: ViewModelType {
     struct Input {
         let viewDidLoad = PublishRelay<Void>()
         let cellDidSwipe = PublishRelay<Int>()
+        let filteringSegmentDidTap = PublishRelay<TimerFilteringCondition>()
 //        let cellDidMove = PublishRelay<(from: Int, to: Int)>()
         let addTimerButtonDidTap = PublishRelay<Void>()
     }
     
     struct Output {
-        let timerCellViewModels = BehaviorRelay<[TimerCellViewModel]>(value: [])
+        let filteredTimerCellViewModels = BehaviorRelay<[TimerCellViewModel]>(value: [])
         let pushTimerSettingViewModel = PublishRelay<TimerSettingViewModel>()
         let presentTimerSettingViewModel = PublishRelay<TimerSettingViewModel>()
     }
+    
+    private let fetchedTimerCellViewModels = BehaviorRelay<[TimerCellViewModel]>(value: [])
     
     let input = Input()
     let output = Output()
@@ -63,7 +66,7 @@ final class MainViewModel: ViewModelType {
 //        }
         self.mainUseCase = mainUseCase
         
-        // MARK: - Handel ViewDidLoad From Input
+        // MARK: - Event Handling from Input
         
         let userTimers = input.viewDidLoad
             .withUnretained(self)
@@ -71,6 +74,7 @@ final class MainViewModel: ViewModelType {
                 self.mainUseCase.fetchUserTimers()
             }
             .share()
+        handleFilteringSegmentDidTapOrFetchedTimerCellViewModels()
         
         userTimers
             .map { timers -> [TimerCellViewModel] in
@@ -85,9 +89,17 @@ final class MainViewModel: ViewModelType {
             .flatMapLatest { cellViewModels -> Observable<TimerSettingViewModel> in
                 let timerSettingViewModel = cellViewModels.map { $0.output.timerSettingViewModel.asObservable() }
                 return .merge(timerSettingViewModel)
+    func handleFilteringSegmentDidTapOrFetchedTimerCellViewModels() {
+        Observable.combineLatest(input.filteringSegmentDidTap, fetchedTimerCellViewModels)
+            .map { (condition, fetchedViewModels) -> [TimerCellViewModel] in
+                switch condition {
+                case .all: return fetchedViewModels
+                case .active: return fetchedViewModels.filter { $0.output.isActive.value }
+                }
             }
-            .bind(to: output.pushTimerSettingViewModel)
+            .bind(to: output.filteredTimerCellViewModels)
             .disposed(by: disposeBag)
+    }
         
         // MARK: - Handle AddTimerButtonDidTap from Input
         
@@ -108,6 +120,12 @@ final class MainViewModel: ViewModelType {
                 return currentCellViewModels
             }
             .bind(to: output.timerCellViewModels)
+    func handleFetchedUserTimer() {
+        mainUseCase.fetchUserTimers()
+            .map { $0.map { TimerCellViewModel(timerUseCase: TimerUseCase(timer: $0)) } }
+            .bind(to: fetchedTimerCellViewModels) // FIXME: VC에게 전달하지말고 Coordinator에게 전달
+            .disposed(by: disposeBag)
+    }
             .disposed(by: disposeBag)
         
         // MARK: - Handle CellDidSwipe from Input

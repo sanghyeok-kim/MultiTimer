@@ -29,6 +29,7 @@
 		1E48FEB02911F9250090B246 /* MultimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FEAF2911F9250090B246 /* MultimerTests.swift */; };
 		1E48FEBA2911F9250090B246 /* MultimerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FEB92911F9250090B246 /* MultimerUITests.swift */; };
 		1E48FEBC2911F9250090B246 /* MultimerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FEBB2911F9250090B246 /* MultimerUITestsLaunchTests.swift */; };
+		1E86F1E72930EE8D0067CA28 /* TimerFilteringCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E86F1E62930EE8D0067CA28 /* TimerFilteringCondition.swift */; };
 		1E9BA3C32914CDC600B39E9C /* TimerTableViewDragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C22914CDC600B39E9C /* TimerTableViewDragDelegate.swift */; };
 		1E9BA3C52914CDCE00B39E9C /* TimerTableViewDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C42914CDCE00B39E9C /* TimerTableViewDropDelegate.swift */; };
 		1E9BA3C72914CEFB00B39E9C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */; };
@@ -107,6 +108,7 @@
 		1E48FEB52911F9250090B246 /* MultimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E48FEB92911F9250090B246 /* MultimerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultimerUITests.swift; sourceTree = "<group>"; };
 		1E48FEBB2911F9250090B246 /* MultimerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultimerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1E86F1E62930EE8D0067CA28 /* TimerFilteringCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFilteringCondition.swift; sourceTree = "<group>"; };
 		1E9BA3C22914CDC600B39E9C /* TimerTableViewDragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableViewDragDelegate.swift; sourceTree = "<group>"; };
 		1E9BA3C42914CDCE00B39E9C /* TimerTableViewDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableViewDropDelegate.swift; sourceTree = "<group>"; };
 		1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				1E48FE9C2911F9240090B246 /* MainViewController.swift */,
+				1E86F1E62930EE8D0067CA28 /* TimerFilteringCondition.swift */,
 				1EBEEFDB292105F500299CE7 /* TimerTableViewDiffableDataSource.swift */,
 				1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */,
 				1E482BD12913538800175B78 /* TimerViewCell.swift */,
@@ -636,6 +639,7 @@
 				1EBEF029292909DD00299CE7 /* TimerModel.xcdatamodeld in Sources */,
 				1EA3FCE8292E4B730073560D /* CoreDataManager+UpdateTagMO.swift in Sources */,
 				1EA3FCE0292E43520073560D /* ManagedObjectConvertible.swift in Sources */,
+				1E86F1E72930EE8D0067CA28 /* TimerFilteringCondition.swift in Sources */,
 				1EBFEE152919270D00747606 /* TimerSettingViewModel.swift in Sources */,
 				1E48FE992911F9240090B246 /* AppDelegate.swift in Sources */,
 				1E482BDE2913550A00175B78 /* TimerTableViewDataSource.swift in Sources */,
