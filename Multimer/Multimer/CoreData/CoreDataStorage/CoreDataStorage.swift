@@ -1,5 +1,5 @@
 //
-//  CoreDataManager.swift
+//  CoreDataStorage.swift
 //  Multimer
 //
 //  Created by 김상혁 on 2022/11/23.
@@ -7,9 +7,14 @@
 
 import Foundation
 import CoreData
+import RxSwift
 
-class CoreDataManager {
-    static let shared = CoreDataManager()
+enum CoreDataError: Error {
+    case cannotFetch
+}
+
+class CoreDataStorage {
+    static let shared = CoreDataStorage()
     
     private init() { }
     
@@ -31,7 +36,8 @@ class CoreDataManager {
         mainContext.perform { [weak self] in //Thread-Safe한 쓰기 작업을 위해 Context를 실행하는 Thread로 전환해서 작업
             guard let self = self else { return }
             if self.mainContext.hasChanges {
-                do { try self.mainContext.save()
+                do {
+                    try self.mainContext.save()
                 } catch {
                     debugPrint(error.localizedDescription)
                 }
@@ -40,11 +46,17 @@ class CoreDataManager {
     }
 }
 
-extension CoreDataManager {
+extension CoreDataStorage {
+    
     func fetch<MO: NSManagedObject>(request: NSFetchRequest<MO>) -> [MO] {
         var result: [MO] = []
         
         mainContext.performAndWait {
+            // 데이터를 가져오기 위해 PersonEntity에 자동으로 구현되어있는 `fetchRequest`메소드를 사용
+//            let request: NSFetchRequest<MO> = Entity.fetchRequest()
+//
+//            let sortBySatisfaction = NSSortDescriptor(key: #keyPath(Entity.satisfaction), ascending: true)
+//            request.sortDescriptors = [sortBySatisfaction]
             do {
                 result = try mainContext.fetch(request)
             } catch {
@@ -53,6 +65,17 @@ extension CoreDataManager {
         }
         return result
     }
+    
+//    func fetch<MO: NSManagedObject>(request: NSFetchRequest<MO>, completion: @escaping (([MO]) -> Void)) {
+//        mainContext.perform { [weak self] in
+//            guard let self = self else { return }
+//            do {
+//                completion(try self.mainContext.fetch(request))
+//            } catch {
+//                debugPrint(error.localizedDescription) //FIXME: Error Handling
+//            }
+//        }
+//    }
     
     func create<Model: ManagedObjectConvertible>(from model: Model, completion: (() -> Void)? = nil) {
         mainContext.perform { [weak self] in

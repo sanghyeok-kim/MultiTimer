@@ -1,5 +1,5 @@
 //
-//  CoreDataManager+UpdateTagColorMO.swift
+//  CoreDataStorage+TagColorMO.swift
 //  Multimer
 //
 //  Created by 김상혁 on 2022/11/23.
@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-extension CoreDataManager {
+extension CoreDataStorage {
     func update(tagColorMO: TagColorMO,
                 rawValue: Int,
                 completion: (() -> Void)? = nil) {
