@@ -5,20 +5,15 @@
 //  Created by 김상혁 on 2022/11/23.
 //
 
-import Foundation
-import CoreData
 import RxSwift
-
-enum CoreDataError: Error {
-    case cannotFetch
-}
+import CoreData
 
 class CoreDataStorage {
     static let shared = CoreDataStorage()
     
     private init() { }
     
-    lazy var container: NSPersistentContainer = {
+    private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "TimerModel")
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error {
@@ -28,70 +23,52 @@ class CoreDataStorage {
         return container
     }()
     
-    var mainContext: NSManagedObjectContext {
-        return container.viewContext
-    }
+    lazy var backgroundContext: NSManagedObjectContext = {
+        let newbackgroundContext = persistentContainer.newBackgroundContext()
+        newbackgroundContext.automaticallyMergesChangesFromParent = true
+        return newbackgroundContext
+    }()
     
-    func saveMainContext() {
-        mainContext.perform { [weak self] in //Thread-Safe한 쓰기 작업을 위해 Context를 실행하는 Thread로 전환해서 작업
-            guard let self = self else { return }
-            if self.mainContext.hasChanges {
-                do {
-                    try self.mainContext.save()
-                } catch {
-                    debugPrint(error.localizedDescription)
-                }
+    func saveContext() {
+        if backgroundContext.hasChanges {
+            do {
+                try backgroundContext.save()
+            } catch {
+                debugPrint(error.localizedDescription)
             }
         }
     }
 }
 
 extension CoreDataStorage {
-    
-    func fetch<MO: NSManagedObject>(request: NSFetchRequest<MO>) -> [MO] {
-        var result: [MO] = []
-        
-        mainContext.performAndWait {
-            // 데이터를 가져오기 위해 PersonEntity에 자동으로 구현되어있는 `fetchRequest`메소드를 사용
-//            let request: NSFetchRequest<MO> = Entity.fetchRequest()
-//
-//            let sortBySatisfaction = NSSortDescriptor(key: #keyPath(Entity.satisfaction), ascending: true)
-//            request.sortDescriptors = [sortBySatisfaction]
-            do {
-                result = try mainContext.fetch(request)
-            } catch {
-                debugPrint(error.localizedDescription) //FIXME: Error Handling
+    func fetch<MO: NSManagedObject>(request: NSFetchRequest<MO>, predicate: NSPredicate? = nil) -> Single<[MO]> {
+        return Single<[MO]>.create { [weak self] observer in
+            self?.backgroundContext.perform {
+                do {
+                    request.predicate = predicate
+                    guard let result = try self?.backgroundContext.fetch(request) else { return }
+                    observer(.success(result))
+                } catch {
+                    observer(.failure(CoreDataError.cannotFetch))
+                }
             }
-        }
-        return result
-    }
-    
-//    func fetch<MO: NSManagedObject>(request: NSFetchRequest<MO>, completion: @escaping (([MO]) -> Void)) {
-//        mainContext.perform { [weak self] in
-//            guard let self = self else { return }
-//            do {
-//                completion(try self.mainContext.fetch(request))
-//            } catch {
-//                debugPrint(error.localizedDescription) //FIXME: Error Handling
-//            }
-//        }
-//    }
-    
-    func create<Model: ManagedObjectConvertible>(from model: Model, completion: (() -> Void)? = nil) {
-        mainContext.perform { [weak self] in
-            guard let self = self else { return }
-            defer { completion?() }
-            model.toManagedObejct(in: self.mainContext)
-            self.saveMainContext()
+            return Disposables.create { }
         }
     }
     
-    func delete<MO: NSManagedObject>(object: MO, completion: (() -> Void)? = nil) {
-        mainContext.perform { [weak self] in
+    func create<Model: ManagedObjectConvertible>(from model: Model) {
+        backgroundContext.perform { [weak self] in
             guard let self = self else { return }
-            defer { completion?() }
-            self.mainContext.delete(object)
-            self.saveMainContext()
+            model.toManagedObejct(in: self.backgroundContext)
+            self.saveContext()
+        }
+    }
+    
+    func delete<MO: NSManagedObject>(object: MO) {
+        backgroundContext.perform { [weak self] in
+            guard let self = self else { return }
+            self.backgroundContext.delete(object)
+            self.saveContext()
         }
     }
 }
