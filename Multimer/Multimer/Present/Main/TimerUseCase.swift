@@ -20,6 +20,11 @@ final class TimerUseCase {
         return timer.value
     }
     
+    var progressRatio: Float {
+        let initialSeconds = initialTimer.totalSeconds
+        let currentSeconds = currentTimer.totalSeconds
+        return Float(initialSeconds - currentSeconds) / Float(initialSeconds)
+    }
     init(timer: Timer) {
         self.timer = BehaviorRelay<Timer>(value: timer)
         self.initialTimer = timer

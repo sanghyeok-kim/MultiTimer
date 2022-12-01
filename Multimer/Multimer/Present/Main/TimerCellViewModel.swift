@@ -108,12 +108,7 @@ private extension TimerCellViewModel {
             .disposed(by: disposeBag)
         
         timerEvent
-            .withUnretained(self)
-            .map { `self`, timer in
-                let initialSeconds = self.timerUseCase.initialTimer.totalSeconds
-                let currentSeconds = timer.totalSeconds
-                return Float(initialSeconds - currentSeconds) / Float(initialSeconds)
-            }
+            .map { _ in timerUseCase.progressRatio }
             .bind(to: output.progess)
             .disposed(by: disposeBag)
     }
