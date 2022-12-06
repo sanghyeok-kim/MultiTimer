@@ -25,7 +25,7 @@ protocol ViewType: AnyObject {
 }
 
 extension ViewType {
-    func bind(to viewModel: ViewModel) {
+    func bind(viewModel: ViewModel) {
         self.viewModel = viewModel
         bindInput(to: viewModel)
         bindOutput(from: viewModel)

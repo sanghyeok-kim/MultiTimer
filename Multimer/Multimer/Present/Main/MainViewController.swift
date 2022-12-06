@@ -97,7 +97,7 @@ final class MainViewController: UIViewController, ViewType {
             .withUnretained(self)
             .bind { `self`, viewModel in
                 let timerSettingViewController = TimerSettingViewController()
-                timerSettingViewController.bind(to: viewModel)
+                timerSettingViewController.bind(viewModel: viewModel)
                 self.navigationController?.pushViewController(timerSettingViewController, animated: true)
             }
             .disposed(by: disposeBag)
@@ -106,7 +106,7 @@ final class MainViewController: UIViewController, ViewType {
             .withUnretained(self)
             .bind { `self`, viewModel in
                 let timerSettingViewController = TimerSettingViewController()
-                timerSettingViewController.bind(to: viewModel)
+                timerSettingViewController.bind(viewModel: viewModel)
                 self.present(timerSettingViewController, animated: true)
             }
             .disposed(by: disposeBag)

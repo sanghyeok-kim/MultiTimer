@@ -20,7 +20,7 @@ final class TimerTableViewDiffableDataSource { // TODO: 추상화 고려해보�
             withIdentifier: TimerViewCell.identifier,
             for: indexPath
         ) as? TimerViewCell else { return UITableViewCell() }
-        cell.bind(to: cellViewModel)
+        cell.bind(viewModel: cellViewModel)
         return cell
     }
     
