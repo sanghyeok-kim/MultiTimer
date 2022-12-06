@@ -52,6 +52,14 @@ final class TimerCellViewModel: ViewModelType {
 
 private extension TimerCellViewModel {
     func handleToggleButtonDidTap() {
+        
+        input.toggleButtonDidTap
+            .withLatestFrom(output.isActive)
+            .filter { $0 == false }
+            .map { _ in true }
+            .bind(to: output.isActive)
+            .disposed(by: disposeBag)
+        
         input.toggleButtonDidTap
             .withLatestFrom(output.toggleButtonIsSelected)
             .withUnretained(self)
@@ -119,10 +127,11 @@ private extension TimerCellViewModel {
 private extension TimerCellViewModel {
     func toggleTimer(by isRunning: Bool) {
         switch isRunning {
-        case true: timerUseCase.pauseTimer()
-        case false: timerUseCase.startTimer()
+        case true:
+            timerUseCase.pauseTimer()
+        case false:
+            timerUseCase.startTimer()
         }
-        output.isActive.accept(true)
         output.toggleButtonIsSelected.accept(!isRunning)
     }
     
