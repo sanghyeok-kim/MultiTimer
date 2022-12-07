@@ -60,8 +60,8 @@ final class TimerSettingViewModel: ViewModelType {
             .share()
         
         newTimer
-            .withLatestFrom(output.timer) { currentTimer, newTimer in
-                currentTimer != newTimer
+            .withLatestFrom(output.timer) { newTimer, currentTimer in
+                return currentTimer != newTimer && newTimer.totalSeconds > 0
             }
             .bind(to: output.completeButtonEnable)
             .disposed(by: disposeBag)
