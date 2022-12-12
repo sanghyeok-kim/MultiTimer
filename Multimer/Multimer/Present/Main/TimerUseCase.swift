@@ -11,94 +11,159 @@ import RxRelay
 final class TimerUseCase {
     
     let timer: BehaviorRelay<Timer>
-    var initialTimer: Timer
-    private var timerState: TimerState = .ready
+    let timerState: BehaviorRelay<TimerState>
+    
     private var dispatchSourceTimer: DispatchSourceTimer? = nil
-    private let timerNotificationIdentifier = UUID()
+    private let timerPersistentRepository: CoreDataTimerRepository
+    private let timerIdentifier: UUID
+    private let disposeBag = DisposeBag()
     
     var currentTimer: Timer {
         return timer.value
     }
     
     var progressRatio: Float {
-        let initialSeconds = initialTimer.totalSeconds
-        let currentSeconds = currentTimer.totalSeconds
-        return Float(initialSeconds - currentSeconds) / Float(initialSeconds)
+        let initialSeconds = currentTimer.totalSeconds
+        let remainingSeconds = Int(round(currentTimer.remainingSeconds))
+        return Float(initialSeconds - remainingSeconds) / Float(initialSeconds)
     }
-    init(timer: Timer) {
+    
+    init(timer: Timer, timerPersistentRepository: CoreDataTimerRepository) {
         self.timer = BehaviorRelay<Timer>(value: timer)
-        self.initialTimer = timer
+        self.timerState = BehaviorRelay<TimerState>(value: timer.state)
+        self.timerPersistentRepository = timerPersistentRepository
+        self.timerIdentifier = timer.identifier
+        restoreTimer()
+    }
+    
+    func restoreTimer() {
+        timerPersistentRepository
+            .findTimer(target: timerIdentifier)
+            .withUnretained(self)
+            .bind { `self`, timer in
+                if case .running = timer.state {
+                    self.resumeTimer()
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     func startTimer() {
-        let content = UNMutableNotificationContent()
-        content.title = "타이머 종료"
-        content.body = "\(timer.value.name) 종료"
-        content.sound = .default
+        registerNotification()
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(currentTimer.totalSeconds), repeats: false)
-        let request = UNNotificationRequest(identifier: "\(timerNotificationIdentifier)", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request)
-        let startTime = Date()
-        let initialSeconds = currentTimer.totalSeconds
+        let expireDate = Date(timeInterval: currentTimer.remainingSeconds, since: .now)
+        timerPersistentRepository.saveTimer(target: timerIdentifier, expireDate: expireDate, state: .running)
         
-        if dispatchSourceTimer == nil {
-            dispatchSourceTimer = DispatchSource.makeTimerSource(queue: .global())
-        }
-        
-        dispatchSourceTimer?.schedule(deadline: .now() + 1, repeating: 1)
-        dispatchSourceTimer?.setEventHandler { [weak self] in
-            guard let self = self else { return }
-            
-            //2. 1초마다 (startTime - 다시 계산한 현재 시간) 차이 계산해서 elapsedTime에 저장
-            let elapsedTime = Int(Date().timeIntervalSince(startTime))
-            
-            if elapsedTime >= initialSeconds {
-                self.timer.accept(Timer(timer: self.currentTimer, time: Time()))
-            } else {
-                let newTime = Time(totalSeconds: initialSeconds - elapsedTime)
-                self.timer.accept(Timer(timer: self.currentTimer, time: newTime))
-            }
-        }
-        
-        dispatchSourceTimer?.resume()
-        timerState = .running
+        timerPersistentRepository
+            .updateTimer(target: timerIdentifier, expireDate: expireDate)
+            .subscribe(onCompleted: { [weak self] in
+                guard let self = self else { return }
+                self.runTimer(by: expireDate)
+            })
+            .disposed(by: disposeBag)
     }
     
     func pauseTimer() {
         dispatchSourceTimer?.suspend()
-        timerState = .paused
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(timerNotificationIdentifier)"])
+        timerState.accept(.paused)
+        timerPersistentRepository.saveTimer(target: timerIdentifier, state: .paused)
+        removeNotification()
     }
     
     func stopTimer() {
-        if timerState == .paused {
+        if timerState.value == .paused {
             dispatchSourceTimer?.resume()
         }
         
         dispatchSourceTimer?.cancel()
-        timerState = .finished
+        timerState.accept(.finished)
+        timerPersistentRepository.saveTimer(target: timerIdentifier, state: .finished)
+        
         dispatchSourceTimer = nil
     }
     
+    //TODO: Timer 메소드 변경
     func resetTimer() {
-        stopTimer()
-        self.timer.accept(initialTimer)
-        timerState = .ready
+        timer.accept(Timer(timer: currentTimer, time: currentTimer.time.turnBackTime()))
+        timerState.accept(.ready)
+        timerPersistentRepository.saveTimer(target: timerIdentifier, time: currentTimer.time, state: .ready)
     }
     
-    func changeTimer(with newTimer: Timer) {
-        stopTimer()
-        timer.accept(newTimer)
-        initialTimer = newTimer
+    func updateTimer(to newTimer: Timer) {
+        timerPersistentRepository
+            .updateTimer(target: newTimer.identifier, name: newTimer.name, tag: newTimer.tag, time: newTimer.time)
+            .subscribe(onCompleted: { [weak self] in
+                guard let self = self else { return }
+                self.timer.accept(newTimer)
+                self.resetTimer()
+            })
+            .disposed(by: disposeBag)
     }
-}
-
-private extension TimerUseCase {
-    enum TimerState {
-        case ready
-        case running
-        case paused
-        case finished
+    
+    func removeNotification() {
+        if timerState.value == .paused {
+            dispatchSourceTimer?.resume()
+        }
+        dispatchSourceTimer?.cancel()
+        dispatchSourceTimer = nil
+        guard let notificationIdentifier = currentTimer.notificationIdentifier else { return }
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
+    }
+    
+    // TODO: Notification Manager 구현
+    func registerNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "타이머 종료"
+        content.body = "\(currentTimer.name) 종료"
+        content.badge = 1
+        content.sound = .default
+        
+        if currentTimer.remainingSeconds <= .zero { return }
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(currentTimer.remainingSeconds), repeats: false)
+        guard let notificationIdentifier = currentTimer.notificationIdentifier else { return }
+        let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
+    }
+    
+    private func resumeTimer() {
+        timerPersistentRepository
+            .findTimer(target: timerIdentifier)
+            .withUnretained(self)
+            .bind { `self`, timer in
+                guard let expireDate = timer.expireDate else { return }
+                self.runTimer(by: expireDate)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func runTimer(by expirationDate: Date) {
+        if dispatchSourceTimer == nil {
+            dispatchSourceTimer = DispatchSource.makeTimerSource(queue: .global())
+        }
+        
+        self.dispatchSourceTimer?.schedule(deadline: .now(), repeating: 0.1)
+        self.dispatchSourceTimer?.setEventHandler { [weak self] in
+            guard let self = self else { return }
+            let remainingTimeInterval = -(Date().timeIntervalSince(expirationDate)) //expireDate까지 남은 시간
+            
+            // TODO: Time 메소드 간소화
+            if remainingTimeInterval <= .zero {
+                let defaultTime = Time(totalSeconds: self.currentTimer.totalSeconds, remainingSeconds: .zero)
+                self.timer.accept(Timer(timer: self.currentTimer, time: defaultTime))
+                self.timerPersistentRepository.saveTimer(target: self.timerIdentifier, time: self.currentTimer.time.expireTime())
+            } else {
+                let remainingTime = Time(totalSeconds: self.currentTimer.totalSeconds, remainingSeconds: remainingTimeInterval)
+                self.timer.accept(Timer(timer: self.currentTimer, time: remainingTime))
+                self.timerPersistentRepository.saveTimer(target: self.timerIdentifier, time: remainingTime)
+                print("remaining saved: \(remainingTime.remainingSeconds)")
+            }
+        }
+        
+        dispatchSourceTimer?.resume()
+        timerState.accept(.running)
+    }
+    
+    deinit {
+        stopTimer()
     }
 }

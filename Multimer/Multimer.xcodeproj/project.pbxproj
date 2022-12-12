@@ -29,7 +29,10 @@
 		1E48FEB02911F9250090B246 /* MultimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FEAF2911F9250090B246 /* MultimerTests.swift */; };
 		1E48FEBA2911F9250090B246 /* MultimerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FEB92911F9250090B246 /* MultimerUITests.swift */; };
 		1E48FEBC2911F9250090B246 /* MultimerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FEBB2911F9250090B246 /* MultimerUITestsLaunchTests.swift */; };
+		1E6FAD9729403F900021B845 /* CoreDataTimerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FAD9629403F900021B845 /* CoreDataTimerRepository.swift */; };
 		1E86F1E72930EE8D0067CA28 /* TimerFilteringCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E86F1E62930EE8D0067CA28 /* TimerFilteringCondition.swift */; };
+		1E86F1E9293627950067CA28 /* MainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E86F1E8293627950067CA28 /* MainUseCase.swift */; };
+		1E86F1EB29364AE10067CA28 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E86F1EA29364AE10067CA28 /* CoreDataError.swift */; };
 		1E9BA3C32914CDC600B39E9C /* TimerTableViewDragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C22914CDC600B39E9C /* TimerTableViewDragDelegate.swift */; };
 		1E9BA3C52914CDCE00B39E9C /* TimerTableViewDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C42914CDCE00B39E9C /* TimerTableViewDropDelegate.swift */; };
 		1E9BA3C72914CEFB00B39E9C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */; };
@@ -43,7 +46,7 @@
 		1EA3FCE0292E43520073560D /* ManagedObjectConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3FCDF292E43520073560D /* ManagedObjectConvertible.swift */; };
 		1EA3FCE2292E48BE0073560D /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3FCE1292E48BE0073560D /* CoreDataStorage.swift */; };
 		1EA3FCE4292E49440073560D /* CoreDataStorage+TimerMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3FCE3292E49440073560D /* CoreDataStorage+TimerMO.swift */; };
-		1EA3FCE6292E4B360073560D /* CoreDataStorager+TimeMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3FCE5292E4B360073560D /* CoreDataStorager+TimeMO.swift */; };
+		1EA3FCE6292E4B360073560D /* CoreDataStorage+TimeMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3FCE5292E4B360073560D /* CoreDataStorage+TimeMO.swift */; };
 		1EA3FCE8292E4B730073560D /* CoreDataStorage+TagMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3FCE7292E4B730073560D /* CoreDataStorage+TagMO.swift */; };
 		1EA3FCEA292E4BBD0073560D /* CoreDataStorage+TagColorMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3FCE9292E4BBD0073560D /* CoreDataStorage+TagColorMO.swift */; };
 		1EBEEFDC292105F500299CE7 /* TimerTableViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEEFDB292105F500299CE7 /* TimerTableViewDiffableDataSource.swift */; };
@@ -55,6 +58,7 @@
 		1EBEEFE82925B73000299CE7 /* TagColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEEFE72925B73000299CE7 /* TagColor.swift */; };
 		1EBEEFEA2925B85700299CE7 /* TagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEEFE92925B85700299CE7 /* TagButton.swift */; };
 		1EBEF029292909DD00299CE7 /* TimerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEF027292909DD00299CE7 /* TimerModel.xcdatamodeld */; };
+		1EBEF02C292C803400299CE7 /* EnvironmentSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEF02B292C803400299CE7 /* EnvironmentSettingViewController.swift */; };
 		1EBFEE152919270D00747606 /* TimerSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBFEE142919270D00747606 /* TimerSettingViewModel.swift */; };
 		1EBFEE17291ABE1900747606 /* UITextField+Rx+textChanged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBFEE16291ABE1900747606 /* UITextField+Rx+textChanged.swift */; };
 		284E6114050224D9C3E7E23D /* Pods_Multimer_MultimerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C8B8D20E646F7DD1F545138 /* Pods_Multimer_MultimerUITests.framework */; };
@@ -108,7 +112,10 @@
 		1E48FEB52911F9250090B246 /* MultimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E48FEB92911F9250090B246 /* MultimerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultimerUITests.swift; sourceTree = "<group>"; };
 		1E48FEBB2911F9250090B246 /* MultimerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultimerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1E6FAD9629403F900021B845 /* CoreDataTimerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTimerRepository.swift; sourceTree = "<group>"; };
 		1E86F1E62930EE8D0067CA28 /* TimerFilteringCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFilteringCondition.swift; sourceTree = "<group>"; };
+		1E86F1E8293627950067CA28 /* MainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUseCase.swift; sourceTree = "<group>"; };
+		1E86F1EA29364AE10067CA28 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		1E9BA3C22914CDC600B39E9C /* TimerTableViewDragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableViewDragDelegate.swift; sourceTree = "<group>"; };
 		1E9BA3C42914CDCE00B39E9C /* TimerTableViewDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableViewDropDelegate.swift; sourceTree = "<group>"; };
 		1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -122,7 +129,7 @@
 		1EA3FCDF292E43520073560D /* ManagedObjectConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectConvertible.swift; sourceTree = "<group>"; };
 		1EA3FCE1292E48BE0073560D /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 		1EA3FCE3292E49440073560D /* CoreDataStorage+TimerMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataStorage+TimerMO.swift"; sourceTree = "<group>"; };
-		1EA3FCE5292E4B360073560D /* CoreDataStorager+TimeMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataStorager+TimeMO.swift"; sourceTree = "<group>"; };
+		1EA3FCE5292E4B360073560D /* CoreDataStorage+TimeMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataStorage+TimeMO.swift"; sourceTree = "<group>"; };
 		1EA3FCE7292E4B730073560D /* CoreDataStorage+TagMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataStorage+TagMO.swift"; sourceTree = "<group>"; };
 		1EA3FCE9292E4BBD0073560D /* CoreDataStorage+TagColorMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataStorage+TagColorMO.swift"; sourceTree = "<group>"; };
 		1EBEEFDB292105F500299CE7 /* TimerTableViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableViewDiffableDataSource.swift; sourceTree = "<group>"; };
@@ -235,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				1EBEF02A292909E200299CE7 /* CoreData */,
+				1E6FAD9629403F900021B845 /* CoreDataTimerRepository.swift */,
 				1EBFEE102917888300747606 /* Protocol */,
 				1E482BE42913556100175B78 /* Application */,
 				1E482BE32913555000175B78 /* Extension */,
@@ -245,6 +253,7 @@
 				1EBEEFE72925B73000299CE7 /* TagColor.swift */,
 				1E482BD9291354E900175B78 /* TimeType.swift */,
 				1EBEEFDD2921061B00299CE7 /* TableViewSection.swift */,
+				1EBEF02B292C803400299CE7 /* EnvironmentSettingViewController.swift */,
 				1E48FEA12911F9250090B246 /* Assets.xcassets */,
 				1E48FEA32911F9250090B246 /* LaunchScreen.storyboard */,
 				1E48FEA62911F9250090B246 /* Info.plist */,
@@ -269,16 +278,17 @@
 			path = MultimerUITests;
 			sourceTree = "<group>";
 		};
-		1EA3FCEB292E4D850073560D /* CoreDataManager */ = {
+		1EA3FCEB292E4D850073560D /* CoreDataStorage */ = {
 			isa = PBXGroup;
 			children = (
+				1E86F1EA29364AE10067CA28 /* CoreDataError.swift */,
 				1EA3FCE1292E48BE0073560D /* CoreDataStorage.swift */,
 				1EA3FCE3292E49440073560D /* CoreDataStorage+TimerMO.swift */,
-				1EA3FCE5292E4B360073560D /* CoreDataStorager+TimeMO.swift */,
+				1EA3FCE5292E4B360073560D /* CoreDataStorage+TimeMO.swift */,
 				1EA3FCE7292E4B730073560D /* CoreDataStorage+TagMO.swift */,
 				1EA3FCE9292E4BBD0073560D /* CoreDataStorage+TagColorMO.swift */,
 			);
-			path = CoreDataManager;
+			path = CoreDataStorage;
 			sourceTree = "<group>";
 		};
 		1EA3FCEC292E4D9C0073560D /* ManagedObjectSubClass */ = {
@@ -307,7 +317,7 @@
 				1EBEF027292909DD00299CE7 /* TimerModel.xcdatamodeld */,
 				1EA3FCED292E4DB40073560D /* Protocol */,
 				1EA3FCEC292E4D9C0073560D /* ManagedObjectSubClass */,
-				1EA3FCEB292E4D850073560D /* CoreDataManager */,
+				1EA3FCEB292E4D850073560D /* CoreDataStorage */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -332,6 +342,7 @@
 				1E86F1E62930EE8D0067CA28 /* TimerFilteringCondition.swift */,
 				1EBEEFDB292105F500299CE7 /* TimerTableViewDiffableDataSource.swift */,
 				1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */,
+				1E86F1E8293627950067CA28 /* MainUseCase.swift */,
 				1E482BD12913538800175B78 /* TimerViewCell.swift */,
 				1E9BA3C82914CF5400B39E9C /* TimerCellViewModel.swift */,
 				1EBEEFDF2922446A00299CE7 /* TimerUseCase.swift */,
@@ -624,10 +635,12 @@
 				1E482BDC291354F500175B78 /* Time.swift in Sources */,
 				1EA3FCE4292E49440073560D /* CoreDataStorage+TimerMO.swift in Sources */,
 				1EA3FCD7292E41410073560D /* TagMO+CoreDataClass.swift in Sources */,
-				1EA3FCE6292E4B360073560D /* CoreDataStorager+TimeMO.swift in Sources */,
+				1EA3FCE6292E4B360073560D /* CoreDataStorage+TimeMO.swift in Sources */,
 				1EBEEFEA2925B85700299CE7 /* TagButton.swift in Sources */,
+				1E6FAD9729403F900021B845 /* CoreDataTimerRepository.swift in Sources */,
 				1E482BE82913559600175B78 /* Timer.swift in Sources */,
 				1EBEEFE82925B73000299CE7 /* TagColor.swift in Sources */,
+				1E86F1EB29364AE10067CA28 /* CoreDataError.swift in Sources */,
 				1E48FE9D2911F9240090B246 /* MainViewController.swift in Sources */,
 				1E482BDA291354E900175B78 /* TimeType.swift in Sources */,
 				1EBEEFE02922446A00299CE7 /* TimerUseCase.swift in Sources */,
@@ -658,6 +671,7 @@
 				1E48FE9B2911F9240090B246 /* SceneDelegate.swift in Sources */,
 				1EA3FCDB292E41410073560D /* TimeMO+CoreDataClass.swift in Sources */,
 				1E482BE02913551700175B78 /* TimerTableViewDelegate.swift in Sources */,
+				1E86F1E9293627950067CA28 /* MainUseCase.swift in Sources */,
 				1E9BA3CB2914CF8C00B39E9C /* CellIdentifiable.swift in Sources */,
 				1EA3FCD5292E41410073560D /* TagColorMO+CoreDataClass.swift in Sources */,
 				1E482BEA29138A3900175B78 /* UIView+snapshotCellStyle.swift in Sources */,

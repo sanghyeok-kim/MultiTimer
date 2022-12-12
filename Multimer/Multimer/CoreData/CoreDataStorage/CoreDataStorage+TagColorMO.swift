@@ -9,14 +9,11 @@ import Foundation
 import CoreData
 
 extension CoreDataStorage {
-    func update(tagColorMO: TagColorMO,
-                rawValue: Int,
-                completion: (() -> Void)? = nil) {
-        mainContext.perform { [weak self] in
+    func update(tagColorMO: TagColorMO, rawValue: Int) {
+        backgroundContext.perform { [weak self] in
             guard let self = self else { return }
-            defer { completion?() }
             tagColorMO.update(rawValue: rawValue)
-            self.saveMainContext()
+            self.saveContext()
         }
     }
 }

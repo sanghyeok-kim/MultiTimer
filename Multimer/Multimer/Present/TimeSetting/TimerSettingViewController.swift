@@ -19,7 +19,7 @@ extension UITextField {
 
 extension UIPickerView { //TimerPickerView로 한정시키기
     func selectRows(by time: Time, animated: Bool) {
-        let (hour, minute, second) = time.dividedSeconds
+        let (hour, minute, second) = time.dividedTotalSeconds
         selectRow(hour, inComponent: 0, animated: true) // TODO: 하드코딩 개선
         selectRow(minute, inComponent: 1, animated: true)
         selectRow(second, inComponent: 2, animated: true)
