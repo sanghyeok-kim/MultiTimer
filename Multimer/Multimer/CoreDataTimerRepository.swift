@@ -37,19 +37,31 @@ final class CoreDataTimerRepository {
         name: String? = nil,
         tag: Tag? = nil,
         time: Time? = nil,
-        startDate: Date? = nil,
+        expireDate: Date? = nil,
         state: TimerState? = nil
     ) -> Completable {
         return Completable.create { [weak self] completable in
             guard let self = self else { return Disposables.create { } }
             self.findTimer(target: identifier)
                 .bind { updateTarget in
-                    self.coreDataStorage.update(timerMO: updateTarget, name: name, tag: tag, time: time, startDate: startDate, state: state)
+                    self.coreDataStorage.update(timerMO: updateTarget, name: name, tag: tag, time: time, expireDate: expireDate, state: state)
                     completable(.completed)
                 }
                 .disposed(by: self.disposeBag)
             return Disposables.create { }
         }
+    }
+    
+    func saveTimer(target identifier: UUID,
+                   time: Time? = nil,
+                   expireDate: Date? = nil,
+                   state: TimerState? = nil) {
+        findTimer(target: identifier)
+            .withUnretained(self)
+            .bind { `self`, updateTarget in
+                self.coreDataStorage.update(timerMO: updateTarget, time: time, expireDate: expireDate, state: state)
+            }
+            .disposed(by: self.disposeBag)
     }
     
     func deleteTimer(target identifier: UUID) -> Observable<Timer> {

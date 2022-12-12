@@ -16,12 +16,13 @@ public class TimeMO: NSManagedObject {
 
 extension TimeMO: ModelConvertible {
     func toModel() -> Time {
-        return Time(totalSeconds: Int(totalSeconds))
+        return Time(totalSeconds: Int(totalSeconds), remainingSeconds: remainingSeconds)
     }
 }
 
 extension TimeMO {
-    func update(totalSeconds: Int) {
-        self.totalSeconds = Int32(totalSeconds)
+    func update(totalSeconds: Int? = nil, remainingSeconds: Double? = nil) {
+        self.totalSeconds = Int32(totalSeconds ?? Int(self.totalSeconds))
+        self.remainingSeconds = remainingSeconds ?? self.remainingSeconds
     }
 }
