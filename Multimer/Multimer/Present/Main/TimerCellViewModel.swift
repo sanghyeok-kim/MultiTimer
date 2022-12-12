@@ -24,16 +24,19 @@ final class TimerCellViewModel: ViewModelType {
         let timerSettingViewModel = PublishRelay<TimerSettingViewModel>()
         let progess = BehaviorRelay<Float>(value: .zero)
         let isActive = BehaviorRelay<Bool>(value: false)
+        let timerState = PublishRelay<TimerState>()
     }
     
     let input = Input()
     let output = Output()
+    
+    let identifier: UUID
     let timerUseCase: TimerUseCase
     
-    let identifier = UUID()
     private let disposeBag = DisposeBag()
     
-    init(timerUseCase: TimerUseCase) {
+    init(identifier: UUID, timerUseCase: TimerUseCase) {
+        self.identifier = identifier
         self.timerUseCase = timerUseCase
         
         // MARK: - Handle Event from Input
@@ -44,7 +47,8 @@ final class TimerCellViewModel: ViewModelType {
         
         // MARK: - Handle Event from UseCase
         
-        handleTimerEvent()
+        handleTimerState(with: timerUseCase)
+        handleTimerEvent(with: timerUseCase)
     }
 }
 
@@ -52,13 +56,6 @@ final class TimerCellViewModel: ViewModelType {
 
 private extension TimerCellViewModel {
     func handleToggleButtonDidTap() {
-        
-        input.toggleButtonDidTap
-            .withLatestFrom(output.isActive)
-            .filter { $0 == false }
-            .map { _ in true }
-            .bind(to: output.isActive)
-            .disposed(by: disposeBag)
         
         input.toggleButtonDidTap
             .withLatestFrom(output.toggleButtonIsSelected)
@@ -80,7 +77,7 @@ private extension TimerCellViewModel {
     
     func handleCellDidTap(with timerUseCase: TimerUseCase) {
         let settingViewModel = input.cellDidTap
-            .map { TimerSettingViewModel(timer: timerUseCase.initialTimer) }
+            .map { TimerSettingViewModel(timer: timerUseCase.currentTimer) }
             .share()
         
         settingViewModel
@@ -95,16 +92,16 @@ private extension TimerCellViewModel {
             }
             .disposed(by: disposeBag)
     }
-
+    
     func handleTimerEvent(with timerUseCase: TimerUseCase) {
         let timerEvent = timerUseCase.timer
             .observe(on: MainScheduler.instance)
             .share()
-
+        
         timerEvent
             .bind(to: output.timer)
             .disposed(by: disposeBag)
-
+        
         timerEvent
             .map { $0.remainingSeconds }
             .filter { $0 == .zero }
@@ -119,18 +116,17 @@ private extension TimerCellViewModel {
             .map { _ in timerUseCase.progressRatio }
             .bind(to: output.progess)
             .disposed(by: disposeBag)
-
+    }
+    
     func handleTimerState(with timerUseCase: TimerUseCase) {
         timerUseCase.timerState
             .withUnretained(self)
             .bind { `self`, state in
-                switch state { //함수로 빼기
+                switch state {
                 case .ready:
                     self.output.isActive.accept(false)
-//                    self.setToggleButtonReady()
                 case .paused:
                     self.output.isActive.accept(true)
-//                    self.setToggleButtonReady()
                 case .running:
                     self.output.isActive.accept(true)
                     self.setToggleButtonRunning()
@@ -150,6 +146,22 @@ private extension TimerCellViewModel {
 // MARK: - Supporting Function
 
 private extension TimerCellViewModel {
+    func setToggleButtonReady() {
+        output.toggleButtonIsSelected.accept(false)
+        output.toggleButtonIsHidden.accept(false)
+        output.restartButtonIsHidden.accept(true)
+    }
+    
+    func setToggleButtonRunning() {
+        output.toggleButtonIsSelected.accept(true)
+    }
+    
+    func setToggleButtonFinished() {
+        output.toggleButtonIsSelected.accept(false)
+        output.toggleButtonIsHidden.accept(true)
+        output.restartButtonIsHidden.accept(false)
+    }
+    
     func toggleTimer(by isRunning: Bool) {
         switch isRunning {
         case true:
@@ -159,19 +171,19 @@ private extension TimerCellViewModel {
         }
         output.toggleButtonIsSelected.accept(!isRunning)
     }
-
+    
     func stopTimer() {
         timerUseCase.stopTimer()
         setToggleButtonFinished()
     }
-
+    
     func resetTimer() {
         timerUseCase.stopTimer()
         timerUseCase.resetTimer()
         timerUseCase.removeNotification()
         setToggleButtonReady()
     }
-
+    
     func changeTimer(to newTimer: Timer) {
         resetTimer()
         timerUseCase.updateTimer(to: newTimer)
