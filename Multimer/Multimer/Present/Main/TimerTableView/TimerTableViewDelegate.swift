@@ -12,6 +12,7 @@ final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
     
     let cellDidSwipeFromTrailing = PublishRelay<Int>()
     let cellDidSwipeFromLeading = PublishRelay<Int>()
+    let cellDidSelect = PublishRelay<Void>()
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
@@ -33,14 +34,27 @@ final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
         }
         resetAction.image = UIImage(systemName: "stop.circle")
         resetAction.backgroundColor = .systemBlue
-
+        
         let config = UISwipeActionsConfiguration(actions: [resetAction])
         config.performsFirstActionWithFullSwipe = false
         return config
     }
     
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TimerViewCell.identifier,for: indexPath) as? TimerViewCell
-        cell?.viewModel = nil
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        cellDidSelect.accept(())
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard let footerView = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: TimerTableFooterView.identifier
+        ) as? TimerTableFooterView else { return UIView() }
+        
+        // TODO: FooterViewModel 적용
+        
+        return footerView
     }
 }
