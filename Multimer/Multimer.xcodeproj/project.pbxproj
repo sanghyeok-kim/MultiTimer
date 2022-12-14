@@ -14,7 +14,6 @@
 		1E482BD82913545E00175B78 /* UIPickerView+SetFixedLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BD72913545E00175B78 /* UIPickerView+SetFixedLabels.swift */; };
 		1E482BDA291354E900175B78 /* TimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BD9291354E900175B78 /* TimeType.swift */; };
 		1E482BDC291354F500175B78 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BDB291354F500175B78 /* Time.swift */; };
-		1E482BDE2913550A00175B78 /* TimerTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BDD2913550A00175B78 /* TimerTableViewDataSource.swift */; };
 		1E482BE02913551700175B78 /* TimerTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BDF2913551700175B78 /* TimerTableViewDelegate.swift */; };
 		1E482BE22913553F00175B78 /* UIStackView+addArrangedSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BE12913553F00175B78 /* UIStackView+addArrangedSubviews.swift */; };
 		1E482BE62913558D00175B78 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BE52913558D00175B78 /* Tag.swift */; };
@@ -93,7 +92,6 @@
 		1E482BD72913545E00175B78 /* UIPickerView+SetFixedLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPickerView+SetFixedLabels.swift"; sourceTree = "<group>"; };
 		1E482BD9291354E900175B78 /* TimeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeType.swift; sourceTree = "<group>"; };
 		1E482BDB291354F500175B78 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
-		1E482BDD2913550A00175B78 /* TimerTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableViewDataSource.swift; sourceTree = "<group>"; };
 		1E482BDF2913551700175B78 /* TimerTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableViewDelegate.swift; sourceTree = "<group>"; };
 		1E482BE12913553F00175B78 /* UIStackView+addArrangedSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+addArrangedSubviews.swift"; sourceTree = "<group>"; };
 		1E482BE52913558D00175B78 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
@@ -340,7 +338,6 @@
 			children = (
 				1E48FE9C2911F9240090B246 /* MainViewController.swift */,
 				1E86F1E62930EE8D0067CA28 /* TimerFilteringCondition.swift */,
-				1EBEEFDB292105F500299CE7 /* TimerTableViewDiffableDataSource.swift */,
 				1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */,
 				1E86F1E8293627950067CA28 /* MainUseCase.swift */,
 				1E482BD12913538800175B78 /* TimerViewCell.swift */,
@@ -372,8 +369,8 @@
 		1EBFEE11291788A000747606 /* TimerTable */ = {
 			isa = PBXGroup;
 			children = (
+				1EBEEFDB292105F500299CE7 /* TimerTableViewDiffableDataSource.swift */,
 				1E482BDF2913551700175B78 /* TimerTableViewDelegate.swift */,
-				1E482BDD2913550A00175B78 /* TimerTableViewDataSource.swift */,
 				1E9BA3C22914CDC600B39E9C /* TimerTableViewDragDelegate.swift */,
 				1E9BA3C42914CDCE00B39E9C /* TimerTableViewDropDelegate.swift */,
 			);
@@ -655,7 +652,6 @@
 				1E86F1E72930EE8D0067CA28 /* TimerFilteringCondition.swift in Sources */,
 				1EBFEE152919270D00747606 /* TimerSettingViewModel.swift in Sources */,
 				1E48FE992911F9240090B246 /* AppDelegate.swift in Sources */,
-				1E482BDE2913550A00175B78 /* TimerTableViewDataSource.swift in Sources */,
 				1EBEEFE62925451E00299CE7 /* TagScrollView.swift in Sources */,
 				1EA3FCE2292E48BE0073560D /* CoreDataStorage.swift in Sources */,
 				1E482BD02912887B00175B78 /* TimerSettingViewController.swift in Sources */,

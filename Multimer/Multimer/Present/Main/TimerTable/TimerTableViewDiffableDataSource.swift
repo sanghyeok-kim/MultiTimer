@@ -5,13 +5,14 @@
 //  Created by 김상혁 on 2022/11/13.
 //
 
-import UIKit
+import RxSwift
+import RxRelay
 
-final class TimerTableViewDiffableDataSource { // TODO: 추상화 고려해보기
-    typealias DataSource = UITableViewDiffableDataSource<TableViewSection, TimerCellViewModel>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<TableViewSection, TimerCellViewModel>
+final class TimerTableViewDiffableDataSource: UITableViewDiffableDataSource<TableViewSection, TimerCellViewModel> {
     
-    private let dataSource: DataSource
+    let cellDidMove = PublishRelay<(source: IndexPath, destination: IndexPath)>()
+    
+    typealias Snapshot = NSDiffableDataSourceSnapshot<TableViewSection, TimerCellViewModel>
     
     private let cellProvider = { (tableView: UITableView,
                                   indexPath: IndexPath,
@@ -25,13 +26,21 @@ final class TimerTableViewDiffableDataSource { // TODO: 추상화 고려해보�
     }
     
     init(tableView: UITableView) {
-        dataSource = DataSource(tableView: tableView, cellProvider: cellProvider)
+        super.init(tableView: tableView, cellProvider: cellProvider)
     }
+    
+    // MARK: - DiffableDataSource Methods
     
     func update(with cellViewModels: [TimerCellViewModel]) {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(cellViewModels)
-        dataSource.apply(snapshot, animatingDifferences: true)
+        apply(snapshot, animatingDifferences: true)
+    }
+    
+    // MARK: - UITableViewDataSource Methods
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        cellDidMove.accept((sourceIndexPath, destinationIndexPath))
     }
 }

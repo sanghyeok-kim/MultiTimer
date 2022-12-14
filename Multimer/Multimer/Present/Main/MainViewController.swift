@@ -24,7 +24,7 @@ final class MainViewController: UIViewController, ViewType {
     }()
     
     private lazy var tableViewDelegate = TimerTableViewDelegate()
-    
+    private lazy var tableViewDiffableDataSource = TimerTableViewDiffableDataSource(tableView: tableView)
 //    private lazy var tableViewDragDelegate = TimerTableViewDragDelegate()
 //    private lazy var tableViewDropDelegate = TimerTableViewDropDelegate()
     
@@ -43,9 +43,6 @@ final class MainViewController: UIViewController, ViewType {
         return tableView
     }()
     
-    //호출 순서에 따라 tabelView delegate가 설정 안될수도 있다?
-    //diffableDataSource를 사용하면 기존 dataSource에서 사용할 수 있던 method들은 어떻게?
-    private lazy var tableViewDiffableDataSource = TimerTableViewDiffableDataSource(tableView: tableView)
     
     private lazy var addTimerBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
