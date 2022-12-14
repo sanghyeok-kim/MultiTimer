@@ -66,7 +66,9 @@ final class TimerUseCase {
     func pauseTimer() {
         dispatchSourceTimer?.suspend()
         timerState.accept(.paused)
-        timerPersistentRepository.saveTimer(target: timerIdentifier, state: .paused)
+        let remainingTime = Time(totalSeconds: currentTimer.totalSeconds, remainingSeconds: currentTimer.remainingSeconds)
+        timerPersistentRepository.saveTimer(target: timerIdentifier, time: remainingTime, state: .paused)
+        
         removeNotification()
     }
     
@@ -144,7 +146,7 @@ final class TimerUseCase {
         self.dispatchSourceTimer?.schedule(deadline: .now(), repeating: 0.1)
         self.dispatchSourceTimer?.setEventHandler { [weak self] in
             guard let self = self else { return }
-            let remainingTimeInterval = -(Date().timeIntervalSince(expirationDate)) //expireDate까지 남은 시간
+            let remainingTimeInterval = -(Date().timeIntervalSince(expirationDate))
             
             // TODO: Time 메소드 간소화
             if remainingTimeInterval <= .zero {
@@ -154,8 +156,6 @@ final class TimerUseCase {
             } else {
                 let remainingTime = Time(totalSeconds: self.currentTimer.totalSeconds, remainingSeconds: remainingTimeInterval)
                 self.timer.accept(Timer(timer: self.currentTimer, time: remainingTime))
-                self.timerPersistentRepository.saveTimer(target: self.timerIdentifier, time: remainingTime)
-                print("remaining saved: \(remainingTime.remainingSeconds)")
             }
         }
         
