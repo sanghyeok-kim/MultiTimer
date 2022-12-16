@@ -50,6 +50,14 @@ final class TimerUseCase {
     }
     
     func startTimer() {
+        if case .running = timerState.value {
+            return
+        }
+        
+        if case .finished = timerState.value {
+            resetTimer()
+        }
+        
         registerNotification()
         
         let expireDate = Date(timeInterval: currentTimer.remainingSeconds, since: .now)
@@ -65,24 +73,28 @@ final class TimerUseCase {
     }
     
     func pauseTimer() {
+        if timerState.value != .running {
+            return
+        }
+        
+        removeNotification()
         dispatchSourceTimer?.suspend()
+        
         timerState.accept(.paused)
         let remainingTime = Time(totalSeconds: currentTimer.totalSeconds, remainingSeconds: currentTimer.remainingSeconds)
         timerPersistentRepository.saveTimer(target: timerIdentifier, time: remainingTime, state: .paused)
-        
-        removeNotification()
     }
     
     func stopTimer() {
-        if timerState.value == .paused {
+        if case .paused = timerState.value {
             dispatchSourceTimer?.resume()
         }
         
         dispatchSourceTimer?.cancel()
+        dispatchSourceTimer = nil
+        
         timerState.accept(.finished)
         timerPersistentRepository.saveTimer(target: timerIdentifier, state: .finished)
-        
-        dispatchSourceTimer = nil
     }
     
     //TODO: Time 메소드 간소화
@@ -112,8 +124,10 @@ final class TimerUseCase {
         if timerState.value == .paused {
             dispatchSourceTimer?.resume()
         }
+        
         dispatchSourceTimer?.cancel()
         dispatchSourceTimer = nil
+        
         guard let notificationIdentifier = currentTimer.notificationIdentifier else { return }
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
     }
@@ -138,6 +152,9 @@ final class TimerUseCase {
             dispatchSourceTimer = DispatchSource.makeTimerSource(queue: .global())
         }
         
+        self.timerState.accept(.running)
+        dispatchSourceTimer?.resume()
+        
         self.dispatchSourceTimer?.schedule(deadline: .now(), repeating: 0.1)
         self.dispatchSourceTimer?.setEventHandler { [weak self] in
             guard let self = self else { return }
@@ -153,9 +170,6 @@ final class TimerUseCase {
                 self.timer.accept(Timer(timer: self.currentTimer, time: remainingTime))
             }
         }
-        
-        dispatchSourceTimer?.resume()
-        timerState.accept(.running)
     }
     
     deinit {
