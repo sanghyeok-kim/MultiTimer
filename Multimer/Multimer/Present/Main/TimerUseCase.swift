@@ -110,12 +110,15 @@ final class TimerUseCase {
     }
     
     func updateTimer(to newTimer: Timer) {
+        if newTimer.totalSeconds != currentTimer.totalSeconds {
+            resetTimer()
+        }
+        
         timerPersistentRepository
             .updateTimer(target: newTimer.identifier, name: newTimer.name, tag: newTimer.tag, time: newTimer.time)
             .subscribe(onCompleted: { [weak self] in
                 guard let self = self else { return }
                 self.timer.accept(newTimer)
-                self.resetTimer()
             })
             .disposed(by: disposeBag)
     }
