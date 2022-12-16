@@ -84,9 +84,14 @@ final class TimerUseCase {
         dispatchSourceTimer = nil
     }
     
-    //TODO: Timer 메소드 변경
+    //TODO: Time 메소드 간소화
     func resetTimer() {
-        timer.accept(Timer(timer: currentTimer, time: currentTimer.time.turnBackTime()))
+        if case .ready = timerState.value {
+            return
+        }
+        
+        removeNotification()
+        timer.accept(Timer(timer: currentTimer, time: TimeFactory.createResetTime(of: currentTimer.time)))
         timerState.accept(.ready)
         timerPersistentRepository.saveTimer(target: timerIdentifier, time: currentTimer.time, state: .ready)
     }
@@ -148,11 +153,11 @@ final class TimerUseCase {
             guard let self = self else { return }
             let remainingTimeInterval = -(Date().timeIntervalSince(expirationDate))
             
-            // TODO: Time 메소드 간소화
             if remainingTimeInterval <= .zero {
-                let defaultTime = Time(totalSeconds: self.currentTimer.totalSeconds, remainingSeconds: .zero)
-                self.timer.accept(Timer(timer: self.currentTimer, time: defaultTime))
-                self.timerPersistentRepository.saveTimer(target: self.timerIdentifier, time: self.currentTimer.time.expireTime())
+                let expiredTime = TimeFactory.createExpiredTime(of: self.currentTimer.time)
+                self.timer.accept(Timer(timer: self.currentTimer, time: expiredTime))
+                self.timerPersistentRepository.saveTimer(target: self.timerIdentifier, time: expiredTime)
+                self.stopTimer()
             } else {
                 let remainingTime = Time(totalSeconds: self.currentTimer.totalSeconds, remainingSeconds: remainingTimeInterval)
                 self.timer.accept(Timer(timer: self.currentTimer, time: remainingTime))

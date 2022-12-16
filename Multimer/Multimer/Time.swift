@@ -14,14 +14,20 @@ struct Time: Codable, Equatable {
     var remainingSeconds: Double
     
     var dividedTotalSeconds: (hour: Int, minute: Int, second: Int) {
-        return (totalSeconds / 3600, (totalSeconds % 3600) / 60, (totalSeconds % 3600) % 60)
+        let hourUnit = totalSeconds / 3600
+        let minuteUnit = (totalSeconds % 3600) / 60
+        let secondUnit = (totalSeconds % 3600) % 60
+        return (hourUnit, minuteUnit, secondUnit)
     }
     
-    var dividedRemainingSeconds: (hour: Int, minute: Int, second: Int) { // TODO: 변수명 다시 생각해보자
-        return (Int(round(remainingSeconds)) / 3600, (Int(round(remainingSeconds)) % 3600) / 60, (Int(round(remainingSeconds)) % 3600) % 60)
+    var dividedRemainingSeconds: (hour: Int, minute: Int, second: Int) {
+        let hourUnit = Int(round(remainingSeconds)) / 3600
+        let minuteUnit = (Int(round(remainingSeconds)) % 3600) / 60
+        let secondUnit = (Int(round(remainingSeconds)) % 3600) % 60
+        return (hourUnit, minuteUnit, secondUnit)
     }
     
-    var formattedString: String {
+    var formattedRemainingSeconds: String {
         let (hour, minute, second) = dividedRemainingSeconds
         let hourString = hour == .zero ? "" : String(format: "%02d:", hour)
         let minuteString = String(format: "%02d:", minute)
@@ -34,22 +40,9 @@ struct Time: Codable, Equatable {
         self.remainingSeconds = remainingSeconds
     }
     
-    init(totalSeconds: Int = .zero) {
-        self.totalSeconds = totalSeconds
-        self.remainingSeconds = Double(totalSeconds)
-    }
-    
     init(hour: Int, minute: Int, second: Int) {
         let totalSeconds = hour * 3600 + minute * 60 + second
         self.init(totalSeconds: totalSeconds, remainingSeconds: Double(totalSeconds))
-    }
-    
-    func turnBackTime() -> Time {
-        return Time(totalSeconds: totalSeconds)
-    }
-    
-    func expireTime() -> Time {
-        return Time(totalSeconds: totalSeconds, remainingSeconds: .zero)
     }
 }
 

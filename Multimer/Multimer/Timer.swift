@@ -24,7 +24,6 @@ struct Timer {
         return time.totalSeconds
     }
     
-//    var remainingSeconds: Int {
     var remainingSeconds: Double {
         return time.remainingSeconds
     }
@@ -32,7 +31,7 @@ struct Timer {
     init(identifier: UUID = UUID(),
          name: String = "타이머",
          tag: Tag? = nil,
-         time: Time = Time(),
+         time: Time = TimeFactory.createDefaultTime(),
          state: TimerState = .ready,
          expireDate: Date? = nil) {
         self.identifier = identifier
@@ -48,9 +47,9 @@ struct Timer {
         self.identifier = timer.identifier
         self.name = timer.name
         self.tag = timer.tag
-        self.time = time
         self.state = timer.state
-        self.notificationIdentifier = identifier.uuidString
+        self.notificationIdentifier = timer.identifier.uuidString
+        self.time = time
     }
     
     static func generateMock() -> [Timer] {
