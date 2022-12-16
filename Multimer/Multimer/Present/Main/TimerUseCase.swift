@@ -33,16 +33,17 @@ final class TimerUseCase {
         self.timerState = BehaviorRelay<TimerState>(value: timer.state)
         self.timerPersistentRepository = timerPersistentRepository
         self.timerIdentifier = timer.identifier
-        restoreTimer()
+        resumeIfTimerWasRunning()
     }
     
-    func restoreTimer() {
+    func resumeIfTimerWasRunning() {
         timerPersistentRepository
             .findTimer(target: timerIdentifier)
             .withUnretained(self)
             .bind { `self`, timer in
                 if case .running = timer.state {
-                    self.resumeTimer()
+                    guard let expireDate = timer.expireDate else { return }
+                    self.runTimer(by: expireDate)
                 }
             }
             .disposed(by: disposeBag)
@@ -130,17 +131,6 @@ final class TimerUseCase {
         guard let notificationIdentifier = currentTimer.notificationIdentifier else { return }
         let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
-    }
-    
-    private func resumeTimer() {
-        timerPersistentRepository
-            .findTimer(target: timerIdentifier)
-            .withUnretained(self)
-            .bind { `self`, timer in
-                guard let expireDate = timer.expireDate else { return }
-                self.runTimer(by: expireDate)
-            }
-            .disposed(by: disposeBag)
     }
     
     private func runTimer(by expirationDate: Date) {
