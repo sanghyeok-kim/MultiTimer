@@ -11,17 +11,7 @@ import RxAppState
 
 final class MainViewController: UIViewController, ViewType {
     
-    private lazy var filteringSegmentControl: UISegmentedControl = {
-//        let leftItemView = UIView()
-//        leftItemView.backgroundColor = .red
-//        let rightItemView = UIView()
-//        rightItemView.backgroundColor = .blue
-//        let segmentControl = UISegmentedControl(items: [leftItemView, rightItemView])
-        let segmentControl = UISegmentedControl(items: [TimerFilteringCondition.all.title, TimerFilteringCondition.active.title])
-        segmentControl.selectedSegmentIndex = TimerFilteringCondition.all.index
-//        segmentControl.selectedSegmentIndex = ActiveFilteringType.active.index
-        return segmentControl
-    }()
+    private lazy var filteringNavigationTitleView = FilteringNavigationTitleView()
     
     private lazy var tableViewDelegate = TimerTableViewDelegate()
     private lazy var tableViewDiffableDataSource = TimerTableViewDiffableDataSource(tableView: tableView)
@@ -186,6 +176,7 @@ private extension MainViewController {
 private extension MainViewController {
     func configureUI() {
         view.backgroundColor = .systemBackground
+        navigationItem.titleView = filteringNavigationTitleView
         navigationItem.rightBarButtonItem = timerAddBarButtonItem
         navigationItem.leftBarButtonItem = timerEditBarButtonItem
     }
@@ -199,8 +190,7 @@ private extension MainViewController {
         view.addSubview(timerEditingView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-//        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: filteringSegmentControl.bottomAnchor, constant: 8).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
