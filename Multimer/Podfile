@@ -10,6 +10,7 @@ target 'Multimer' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'RxAppState'
+  pod 'RxAnimated'
 
 
   target 'MultimerTests' do

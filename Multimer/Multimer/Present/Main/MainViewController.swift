@@ -25,61 +25,94 @@ final class MainViewController: UIViewController, ViewType {
     
     private lazy var tableViewDelegate = TimerTableViewDelegate()
     private lazy var tableViewDiffableDataSource = TimerTableViewDiffableDataSource(tableView: tableView)
-//    private lazy var tableViewDragDelegate = TimerTableViewDragDelegate()
-//    private lazy var tableViewDropDelegate = TimerTableViewDropDelegate()
     
     private lazy var tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.delegate = tableViewDelegate
         tableView.rowHeight = 100
         tableView.register(TimerViewCell.self, forCellReuseIdentifier: TimerViewCell.identifier)
-        tableView.delegate = tableViewDelegate
-        
-//        tableView.dragDelegate = tableViewDragDelegate
-//        tableView.dropDelegate = tableViewDropDelegate
-        tableView.dragInteractionEnabled = true
-        
-//        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
-//        tableView.addGestureRecognizer(longPressRecognizer)
+        tableView.allowsMultipleSelectionDuringEditing = true
         return tableView
     }()
     
-    
-    private lazy var addTimerBarButtonItem: UIBarButtonItem = {
+    private lazy var timerAddBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.title = "+"
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 18)
+        
+        let plusImage = UIImage(
+            systemName: "plus",
+            withConfiguration: imageConfig
+        )
+        
+        barButtonItem.image = plusImage
+        return barButtonItem
+    }()
+    
+    private lazy var timerEditBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.title = "편집"
         barButtonItem.style = .plain
         return barButtonItem
     }()
+    
+    private lazy var timerEditingView = TimerEditingView()
+    private lazy var timerEditingViewTopAnchor: NSLayoutConstraint = timerEditingView.topAnchor.constraint(
+        equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50
+    )
     
     private let disposeBag = DisposeBag()
     var viewModel: MainViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        navigationItem.rightBarButtonItem = addTimerBarButtonItem
-        
+        configureUI()
         layout()
     }
     
     func bindInput(to viewModel: MainViewModel) {
         let input = viewModel.input
         
+        rx.viewDidLoad
+            .bind(to: input.viewDidLoad)
+            .disposed(by: disposeBag)
+        
         tableViewDelegate.cellDidSwipeFromTrailing
             .bind(to: input.cellDidSwipeFromTrailing)
             .disposed(by: disposeBag)
-
+        
         tableViewDelegate.cellDidSwipeFromLeading
             .bind(to: input.cellDidSwipeFromLeading)
             .disposed(by: disposeBag)
         
-        addTimerBarButtonItem.rx.tap
-            .bind(to: input.addTimerButtonDidTap)
+        tableViewDelegate.selectedRows
+            .bind(to: input.selectedRows)
             .disposed(by: disposeBag)
         
-        filteringSegmentControl.rx.selectedSegmentIndex
-            .compactMap { TimerFilteringCondition(rawValue: $0) }
-            .bind(to: input.filteringSegmentDidTap)
+        tableViewDiffableDataSource.cellDidMove
+            .bind(to: input.cellDidMove)
+            .disposed(by: disposeBag)
+        
+        timerAddBarButtonItem.rx.tap
+            .bind(to: input.timerAddButtonDidTap)
+            .disposed(by: disposeBag)
+        
+        timerEditBarButtonItem.rx.tap
+            .withUnretained(self) { `self`, _ -> Bool in
+                return !self.tableView.isEditing
+            }
+            .bind(to: input.editButtonDidTap)
+            .disposed(by: disposeBag)
+        
+        filteringNavigationTitleView.selectedSegmentIndex
+            .bind(to: input.filteringSegmentControlDidTap)
+            .disposed(by: disposeBag)
+        
+        timerEditingView.buttonInEditViewDidTap
+            .bind(to: input.timerControlButtonInEditViewDidTap)
+            .disposed(by: disposeBag)
+        
+        timerEditingView.deleteButtonDidTap
+            .bind(to: input.deleteButtonInEditViewDidTap)
             .disposed(by: disposeBag)
     }
     
@@ -87,6 +120,7 @@ final class MainViewController: UIViewController, ViewType {
         let output = viewModel.output
         
         output.filteredTimerCellViewModels
+            .observe(on: MainScheduler.instance)
             .bind(onNext: tableViewDiffableDataSource.update)
             .disposed(by: disposeBag)
         
@@ -107,17 +141,62 @@ final class MainViewController: UIViewController, ViewType {
                 self.present(timerSettingViewController, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        output.maintainEditingMode
+            .withUnretained(self)
+            .bind { `self`, isEditing in
+                self.enterEditingMode(by: isEditing)
+            }
+            .disposed(by: disposeBag)
+        
+        output.enableEditViewButtons
+            .bind(to: timerEditingView.enableButtons)
+            .disposed(by: disposeBag)
+        
+        output.showDeleteConfirmAlert
+            .withUnretained(self)
+            .bind { `self`, count in
+                self.showDeleteConfirmAlert(count: count, confirmHandler: { _ in
+                    viewModel.input.confirmDeleteButtonDidTap.accept(())
+                })
+            }
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Helper Methods
+
+private extension MainViewController {
+    func enterEditingMode(by isEditing: Bool) {
+        self.timerEditBarButtonItem.title = isEditing ? "완료" : "편집"
+        self.tableView.setEditing(isEditing, animated: true)
+        self.presentTimerEditingView(by: isEditing)
     }
     
-//        @objc func longPressed(sender: UILongPressGestureRecognizer) {
-//            tableViewDataSource.swapByLongPress(with: sender, to: tableView)
-//        }
+    func showDeleteConfirmAlert(count: Int, confirmHandler: @escaping (UIAlertAction) -> Void) {
+        let alert = UIAlertController(title: "타이머 삭제", message: "선택한 \(count)개의 타이머를 삭제하시겠습니까?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "취소", style: .destructive))
+        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: confirmHandler))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
+
+// MARK: - UI Configuration
+
+private extension MainViewController {
+    func configureUI() {
+        view.backgroundColor = .systemBackground
+        navigationItem.rightBarButtonItem = timerAddBarButtonItem
+        navigationItem.leftBarButtonItem = timerEditBarButtonItem
+    }
+}
+
+// MARK: - UI Layout
 
 private extension MainViewController {
     func layout() {
         view.addSubview(tableView)
-        view.addSubview(filteringSegmentControl)
+        view.addSubview(timerEditingView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
 //        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -126,9 +205,16 @@ private extension MainViewController {
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         
-        filteringSegmentControl.translatesAutoresizingMaskIntoConstraints = false
-        filteringSegmentControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        filteringSegmentControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        filteringSegmentControl.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        timerEditingView.translatesAutoresizingMaskIntoConstraints = false
+        timerEditingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        timerEditingView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        timerEditingView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+    }
+    
+    func presentTimerEditingView(by isEditing: Bool) {
+        UIView.animate(withDuration: 0.3) {
+            self.timerEditingViewTopAnchor.isActive = isEditing
+            self.view.layoutIfNeeded()
+        }
     }
 }

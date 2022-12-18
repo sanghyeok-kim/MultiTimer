@@ -12,7 +12,7 @@ final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
     
     let cellDidSwipeFromTrailing = PublishRelay<Int>()
     let cellDidSwipeFromLeading = PublishRelay<Int>()
-    let cellDidSelect = PublishRelay<Void>()
+    let selectedRows = PublishRelay<[Int]>()
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
@@ -41,13 +41,17 @@ final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        cellDidSelect.accept(())
+        selectedRows.accept(tableView.indexPathsForSelectedRows?.compactMap { $0.row } ?? [])
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        selectedRows.accept(tableView.indexPathsForSelectedRows?.compactMap { $0.row } ?? [])
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return .leastNormalMagnitude
     }
-
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: TimerTableFooterView.identifier
