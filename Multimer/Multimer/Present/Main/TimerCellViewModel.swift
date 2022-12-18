@@ -11,20 +11,24 @@ import RxRelay
 final class TimerCellViewModel: ViewModelType {
     
     struct Input {
+        let cellDidTap = PublishRelay<Void>()
+        let cellDidSelect = BehaviorRelay<Bool>(value: false)
         let toggleButtonDidTap = PublishRelay<Void>()
         let resetButtonDidTap = PublishRelay<Void>()
-        let cellDidTap = PublishRelay<Void>()
+        let restartButtonDidTap = PublishRelay<Void>()
     }
     
     struct Output {
         let timer = BehaviorRelay<Timer>(value: Timer())
         let toggleButtonIsSelected = BehaviorRelay<Bool>(value: false)
         let toggleButtonIsHidden = BehaviorRelay<Bool>(value: false)
-        let restartButtonIsHidden = BehaviorRelay<Bool>(value: true)
+        let resetButtonIsHidden = BehaviorRelay<Bool>(value: true)
         let timerSettingViewModel = PublishRelay<TimerSettingViewModel>()
-        let progess = BehaviorRelay<Float>(value: .zero)
+        let progessRatio = BehaviorRelay<Float>(value: .zero)
         let isActive = BehaviorRelay<Bool>(value: false)
         let timerState = PublishRelay<TimerState>()
+        let initialTimeLabelIsHidden = PublishRelay<Bool>()
+        let cellCanTap = PublishRelay<Bool>()
     }
     
     let input = Input()
@@ -43,12 +47,36 @@ final class TimerCellViewModel: ViewModelType {
         
         handleToggleButtonDidTap()
         handleResetButtonDidTap()
+        handleRestartButtonDidTap()
         handleCellDidTap(with: timerUseCase)
         
         // MARK: - Handle Event from UseCase
         
         handleTimerState(with: timerUseCase)
         handleTimerEvent(with: timerUseCase)
+    }
+}
+
+// MARK: - Providing Methods
+
+extension TimerCellViewModel {
+    func removeNotification() {
+        timerUseCase.removeNotification()
+    }
+    
+    func controlTimerIfSelected(by buttonType: EditViewButtonType) {
+        switch buttonType {
+        case .start:
+            timerUseCase.startTimer()
+        case .pause:
+            timerUseCase.pauseTimer()
+        case .reset:
+            timerUseCase.resetTimer()
+        }
+    }
+    
+    func enableCellTapButton(by isEditing: Bool) {
+        output.cellCanTap.accept(isEditing)
     }
 }
 
@@ -107,7 +135,7 @@ private extension TimerCellViewModel {
         timerEvent
             .map { _ in timerUseCase.progressRatio }
             .distinctUntilChanged()
-            .bind(to: output.progess)
+            .bind(to: output.progessRatio)
             .disposed(by: disposeBag)
     }
     
