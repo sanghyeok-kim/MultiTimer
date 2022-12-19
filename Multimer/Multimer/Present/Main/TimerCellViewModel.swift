@@ -35,8 +35,7 @@ final class TimerCellViewModel: ViewModelType {
     let output = Output()
     
     let identifier: UUID
-    let timerUseCase: TimerUseCase
-    
+    private let timerUseCase: TimerUseCase
     private let disposeBag = DisposeBag()
     
     init(identifier: UUID, timerUseCase: TimerUseCase) {

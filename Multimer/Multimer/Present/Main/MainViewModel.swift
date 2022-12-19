@@ -15,7 +15,7 @@ final class MainViewModel: ViewModelType {
         let filteringSegmentControlDidTap = PublishRelay<TimerFilteringCondition>()
         let cellDidSwipeFromLeading = PublishRelay<Int>()
         let cellDidSwipeFromTrailing = PublishRelay<Int>()
-        let cellDidMove = PublishRelay<(source: IndexPath, destination: IndexPath)>()
+        let cellDidMove = PublishRelay<(source: Int, destination: Int)>()
         let timerAddButtonDidTap = PublishRelay<Void>()
         let timerEditButtonDidTap = PublishRelay<Void>()
         let selectedRows = PublishRelay<[Int]>()
@@ -123,12 +123,24 @@ private extension MainViewModel {
     }
     
     func handleCellDidMove() {
-        input.cellDidMove
+        let movedCellViewModels = input.cellDidMove
             .filter { $0.source != $0.destination }
-            .withUnretained(self) { `self`, indexPath -> [TimerCellViewModel] in
-                let movedTimerCellViewModels = self.moveTimerCellViewModel(from: indexPath.source, to: indexPath.destination)
-                return movedTimerCellViewModels
+            .withUnretained(self) { `self`, index -> [TimerCellViewModel] in
+                let movedCellViewModels = self.moveTimerCellViewModel(from: index.source, to: index.destination)
+                return movedCellViewModels
             }
+            .share()
+        
+        movedCellViewModels
+            .withUnretained(self)
+            .bind { `self`, cellViewModels in
+                cellViewModels.enumerated().forEach { index, cellViewModel in
+                    self.mainUseCase.moveTimer(target: cellViewModel.identifier, to: index)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        movedCellViewModels
             .bind(to: fetchedTimerCellViewModels)
             .disposed(by: disposeBag)
     }
@@ -263,7 +275,7 @@ private extension MainViewModel {
             .bind {
                 $0.forEach { deleteTarget in
                     deleteTarget.removeNotification()
-                    mainUseCase.deleteTimer(by: deleteTarget.identifier)
+                    mainUseCase.deleteTimer(target: deleteTarget.identifier)
                 }
             }
             .disposed(by: disposeBag)
@@ -278,12 +290,12 @@ private extension MainViewModel {
 // MARK: - Helper Methods
 
 private extension MainViewModel {
-    func moveTimerCellViewModel(from source: IndexPath, to destination: IndexPath) -> [TimerCellViewModel] {
+    func moveTimerCellViewModel(from source: Int, to destination: Int) -> [TimerCellViewModel] {
         let currentTimerCellViewModels = output.filteredTimerCellViewModels.value
         let fetchedTimerCellViewModels = fetchedTimerCellViewModels.value
         
-        let sourceViewModel = currentTimerCellViewModels[source.row]
-        let destinationViewModel = currentTimerCellViewModels[destination.row]
+        let sourceViewModel = currentTimerCellViewModels[source]
+        let destinationViewModel = currentTimerCellViewModels[destination]
         
         let destIndex = fetchedTimerCellViewModels.firstIndex(of: destinationViewModel) ?? 0
         var newCellViewModels = fetchedTimerCellViewModels.filter { $0 != sourceViewModel }

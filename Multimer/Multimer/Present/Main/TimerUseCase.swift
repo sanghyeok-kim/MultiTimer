@@ -13,9 +13,9 @@ final class TimerUseCase {
     let timer: BehaviorRelay<Timer>
     let timerState: BehaviorRelay<TimerState>
     
-    private var dispatchSourceTimer: DispatchSourceTimer? = nil
     private let timerPersistentRepository: CoreDataTimerRepository
     private let timerIdentifier: UUID
+    private var dispatchSourceTimer: DispatchSourceTimer? = nil
     private let disposeBag = DisposeBag()
     
     var currentTimer: Timer {
@@ -61,7 +61,7 @@ final class TimerUseCase {
         registerNotification()
         
         let expireDate = Date(timeInterval: currentTimer.remainingSeconds, since: .now)
-        timerPersistentRepository.saveTimer(target: timerIdentifier, expireDate: expireDate, state: .running)
+        timerPersistentRepository.saveTimeOfTimer(target: timerIdentifier, expireDate: expireDate, state: .running)
         
         timerPersistentRepository
             .updateTimer(target: timerIdentifier, expireDate: expireDate)
@@ -82,7 +82,7 @@ final class TimerUseCase {
         
         timerState.accept(.paused)
         let remainingTime = Time(totalSeconds: currentTimer.totalSeconds, remainingSeconds: currentTimer.remainingSeconds)
-        timerPersistentRepository.saveTimer(target: timerIdentifier, time: remainingTime, state: .paused)
+        timerPersistentRepository.saveTimeOfTimer(target: timerIdentifier, time: remainingTime, state: .paused)
     }
     
     func stopTimer() {
@@ -94,7 +94,7 @@ final class TimerUseCase {
         dispatchSourceTimer = nil
         
         timerState.accept(.finished)
-        timerPersistentRepository.saveTimer(target: timerIdentifier, state: .finished)
+        timerPersistentRepository.saveTimeOfTimer(target: timerIdentifier, state: .finished)
     }
     
     //TODO: Time 메소드 간소화
@@ -104,9 +104,9 @@ final class TimerUseCase {
         }
         
         removeNotification()
-        timer.accept(Timer(timer: currentTimer, time: TimeFactory.createResetTime(of: currentTimer.time)))
         timerState.accept(.ready)
-        timerPersistentRepository.saveTimer(target: timerIdentifier, time: currentTimer.time, state: .ready)
+        timer.accept(Timer(timer: currentTimer, time: TimeFactory.createResetTime(of: currentTimer.time)))
+        timerPersistentRepository.saveTimeOfTimer(target: timerIdentifier, time: currentTimer.time, state: .ready)
     }
     
     func updateTimer(to newTimer: Timer) {
@@ -166,7 +166,7 @@ final class TimerUseCase {
             if remainingTimeInterval <= .zero {
                 let expiredTime = TimeFactory.createExpiredTime(of: self.currentTimer.time)
                 self.timer.accept(Timer(timer: self.currentTimer, time: expiredTime))
-                self.timerPersistentRepository.saveTimer(target: self.timerIdentifier, time: expiredTime)
+                self.timerPersistentRepository.saveTimeOfTimer(target: self.timerIdentifier, time: expiredTime)
                 self.stopTimer()
             } else {
                 let remainingTime = Time(totalSeconds: self.currentTimer.totalSeconds, remainingSeconds: remainingTimeInterval)

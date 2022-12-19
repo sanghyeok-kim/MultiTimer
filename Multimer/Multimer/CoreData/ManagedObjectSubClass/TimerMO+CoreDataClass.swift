@@ -19,7 +19,7 @@ extension TimerMO: ModelConvertible {
         guard let identifier = identifier,
               let name = name,
               let time = time?.toModel() else { return nil }
-        return Timer(identifier: identifier, name: name, tag: tag?.toModel(), time: time, state: state, expireDate: expireDate)
+        return Timer(identifier: identifier, name: name, tag: tag?.toModel(), time: time, state: state, expireDate: expireDate, index: Int(index))
     }
 }
 
@@ -31,6 +31,7 @@ extension TimerMO {
                 expireDate: Date? = nil,
                 state: TimerState? = nil,
                 notificationIdentifier: String? = nil,
+                index: Int? = nil,
                 context: NSManagedObjectContext
     ) {
         self.identifier = identifier ?? self.identifier
@@ -40,6 +41,7 @@ extension TimerMO {
         self.expireDate = expireDate ?? self.expireDate
         self.state = state ?? self.state
         self.notificationIdentifier = notificationIdentifier ?? self.notificationIdentifier
+        self.index = Int16(index ?? Int(self.index))
     }
 }
 

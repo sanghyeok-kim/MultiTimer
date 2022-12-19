@@ -34,15 +34,18 @@ final class MainUseCase {
             .disposed(by: disposeBag)
     }
     
-    func deleteTimer(by identifier: UUID) {
+    func deleteTimer(target identifier: UUID) {
         timerPersistentRepository
             .deleteTimer(target: identifier)
-            .subscribe(onError: { [weak self] error in
-                guard let self = self,
-                      let error = error as? CoreDataError else { return }
-                self.deleteErrorMessage.onNext(error.localizedDescription)
+            .subscribe(onCompleted: { [weak self] in
+                guard let self = self else { return }
+                self.timerPersistentRepository.reindexTimers()
             })
             .disposed(by: disposeBag)
+    }
+    
+    func moveTimer(target identifier: UUID, to destination: Int) {
+        timerPersistentRepository.updateTimerIndex(target: identifier, to: destination)
     }
     
     func appendTimer(_ timer: Timer) {

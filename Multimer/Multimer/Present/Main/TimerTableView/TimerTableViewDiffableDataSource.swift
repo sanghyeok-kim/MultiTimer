@@ -10,7 +10,7 @@ import RxRelay
 
 final class TimerTableViewDiffableDataSource: UITableViewDiffableDataSource<TableViewSection, TimerCellViewModel> {
     
-    let cellDidMove = PublishRelay<(source: IndexPath, destination: IndexPath)>()
+    let cellDidMove = PublishRelay<(source: Int, destination: Int)>()
     
     typealias Snapshot = NSDiffableDataSourceSnapshot<TableViewSection, TimerCellViewModel>
     
@@ -41,6 +41,6 @@ final class TimerTableViewDiffableDataSource: UITableViewDiffableDataSource<Tabl
     // MARK: - UITableViewDataSource Methods
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        cellDidMove.accept((sourceIndexPath, destinationIndexPath))
+        cellDidMove.accept((sourceIndexPath.row, destinationIndexPath.row))
     }
 }
