@@ -27,6 +27,12 @@ extension UIPickerView { //TimerPickerView로 한정시키기
 }
 
 final class TimerSettingViewController: UIViewController, ViewType {
+    
+    private lazy var timerTypeSegmentControl: UISegmentedControl = {
+        let segmentControl = UISegmentedControl(items: [TimerType.countDown.title, TimerType.countUp.title])
+        segmentControl.selectedSegmentIndex = TimerType.countDown.index
+        return segmentControl
+    }()
     private lazy var timePickerViewDataSource = TimePickerViewDataSource()
     private lazy var tiemPickerViewDelegate = TimePickerViewDelegate()
     private lazy var timePickerView: UIPickerView = {
@@ -115,6 +121,11 @@ final class TimerSettingViewController: UIViewController, ViewType {
             .bind(to: input.viewDidLoad)
             .disposed(by: disposeBag)
         
+        timerTypeSegmentControl.rx.selectedSegmentIndex
+            .compactMap { TimerType(rawValue: $0) }
+            .bind(to: input.selectedTimerType)
+            .disposed(by: disposeBag)
+        
         tagScrollView.tagDidSelect
             .bind(to: input.tagDidSelect)
             .disposed(by: disposeBag)
@@ -175,6 +186,10 @@ final class TimerSettingViewController: UIViewController, ViewType {
         
         output.completeButtonEnable
             .bind(to: completeButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.timePickerViewIsHidden
+            .bind(to: timePickerView.rx.animated.flip(.top, duration: 0.35).isHidden)
             .disposed(by: disposeBag)
     }
 }

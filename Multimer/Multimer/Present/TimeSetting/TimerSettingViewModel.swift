@@ -17,6 +17,7 @@ final class TimerSettingViewModel: ViewModelType {
         let timePickerViewDidEdit = PublishRelay<(hour: Int, minute: Int, second: Int)>()
         let cancelButtonDidTap = PublishRelay<Void>()
         let completeButtonDidTap = PublishRelay<Void>()
+        let selectedTimerType = PublishRelay<TimerType>()
     }
     
     struct Output {
@@ -24,6 +25,7 @@ final class TimerSettingViewModel: ViewModelType {
         let completeButtonEnable = PublishRelay<Bool>()
         let timer: BehaviorRelay<Timer>
         let newTimer = PublishRelay<Timer>()
+        let timePickerViewIsHidden = PublishRelay<Bool>()
     }
     
     let output: Output
