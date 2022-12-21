@@ -1,14 +1,14 @@
 //
-//  TimerSettingViewModel.swift
+//  TimerCreateViewModel.swift
 //  Multimer
 //
-//  Created by 김상혁 on 2022/11/07.
+//  Created by 김상혁 on 2022/12/21.
 //
 
 import RxSwift
 import RxRelay
 
-final class TimerSettingViewModel: ViewModelType {
+final class TimerCreateViewModel: ViewModelType {
     
     struct Input {
         let viewDidLoad = PublishRelay<Void>()
@@ -17,6 +17,7 @@ final class TimerSettingViewModel: ViewModelType {
         let timePickerViewDidEdit = PublishRelay<Time>()
         let cancelButtonDidTap = PublishRelay<Void>()
         let completeButtonDidTap = PublishRelay<Void>()
+        let selectedTimerType = PublishRelay<TimerType>()
     }
     
     struct Output {
@@ -41,34 +42,35 @@ final class TimerSettingViewModel: ViewModelType {
             .bind(to: output.exitScene)
             .disposed(by: disposeBag)
         
-        output.newTimer
-            .map { _ in }
-            .bind(to: output.exitScene)
-            .disposed(by: disposeBag)
-        
-        // MARK: - Timer 초기값을 한 번 보내줌
         input.viewDidLoad
             .map { timer.name }
             .bind(to: input.nameTextFieldDidEdit)
             .disposed(by: disposeBag)
+        
         input.viewDidLoad
-            .map { timer.time.dividedSeconds }
+            .map { timer.time }
             .bind(to: input.timePickerViewDidEdit)
             .disposed(by: disposeBag)
         
+        input.selectedTimerType
+            .map { !$0.shouldSetTime }
+            .bind(to: output.timePickerViewIsHidden)
+            .disposed(by: disposeBag)
         
         let newTimer = Observable
             .combineLatest(
                 input.nameTextFieldDidEdit,
                 input.tagDidSelect,
-                input.timePickerViewDidEdit
+                input.timePickerViewDidEdit,
+                input.selectedTimerType
             )
-            .map { (name, tag, time) in
+            .map { (name, tag, time, type) in
                 Timer(
                     identifier: timer.identifier,
                     name: name,
                     tag: tag,
-                    time: time
+                    time: time,
+                    type: type
                 )
             }
             .share()
@@ -88,6 +90,11 @@ final class TimerSettingViewModel: ViewModelType {
         input.completeButtonDidTap
             .withLatestFrom(newTimer)
             .bind(to: output.newTimer)
+            .disposed(by: disposeBag)
+        
+        output.newTimer
+            .map { _ in }
+            .bind(to: output.exitScene)
             .disposed(by: disposeBag)
     }
 }

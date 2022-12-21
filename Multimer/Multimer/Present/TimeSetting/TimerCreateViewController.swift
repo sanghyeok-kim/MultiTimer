@@ -1,26 +1,21 @@
 //
-//  TimerSettingViewController.swift
+//  TimerCreateViewController.swift
 //  Multimer
 //
-//  Created by 김상혁 on 2022/11/02.
+//  Created by 김상혁 on 2022/12/21.
 //
 
 import RxSwift
 import RxRelay
 import RxAppState
 
-}
-
-extension UIPickerView { //TimerPickerView로 한정시키기
-    func selectRows(by time: Time, animated: Bool) {
-        let (hour, minute, second) = time.dividedTotalSeconds
-        selectRow(hour, inComponent: 0, animated: true) // TODO: 하드코딩 개선
-        selectRow(minute, inComponent: 1, animated: true)
-        selectRow(second, inComponent: 2, animated: true)
-    }
-}
-
-final class TimerSettingViewController: UIViewController, ViewType {
+final class TimerCreateViewController: UIViewController, ViewType {
+    
+    private lazy var timerTypeSegmentControl: UISegmentedControl = {
+        let segmentControl = UISegmentedControl(items: [TimerType.countDown.title, TimerType.countUp.title])
+        segmentControl.selectedSegmentIndex = TimerType.countDown.index
+        return segmentControl
+    }()
     
     private lazy var timePickerViewDataSource = TimePickerViewDataSource()
     private lazy var tiemPickerViewDelegate = TimePickerViewDelegate()
@@ -31,8 +26,6 @@ final class TimerSettingViewController: UIViewController, ViewType {
         pickerView.layer.borderWidth = 0.5
         pickerView.layer.cornerRadius = 8
         pickerView.layer.borderColor = UIColor.systemGray.cgColor
-        pickerView.setFixedLabels(with: TimeType.allCases.map { $0.title })
-        
         return pickerView
     }()
     
@@ -85,7 +78,6 @@ final class TimerSettingViewController: UIViewController, ViewType {
     }()
     
     private lazy var buttonStackView: UIStackView = {
-        //제공 해줌
         let stackView = UIStackView(arrangedSubviews: [cancelButton, completeButton])
         stackView.axis = .horizontal
         stackView.spacing = 16
@@ -102,7 +94,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
     }()
     
     private let disposeBag = DisposeBag()
-    var viewModel: TimerSettingViewModel?
+    var viewModel: TimerCreateViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,10 +106,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
         self.view.endEditing(true)
     }
     
-    func bindInput(to viewModel: TimerSettingViewModel) {
-        // 초기 이벤트 하나는 발생시켜야하므로 PublishRelay가 아닌 BehaviorRelay 사용
-        // (초기 이벤트 하나를 발생시켜야 하는 이유 -> VM에서 CombineLatest로 받으므로, 모든 이벤트가 Combine되지 않으면 tap 이벤트가 호출되지 않음)
-//        let timePickerViewDidEit = BehaviorRelay<(hour: Int, minute: Int, second: Int)>(value: (0, 0, 0))
+    func bindInput(to viewModel: TimerCreateViewModel) {
         let input = viewModel.input
         
         rx.viewDidLoad
@@ -157,7 +146,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
         timePickerView.rx.itemSelected
             .withUnretained(self)
             .map { `self`, _ -> Time in
-                let hour = self.timePickerView.selectedRow(inComponent: 0) // TODO: 하드코딩 개선, Simplify
+                let hour = self.timePickerView.selectedRow(inComponent: 0)
                 let minute = self.timePickerView.selectedRow(inComponent: 1)
                 let second = self.timePickerView.selectedRow(inComponent: 2)
                 return Time(hour: hour, minute: minute, second: second)
@@ -166,9 +155,17 @@ final class TimerSettingViewController: UIViewController, ViewType {
             .disposed(by: disposeBag)
     }
     
-    func bindOutput(from viewModel: TimerSettingViewModel) {
+    func bindOutput(from viewModel: TimerCreateViewModel) {
         let output = viewModel.output
         
+        output.nameTextFieldContents
+            .bind(to: nameTextField.rx.text)
+            .disposed(by: disposeBag)
+                      
+        output.nameTextFieldExceedMaxLength
+            .map { !$0 }
+            .bind {
+                print($0)
             }
             .disposed(by: disposeBag)
         
@@ -179,11 +176,10 @@ final class TimerSettingViewController: UIViewController, ViewType {
             }
             .disposed(by: disposeBag)
         
-        // TODO: Coordinator로 제어
         output.exitScene
             .withUnretained(self)
             .bind { `self`, _ in
-                self.navigationController?.popViewController(animated: true)
+                self.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
         
@@ -199,9 +195,9 @@ final class TimerSettingViewController: UIViewController, ViewType {
 
 // MARK: - UI Configuration
 
-private extension TimerSettingViewController {
+private extension TimerCreateViewController {
     func configureUI() {
-        title = "타이머 설정"
+        navigationItem.title = "타이머 생성"
         view.backgroundColor = .systemBackground
     }
     
@@ -215,20 +211,25 @@ private extension TimerSettingViewController {
 
 // MARK: - UI Layout
 
-private extension TimerSettingViewController {
+private extension TimerCreateViewController {
     func layout() {
+        view.addSubview(timerTypeSegmentControl)
         view.addSubview(tagScrollView)
         view.addSubview(nameTextField)
         view.addSubview(timePickerView)
         view.addSubview(buttonStackView)
-        
         view.addSubview(timeSettingStackView)
         
+        timerTypeSegmentControl.translatesAutoresizingMaskIntoConstraints = false
+        timerTypeSegmentControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 64).isActive = true
+        timerTypeSegmentControl.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 48).isActive = true
+        timerTypeSegmentControl.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -48).isActive = true
+        timerTypeSegmentControl.heightAnchor.constraint(equalToConstant: 36).isActive = true
         
         tagScrollView.translatesAutoresizingMaskIntoConstraints = false
-        tagScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48).isActive = true
-        tagScrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 36).isActive = true
-        tagScrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -36).isActive = true
+        tagScrollView.topAnchor.constraint(equalTo: timerTypeSegmentControl.bottomAnchor, constant: 20).isActive = true
+        tagScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36).isActive = true
+        tagScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36).isActive = true
         tagScrollView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.12).isActive = true
         
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -239,8 +240,8 @@ private extension TimerSettingViewController {
         
         timeSettingStackView.translatesAutoresizingMaskIntoConstraints = false
         timeSettingStackView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20).isActive = true
-        timeSettingStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 36).isActive = true
-        timeSettingStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -36).isActive = true
+        timeSettingStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36).isActive = true
+        timeSettingStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36).isActive = true
     }
 }
 
