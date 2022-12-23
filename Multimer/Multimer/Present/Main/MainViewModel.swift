@@ -32,6 +32,7 @@ final class MainViewModel: ViewModelType {
         let maintainEditingMode = PublishRelay<Bool>()
         let enableEditViewButtons = PublishRelay<Bool>()
         let showDeleteConfirmAlert = PublishRelay<Int>()
+        let deselectRows = PublishRelay<[Int]>()
     }
     
     private let fetchedTimerCellViewModels = BehaviorRelay<[TimerCellViewModel]>(value: [])
@@ -87,6 +88,17 @@ private extension MainViewModel {
                 }
             }
             .bind(to: output.filteredTimerCellViewModels)
+            .disposed(by: disposeBag)
+        
+        input.filteringSegmentControlDidTap
+            .withLatestFrom(output.filteredTimerCellViewModels)
+            .map { Array(0..<$0.count) }
+            .bind(to: output.deselectRows)
+            .disposed(by: disposeBag)
+        
+        input.filteringSegmentControlDidTap
+            .map { _ in [] }
+            .bind(to: input.selectedRows)
             .disposed(by: disposeBag)
     }
     

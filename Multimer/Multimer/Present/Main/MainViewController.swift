@@ -151,6 +151,13 @@ final class MainViewController: UIViewController, ViewType {
                 })
             }
             .disposed(by: disposeBag)
+        
+        output.deselectRows
+            .withUnretained(self)
+            .bind { `self`, rows in
+                rows.forEach { self.tableView.deselectRow(at: IndexPath(row: $0, section: .zero), animated: true) }
+            }
+            .disposed(by: disposeBag)
     }
 }
 
