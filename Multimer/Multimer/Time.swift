@@ -27,6 +27,14 @@ struct Time: Codable, Equatable {
         return (hourUnit, minuteUnit, secondUnit)
     }
     
+    var formattedTotalSeconds: String {
+        let (hour, minute, second) = dividedTotalSeconds
+        let hourString = hour == .zero ? "" : String(format: "%02d:", hour)
+        let minuteString = String(format: "%02d:", minute)
+        let secondString = String(format: "%02d", second)
+        return "\(hourString)\(minuteString)\(secondString)"
+    }
+    
     var formattedRemainingSeconds: String {
         let (hour, minute, second) = dividedRemainingSeconds
         let hourString = hour == .zero ? "" : String(format: "%02d:", hour)

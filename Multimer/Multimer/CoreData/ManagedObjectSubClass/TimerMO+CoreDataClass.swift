@@ -19,28 +19,43 @@ extension TimerMO: ModelConvertible {
         guard let identifier = identifier,
               let name = name,
               let time = time?.toModel() else { return nil }
-        return Timer(identifier: identifier, name: name, tag: tag?.toModel(), time: time, state: state, expireDate: expireDate, index: Int(index))
+        return Timer(
+            identifier: identifier,
+            name: name,
+            tag: tag?.toModel(),
+            time: time,
+            state: state,
+            expireDate: expireDate,
+            startDate: startDate,
+            type: type,
+            index: Int(index)
+        )
     }
 }
 
 extension TimerMO {
-    func update(identifier: UUID? = nil,
-                name: String? = nil,
-                tag: Tag? = nil,
-                time: Time? = nil,
-                expireDate: Date? = nil,
-                state: TimerState? = nil,
-                notificationIdentifier: String? = nil,
-                index: Int? = nil,
-                context: NSManagedObjectContext
+    func update(
+        identifier: UUID? = nil,
+        name: String? = nil,
+        tag: Tag? = nil,
+        time: Time? = nil,
+        state: TimerState? = nil,
+        expireDate: Date? = nil,
+        startDate: Date? = nil,
+        notificationIdentifier: String? = nil,
+        type: TimerType? = nil,
+        index: Int? = nil,
+        context: NSManagedObjectContext
     ) {
         self.identifier = identifier ?? self.identifier
         self.name = name ?? self.name
         self.tag = tag?.toManagedObejct(in: context) ?? self.tag
         self.time = time?.toManagedObejct(in: context) ?? self.time
-        self.expireDate = expireDate ?? self.expireDate
         self.state = state ?? self.state
+        self.expireDate = expireDate ?? self.expireDate
+        self.startDate = startDate ?? self.startDate
         self.notificationIdentifier = notificationIdentifier ?? self.notificationIdentifier
+        self.type = type ?? self.type
         self.index = Int16(index ?? Int(self.index))
     }
 }
@@ -52,16 +67,25 @@ extension TimerMO {
     
     var state: TimerState {
         get {
-            return TimerState(rawValue: self.stateValue) ?? .ready
+            return TimerState(rawValue: Int(self.stateValue)) ?? .ready
         }
         set {
-            self.stateValue = newValue.rawValue
+            self.stateValue = Int16(newValue.rawValue)
+        }
+    }
+    
+    var type: TimerType {
+        get {
+            return TimerType(rawValue: Int(self.typeValue)) ?? .countDown
+        }
+        set {
+            self.typeValue = Int16(newValue.rawValue)
         }
     }
 }
 
 @frozen
-enum TimerState: Int16 {
+enum TimerState: Int {
     case ready
     case running
     case paused

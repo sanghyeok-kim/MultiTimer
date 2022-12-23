@@ -114,7 +114,7 @@ final class MainViewController: UIViewController, ViewType {
             .bind(onNext: tableViewDiffableDataSource.update)
             .disposed(by: disposeBag)
         
-        output.pushTimerSettingViewModel
+        output.pushTimerSettingViewController
             .withUnretained(self)
             .bind { `self`, viewModel in
                 let timerSettingViewController = TimerSettingViewController()
@@ -123,12 +123,12 @@ final class MainViewController: UIViewController, ViewType {
             }
             .disposed(by: disposeBag)
         
-        output.presentTimerSettingViewModel
+        output.presentTimerCreateViewController
             .withUnretained(self)
             .bind { `self`, viewModel in
-                let timerSettingViewController = TimerSettingViewController()
-                timerSettingViewController.bind(viewModel: viewModel)
-                self.present(timerSettingViewController, animated: true)
+                let timerCreateViewController = TimerCreateViewController()
+                timerCreateViewController.bind(viewModel: viewModel)
+                self.present(timerCreateViewController, animated: true)
             }
             .disposed(by: disposeBag)
         

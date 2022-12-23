@@ -9,7 +9,6 @@ import Foundation
 import CoreData
 
 extension CoreDataStorage {
-//    func update(timeMO: TimeMO, totalSeconds: Int? = nil, remainingSeconds: Int? = nil) {
     func update(timeMO: TimeMO, totalSeconds: Int? = nil, remainingSeconds: Double? = nil) {
         backgroundContext.perform { [weak self] in
             guard let self = self else { return }

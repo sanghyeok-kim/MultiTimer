@@ -7,6 +7,7 @@
 
 import Foundation
 
+@frozen
 enum TimerType: Int, CaseIterable {
     case countDown
     case countUp

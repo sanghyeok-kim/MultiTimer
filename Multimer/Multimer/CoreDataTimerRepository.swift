@@ -10,7 +10,6 @@ import CoreData
 
 final class CoreDataTimerRepository {
     
-    private var maximumStorageCount: Int
     private let coreDataStorage: CoreDataStorage
     private let disposeBag = DisposeBag()
     
@@ -21,8 +20,7 @@ final class CoreDataTimerRepository {
         return request
     }
     
-    init(maximumStorageCount: Int, coreDataStorage: CoreDataStorage = CoreDataStorage.shared) {
-        self.maximumStorageCount = maximumStorageCount
+    init(coreDataStorage: CoreDataStorage = CoreDataStorage.shared) {
         self.coreDataStorage = coreDataStorage
     }
     
@@ -32,7 +30,6 @@ final class CoreDataTimerRepository {
             .subscribe(onSuccess: { [weak self] result in
                 guard let self = self else { return }
                 let lastIndex = Int(result.last?.index ?? 0)
-                print(lastIndex + 1)
                 self.coreDataStorage.create(from: Timer.updateIndex(of: timer, index: lastIndex + 1))
             })
             .disposed(by: disposeBag)
@@ -52,14 +49,25 @@ final class CoreDataTimerRepository {
         name: String? = nil,
         tag: Tag? = nil,
         time: Time? = nil,
+        state: TimerState? = nil,
         expireDate: Date? = nil,
-        state: TimerState? = nil
+        startDate: Date? = nil,
+        type: TimerType? = nil
     ) -> Completable {
         return Completable.create { [weak self] completable in
             guard let self = self else { return Disposables.create { } }
             self.findTimer(target: identifier)
                 .bind { updateTarget in
-                    self.coreDataStorage.update(timerMO: updateTarget, name: name, tag: tag, time: time, expireDate: expireDate, state: state)
+                    self.coreDataStorage.update(
+                        timerMO: updateTarget,
+                        name: name,
+                        tag: tag,
+                        time: time,
+                        state: state,
+                        expireDate: expireDate,
+                        startDate: startDate,
+                        type: type
+                    )
                     completable(.completed)
                 }
                 .disposed(by: self.disposeBag)
@@ -67,14 +75,17 @@ final class CoreDataTimerRepository {
         }
     }
     
-    func saveTimeOfTimer(target identifier: UUID,
-                   time: Time? = nil,
-                   expireDate: Date? = nil,
-                   state: TimerState? = nil) {
+    func saveTimeOfTimer(
+        target identifier: UUID,
+        time: Time? = nil,
+        state: TimerState? = nil,
+        expireDate: Date? = nil,
+        startDate: Date? = nil
+    ) {
         findTimer(target: identifier)
             .withUnretained(self)
             .bind { `self`, updateTarget in
-                self.coreDataStorage.update(timerMO: updateTarget, time: time, expireDate: expireDate, state: state)
+                self.coreDataStorage.update(timerMO: updateTarget, time: time, state: state, expireDate: expireDate)
             }
             .disposed(by: self.disposeBag)
     }

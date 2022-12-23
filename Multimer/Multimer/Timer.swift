@@ -16,9 +16,10 @@ struct Timer {
     var time: Time
     var state: TimerState
     var expireDate: Date?
+    var startDate: Date?
     var notificationIdentifier: String?
-//    var sound:
-//    var repeatCount
+    var type: TimerType
+    var index: Int
     
     var totalSeconds: Int {
         return time.totalSeconds
@@ -33,49 +34,65 @@ struct Timer {
          tag: Tag? = nil,
          time: Time = TimeFactory.createDefaultTime(),
          state: TimerState = .ready,
-         expireDate: Date? = nil) {
+         expireDate: Date? = nil,
+         startDate: Date? = nil,
+         type: TimerType = .countDown,
+         index: Int = .zero) {
         self.identifier = identifier
         self.name = name
         self.tag = tag
         self.time = time
         self.state = state
         self.expireDate = expireDate
+        self.startDate = startDate
         self.notificationIdentifier = identifier.uuidString
+        self.type = type
+        self.index = index
     }
     
     init(timer: Timer, time: Time) {
         self.identifier = timer.identifier
         self.name = timer.name
         self.tag = timer.tag
-        self.state = timer.state
-        self.notificationIdentifier = timer.identifier.uuidString
         self.time = time
+        self.state = timer.state
+        self.expireDate = timer.expireDate
+        self.startDate = timer.startDate
+        self.notificationIdentifier = timer.identifier.uuidString
+        self.type = timer.type
+        self.index = timer.index
+    }
+    
+    static func updateIndex(of timer: Timer, index: Int) -> Timer {
+        var newTimer = timer
+        newTimer.index = index
+        return newTimer
     }
     
     static func generateMock() -> [Timer] {
-        return [Timer(name: "알림1", tag: Tag(color: .blue), time: Time(hour: 0, minute: 0, second: 20)),
-                Timer(name: "알림2", tag: Tag(color: .red), time: Time(hour: 0, minute: 0, second: 17)),
-                Timer(name: "알림3", tag: Tag(color: .brown), time: Time(hour: 0, minute: 0, second: 15)),
-                Timer(name: "알림4", tag: nil, time: Time(hour: 0, minute: 0, second: 22)),
-                Timer(name: "알림5", tag: Tag(color: .red), time: Time(hour: 0, minute: 0, second: 10)),
-                Timer(name: "알림6", tag: nil, time: Time(hour: 0, minute: 0, second: 14)),
-                Timer(name: "알림7", tag: Tag(color: .yellow), time: Time(hour: 2, minute: 10, second: 20)),
-                Timer(name: "알림8", tag: Tag(color: .indigo), time: Time(hour: 1, minute: 13, second: 30)),
-                Timer(name: "알림9", tag: nil, time: Time(hour: 20, minute: 50, second: 50)),
-                Timer(name: "알림10", tag: Tag(color: .orange), time: Time(hour: 0, minute: 10, second: 20)),
-                Timer(name: "알림11", tag: Tag(color: .purple), time: Time(hour: 1, minute: 10, second: 20)),
-                Timer(name: "알림12", tag: Tag(color: .pink), time: Time(hour: 10, minute: 10, second: 20)),
-                Timer(name: "알림13", tag: Tag(color: .blue), time: Time(hour: 2, minute: 10, second: 20)),
-                Timer(name: "알림14", tag: Tag(color: .red), time: Time(hour: 15, minute: 10, second: 20)),
-                Timer(name: "알림15", tag: Tag(color: .brown), time: Time(hour: 3, minute: 10, second: 20)),
-                Timer(name: "알림16", tag: Tag(color: .yellow), time: Time(hour: 2, minute: 10, second: 20)),
-                Timer(name: "알림17", tag: Tag(color: .orange), time: Time(hour: 4, minute: 10, second: 20)),
-                Timer(name: "알림18", tag: Tag(color: .green), time: Time(hour: 0, minute: 10, second: 20)),
-                Timer(name: "알림19", tag: Tag(color: .blue), time: Time(hour: 5, minute: 10, second: 20)),
-                Timer(name: "알림20", tag: Tag(color: .pink), time: Time(hour: 0, minute: 0, second: 20)),
-                Timer(name: "알림21", tag: Tag(color: .purple), time: Time(hour: 1, minute: 1, second: 21)),
-                Timer(name: "알림22", tag: Tag(color: .green), time: Time(hour: 0, minute: 0, second: 7)),
-                Timer(name: "알림23", tag: Tag(color: .indigo), time: Time(hour: 0, minute: 0, second: 10))]
+        return [Timer(name: "알림1", tag: Tag(color: .blue), time: Time(hour: 0, minute: 0, second: 20), index: 0),
+                Timer(name: "알림2", tag: Tag(color: .red), time: Time(hour: 0, minute: 0, second: 17), index: 1),
+                Timer(name: "알림3", tag: Tag(color: .brown), time: Time(hour: 0, minute: 0, second: 15), index: 2),
+                Timer(name: "알림4", tag: nil, type: .countUp, index: 3),
+                Timer(name: "알림5", tag: Tag(color: .red), time: Time(hour: 0, minute: 0, second: 10), index: 4),
+                Timer(name: "알림6", tag: nil, time: Time(hour: 0, minute: 0, second: 14), index: 5),
+                Timer(name: "알림7", tag: Tag(color: .yellow), time: Time(hour: 2, minute: 10, second: 20), index: 6),
+                Timer(name: "알림8", tag: Tag(color: .indigo), time: Time(hour: 1, minute: 13, second: 30), index: 7),
+                Timer(name: "알림9", tag: nil, type: .countUp, index: 8),
+                Timer(name: "알림10", tag: Tag(color: .orange), time: Time(hour: 0, minute: 10, second: 20), index: 9),
+                Timer(name: "알림11", tag: Tag(color: .purple), time: Time(hour: 1, minute: 10, second: 20), index: 10),
+                Timer(name: "알림12", tag: Tag(color: .pink), type: .countUp, index: 11),
+                Timer(name: "알림13", tag: Tag(color: .blue), time: Time(hour: 2, minute: 10, second: 20), index: 12),
+                Timer(name: "알림14", tag: Tag(color: .red), time: Time(hour: 15, minute: 10, second: 20), index: 13),
+                Timer(name: "알림15", tag: Tag(color: .brown), time: Time(hour: 3, minute: 10, second: 20), index: 14),
+                Timer(name: "알림16", tag: Tag(color: .yellow), time: Time(hour: 2, minute: 10, second: 20), index: 15),
+                Timer(name: "알림17", tag: Tag(color: .orange), time: Time(hour: 4, minute: 10, second: 20), index: 16),
+                Timer(name: "알림18", tag: Tag(color: .green), type: .countUp, index: 17),
+                Timer(name: "알림19", tag: Tag(color: .blue), time: Time(hour: 5, minute: 10, second: 20), index: 18),
+                Timer(name: "알림20", tag: Tag(color: .pink), type: .countUp, index: 19),
+                Timer(name: "알림21", tag: Tag(color: .purple), time: Time(hour: 1, minute: 1, second: 21), index: 20),
+                Timer(name: "알림22", tag: Tag(color: .green), time: Time(hour: 0, minute: 0, second: 7), index: 21),
+                Timer(name: "알림23", tag: Tag(color: .indigo), time: Time(hour: 0, minute: 0, second: 10), index:  22)]
 }
 
 //extension Timer: NSItemProviderReading {
@@ -121,7 +138,19 @@ extension Timer: Equatable {
 extension Timer: ManagedObjectConvertible {
     func toManagedObejct(in context: NSManagedObjectContext) -> TimerMO {
         let timerMO = TimerMO(context: context)
-        timerMO.update(identifier: identifier, name: name, tag: tag, time: time, state: state, context: context)
+        timerMO.update(
+            identifier: identifier,
+            name: name,
+            tag: tag,
+            time: time,
+            state: state,
+            expireDate: expireDate,
+            startDate: startDate,
+            notificationIdentifier: notificationIdentifier,
+            type: type,
+            index: index,
+            context: context
+        )
         return timerMO
     }
 }

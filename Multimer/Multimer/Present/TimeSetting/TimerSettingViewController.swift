@@ -9,8 +9,6 @@ import RxSwift
 import RxRelay
 import RxAppState
 
-}
-
 extension UIPickerView { //TimerPickerView로 한정시키기
     func selectRows(by time: Time, animated: Bool) {
         let (hour, minute, second) = time.dividedTotalSeconds
@@ -122,11 +120,6 @@ final class TimerSettingViewController: UIViewController, ViewType {
         
         rx.viewDidLoad
             .bind(to: input.viewDidLoad)
-            .disposed(by: disposeBag)
-        
-        timerTypeSegmentControl.rx.selectedSegmentIndex
-            .compactMap { TimerType(rawValue: $0) }
-            .bind(to: input.selectedTimerType)
             .disposed(by: disposeBag)
         
         tagScrollView.tagDidSelect

@@ -27,8 +27,8 @@ final class MainViewModel: ViewModelType {
     
     struct Output {
         let filteredTimerCellViewModels = BehaviorRelay<[TimerCellViewModel]>(value: [])
-        let pushTimerSettingViewModel = PublishRelay<TimerSettingViewModel>()
-        let presentTimerSettingViewModel = PublishRelay<TimerSettingViewModel>()
+        let pushTimerSettingViewController = PublishRelay<TimerSettingViewModel>()
+        let presentTimerCreateViewController = PublishRelay<TimerCreateViewModel>()
         let maintainEditingMode = PublishRelay<Bool>()
         let enableEditViewButtons = PublishRelay<Bool>()
         let showDeleteConfirmAlert = PublishRelay<Int>()
@@ -146,24 +146,32 @@ private extension MainViewModel {
     }
     
     func handleAddTimerButtonDidTap() {
-        let newTimerSettingViewModel = input.timerAddButtonDidTap
-            .map { TimerSettingViewModel(timer: Timer(time: TimeFactory.createDefaultTime())) }
+        let timerCreateViewModel = input.timerAddButtonDidTap
+            .map { TimerCreateViewModel(timer: Timer(time: TimeFactory.createDefaultTime())) }
             .share()
-        
-        newTimerSettingViewModel
-            .bind(to: output.presentTimerSettingViewModel)
+
+        timerCreateViewModel
+            .bind(to: output.presentTimerCreateViewController)
             .disposed(by: disposeBag)
-        
-        let createdTimer = newTimerSettingViewModel
+
+        let createdTimer = timerCreateViewModel
             .flatMapLatest { $0.output.newTimer }
             .share()
         
         createdTimer
-            .map {
-                TimerCellViewModel(
-                    identifier: $0.identifier,
-                    timerUseCase: TimerUseCase(timer: $0, timerPersistentRepository: CoreDataTimerRepository(maximumStorageCount: 20))
-                )
+            .map { timer -> TimerCellViewModel in
+                switch timer.type {
+                case .countDown:
+                    return TimerCellViewModel(
+                        identifier: timer.identifier,
+                        timerUseCase: CountDownTimerUseCase(timer: timer, timerPersistentRepository: CoreDataTimerRepository())
+                    )
+                case .countUp:
+                    return TimerCellViewModel(
+                        identifier: timer.identifier,
+                        timerUseCase: CountUpTimerUseCase(timer: timer, timerPersistentRepository: CoreDataTimerRepository())
+                    )
+                }
             }
             .withLatestFrom(fetchedTimerCellViewModels) { newTimerCellViewModel, currentCellViewModels in
                 var currentCellViewModels = currentCellViewModels
@@ -172,7 +180,7 @@ private extension MainViewModel {
             }
             .bind(to: fetchedTimerCellViewModels)
             .disposed(by: disposeBag)
-        
+
         createdTimer
             .bind(onNext: mainUseCase.appendTimer)
             .disposed(by: disposeBag)
@@ -181,11 +189,19 @@ private extension MainViewModel {
     func handleFetchedUserTimer() {
         mainUseCase.fetchedUserTimers
             .map {
-                $0.map {
-                    TimerCellViewModel(
-                        identifier: $0.identifier,
-                        timerUseCase: TimerUseCase(timer: $0, timerPersistentRepository: CoreDataTimerRepository(maximumStorageCount: 20))
-                    )
+                $0.map { timer -> TimerCellViewModel in
+                    switch timer.type {
+                    case .countDown:
+                        return TimerCellViewModel(
+                            identifier: timer.identifier,
+                            timerUseCase: CountDownTimerUseCase(timer: timer, timerPersistentRepository: CoreDataTimerRepository())
+                        )
+                    case .countUp:
+                        return TimerCellViewModel(
+                            identifier: timer.identifier,
+                            timerUseCase: CountUpTimerUseCase(timer: timer, timerPersistentRepository: CoreDataTimerRepository())
+                        )
+                    }
                 }
             }
             .bind(to: fetchedTimerCellViewModels) // FIXME: VC에게 전달하지말고 Coordinator에게 전달
@@ -195,7 +211,6 @@ private extension MainViewModel {
     func handleEventFromFetchedTimerCellViewModels() {
         fetchedTimerCellViewModels // cellVM의 isActive 상태가 변경될 시, 현재 filtering 조건에 따라 화면에 나타나는 cell을 갱신
             .flatMapLatest { Observable<Bool>.merge($0.map { $0.output.isActive.skip(1).asObservable() }) }
-            .delay(DispatchTimeInterval.milliseconds(100), scheduler: MainScheduler.instance)
             .withLatestFrom(fetchedTimerCellViewModels)
             .bind(to: fetchedTimerCellViewModels)
             .disposed(by: disposeBag)
@@ -205,7 +220,7 @@ private extension MainViewModel {
                 let timerSettingViewModel = cellViewModels.map { $0.output.timerSettingViewModel.asObservable() }
                 return .merge(timerSettingViewModel)
             }
-            .bind(to: output.pushTimerSettingViewModel)
+            .bind(to: output.pushTimerSettingViewController)
             .disposed(by: disposeBag)
     }
     
