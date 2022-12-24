@@ -9,7 +9,6 @@ import Foundation
 import CoreData
 
 struct Tag: Codable, Equatable {
-//    var name: String
     var isSelected: Bool = false
     var color: TagColor
 }
