@@ -10,17 +10,8 @@ import UIKit
 final class SymobolImageButton: UIButton {
     init(size: CGFloat, systemName: String, color: UIColor) {
         super.init(frame: .zero)
-        
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: size)
-        
-        let playImage = UIImage(
-            systemName: systemName,
-            withConfiguration: imageConfig
-        )?.withTintColor(color, renderingMode: .alwaysOriginal)
-        
-        playImage?.withTintColor(.systemGray, renderingMode: .alwaysOriginal)
-        
-        setImage(playImage, for: .normal)
+        let buttonImage = UIImage.makeSFSymbolImage(size: size, systemName: systemName, color: color)
+        setImage(buttonImage, for: .normal)
     }
     
     @available(*, unavailable)
