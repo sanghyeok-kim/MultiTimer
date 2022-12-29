@@ -25,6 +25,18 @@ final class MainViewController: UIViewController, ViewType {
         return tableView
     }()
     
+    private lazy var emptyTimerView: EmptyTimerView = {
+        let view = EmptyTimerView(timerFilteringCondition: .all)
+        view.alpha = 0
+        return view
+    }()
+    
+    private lazy var emptyActiveTimerView: EmptyTimerView = {
+        let view = EmptyTimerView(timerFilteringCondition: .active)
+        view.alpha = 0
+        return view
+    }()
+    
     private lazy var timerAddBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 18)
@@ -158,12 +170,54 @@ final class MainViewController: UIViewController, ViewType {
                 rows.forEach { self.tableView.deselectRow(at: IndexPath(row: $0, section: .zero), animated: true) }
             }
             .disposed(by: disposeBag)
+        
+        output.showEmptyTimerView
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .bind { `self`, filteringCondition in
+                self.showEmptyTimerView(of: filteringCondition)
+            }
+            .disposed(by: disposeBag)
+        
+        output.showTimerTableView
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .bind { `self`, _ in
+                self.showTimerTableView()
+            }
+            .disposed(by: disposeBag)
     }
 }
 
 // MARK: - Helper Methods
 
 private extension MainViewController {
+    func showEmptyTimerView(of filteringCondition: TimerFilteringCondition) {
+        view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.3) {
+            switch filteringCondition {
+            case .all:
+                self.emptyActiveTimerView.isHidden = true
+                self.emptyTimerView.isHidden = false
+                self.emptyTimerView.alpha = 1.0
+            case .active:
+                self.emptyTimerView.isHidden = true
+                self.emptyActiveTimerView.isHidden = false
+                self.emptyActiveTimerView.alpha = 1.0
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func showTimerTableView() {
+        view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.3) {
+            self.emptyTimerView.alpha = 0
+            self.emptyActiveTimerView.alpha = 0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     func enterEditingMode(by isEditing: Bool) {
         self.timerEditBarButtonItem.title = isEditing ? "완료" : "편집"
         self.tableView.setEditing(isEditing, animated: true)
@@ -194,6 +248,8 @@ private extension MainViewController {
 private extension MainViewController {
     func layout() {
         view.addSubview(tableView)
+        view.addSubview(emptyTimerView)
+        view.addSubview(emptyActiveTimerView)
         view.addSubview(timerEditingView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -201,6 +257,18 @@ private extension MainViewController {
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        
+        emptyTimerView.translatesAutoresizingMaskIntoConstraints = false
+        emptyTimerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        emptyTimerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        emptyTimerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        emptyTimerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        
+        emptyActiveTimerView.translatesAutoresizingMaskIntoConstraints = false
+        emptyActiveTimerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        emptyActiveTimerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        emptyActiveTimerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        emptyActiveTimerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         
         timerEditingView.translatesAutoresizingMaskIntoConstraints = false
         timerEditingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true

@@ -33,6 +33,8 @@ final class MainViewModel: ViewModelType {
         let enableEditViewButtons = PublishRelay<Bool>()
         let showDeleteConfirmAlert = PublishRelay<Int>()
         let deselectRows = PublishRelay<[Int]>()
+        let showEmptyTimerView = PublishRelay<TimerFilteringCondition>()
+        let showTimerTableView = PublishRelay<Void>()
     }
     
     private let fetchedTimerCellViewModels = BehaviorRelay<[TimerCellViewModel]>(value: [])
@@ -49,6 +51,7 @@ final class MainViewModel: ViewModelType {
         // MARK: - Handle Event from Input
         
         handleViewDidLoad()
+        handleFilteringSegmentDidTapOrFilteredTimerCellViewModels()
         handleFilteringSegmentDidTapOrFetchedTimerCellViewModels()
         handleCellDidSwipeFromLeading()
         handleCellDidSwipeFromTrailing()
@@ -74,6 +77,23 @@ private extension MainViewModel {
     func handleViewDidLoad() {
         input.viewDidLoad
             .bind(onNext: mainUseCase.fetchUserTimers)
+            .disposed(by: disposeBag)
+    }
+    
+    func handleFilteringSegmentDidTapOrFilteredTimerCellViewModels() {
+        let filteredTimersToShow = Observable
+            .combineLatest(input.filteringSegmentControlDidTap, output.filteredTimerCellViewModels) { ($0, $1) }
+        
+        filteredTimersToShow
+            .filter { $1.isEmpty }
+            .withLatestFrom(input.filteringSegmentControlDidTap)
+            .bind(to: output.showEmptyTimerView)
+            .disposed(by: disposeBag)
+        
+        filteredTimersToShow
+            .filter { !$1.isEmpty }
+            .map { _ in }
+            .bind(to: output.showTimerTableView)
             .disposed(by: disposeBag)
     }
     
