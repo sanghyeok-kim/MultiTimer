@@ -52,7 +52,7 @@ final class MainViewController: UIViewController, ViewType {
     
     private lazy var timerEditBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.title = "편집"
+        barButtonItem.title = LocalizableString.edit.localized
         barButtonItem.style = .plain
         return barButtonItem
     }()
@@ -219,16 +219,23 @@ private extension MainViewController {
     }
     
     func enterEditingMode(by isEditing: Bool) {
-        self.timerEditBarButtonItem.title = isEditing ? "완료" : "편집"
-        self.tableView.setEditing(isEditing, animated: true)
-        self.presentTimerEditingView(by: isEditing)
+        let doneString = LocalizableString.done.localized
+        let editString = LocalizableString.edit.localized
+        timerEditBarButtonItem.title = isEditing ? doneString : editString
+        tableView.setEditing(isEditing, animated: true)
+        presentTimerEditingView(by: isEditing)
     }
     
     func showDeleteConfirmAlert(count: Int, confirmHandler: @escaping (UIAlertAction) -> Void) {
-        let alert = UIAlertController(title: "타이머 삭제", message: "선택한 \(count)개의 타이머를 삭제하시겠습니까?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "취소", style: .destructive))
-        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: confirmHandler))
-        self.present(alert, animated: true, completion: nil)
+        let deleteTimerString = LocalizableString.deleteTimer.localized
+        let deleteConfirmMessageString = LocalizableString.deleteConfirmMessage(count: count).localized
+        let cancelString = LocalizableString.cancel.localized
+        let deleteString = LocalizableString.delete.localized
+        
+        let alert = UIAlertController(title: deleteTimerString, message: deleteConfirmMessageString, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: cancelString, style: .default))
+        alert.addAction(UIAlertAction(title: deleteString, style: .destructive, handler: confirmHandler))
+        present(alert, animated: true, completion: nil)
     }
 }
 

@@ -15,13 +15,12 @@ enum TimerFilteringCondition: Int, CaseIterable {
         return rawValue
     }
     
-    // TODO: Localizing
     var title: String {
         switch self {
         case .all:
-            return "all"
+            return LocalizableString.all.localized
         case .active:
-            return "active"
+            return LocalizableString.activated.localized
         }
     }
 }

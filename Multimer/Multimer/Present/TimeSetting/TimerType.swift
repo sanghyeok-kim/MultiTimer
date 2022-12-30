@@ -16,13 +16,30 @@ enum TimerType: Int, CaseIterable {
         return rawValue
     }
     
-    // TODO: Localizing
     var title: String {
         switch self {
         case .countDown:
-            return "⏳ 타이머 (카운트 다운)"
+            return LocalizableString.timer.localized
         case .countUp:
-            return "⏱ 스톱워치 (카운트 업)"
+            return LocalizableString.stopwatch.localized
+        }
+    }
+    
+    var name: String {
+        switch self {
+        case .countDown:
+            return LocalizableString.countDownTimer.localized
+        case .countUp:
+            return LocalizableString.countUpStopwatch.localized
+        }
+    }
+    
+    var placeholder: String {
+        switch self {
+        case .countDown:
+            return LocalizableString.enterTimerNameToCreate.localized
+        case .countUp:
+            return LocalizableString.enterStopwatchNameToCreate.localized
         }
     }
     

@@ -64,7 +64,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
         button.layer.borderWidth = 0.5
         button.layer.cornerRadius = 8
         button.layer.borderColor = UIColor.systemGray.cgColor
-        button.setTitle("완료", for: .normal)
+        button.setTitle(LocalizableString.done.localized, for: .normal)
         button.setTitleColor(UIColor.label, for: .normal)
         button.setTitleColor(UIColor.systemGray3, for: .disabled)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
@@ -76,7 +76,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
         button.layer.borderWidth = 0.5
         button.layer.cornerRadius = 8
         button.layer.borderColor = UIColor.systemGray.cgColor
-        button.setTitle("취소", for: .normal)
+        button.setTitle(LocalizableString.cancel.localized, for: .normal)
         button.setTitleColor(UIColor.label, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         return button
@@ -194,11 +194,11 @@ final class TimerSettingViewController: UIViewController, ViewType {
 
 private extension TimerSettingViewController {
     func configureUI() {
-        title = "타이머 설정"
         view.backgroundColor = .systemBackground
     }
     
     func configureUI(with timer: Timer) {
+        title = LocalizableString.settingTimer(timerType: timer.type).localized
         nameTextField.placeholder = timer.name
         nameTextField.text = timer.name
         timePickerView.selectRows(by: timer.time, animated: true)

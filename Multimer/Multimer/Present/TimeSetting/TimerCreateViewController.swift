@@ -197,7 +197,7 @@ final class TimerCreateViewController: UIViewController, ViewType {
 
 private extension TimerCreateViewController {
     func configureUI() {
-        navigationItem.title = "타이머 생성"
+        navigationItem.title = LocalizableString.createTimer.localized
         view.backgroundColor = .systemBackground
     }
     
