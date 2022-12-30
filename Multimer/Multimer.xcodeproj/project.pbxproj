@@ -30,6 +30,9 @@
 		1E48FEB02911F9250090B246 /* MultimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FEAF2911F9250090B246 /* MultimerTests.swift */; };
 		1E48FEBA2911F9250090B246 /* MultimerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FEB92911F9250090B246 /* MultimerUITests.swift */; };
 		1E48FEBC2911F9250090B246 /* MultimerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E48FEBB2911F9250090B246 /* MultimerUITestsLaunchTests.swift */; };
+		1E4CB4A9295EAB6000FC918E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1E4CB4AB295EAB6000FC918E /* Localizable.strings */; };
+		1E4CB4AF295EB5EA00FC918E /* LocalizableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4CB4AE295EB5EA00FC918E /* LocalizableString.swift */; };
+		1E4CB4B4295F258500FC918E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1E4CB4B6295F258500FC918E /* InfoPlist.strings */; };
 		1E651DAA2952023000B4F321 /* TimerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DA92952023000B4F321 /* TimerType.swift */; };
 		1E651DAC2953165800B4F321 /* CountUpTimerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DAB2953165800B4F321 /* CountUpTimerUseCase.swift */; };
 		1E651DAE2953168900B4F321 /* TimerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DAD2953168900B4F321 /* TimerUseCase.swift */; };
@@ -536,6 +539,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E48FEA52911F9250090B246 /* LaunchScreen.storyboard in Resources */,
+				1E4CB4B4295F258500FC918E /* InfoPlist.strings in Resources */,
+				1E4CB4A9295EAB6000FC918E /* Localizable.strings in Resources */,
 				1E48FEA22911F9250090B246 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -671,6 +676,7 @@
 				1E651DB229534CEE00B4F321 /* TimerCreateViewModel.swift in Sources */,
 				1EBEEFE2292262E600299CE7 /* TimerTableViewDiffableDataSource+Rx+update.swift in Sources */,
 				1E482BD22913538800175B78 /* TimerViewCell.swift in Sources */,
+				1E4CB4AF295EB5EA00FC918E /* LocalizableString.swift in Sources */,
 				1E482BDC291354F500175B78 /* Time.swift in Sources */,
 				1EA3FCE4292E49440073560D /* CoreDataStorage+TimerMO.swift in Sources */,
 				1E651DAA2952023000B4F321 /* TimerType.swift in Sources */,
