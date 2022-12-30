@@ -58,7 +58,10 @@ final class MainViewController: UIViewController, ViewType {
     }()
     
     private lazy var timerEditingView = TimerEditingView()
-    private lazy var timerEditingViewTopAnchor: NSLayoutConstraint = timerEditingView.topAnchor.constraint(
+    private lazy var timerEditingViewTopAnchor = timerEditingView.topAnchor.constraint(
+        equalTo: view.bottomAnchor
+    )
+    private lazy var timerViewTopAnchorWhileEditing = timerEditingView.topAnchor.constraint(
         equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50
     )
     
@@ -276,14 +279,24 @@ private extension MainViewController {
         emptyActiveTimerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         
         timerEditingView.translatesAutoresizingMaskIntoConstraints = false
+        timerEditingViewTopAnchor.isActive = true
         timerEditingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         timerEditingView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         timerEditingView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
     func presentTimerEditingView(by isEditing: Bool) {
+        view.layoutIfNeeded()
+        
         UIView.animate(withDuration: 0.3) {
-            self.timerEditingViewTopAnchor.isActive = isEditing
+            switch isEditing {
+            case true:
+                self.timerEditingViewTopAnchor.isActive = false
+                self.timerViewTopAnchorWhileEditing.isActive = true
+            case false:
+                self.timerViewTopAnchorWhileEditing.isActive = false
+                self.timerEditingViewTopAnchor.isActive = true
+            }
             self.view.layoutIfNeeded()
         }
     }

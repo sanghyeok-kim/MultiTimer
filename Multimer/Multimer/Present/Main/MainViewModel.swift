@@ -286,19 +286,26 @@ private extension MainViewModel {
             .bind(to: output.enableEditViewButtons)
             .disposed(by: disposeBag)
         
-        input.timerControlButtonInEditViewDidTap
+        let timerControlButtonInEditViewDidTap = input.timerControlButtonInEditViewDidTap.share()
+        
+        timerControlButtonInEditViewDidTap
             .withLatestFrom(selectedTimerCellViewModels) { ($0, $1) }
             .bind { (buttonType, selectedTimerCellViewModels) in
                 selectedTimerCellViewModels.forEach { $0.controlTimerIfSelected(by: buttonType) }
             }
             .disposed(by: disposeBag)
         
-        input.timerControlButtonInEditViewDidTap
+        timerControlButtonInEditViewDidTap
             .withLatestFrom(output.filteredTimerCellViewModels) { buttonType, viewModels in
                 viewModels.forEach { $0.enableCellTapButton(by: true) }
             }
             .map { _ in false }
             .bind(to: output.maintainEditingMode)
+            .disposed(by: disposeBag)
+        
+        timerControlButtonInEditViewDidTap
+            .map { _ in [] }
+            .bind(to: input.selectedRows)
             .disposed(by: disposeBag)
         
         input.deleteButtonInEditViewDidTap
