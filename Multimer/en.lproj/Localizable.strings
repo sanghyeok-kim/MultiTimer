@@ -12,8 +12,8 @@
 "countUpStopwatch" = "⏱ Stopwatch";
 "all" = "All";
 "activated" = "Active";
-"enterTimerNameToCreate" = "Enter the name of the timer.";
-"enterStopwatchNameToCreate" = "Enter the name of the stopwatch.";
+"enterTimerNameToCreate" = "Enter a name for the timer.";
+"enterStopwatchNameToCreate" = "Enter a name for the stopwatch.";
 "createTimer" = "Create Timer";
 "edit" = "Edit";
 "done" = "Done";
