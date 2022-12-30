@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1E0BF58F294F12BF00A24231 /* SymobolImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0BF58E294F12BF00A24231 /* SymobolImageButton.swift */; };
 		1E4159F2294C0BDB00EDA065 /* TimeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */; };
+		1E4159F5294CCA8400EDA065 /* FilteringNavigationTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159F4294CCA8400EDA065 /* FilteringNavigationTitleView.swift */; };
 		1E482BD02912887B00175B78 /* TimerSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BCF2912887B00175B78 /* TimerSettingViewController.swift */; };
 		1E482BD22913538800175B78 /* TimerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BD12913538800175B78 /* TimerViewCell.swift */; };
 		1E482BD4291353F400175B78 /* TimePickerViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BD3291353F400175B78 /* TimePickerViewDataSource.swift */; };
@@ -97,6 +98,7 @@
 		04CDA14847C6962719D7A162 /* Pods-MultimerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultimerTests.release.xcconfig"; path = "Target Support Files/Pods-MultimerTests/Pods-MultimerTests.release.xcconfig"; sourceTree = "<group>"; };
 		051C07479B9CAD8F97E05F93 /* Pods-Multimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer.release.xcconfig"; path = "Target Support Files/Pods-Multimer/Pods-Multimer.release.xcconfig"; sourceTree = "<group>"; };
 		1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFactory.swift; sourceTree = "<group>"; };
+		1E4159F4294CCA8400EDA065 /* FilteringNavigationTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringNavigationTitleView.swift; sourceTree = "<group>"; };
 		1E482BCF2912887B00175B78 /* TimerSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSettingViewController.swift; sourceTree = "<group>"; };
 		1E482BD12913538800175B78 /* TimerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewCell.swift; sourceTree = "<group>"; };
 		1E482BD3291353F400175B78 /* TimePickerViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewDataSource.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				1E48FE9C2911F9240090B246 /* MainViewController.swift */,
+				1E4159F4294CCA8400EDA065 /* FilteringNavigationTitleView.swift */,
 				1E86F1E62930EE8D0067CA28 /* TimerFilteringCondition.swift */,
 				1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */,
 				1E86F1E8293627950067CA28 /* MainUseCase.swift */,

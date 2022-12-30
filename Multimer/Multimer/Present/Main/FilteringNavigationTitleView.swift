@@ -15,10 +15,10 @@ final class FilteringNavigationTitleView: UIView {
     private lazy var filteringSegmentControl: UISegmentedControl = {
         let segmentControl = UISegmentedControl(items: [TimerFilteringCondition.all.title, TimerFilteringCondition.active.title])
         segmentControl.selectedSegmentIndex = TimerFilteringCondition.all.index
-        segmentControl.rx.selectedSegmentIndex
-            .compactMap { TimerFilteringCondition(rawValue: $0) }
-            .bind(to: selectedSegmentIndex)
-            .disposed(by: disposeBag)
+        for index in 0..<TimerFilteringCondition.allCases.count {
+            segmentControl.setWidth(100, forSegmentAt: index)
+        }
+        segmentControl.sizeToFit()
         return segmentControl
     }()
     
@@ -26,12 +26,20 @@ final class FilteringNavigationTitleView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        bindSegmentControlDidSelected()
         layout()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func bindSegmentControlDidSelected() {
+        filteringSegmentControl.rx.selectedSegmentIndex
+            .compactMap { TimerFilteringCondition(rawValue: $0) }
+            .bind(to: selectedSegmentIndex)
+            .disposed(by: disposeBag)
     }
 }
 

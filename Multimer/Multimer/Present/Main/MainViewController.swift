@@ -11,7 +11,7 @@ import RxAppState
 
 final class MainViewController: UIViewController, ViewType {
     
-    private lazy var filteringNavigationTitleView = FilteringNavigationTitleView()
+    private let filteringNavigationTitleView = FilteringNavigationTitleView()
     
     private lazy var tableViewDelegate = TimerTableViewDelegate()
     private lazy var tableViewDiffableDataSource = TimerTableViewDiffableDataSource(tableView: tableView)
