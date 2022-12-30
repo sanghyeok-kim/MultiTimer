@@ -47,13 +47,18 @@ final class EmptyTimerView: UIView {
 
 private extension EmptyTimerView {
     func configure(with timerFilteringCondition: TimerFilteringCondition) {
+        let noTimerCreatedMessageString = LocalizableString.noTimerCreatedMessage.localized
+        let addTimerMessage = LocalizableString.addTimerMessage.localized
+        let noTimerActivatedMessage = LocalizableString.noTimerActivatedMessage.localized
+        let onlyActiveTimersAppearMessage = LocalizableString.onlyActiveTimersAppearMessage.localized
+        
         switch timerFilteringCondition {
         case .all:
-            emptyTimerLabel.text = "생성된 타이머 없음"
-            addTimerLabel.text = "+ 버튼을 눌러 새로운 타이머를 추가하세요."
+            emptyTimerLabel.text = noTimerCreatedMessageString
+            addTimerLabel.text = addTimerMessage
         case .active:
-            emptyTimerLabel.text = "활성화된 타이머 없음"
-            addTimerLabel.text = "실행 또는 일시정지 상태의 타이머만 나타납니다."
+            emptyTimerLabel.text = noTimerActivatedMessage
+            addTimerLabel.text = onlyActiveTimersAppearMessage
         }
     }
 }
