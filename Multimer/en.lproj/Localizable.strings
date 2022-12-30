@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  Multimer
+
+  Created by 김상혁 on 2022/12/30.
+  
+*/
+
+"timer" = "Timer";
+"stopwatch" = "Stopwatch";
+"countDownTimer" = "⏳ Timer";
+"countUpStopwatch" = "⏱ Stopwatch";
+"all" = "All";
+"activated" = "Active";
+"enterTimerNameToCreate" = "Enter the name of the timer.";
+"enterStopwatchNameToCreate" = "Enter the name of the stopwatch.";
+"createTimer" = "Create Timer";
+"edit" = "Edit";
+"done" = "Done";
+"deleteConfirmMessage" = "Are you sure to delete the %d timer(s)?";
+"deleteTimer" = "Delete Timer";
+"cancel" = "Cancel";
+"delete" = "Delete";
+"noTimerCreatedMessage" = "No Timer Created";
+"addTimerMessage" = "Tap + Button To Add a Timer";
+"noTimerActivatedMessage" = "No Timer Activated";
+"onlyActiveTimersAppearMessage" = "Only Running or Paused Timers Appear.";
+"settingTimer" = "Setting %@";
+"timerExpired" = "%@ expired";

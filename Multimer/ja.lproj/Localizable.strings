@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  Multimer
+
+  Created by 김상혁 on 2022/12/30.
+  
+*/
+
+"timer" = "タイマー";
+"stopwatch" = "ストップウォッチ";
+"countDownTimer" = "⏳ タイマー";
+"countUpStopwatch" = "⏱ ストップウォッチ";
+"all" = "すべての";
+"activated" = "動作中の";
+"enterTimerNameToCreate" = "生成するタイマーの名前";
+"enterStopwatchNameToCreate" = "生成するストップウォッチの名前";
+"createTimer" = "タイマー削除";
+"edit" = "編集";
+"done" = "完了";
+"deleteConfirmMessage" = "本当に%dつのタイマーを削除しますか？";
+"deleteTimer" = "タイマーを削除";
+"cancel" = "キャンセル";
+"delete" = "削除";
+"noTimerCreatedMessage" = "生成されたタイマーなし";
+"addTimerMessage" = "+ ボタンをタップしてタイマーを追加してください。";
+"noTimerActivatedMessage" = "アクティブタイマーなし";
+"onlyActiveTimersAppearMessage" = "実行中または一時停止されたタイマーのみが表示されます。";
+"settingTimer" = "%@ 設定";
+"timerExpired" = "%@ 終了";

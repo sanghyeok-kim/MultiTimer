@@ -119,6 +119,19 @@
 		1E48FEB52911F9250090B246 /* MultimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E48FEB92911F9250090B246 /* MultimerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultimerUITests.swift; sourceTree = "<group>"; };
 		1E48FEBB2911F9250090B246 /* MultimerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultimerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1E4CB48C295C0DF100FC918E /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		1E4CB48E295D28A400FC918E /* EmptyTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTimerView.swift; sourceTree = "<group>"; };
+		1E4CB4AA295EAB6000FC918E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1E4CB4AC295EAB8D00FC918E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1E4CB4AE295EB5EA00FC918E /* LocalizableString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableString.swift; sourceTree = "<group>"; };
+		1E4CB4B0295EC3A800FC918E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1E4CB4B1295ECA6200FC918E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		1E4CB4B5295F258500FC918E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1E4CB4B7295F258600FC918E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1E4CB4B8295F258B00FC918E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1E4CB4B9295F258B00FC918E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1E50A5EB2955419B00CF4BCB /* ToggleButtonImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleButtonImage.swift; sourceTree = "<group>"; };
+		1E50A5ED2959E9E100CF4BCB /* UIImage+makeSFSymbolImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+makeSFSymbolImage.swift"; sourceTree = "<group>"; };
 		1E651DA92952023000B4F321 /* TimerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerType.swift; sourceTree = "<group>"; };
 		1E651DAB2953165800B4F321 /* CountUpTimerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountUpTimerUseCase.swift; sourceTree = "<group>"; };
 		1E651DAD2953168900B4F321 /* TimerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerUseCase.swift; sourceTree = "<group>"; };
@@ -232,6 +245,8 @@
 		1E48FE8C2911F9240090B246 = {
 			isa = PBXGroup;
 			children = (
+				1E4CB4B6295F258500FC918E /* InfoPlist.strings */,
+				1E4CB4AB295EAB6000FC918E /* Localizable.strings */,
 				1E48FE972911F9240090B246 /* Multimer */,
 				1E48FEAE2911F9250090B246 /* MultimerTests */,
 				1E48FEB82911F9250090B246 /* MultimerUITests */,
@@ -254,6 +269,7 @@
 		1E48FE972911F9240090B246 /* Multimer */ = {
 			isa = PBXGroup;
 			children = (
+				1E4CB4AE295EB5EA00FC918E /* LocalizableString.swift */,
 				1EBEF02A292909E200299CE7 /* CoreData */,
 				1E6FAD9629403F900021B845 /* CoreDataTimerRepository.swift */,
 				1EBFEE102917888300747606 /* Protocol */,
@@ -498,6 +514,9 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
+				ja,
+				"zh-Hans",
 			);
 			mainGroup = 1E48FE8C2911F9240090B246;
 			productRefGroup = 1E48FE962911F9240090B246 /* Products */;
@@ -749,6 +768,28 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		1E4CB4AB295EAB6000FC918E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E4CB4AA295EAB6000FC918E /* en */,
+				1E4CB4AC295EAB8D00FC918E /* ko */,
+				1E4CB4B0295EC3A800FC918E /* ja */,
+				1E4CB4B1295ECA6200FC918E /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		1E4CB4B6295F258500FC918E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E4CB4B5295F258500FC918E /* en */,
+				1E4CB4B7295F258600FC918E /* zh-Hans */,
+				1E4CB4B8295F258B00FC918E /* ja */,
+				1E4CB4B9295F258B00FC918E /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -756,6 +797,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -816,6 +858,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
