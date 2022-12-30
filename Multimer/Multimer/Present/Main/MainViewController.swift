@@ -179,11 +179,11 @@ final class MainViewController: UIViewController, ViewType {
             }
             .disposed(by: disposeBag)
         
-        output.showTimerTableView
+        output.hideEmptyTimerView
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .bind { `self`, _ in
-                self.showTimerTableView()
+                self.hideEmptyTimerView()
             }
             .disposed(by: disposeBag)
     }
@@ -194,14 +194,16 @@ final class MainViewController: UIViewController, ViewType {
 private extension MainViewController {
     func showEmptyTimerView(of filteringCondition: TimerFilteringCondition) {
         view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.5) {
             switch filteringCondition {
             case .all:
                 self.emptyActiveTimerView.isHidden = true
+                self.emptyActiveTimerView.alpha = 0
                 self.emptyTimerView.isHidden = false
                 self.emptyTimerView.alpha = 1.0
             case .active:
                 self.emptyTimerView.isHidden = true
+                self.emptyTimerView.alpha = 0
                 self.emptyActiveTimerView.isHidden = false
                 self.emptyActiveTimerView.alpha = 1.0
             }
@@ -209,13 +211,9 @@ private extension MainViewController {
         }
     }
     
-    func showTimerTableView() {
-        view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.3) {
-            self.emptyTimerView.alpha = 0
-            self.emptyActiveTimerView.alpha = 0
-            self.view.layoutIfNeeded()
-        }
+    func hideEmptyTimerView() {
+        self.emptyTimerView.isHidden = true
+        self.emptyActiveTimerView.isHidden = true
     }
     
     func enterEditingMode(by isEditing: Bool) {

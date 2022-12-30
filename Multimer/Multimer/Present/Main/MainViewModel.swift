@@ -34,7 +34,7 @@ final class MainViewModel: ViewModelType {
         let showDeleteConfirmAlert = PublishRelay<Int>()
         let deselectRows = PublishRelay<[Int]>()
         let showEmptyTimerView = PublishRelay<TimerFilteringCondition>()
-        let showTimerTableView = PublishRelay<Void>()
+        let hideEmptyTimerView = PublishRelay<Void>()
     }
     
     private let fetchedTimerCellViewModels = BehaviorRelay<[TimerCellViewModel]>(value: [])
@@ -93,7 +93,7 @@ private extension MainViewModel {
         filteredTimersToShow
             .filter { !$1.isEmpty }
             .map { _ in }
-            .bind(to: output.showTimerTableView)
+            .bind(to: output.hideEmptyTimerView)
             .disposed(by: disposeBag)
     }
     
