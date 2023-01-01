@@ -114,7 +114,7 @@ enum CustomColor {
         static let startImage = UIColor { traitCollection in
             switch traitCollection.userInterfaceStyle {
             case .dark:
-                return UIColor(red: 100 / 255, green: 156 / 255, blue: 255 / 255, alpha: 1.0)
+                return UIColor(red: 90 / 255, green: 136 / 255, blue: 255 / 255, alpha: 1.0)
             default:
                 return UIColor(red: 47 / 255, green: 85 / 255, blue: 150 / 255, alpha: 1.0)
             }
