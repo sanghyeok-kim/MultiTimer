@@ -14,8 +14,8 @@ final class TimerEditingView: UIView {
     let deleteButtonDidTap = PublishRelay<Void>()
     let enableButtons = BehaviorRelay<Bool>(value: false)
     
-    private lazy var startButton: SymobolImageButton = {
-        let button = SymobolImageButton(size: 24, systemName: "play.fill", color: .systemTeal)
+    private lazy var startButton: SymbolImageButton = {
+        let button = SymbolImageButton(size: 24, systemName: "play.fill", color: CustomColor.Button.startImage)
         button.rx.tap
             .map { .start }
             .bind(to: buttonInEditViewDidTap)
@@ -23,8 +23,8 @@ final class TimerEditingView: UIView {
         return button
     }()
     
-    private lazy var pauseButton: SymobolImageButton = {
-        let button = SymobolImageButton(size: 24, systemName: "pause.fill", color: .systemBlue)
+    private lazy var pauseButton: SymbolImageButton = {
+        let button = SymbolImageButton(size: 24, systemName: "pause.fill", color: CustomColor.Button.pauseImage)
         button.rx.tap
             .map { .pause }
             .bind(to: buttonInEditViewDidTap)
@@ -32,8 +32,8 @@ final class TimerEditingView: UIView {
         return button
     }()
     
-    private lazy var resetButton: SymobolImageButton = {
-        let button = SymobolImageButton(size: 24, systemName: "stop.fill", color: .magenta)
+    private lazy var resetButton: SymbolImageButton = {
+        let button = SymbolImageButton(size: 24, systemName: "stop.fill", color: CustomColor.Button.resetImage)
         button.rx.tap
             .map { .reset }
             .bind(to: buttonInEditViewDidTap)
@@ -41,8 +41,8 @@ final class TimerEditingView: UIView {
         return button
     }()
     
-    private lazy var deleteButton: SymobolImageButton = {
-        let button = SymobolImageButton(size: 24, systemName: "trash.fill", color: .systemRed)
+    private lazy var deleteButton: SymbolImageButton = {
+        let button = SymbolImageButton(size: 24, systemName: "trash.fill", color: CustomColor.Button.deleteImage)
         button.rx.tap
             .bind(to: deleteButtonDidTap)
             .disposed(by: disposeBag)

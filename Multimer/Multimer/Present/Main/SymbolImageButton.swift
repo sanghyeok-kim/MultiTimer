@@ -1,5 +1,5 @@
 //
-//  SymobolImageButton.swift
+//  SymbolImageButton.swift
 //  Multimer
 //
 //  Created by 김상혁 on 2022/12/18.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class SymobolImageButton: UIButton {
-    init(size: CGFloat, systemName: String, color: UIColor) {
+final class SymbolImageButton: UIButton {
+    init(size: CGFloat, systemName: String, color: UIColor? = nil) {
         super.init(frame: .zero)
         let buttonImage = UIImage.makeSFSymbolImage(size: size, systemName: systemName, color: color)
         setImage(buttonImage, for: .normal)
