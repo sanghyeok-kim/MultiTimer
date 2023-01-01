@@ -20,8 +20,6 @@ final class TimerSettingViewModel: ViewModelType {
     }
     
     struct Output {
-        let nameTextFieldContents = PublishRelay<String>()
-        let nameTextFieldExceedMaxLength = PublishRelay<Bool>()
         let completeButtonEnable = PublishRelay<Bool>()
         let timer: BehaviorRelay<Timer>
         let newTimer = PublishRelay<Timer>()
@@ -46,16 +44,20 @@ final class TimerSettingViewModel: ViewModelType {
             .bind(to: output.exitScene)
             .disposed(by: disposeBag)
         
-        // MARK: - Timer 초기값을 한 번 보내줌
         input.viewDidLoad
             .map { timer.name }
             .bind(to: input.nameTextFieldDidEdit)
             .disposed(by: disposeBag)
+        
         input.viewDidLoad
-            .map { timer.time.dividedSeconds }
+            .map { timer.time }
             .bind(to: input.timePickerViewDidEdit)
             .disposed(by: disposeBag)
         
+        input.viewDidLoad
+            .map { !timer.type.shouldSetTime }
+            .bind(to: output.timePickerViewIsHidden)
+            .disposed(by: disposeBag)
         
         let newTimer = Observable
             .combineLatest(
@@ -68,7 +70,8 @@ final class TimerSettingViewModel: ViewModelType {
                     identifier: timer.identifier,
                     name: name,
                     tag: tag,
-                    time: time
+                    time: time,
+                    type: timer.type
                 )
             }
             .share()
@@ -79,7 +82,7 @@ final class TimerSettingViewModel: ViewModelType {
                 case .countDown:
                     return currentTimer != newTimer && newTimer.totalSeconds > 0
                 case .countUp:
-                    return true
+                    return currentTimer != newTimer
                 }
             }
             .bind(to: output.completeButtonEnable)
