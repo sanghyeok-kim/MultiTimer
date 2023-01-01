@@ -10,6 +10,9 @@
 "stopwatch" = "Stopwatch";
 "countDownTimer" = "⏳ Timer";
 "countUpStopwatch" = "⏱ Stopwatch";
+"hour" = "h";
+"minute" = "m";
+"second" = "s";
 "all" = "All";
 "activated" = "Active";
 "enterTimerNameToCreate" = "Enter a name for the timer.";

@@ -13,6 +13,9 @@ enum LocalizableString {
     case stopwatch
     case countDownTimer
     case countUpStopwatch
+    case hour
+    case minute
+    case second
     case all
     case activated
     case enterTimerNameToCreate
@@ -43,6 +46,12 @@ enum LocalizableString {
             return String(format: NSLocalizedString("countDownTimer", comment: ""))
         case .countUpStopwatch:
             return String(format: NSLocalizedString("countUpStopwatch", comment: ""))
+        case .hour:
+            return String(format: NSLocalizedString("hour", comment: ""))
+        case .minute:
+            return String(format: NSLocalizedString("minute", comment: ""))
+        case .second:
+            return String(format: NSLocalizedString("second", comment: ""))
         case .all:
             return String(format: NSLocalizedString("all", comment: ""))
         case .activated:

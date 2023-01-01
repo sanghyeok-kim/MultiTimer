@@ -23,11 +23,11 @@ enum TimeType: CaseIterable {
     var title: String {
         switch self {
         case .hour:
-            return "시간"
+            return LocalizableString.hour.localized
         case .minute:
-            return "분"
+            return LocalizableString.minute.localized
         case .second:
-            return "초"
+            return LocalizableString.second.localized
         }
     }
     

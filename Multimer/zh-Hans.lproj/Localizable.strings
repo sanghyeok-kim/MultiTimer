@@ -10,6 +10,9 @@
 "stopwatch" = "秒表";
 "countDownTimer" = "⏳ 计时器";
 "countUpStopwatch" = "⏱ 秒表";
+"hour" = "小时";
+"minute" = "分";
+"second" = "秒";
 "all" = "整体";
 "activated" = "运转中";
 "enterTimerNameToCreate" = "请输入计时器的名称。";

@@ -10,6 +10,9 @@
 "stopwatch" = "스톱워치";
 "countDownTimer" = "⏳ 카운트 다운 타이머";
 "countUpStopwatch" = "⏱ 카운트 업 스톱워치";
+"hour" = "시간";
+"minute" = "분";
+"second" = "초";
 "all" = "전체";
 "activated" = "활성화";
 "enterTimerNameToCreate" = "생성할 타이머의 이름을 입력하세요.";
