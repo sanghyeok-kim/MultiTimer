@@ -19,13 +19,11 @@ final class TimerCreateViewController: UIViewController, ViewType {
     
     private lazy var timePickerViewDataSource = TimePickerViewDataSource()
     private lazy var tiemPickerViewDelegate = TimePickerViewDelegate()
-    private lazy var timePickerView: UIPickerView = {
-        let pickerView = UIPickerView()
+    private lazy var timePickerView: TimePickerView = {
+        let pickerView = TimePickerView()
         pickerView.dataSource = timePickerViewDataSource
         pickerView.delegate = tiemPickerViewDelegate
-        pickerView.layer.borderWidth = 0.5
-        pickerView.layer.cornerRadius = 8
-        pickerView.layer.borderColor = UIColor.systemGray.cgColor
+        pickerView.setFixedLabels(with: TimeType.allCases.map { $0.title })
         return pickerView
     }()
     

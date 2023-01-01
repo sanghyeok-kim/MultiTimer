@@ -9,28 +9,14 @@ import RxSwift
 import RxRelay
 import RxAppState
 
-extension UIPickerView { //TimerPickerView로 한정시키기
-    func selectRows(by time: Time, animated: Bool) {
-        let (hour, minute, second) = time.dividedTotalSeconds
-        selectRow(hour, inComponent: 0, animated: true) // TODO: 하드코딩 개선
-        selectRow(minute, inComponent: 1, animated: true)
-        selectRow(second, inComponent: 2, animated: true)
-    }
-}
-
 final class TimerSettingViewController: UIViewController, ViewType {
     
     private lazy var timePickerViewDataSource = TimePickerViewDataSource()
     private lazy var tiemPickerViewDelegate = TimePickerViewDelegate()
-    private lazy var timePickerView: UIPickerView = {
-        let pickerView = UIPickerView()
+    private lazy var timePickerView: TimePickerView = {
+        let pickerView = TimePickerView()
         pickerView.dataSource = timePickerViewDataSource
         pickerView.delegate = tiemPickerViewDelegate
-        pickerView.layer.borderWidth = 0.5
-        pickerView.layer.cornerRadius = 8
-        pickerView.layer.borderColor = UIColor.systemGray.cgColor
-        pickerView.setFixedLabels(with: TimeType.allCases.map { $0.title })
-        
         return pickerView
     }()
     
