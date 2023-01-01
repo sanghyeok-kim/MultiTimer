@@ -8,9 +8,15 @@
 import Foundation
 import CoreData
 
-struct Tag: Codable, Equatable {
+struct Tag: Codable {
     var isSelected: Bool = false
     var color: TagColor
+}
+
+extension Tag: Equatable {
+    static func == (lhs: Tag, rhs: Tag) -> Bool {
+        return lhs.color == rhs.color
+    }
 }
 
 extension Tag: ManagedObjectConvertible {
