@@ -21,7 +21,6 @@ final class TimerCreateViewModel: ViewModelType {
     }
     
     struct Output {
-        let nameTextFieldContents = PublishRelay<String>()
         let completeButtonEnable = PublishRelay<Bool>()
         let timer: BehaviorRelay<Timer>
         let newTimer = PublishRelay<Timer>()
@@ -61,7 +60,6 @@ final class TimerCreateViewModel: ViewModelType {
                 Timer(
                     identifier: timer.identifier,
                     name: name,
-                    tag: tag ?? Tag(color: .label),
                     time: type == .countDown ? time : TimeFactory.createDefaultTime(),
                     type: type
                 )
