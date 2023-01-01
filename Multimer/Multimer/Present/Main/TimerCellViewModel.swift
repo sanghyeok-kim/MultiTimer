@@ -15,7 +15,6 @@ final class TimerCellViewModel: ViewModelType {
         let cellDidSelect = BehaviorRelay<Bool>(value: false)
         let toggleButtonDidTap = PublishRelay<Void>()
         let resetButtonDidTap = PublishRelay<Void>()
-        let restartButtonDidTap = PublishRelay<Void>()
     }
     
     struct Output {
@@ -46,8 +45,8 @@ final class TimerCellViewModel: ViewModelType {
         
         handleToggleButtonDidTap()
         handleResetButtonDidTap()
-        handleRestartButtonDidTap()
         handleCellDidTap(with: timerUseCase)
+        handleIsActive(with: timerUseCase)
         
         // MARK: - Handle Event from UseCase
         
@@ -95,15 +94,6 @@ private extension TimerCellViewModel {
     func handleResetButtonDidTap() {
         input.resetButtonDidTap
             .bind(onNext: timerUseCase.resetTimer)
-            .disposed(by: disposeBag)
-    }
-     
-    func handleRestartButtonDidTap() {
-        input.restartButtonDidTap
-            .withUnretained(self)
-            .bind { `self`, _ in
-                self.toggleTimer(by: false)
-            }
             .disposed(by: disposeBag)
     }
     
@@ -184,7 +174,6 @@ private extension TimerCellViewModel {
     
     func setToggleButtonFinished() {
         output.toggleButtonIsSelected.accept(false)
-        output.toggleButtonIsHidden.accept(true)
         output.resetButtonIsHidden.accept(false)
     }
     

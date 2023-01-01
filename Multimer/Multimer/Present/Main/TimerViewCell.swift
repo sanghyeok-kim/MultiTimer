@@ -97,8 +97,12 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
         return button
     }()
     
-    private let resetButton = SymobolImageButton(size: 44, systemName: "checkmark.circle", color: .systemRed)
-    private let restartButton = SymobolImageButton(size: 44, systemName: "repeat.circle", color: .systemIndigo)
+    private lazy var buttonStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [toggleButton, resetButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        return stackView
+    }()
     
     private var disposeBag = DisposeBag()
     var viewModel: TimerCellViewModel?
@@ -140,10 +144,6 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
         resetButton.rx.tap
             .bind(to: input.resetButtonDidTap)
             .disposed(by: disposeBag)
-        
-        restartButton.rx.tap
-            .bind(to: input.restartButtonDidTap)
-            .disposed(by: disposeBag)
     }
     
     func bindOutput(from viewModel: TimerCellViewModel) {
@@ -175,7 +175,7 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
             .disposed(by: disposeBag)
         
         output.resetButtonIsHidden
-            .bind(to: resetButton.rx.isHidden, restartButton.rx.isHidden)
+            .bind(to: resetButton.rx.isHidden)
             .disposed(by: disposeBag)
         
         output.progessRatio
@@ -192,6 +192,8 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
 
 private extension TimerViewCell {
     func configureUI() {
+        contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = 15
         backgroundColor = .systemBackground
         configureSelectedBackgroundView()
     }
@@ -203,9 +205,43 @@ private extension TimerViewCell {
     
     func configureUI(with timer: Timer) {
         titleLabel.text = timer.name
-        tagLabel.backgroundColor = timer.tag?.color.rgb ?? .clear
-//        tagLabel.backgroundColor = timer.tag?.color.rgb
         timeLabel.text = timer.time.formattedRemainingSeconds
+        configureToggleButton(by: timer)
+        configureTimerTypeSymbolImageView(by: timer)
+    }
+    
+    func configureTimerTypeSymbolImageView(by timer: Timer) {
+        switch timer.type {
+        case .countDown:
+            timerTypeSymbolImageView.image = UIImage.makeSFSymbolImage(
+                size: 17,
+                systemName: "hourglass.tophalf.filled",
+                color: timer.tag?.color.uiColor ?? .label
+            )
+        case .countUp:
+            timerTypeSymbolImageView.image = UIImage.makeSFSymbolImage(
+                size: 17,
+                systemName: "stopwatch.fill",
+                color: timer.tag?.color.uiColor ?? .label
+            )
+        }
+    }
+    
+    func configureToggleButton(by timer: Timer) {
+        let startImageDynamicColor = CustomColor.Button.startImage
+        let pauseImageDynamicColor = CustomColor.Button.pauseImage
+        switch timer.type {
+        case .countDown:
+            let playImage = UIImage.makeSFSymbolImage(size: 50, systemName: "play.circle", color: startImageDynamicColor)
+            let pauseImage = UIImage.makeSFSymbolImage(size: 50, systemName: "pause.circle", color: pauseImageDynamicColor)
+            toggleButton.setImage(playImage, for: .normal)
+            toggleButton.setImage(pauseImage, for: .selected)
+        case .countUp:
+            let playImage = UIImage.makeSFSymbolImage(size: 50, systemName: "play.circle.fill", color: startImageDynamicColor)
+            let pauseImage = UIImage.makeSFSymbolImage(size: 50, systemName: "pause.circle.fill", color: pauseImageDynamicColor)
+            toggleButton.setImage(playImage, for: .normal)
+            toggleButton.setImage(pauseImage, for: .selected)
+        }
     }
 }
 
@@ -213,14 +249,10 @@ private extension TimerViewCell {
 
 private extension TimerViewCell {
     func layout() {
-        contentView.addSubview(cellTapButton)
-        contentView.addSubview(timerStackView)
-        contentView.addSubview(initialTimeLabel)
         contentView.addSubview(progressView)
-        contentView.bringSubviewToFront(cellTapButton)
-        contentView.insertSubview(toggleButton, aboveSubview: cellTapButton)
-        contentView.insertSubview(resetButton, aboveSubview: cellTapButton)
-        contentView.addSubview(restartButton)
+        contentView.addSubview(timerStackView)
+        contentView.addSubview(cellTapButton)
+        contentView.addSubview(buttonStackView)
         
         cellTapButton.translatesAutoresizingMaskIntoConstraints = false
         cellTapButton.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -229,29 +261,18 @@ private extension TimerViewCell {
         cellTapButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         
         timerStackView.translatesAutoresizingMaskIntoConstraints = false
-        timerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12).isActive = true
+        timerStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         timerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
-        
-        initialTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        initialTimeLabel.topAnchor.constraint(equalTo: timerStackView.bottomAnchor).isActive = true
-        initialTimeLabel.leadingAnchor.constraint(equalTo: timerStackView.leadingAnchor).isActive = true
+        timerStackView.trailingAnchor.constraint(equalTo: buttonStackView.leadingAnchor).isActive = true
         
         progressView.translatesAutoresizingMaskIntoConstraints = false
-        progressView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        progressView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        progressView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        progressView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        progressView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        progressView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        progressView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        progressView.transform = progressView.transform.scaledBy(x: 1, y: -100)
         
-        toggleButton.translatesAutoresizingMaskIntoConstraints = false
-        toggleButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
-        toggleButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        
-        resetButton.translatesAutoresizingMaskIntoConstraints = false
-        resetButton.trailingAnchor.constraint(equalTo: toggleButton.trailingAnchor).isActive = true
-        resetButton.centerYAnchor.constraint(equalTo: toggleButton.centerYAnchor).isActive = true
-        
-        restartButton.translatesAutoresizingMaskIntoConstraints = false
-        restartButton.trailingAnchor.constraint(equalTo: toggleButton.leadingAnchor, constant: -8).isActive = true
-        restartButton.centerYAnchor.constraint(equalTo: toggleButton.centerYAnchor).isActive = true
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
+        buttonStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
 }
