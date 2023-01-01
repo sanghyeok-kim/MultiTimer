@@ -8,6 +8,7 @@
 import Foundation
 
 enum LocalizableString {
+    case appTitle
     case timer
     case stopwatch
     case countDownTimer
@@ -32,6 +33,8 @@ enum LocalizableString {
     
     var localized: String {
         switch self {
+        case .appTitle:
+            return String(format: NSLocalizedString("appTitle", comment: ""))
         case .timer:
             return String(format: NSLocalizedString("timer", comment: ""))
         case .stopwatch:

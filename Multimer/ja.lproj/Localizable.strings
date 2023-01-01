@@ -26,4 +26,5 @@
 "noTimerActivatedMessage" = "アクティブタイマーなし";
 "onlyActiveTimersAppearMessage" = "実行中または一時停止されたタイマーのみが表示されます。";
 "settingTimer" = "%@ 設定";
-"timerExpired" = "%@ 終了";
+"timerExpired" = "タイマー 終了 '%@'";
+"appTitle" = "マルチタイマー";

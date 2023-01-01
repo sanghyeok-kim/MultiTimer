@@ -26,4 +26,5 @@
 "noTimerActivatedMessage" = "No Timer Activated";
 "onlyActiveTimersAppearMessage" = "Only Running or Paused Timers Appear.";
 "settingTimer" = "Setting %@";
-"timerExpired" = "%@ expired";
+"timerExpired" = "Timer Expired - %@";
+"appTitle" = "MultiTimer";

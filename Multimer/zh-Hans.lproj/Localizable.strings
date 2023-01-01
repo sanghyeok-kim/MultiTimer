@@ -26,4 +26,5 @@
 "noTimerActivatedMessage" = "无运行中的计时器";
 "onlyActiveTimersAppearMessage" = "只显示正在播放或暂停的计时器 。";
 "settingTimer" = "设定 %@";
-"timerExpired" = "%@ 完了";
+"timerExpired" = "计时器 完了 '%@'";
+"appTitle" = "多重计时器";

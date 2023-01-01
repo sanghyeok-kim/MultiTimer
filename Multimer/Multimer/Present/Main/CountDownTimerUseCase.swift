@@ -136,8 +136,8 @@ final class CountDownTimerUseCase: TimerUseCase {
     // TODO: Notification Manager 구현
     func registerNotification() {
         let content = UNMutableNotificationContent()
-        content.title = "멀티 타이머" // TODO: 앱 이름으로 변경
-        content.body = "\(currentTimer.name) 완료"
+        content.title = LocalizableString.appTitle.localized
+        content.body = LocalizableString.timerExpired(timerName: currentTimer.name).localized
         content.badge = 1
         content.sound = .default
         
