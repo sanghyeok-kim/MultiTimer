@@ -26,8 +26,8 @@ final class TimerCellViewModel: ViewModelType {
         let progessRatio = BehaviorRelay<Float>(value: .zero)
         let isActive = BehaviorRelay<Bool>(value: false)
         let timerState = PublishRelay<TimerState>()
-        let initialTimeLabelIsHidden = PublishRelay<Bool>()
-        let cellCanTap = PublishRelay<Bool>()
+        let initialTimeLabelIsHidden = BehaviorRelay<Bool>(value: true)
+        let cellCanTap = BehaviorRelay<Bool>(value: true)
     }
     
     let input = Input()
@@ -112,9 +112,20 @@ private extension TimerCellViewModel {
             .disposed(by: disposeBag)
     }
     
+    func handleIsActive(with timerUseCase: TimerUseCase) {
+        output.isActive
+            .withLatestFrom(timerUseCase.timer) { ($0, $1) }
+            .map { isActive, timer  -> Bool in
+                return timer.type == .countDown ? !isActive : true
+            }
+            .distinctUntilChanged()
+            .bind(to: output.initialTimeLabelIsHidden)
+            .disposed(by: disposeBag)
+    }
+    
     func handleTimerEvent(with timerUseCase: TimerUseCase) {
         let timerEvent = timerUseCase.timer
-            .observe(on: MainScheduler.instance)
+            .observe(on: MainScheduler.asyncInstance)
             .share()
         
         timerEvent

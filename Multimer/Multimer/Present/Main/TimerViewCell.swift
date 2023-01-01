@@ -9,40 +9,25 @@ import RxSwift
 import RxCocoa
 import RxAnimated
 
-final class TagLabel: UILabel {
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        clipsToBounds = true
-        layer.frame.size = CGSize(width: 18, height: 18)
-        layer.cornerRadius = 9
-    }
-}
-
-
 final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     
     private let cellTapButton = UIButton()
+    private let timerTypeSymbolImageView = UIImageView()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-//        label.backgroundColor = .systemGreen // FIXME: 삭제
+        label.font = UIFont.systemFont(ofSize: 17)
         return label
     }()
-    
-    private lazy var tagLabel: TagLabel = {
-        let label = TagLabel()
-        return label
-    }()
-    
-//    private lazy var tagLabel = TagLabel()
     
     private lazy var titleStackView: UIStackView = {
         let titleStackView = UIStackView()
         titleStackView.axis = .horizontal
         titleStackView.spacing = 2
-        titleStackView.distribution = .equalSpacing
-        titleStackView.addArrangedSubviews([titleLabel, tagLabel])
+        titleStackView.distribution = .equalCentering
+        titleStackView.alignment = .firstBaseline
+        titleStackView.addArrangedSubviews([timerTypeSymbolImageView, titleLabel])
+        timerTypeSymbolImageView.setContentCompressionResistancePriority(.init(751), for: .horizontal)
         return titleStackView
     }()
     
@@ -55,15 +40,15 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     private lazy var initialTimeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18)
-        label.textColor = .systemGray
+        label.alpha = 0.65
         label.isHidden = true
         return label
     }()
     
     private lazy var timerStackView: UIStackView = {
-        let timerStackView = UIStackView(arrangedSubviews: [titleStackView, timeLabel])
+        let timerStackView = UIStackView(arrangedSubviews: [titleStackView, timeLabel, initialTimeLabel])
         timerStackView.axis = .vertical
-        timerStackView.spacing = 2
+        timerStackView.spacing = 0
         timerStackView.distribution = .equalSpacing
         timerStackView.alignment = .leading
         return timerStackView
@@ -71,29 +56,25 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     
     private lazy var progressView: UIProgressView = {
         let progressView = UIProgressView()
-        progressView.progressViewStyle = .bar
-        progressView.progressTintColor = .systemGray
         progressView.isUserInteractionEnabled = false
-        progressView.alpha = 0.1
+        progressView.progressViewStyle = .bar
+        progressView.progressTintColor = CustomColor.ProgressView.progressTint
+        progressView.trackTintColor = CustomColor.ProgressView.trackTint
         return progressView
     }()
     
     private lazy var toggleButton: UIButton = {
         let button = UIButton()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 44)
-        
-        let playImage = UIImage(
-            systemName: "play.circle",
-            withConfiguration: imageConfig
-        )?.withTintColor(.systemTeal, renderingMode: .alwaysOriginal)
-        
-        let pauseImage = UIImage(
-            systemName: "pause.circle",
-            withConfiguration: imageConfig
-        )?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
-        
-        button.setImage(playImage, for: .normal)
-        button.setImage(pauseImage, for: .selected)
+        applyImpactFeedbackGenerator(to: button)
+        return button
+    }()
+    
+    private lazy var resetButton: UIButton = {
+        let button = UIButton()
+        let resetImageColor = CustomColor.Button.resetImage
+        let resetImage = UIImage.makeSFSymbolImage(size: 50, systemName: "checkmark.circle", color: resetImageColor)
+        button.setImage(resetImage, for: .normal)
+        applyImpactFeedbackGenerator(to: button)
         return button
     }()
     
@@ -104,11 +85,13 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
         return stackView
     }()
     
+    private var impactFeedbackGenerator: UIImpactFeedbackGenerator? = .init(style: .medium)
     private var disposeBag = DisposeBag()
     var viewModel: TimerCellViewModel?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        prepareFeedbackImpactGenerator()
         configureUI()
         layout()
     }
@@ -118,10 +101,16 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = nil
-        timeLabel.text = nil
+        initialTimeLabel.isHidden = true
+        progressView.progress = .zero
         disposeBag = DisposeBag()
     }
     
@@ -161,9 +150,8 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
             .bind(to: initialTimeLabel.rx.text)
             .disposed(by: disposeBag)
         
-        output.isActive
-            .map { !$0 }
-            .bind(animated: initialTimeLabel.rx.animated.fade(duration: 0.3).isHidden)
+        output.initialTimeLabelIsHidden
+            .bind(to: initialTimeLabel.rx.animated.fade(duration: 0.3).isHidden)
             .disposed(by: disposeBag)
         
         output.toggleButtonIsSelected
@@ -179,12 +167,34 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
             .disposed(by: disposeBag)
         
         output.progessRatio
-            .bind(to: progressView.rx.progress)
+            .withUnretained(self)
+            .bind { `self`, ratio in
+                self.progressView.setProgress(ratio, animated: true)
+            }
             .disposed(by: disposeBag)
         
         output.cellCanTap
             .bind(to: cellTapButton.rx.isEnabled)
             .disposed(by: disposeBag)
+    }
+    
+    deinit {
+        impactFeedbackGenerator = nil
+    }
+}
+
+// MARK: - Feedback Generators
+
+private extension TimerViewCell {
+    func prepareFeedbackImpactGenerator() {
+        impactFeedbackGenerator = UIImpactFeedbackGenerator()
+        impactFeedbackGenerator?.prepare()
+    }
+    
+    func applyImpactFeedbackGenerator(to button: UIButton) {
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.impactFeedbackGenerator?.impactOccurred()
+        }), for: .touchUpInside)
     }
 }
 
