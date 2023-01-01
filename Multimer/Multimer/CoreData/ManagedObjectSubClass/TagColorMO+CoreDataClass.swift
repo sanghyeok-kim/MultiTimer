@@ -15,8 +15,8 @@ public class TagColorMO: NSManagedObject {
 }
 
 extension TagColorMO: ModelConvertible {
-    func toModel() -> TagColor? {
-        return TagColor(rawValue: Int(rawValue))
+    func toModel() -> TagColor {
+        return TagColor(rawValue: Int(rawValue)) ?? .label
     }
 }
 

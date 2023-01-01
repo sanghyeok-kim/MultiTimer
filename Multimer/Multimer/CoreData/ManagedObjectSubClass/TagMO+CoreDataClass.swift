@@ -15,8 +15,8 @@ public class TagMO: NSManagedObject {
 }
 
 extension TagMO: ModelConvertible {
-    func toModel() -> Tag? {
-        guard let color = color?.toModel() else { return nil }
+    func toModel() -> Tag {
+        let color = color?.toModel() ?? .label
         return Tag(isSelected: isSelected, color: color)
     }
 }

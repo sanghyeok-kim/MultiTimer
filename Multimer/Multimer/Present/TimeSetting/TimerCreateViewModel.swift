@@ -14,7 +14,7 @@ final class TimerCreateViewModel: ViewModelType {
         let viewDidLoad = PublishRelay<Void>()
         let tagDidSelect = PublishRelay<Tag?>()
         let nameTextFieldDidEdit = PublishRelay<String>()
-        let timePickerViewDidEdit = PublishRelay<Time>()
+        let timePickerViewDidEdit = BehaviorRelay<Time>(value: TimeFactory.createDefaultTime())
         let cancelButtonDidTap = PublishRelay<Void>()
         let completeButtonDidTap = PublishRelay<Void>()
         let selectedTimerType = PublishRelay<TimerType>()
@@ -22,12 +22,12 @@ final class TimerCreateViewModel: ViewModelType {
     
     struct Output {
         let nameTextFieldContents = PublishRelay<String>()
-        let nameTextFieldExceedMaxLength = PublishRelay<Bool>()
         let completeButtonEnable = PublishRelay<Bool>()
         let timer: BehaviorRelay<Timer>
         let newTimer = PublishRelay<Timer>()
         let timePickerViewIsHidden = PublishRelay<Bool>()
         let exitScene = PublishRelay<Void>()
+        let placeholder = BehaviorRelay<String>(value: "")
     }
     
     let output: Output
@@ -38,23 +38,16 @@ final class TimerCreateViewModel: ViewModelType {
     init(timer: Timer) {
         self.output = Output(timer: BehaviorRelay<Timer>(value: timer))
         
-        input.cancelButtonDidTap
-            .bind(to: output.exitScene)
-            .disposed(by: disposeBag)
+        let selectedTimerType = input.selectedTimerType.share()
         
-        input.viewDidLoad
-            .map { timer.name }
-            .bind(to: input.nameTextFieldDidEdit)
-            .disposed(by: disposeBag)
-        
-        input.viewDidLoad
-            .map { timer.time }
-            .bind(to: input.timePickerViewDidEdit)
-            .disposed(by: disposeBag)
-        
-        input.selectedTimerType
+        selectedTimerType
             .map { !$0.shouldSetTime }
             .bind(to: output.timePickerViewIsHidden)
+            .disposed(by: disposeBag)
+        
+        selectedTimerType
+            .map { $0.placeholder }
+            .bind(to: output.placeholder)
             .disposed(by: disposeBag)
         
         let newTimer = Observable
@@ -68,20 +61,20 @@ final class TimerCreateViewModel: ViewModelType {
                 Timer(
                     identifier: timer.identifier,
                     name: name,
-                    tag: tag,
-                    time: time,
+                    tag: tag ?? Tag(color: .label),
+                    time: type == .countDown ? time : TimeFactory.createDefaultTime(),
                     type: type
                 )
             }
             .share()
         
         newTimer
-            .withLatestFrom(output.timer) { newTimer, currentTimer in
-                switch newTimer.type {
+            .map { timer in
+                switch timer.type {
                 case .countDown:
-                    return currentTimer != newTimer && newTimer.totalSeconds > 0
+                    return !timer.name.isEmpty && timer.totalSeconds > 0
                 case .countUp:
-                    return true
+                    return !timer.name.isEmpty
                 }
             }
             .bind(to: output.completeButtonEnable)
@@ -94,6 +87,10 @@ final class TimerCreateViewModel: ViewModelType {
         
         output.newTimer
             .map { _ in }
+            .bind(to: output.exitScene)
+            .disposed(by: disposeBag)
+        
+        input.cancelButtonDidTap
             .bind(to: output.exitScene)
             .disposed(by: disposeBag)
     }
