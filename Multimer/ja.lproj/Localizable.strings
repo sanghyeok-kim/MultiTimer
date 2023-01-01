@@ -27,7 +27,7 @@
 "noTimerCreatedMessage" = "生成されたタイマーなし";
 "addTimerMessage" = "+ ボタンをタップしてタイマーを追加してください。";
 "noTimerActivatedMessage" = "アクティブタイマーなし";
-"onlyActiveTimersAppearMessage" = "実行中または一時停止されたタイマーのみが表示されます。";
+"onlyActiveTimersAppearMessage" = "実行、一時停止、および完了状態のタイマーが表示されます。";
 "settingTimer" = "%@ 設定";
 "timerExpired" = "タイマー 終了 '%@'";
 "appTitle" = "マルチタイマー";

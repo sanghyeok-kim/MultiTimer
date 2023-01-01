@@ -27,7 +27,7 @@
 "noTimerCreatedMessage" = "생성된 타이머 없음";
 "addTimerMessage" = "+ 버튼을 눌러 새로운 타이머를 추가하세요.";
 "noTimerActivatedMessage" = "활성화된 타이머 없음";
-"onlyActiveTimersAppearMessage" = "실행 또는 일시정지 상태의 타이머만 나타납니다.";
+"onlyActiveTimersAppearMessage" = "실행 / 일시정지 / 완료 상태의 타이머가 나타납니다.";
 "settingTimer" = "%@ 설정";
 "timerExpired" = "타이머 종료 - %@";
 "appTitle" = "다중타이머";

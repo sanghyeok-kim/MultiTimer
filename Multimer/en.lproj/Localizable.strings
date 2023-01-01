@@ -27,7 +27,7 @@
 "noTimerCreatedMessage" = "No Timer Created";
 "addTimerMessage" = "Tap + Button To Add a Timer";
 "noTimerActivatedMessage" = "No Timer Activated";
-"onlyActiveTimersAppearMessage" = "Only Running or Paused Timers Appear.";
+"onlyActiveTimersAppearMessage" = "Timers in the run, pause, and complete states appear.";
 "settingTimer" = "Setting %@";
 "timerExpired" = "Timer Expired - %@";
 "appTitle" = "MultiTimer";
