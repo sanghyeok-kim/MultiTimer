@@ -69,7 +69,6 @@ final class TimerSettingViewController: UIViewController, ViewType {
     }()
     
     private lazy var buttonStackView: UIStackView = {
-        //제공 해줌
         let stackView = UIStackView(arrangedSubviews: [cancelButton, completeButton])
         stackView.axis = .horizontal
         stackView.spacing = 16
@@ -77,11 +76,10 @@ final class TimerSettingViewController: UIViewController, ViewType {
         return stackView
     }()
     
-    private lazy var timeSettingStackView: UIStackView = {
+    private lazy var timePickerButtonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [timePickerView, buttonStackView])
         stackView.axis = .vertical
         stackView.spacing = 36
-        
         return stackView
     }()
     
@@ -136,10 +134,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
         timePickerView.rx.itemSelected
             .withUnretained(self)
             .map { `self`, _ -> Time in
-                let hour = self.timePickerView.selectedRow(inComponent: 0) // TODO: 하드코딩 개선, Simplify
-                let minute = self.timePickerView.selectedRow(inComponent: 1)
-                let second = self.timePickerView.selectedRow(inComponent: 2)
-                return Time(hour: hour, minute: minute, second: second)
+                return self.timePickerView.configureTime()
             }
             .bind(to: input.timePickerViewDidEdit)
             .disposed(by: disposeBag)
@@ -148,9 +143,6 @@ final class TimerSettingViewController: UIViewController, ViewType {
     func bindOutput(from viewModel: TimerSettingViewModel) {
         let output = viewModel.output
         
-            }
-            .disposed(by: disposeBag)
-        
         output.timer
             .withUnretained(self)
             .bind { `self`, timer in
@@ -158,7 +150,6 @@ final class TimerSettingViewController: UIViewController, ViewType {
             }
             .disposed(by: disposeBag)
         
-        // TODO: Coordinator로 제어
         output.exitScene
             .withUnretained(self)
             .bind { `self`, _ in
@@ -171,7 +162,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
             .disposed(by: disposeBag)
         
         output.timePickerViewIsHidden
-            .bind(to: timePickerView.rx.animated.flip(.top, duration: 0.35).isHidden)
+            .bind(to: timePickerView.rx.isHidden)
             .disposed(by: disposeBag)
     }
 }
@@ -200,9 +191,7 @@ private extension TimerSettingViewController {
         view.addSubview(nameTextField)
         view.addSubview(timePickerView)
         view.addSubview(buttonStackView)
-        
-        view.addSubview(timeSettingStackView)
-        
+        view.addSubview(timePickerButtonStackView)
         
         tagScrollView.translatesAutoresizingMaskIntoConstraints = false
         tagScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48).isActive = true
@@ -216,10 +205,10 @@ private extension TimerSettingViewController {
         nameTextField.leadingAnchor.constraint(equalTo: tagScrollView.leadingAnchor).isActive = true
         nameTextField.trailingAnchor.constraint(equalTo: tagScrollView.trailingAnchor).isActive = true
         
-        timeSettingStackView.translatesAutoresizingMaskIntoConstraints = false
-        timeSettingStackView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20).isActive = true
-        timeSettingStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 36).isActive = true
-        timeSettingStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -36).isActive = true
+        timePickerButtonStackView.translatesAutoresizingMaskIntoConstraints = false
+        timePickerButtonStackView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20).isActive = true
+        timePickerButtonStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 36).isActive = true
+        timePickerButtonStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -36).isActive = true
     }
 }
 

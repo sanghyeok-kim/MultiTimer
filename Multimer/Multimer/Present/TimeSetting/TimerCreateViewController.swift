@@ -12,7 +12,7 @@ import RxAppState
 final class TimerCreateViewController: UIViewController, ViewType {
     
     private lazy var timerTypeSegmentControl: UISegmentedControl = {
-        let segmentControl = UISegmentedControl(items: [TimerType.countDown.title, TimerType.countUp.title])
+        let segmentControl = UISegmentedControl(items: [TimerType.countDown.name, TimerType.countUp.name])
         segmentControl.selectedSegmentIndex = TimerType.countDown.index
         return segmentControl
     }()
@@ -48,6 +48,7 @@ final class TimerCreateViewController: UIViewController, ViewType {
         textField.smartDashesType = .no
         textField.autocorrectionType = .no
         textField.addLeftPadding(inset: 12)
+        textField.becomeFirstResponder()
         return textField
     }()
     
@@ -57,7 +58,7 @@ final class TimerCreateViewController: UIViewController, ViewType {
         button.layer.borderWidth = 0.5
         button.layer.cornerRadius = 8
         button.layer.borderColor = UIColor.systemGray.cgColor
-        button.setTitle("완료", for: .normal)
+        button.setTitle(LocalizableString.done.localized, for: .normal)
         button.setTitleColor(UIColor.label, for: .normal)
         button.setTitleColor(UIColor.systemGray3, for: .disabled)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
@@ -69,7 +70,7 @@ final class TimerCreateViewController: UIViewController, ViewType {
         button.layer.borderWidth = 0.5
         button.layer.cornerRadius = 8
         button.layer.borderColor = UIColor.systemGray.cgColor
-        button.setTitle("취소", for: .normal)
+        button.setTitle(LocalizableString.cancel.localized, for: .normal)
         button.setTitleColor(UIColor.label, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         return button
@@ -83,11 +84,10 @@ final class TimerCreateViewController: UIViewController, ViewType {
         return stackView
     }()
     
-    private lazy var timeSettingStackView: UIStackView = {
+    private lazy var timePickerButtonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [timePickerView, buttonStackView])
         stackView.axis = .vertical
-        stackView.spacing = 36
-        
+        stackView.spacing = 24
         return stackView
     }()
     
@@ -144,10 +144,7 @@ final class TimerCreateViewController: UIViewController, ViewType {
         timePickerView.rx.itemSelected
             .withUnretained(self)
             .map { `self`, _ -> Time in
-                let hour = self.timePickerView.selectedRow(inComponent: 0)
-                let minute = self.timePickerView.selectedRow(inComponent: 1)
-                let second = self.timePickerView.selectedRow(inComponent: 2)
-                return Time(hour: hour, minute: minute, second: second)
+                return self.timePickerView.configureTime()
             }
             .bind(to: input.timePickerViewDidEdit)
             .disposed(by: disposeBag)
@@ -155,24 +152,6 @@ final class TimerCreateViewController: UIViewController, ViewType {
     
     func bindOutput(from viewModel: TimerCreateViewModel) {
         let output = viewModel.output
-        
-        output.nameTextFieldContents
-            .bind(to: nameTextField.rx.text)
-            .disposed(by: disposeBag)
-                      
-        output.nameTextFieldExceedMaxLength
-            .map { !$0 }
-            .bind {
-                print($0)
-            }
-            .disposed(by: disposeBag)
-        
-        output.timer
-            .withUnretained(self)
-            .bind { `self`, timer in
-                self.configureUI(with: timer)
-            }
-            .disposed(by: disposeBag)
         
         output.exitScene
             .withUnretained(self)
@@ -188,6 +167,10 @@ final class TimerCreateViewController: UIViewController, ViewType {
         output.timePickerViewIsHidden
             .bind(to: timePickerView.rx.animated.flip(.top, duration: 0.35).isHidden)
             .disposed(by: disposeBag)
+        
+        output.placeholder
+            .bind(to: nameTextField.rx.placeholder)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -195,15 +178,7 @@ final class TimerCreateViewController: UIViewController, ViewType {
 
 private extension TimerCreateViewController {
     func configureUI() {
-        navigationItem.title = LocalizableString.createTimer.localized
         view.backgroundColor = .systemBackground
-    }
-    
-    func configureUI(with timer: Timer) {
-        nameTextField.placeholder = timer.name
-        nameTextField.text = timer.name
-        timePickerView.selectRows(by: timer.time, animated: true)
-        tagScrollView.tagDidSelect.accept(timer.tag)
     }
 }
 
@@ -214,12 +189,11 @@ private extension TimerCreateViewController {
         view.addSubview(timerTypeSegmentControl)
         view.addSubview(tagScrollView)
         view.addSubview(nameTextField)
-        view.addSubview(timePickerView)
         view.addSubview(buttonStackView)
-        view.addSubview(timeSettingStackView)
+        view.addSubview(timePickerButtonStackView)
         
         timerTypeSegmentControl.translatesAutoresizingMaskIntoConstraints = false
-        timerTypeSegmentControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 64).isActive = true
+        timerTypeSegmentControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24).isActive = true
         timerTypeSegmentControl.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 48).isActive = true
         timerTypeSegmentControl.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -48).isActive = true
         timerTypeSegmentControl.heightAnchor.constraint(equalToConstant: 36).isActive = true
@@ -236,10 +210,10 @@ private extension TimerCreateViewController {
         nameTextField.leadingAnchor.constraint(equalTo: tagScrollView.leadingAnchor).isActive = true
         nameTextField.trailingAnchor.constraint(equalTo: tagScrollView.trailingAnchor).isActive = true
         
-        timeSettingStackView.translatesAutoresizingMaskIntoConstraints = false
-        timeSettingStackView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20).isActive = true
-        timeSettingStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36).isActive = true
-        timeSettingStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36).isActive = true
+        timePickerButtonStackView.translatesAutoresizingMaskIntoConstraints = false
+        timePickerButtonStackView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20).isActive = true
+        timePickerButtonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36).isActive = true
+        timePickerButtonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36).isActive = true
     }
 }
 
