@@ -19,8 +19,11 @@ final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completion) in
             self?.cellDidSwipeFromTrailing.accept(indexPath.row)
         }
-        deleteAction.image = UIImage(systemName: "trash")
-
+        
+        let actionImage = UIImage.makeSFSymbolImage(size: 38, systemName: "trash.circle", color: CustomColor.Button.deleteImage)
+        deleteAction.image = actionImage
+        deleteAction.backgroundColor = .systemBackground
+        
         let config = UISwipeActionsConfiguration(actions: [deleteAction])
         config.performsFirstActionWithFullSwipe = true
         return config
@@ -32,8 +35,10 @@ final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
             self?.cellDidSwipeFromLeading.accept(indexPath.row)
             completion(true)
         }
-        resetAction.image = UIImage(systemName: "stop.circle")
-        resetAction.backgroundColor = .systemBlue
+        
+        let actionImage = UIImage.makeSFSymbolImage(size: 38, systemName: "stop.circle", color: CustomColor.Button.resetImage)
+        resetAction.image = actionImage
+        resetAction.backgroundColor = .systemBackground
         
         let config = UISwipeActionsConfiguration(actions: [resetAction])
         config.performsFirstActionWithFullSwipe = false
