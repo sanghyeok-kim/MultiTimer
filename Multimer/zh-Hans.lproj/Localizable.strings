@@ -14,7 +14,7 @@
 "minute" = "分";
 "second" = "秒";
 "all" = "整体";
-"activated" = "运转中";
+"activated" = "运行中";
 "enterTimerNameToCreate" = "请输入计时器的名称。";
 "enterStopwatchNameToCreate" = "请输入秒表名称。";
 "createTimer" = "创建计时器";
