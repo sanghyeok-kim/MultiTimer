@@ -60,6 +60,7 @@ final class TimerCreateViewModel: ViewModelType {
                 Timer(
                     identifier: timer.identifier,
                     name: name,
+                    tag: tag,
                     time: type == .countDown ? time : TimeFactory.createDefaultTime(),
                     type: type
                 )
