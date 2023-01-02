@@ -181,11 +181,11 @@ private extension MainViewModel {
         let timerCreateViewModel = input.timerAddButtonDidTap
             .map { TimerCreateViewModel(timer: Timer(time: TimeFactory.createDefaultTime())) }
             .share()
-
+        
         timerCreateViewModel
             .bind(to: output.presentTimerCreateViewController)
             .disposed(by: disposeBag)
-
+        
         let createdTimer = timerCreateViewModel
             .flatMapLatest { $0.output.newTimer }
             .share()
@@ -212,7 +212,7 @@ private extension MainViewModel {
             }
             .bind(to: fetchedTimerCellViewModels)
             .disposed(by: disposeBag)
-
+        
         createdTimer
             .bind(onNext: mainUseCase.appendTimer)
             .disposed(by: disposeBag)
@@ -258,7 +258,7 @@ private extension MainViewModel {
     
     func handleEditButtonDidTap() {
         input.editButtonDidTap
-            .withLatestFrom(output.filteredTimerCellViewModels) { isEditing, viewModels -> Bool in
+            .withLatestFrom(fetchedTimerCellViewModels) { isEditing, viewModels -> Bool in
                 let canCellTap = !isEditing
                 viewModels.forEach { $0.enableCellTapButton(by: canCellTap) }
                 return isEditing
