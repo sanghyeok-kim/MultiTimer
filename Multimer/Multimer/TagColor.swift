@@ -13,10 +13,9 @@ enum TagColor: Int, CaseIterable, Codable {
     case red
     case orange
     case pink
-    case green
     case cyan
-    case purple
     case navy
+    case purple
     
     var uiColor: UIColor {
         switch self {
@@ -28,14 +27,12 @@ enum TagColor: Int, CaseIterable, Codable {
             return CustomColor.Tag.orange
         case .pink:
             return CustomColor.Tag.pink
-        case .green:
-            return CustomColor.Tag.green
         case .cyan:
             return CustomColor.Tag.cyan
-        case .purple:
-            return CustomColor.Tag.purple
         case .navy:
             return CustomColor.Tag.navy
+        case .purple:
+            return CustomColor.Tag.purple
         }
     }
 }

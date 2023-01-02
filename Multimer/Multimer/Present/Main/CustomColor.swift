@@ -54,15 +54,6 @@ enum CustomColor {
             }
         }
         
-        static let green = UIColor { traitCollection in
-            switch traitCollection.userInterfaceStyle {
-            case .dark:
-                return UIColor(red: 147 / 255, green: 234 / 255, blue: 156 / 255, alpha: 1.0)
-            default:
-                return UIColor(red: 117 / 255, green: 204 / 255, blue: 116 / 255, alpha: 1.0)
-            }
-        }
-        
         static let cyan = UIColor { traitCollection in
             switch traitCollection.userInterfaceStyle {
             case .dark:
@@ -72,21 +63,21 @@ enum CustomColor {
             }
         }
         
-        static let purple = UIColor { traitCollection in
-            switch traitCollection.userInterfaceStyle {
-            case .dark:
-                return UIColor(red: 171 / 255, green: 124 / 255, blue: 245 / 255, alpha: 1.0)
-            default:
-                return UIColor(red: 161 / 255, green: 114 / 255, blue: 225 / 255, alpha: 1.0)
-            }
-        }
-        
         static let navy = UIColor { traitCollection in
             switch traitCollection.userInterfaceStyle {
             case .dark:
                 return UIColor(red: 106 / 255, green: 136 / 255, blue: 249 / 255, alpha: 1.0)
             default:
                 return UIColor(red: 96 / 255, green: 126 / 255, blue: 239 / 255, alpha: 1.0)
+            }
+        }
+        
+        static let purple = UIColor { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return UIColor(red: 171 / 255, green: 124 / 255, blue: 245 / 255, alpha: 1.0)
+            default:
+                return UIColor(red: 161 / 255, green: 114 / 255, blue: 225 / 255, alpha: 1.0)
             }
         }
     }
