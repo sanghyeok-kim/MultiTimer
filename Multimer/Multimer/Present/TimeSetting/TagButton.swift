@@ -19,21 +19,9 @@ final class TagButton: UIButton {
     init(tag: Tag) {
         self.tagState = tag
         super.init(frame: .zero)
-        setImage(UIImage(systemName: "checkmark"), for: .selected)
-        backgroundColor = tag.color.rgb
-        isSelected = tag.isSelected
-        
-        rx.tap
-            .map { tag }
-            .bind(to: didTap)
-            .disposed(by: disposeBag)
-        
-        selectedButtonColor
-            .withUnretained(self)
-            .bind { `self`, color in
-                self.toggleSelected(by: color)
-            }
-            .disposed(by: disposeBag)
+        configureUI(with: tag)
+        bindDidTap(with: tag)
+        bindSelectedButtonColor()
     }
     
     @available(*, unavailable)
@@ -44,11 +32,38 @@ final class TagButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         clipsToBounds = true
-        layer.cornerRadius = min(frame.width, frame.height) / 2
+        layer.cornerRadius = max(layer.frame.size.width, layer.frame.size.height) / 2
+    }
+    
+    private func bindDidTap(with tag: Tag) {
+        rx.tap
+            .map { tag }
+            .bind(to: didTap)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindSelectedButtonColor() {
+        selectedButtonColor
+            .withUnretained(self)
+            .bind { `self`, color in
+                self.toggleSelected(by: color)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func toggleSelected(by selectedButtonColor: TagColor) {
         isSelected = tagState.color == selectedButtonColor
-        tagState.isSelected = isSelected //???????????????????????????????????????????????????????
+        tagState.isSelected = isSelected
+    }
+}
+
+private extension TagButton {
+    func configureUI(with tag: Tag) {
+        let checkmarkImage = UIImage(
+            systemName: "checkmark"
+        )?.withTintColor(CustomColor.Tag.checkmarkImage, renderingMode: .alwaysOriginal)
+        setImage(checkmarkImage, for: .selected)
+        backgroundColor = tag.color.uiColor
+        isSelected = tag.isSelected
     }
 }

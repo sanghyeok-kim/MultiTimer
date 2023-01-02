@@ -10,44 +10,46 @@ import RxRelay
 
 final class TagScrollView: UIScrollView {
     
-    let tagDidSelect = PublishRelay<Tag?>()
-    private let disposeBag = DisposeBag()
+    let tagDidSelect = BehaviorRelay<Tag?>(value: Tag(color: .label))
     
-    private let contentView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var tagButtons = TagColor.allCases.map { TagButton(tag: Tag(color: $0)) }
+    
+    private lazy var contentView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: tagButtons)
         stackView.axis = .horizontal
         stackView.spacing = 8
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fillEqually
         return stackView
     }()
     
+    private let disposeBag = DisposeBag()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        //TagButton 생성
-        let tagButtons = TagColor.allCases.map { TagButton(tag: Tag(color: $0)) }
-        contentView.addArrangedSubviews(tagButtons)
-        
-        //모든 TagButton에서 발생하는 이벤트를 merge해서 tagDidSelect로 전달
-        Observable<Tag>
-            .merge(tagButtons.map { $0.didTap.asObservable() })
-            .bind(to: tagDidSelect)
-            .disposed(by: disposeBag)
-        
-        //tagDidSelect에서 발생하는 이벤트를 모든 TagButton들에게 broadcast
-        tagDidSelect
-            .compactMap { $0?.color }
-            .bind { color in
-                tagButtons.forEach { $0.selectedButtonColor.accept(color) }
-            }
-            .disposed(by: disposeBag)
-        
+        bindTagButtonsDidTap(from: tagButtons)
+        bindTagDidSelect(to: tagButtons)
         layout()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func bindTagButtonsDidTap(from tagButtons: [TagButton]) {
+        Observable<Tag>
+            .merge(tagButtons.map { $0.didTap.asObservable() })
+            .bind(to: tagDidSelect)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindTagDidSelect(to tagButtons: [TagButton]) {
+        tagDidSelect
+            .compactMap { $0?.color }
+            .bind { color in
+                tagButtons.forEach { $0.selectedButtonColor.accept(color) }
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -56,10 +58,15 @@ private extension TagScrollView {
         addSubview(contentView)
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.topAnchor.constraint(equalTo: contentLayoutGuide.topAnchor, constant: 4).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: contentLayoutGuide.bottomAnchor, constant: -4).isActive = true
-        contentView.leadingAnchor.constraint(equalTo: contentLayoutGuide.leadingAnchor, constant: 4).isActive = true
-        contentView.trailingAnchor.constraint(equalTo: contentLayoutGuide.trailingAnchor, constant: -4).isActive = true
-        contentView.heightAnchor.constraint(equalTo: frameLayoutGuide.heightAnchor, constant: -8).isActive = true
+        contentView.topAnchor.constraint(equalTo: frameLayoutGuide.topAnchor, constant: 4).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: frameLayoutGuide.bottomAnchor, constant: -4).isActive = true
+        
+        contentView.heightAnchor.constraint(equalTo: contentLayoutGuide.heightAnchor).isActive = true
+        contentView.leadingAnchor.constraint(equalTo: contentLayoutGuide.leadingAnchor, constant: 8).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: contentLayoutGuide.trailingAnchor, constant: -8).isActive = true
+        
+        tagButtons.forEach {
+            $0.widthAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
+        }
     }
 }
