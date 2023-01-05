@@ -81,9 +81,9 @@
 		1EBEF02C292C803400299CE7 /* EnvironmentSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEF02B292C803400299CE7 /* EnvironmentSettingViewController.swift */; };
 		1EBFEE152919270D00747606 /* TimerSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBFEE142919270D00747606 /* TimerSettingViewModel.swift */; };
 		1EBFEE17291ABE1900747606 /* UITextField+Rx+textChanged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBFEE16291ABE1900747606 /* UITextField+Rx+textChanged.swift */; };
-		284E6114050224D9C3E7E23D /* Pods_Multimer_MultimerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C8B8D20E646F7DD1F545138 /* Pods_Multimer_MultimerUITests.framework */; };
-		50EDF4005CED42E235BFC2AE /* Pods_MultimerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 346163D03C21E772E515BAF0 /* Pods_MultimerTests.framework */; };
-		EB1E0428FF0CB844F02D9821 /* Pods_Multimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BFF2E31EE050AF1DE4A2DA4 /* Pods_Multimer.framework */; };
+		201F3BFBD89E475D47EACF02 /* Pods_Multimer_MultimerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E7486D72F69F4E04BD7AC0 /* Pods_Multimer_MultimerUITests.framework */; };
+		7E99E5253546AB8F4C99BA6B /* Pods_MultimerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C11A9853753021830CBA321 /* Pods_MultimerTests.framework */; };
+		BF4B32B94FD87BED532FEB0A /* Pods_Multimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80B6067A5C1875BB8B4F48F /* Pods_Multimer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,8 +104,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04CDA14847C6962719D7A162 /* Pods-MultimerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultimerTests.release.xcconfig"; path = "Target Support Files/Pods-MultimerTests/Pods-MultimerTests.release.xcconfig"; sourceTree = "<group>"; };
-		051C07479B9CAD8F97E05F93 /* Pods-Multimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer.release.xcconfig"; path = "Target Support Files/Pods-Multimer/Pods-Multimer.release.xcconfig"; sourceTree = "<group>"; };
+		00E7486D72F69F4E04BD7AC0 /* Pods_Multimer_MultimerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multimer_MultimerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1114132F9A6FA51595E52B8D /* Pods-Multimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer.debug.xcconfig"; path = "Target Support Files/Pods-Multimer/Pods-Multimer.debug.xcconfig"; sourceTree = "<group>"; };
 		1E0BF58C294ECD0800A24231 /* EditViewButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewButtonType.swift; sourceTree = "<group>"; };
 		1E0BF58E294F12BF00A24231 /* SymbolImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolImageButton.swift; sourceTree = "<group>"; };
 		1E2604B3295AEDA30001B625 /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
@@ -190,13 +190,13 @@
 		1EBEF02B292C803400299CE7 /* EnvironmentSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentSettingViewController.swift; sourceTree = "<group>"; };
 		1EBFEE142919270D00747606 /* TimerSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSettingViewModel.swift; sourceTree = "<group>"; };
 		1EBFEE16291ABE1900747606 /* UITextField+Rx+textChanged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Rx+textChanged.swift"; sourceTree = "<group>"; };
-		27CD492903CB856CACDA9E64 /* Pods-Multimer-MultimerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer-MultimerUITests.release.xcconfig"; path = "Target Support Files/Pods-Multimer-MultimerUITests/Pods-Multimer-MultimerUITests.release.xcconfig"; sourceTree = "<group>"; };
-		346163D03C21E772E515BAF0 /* Pods_MultimerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MultimerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		491019F0D2FC373C78F40E85 /* Pods-Multimer-MultimerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer-MultimerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Multimer-MultimerUITests/Pods-Multimer-MultimerUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		6BFF2E31EE050AF1DE4A2DA4 /* Pods_Multimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7C8B8D20E646F7DD1F545138 /* Pods_Multimer_MultimerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multimer_MultimerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8851057CAD49B29FD8BFD2F1 /* Pods-Multimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer.debug.xcconfig"; path = "Target Support Files/Pods-Multimer/Pods-Multimer.debug.xcconfig"; sourceTree = "<group>"; };
-		F81EE9151F6254F328C1CCCD /* Pods-MultimerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultimerTests.debug.xcconfig"; path = "Target Support Files/Pods-MultimerTests/Pods-MultimerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2BEC4EC1190913C1BEBECFB0 /* Pods-Multimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer.release.xcconfig"; path = "Target Support Files/Pods-Multimer/Pods-Multimer.release.xcconfig"; sourceTree = "<group>"; };
+		300EFED6221501D7A2950A30 /* Pods-Multimer-MultimerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer-MultimerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Multimer-MultimerUITests/Pods-Multimer-MultimerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		5D140FFB983D91D026427EA6 /* Pods-MultimerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultimerTests.release.xcconfig"; path = "Target Support Files/Pods-MultimerTests/Pods-MultimerTests.release.xcconfig"; sourceTree = "<group>"; };
+		7C11A9853753021830CBA321 /* Pods_MultimerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MultimerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		999250D5CDA06D7B2B9E50C0 /* Pods-Multimer-MultimerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer-MultimerUITests.release.xcconfig"; path = "Target Support Files/Pods-Multimer-MultimerUITests/Pods-Multimer-MultimerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B80B6067A5C1875BB8B4F48F /* Pods_Multimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1396C04C55B114656AC65EF /* Pods-MultimerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultimerTests.debug.xcconfig"; path = "Target Support Files/Pods-MultimerTests/Pods-MultimerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,7 +204,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB1E0428FF0CB844F02D9821 /* Pods_Multimer.framework in Frameworks */,
+				BF4B32B94FD87BED532FEB0A /* Pods_Multimer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,7 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50EDF4005CED42E235BFC2AE /* Pods_MultimerTests.framework in Frameworks */,
+				7E99E5253546AB8F4C99BA6B /* Pods_MultimerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,7 +220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				284E6114050224D9C3E7E23D /* Pods_Multimer_MultimerUITests.framework in Frameworks */,
+				201F3BFBD89E475D47EACF02 /* Pods_Multimer_MultimerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,12 +230,12 @@
 		1397467FE4826333247004CD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8851057CAD49B29FD8BFD2F1 /* Pods-Multimer.debug.xcconfig */,
-				051C07479B9CAD8F97E05F93 /* Pods-Multimer.release.xcconfig */,
-				491019F0D2FC373C78F40E85 /* Pods-Multimer-MultimerUITests.debug.xcconfig */,
-				27CD492903CB856CACDA9E64 /* Pods-Multimer-MultimerUITests.release.xcconfig */,
-				F81EE9151F6254F328C1CCCD /* Pods-MultimerTests.debug.xcconfig */,
-				04CDA14847C6962719D7A162 /* Pods-MultimerTests.release.xcconfig */,
+				1114132F9A6FA51595E52B8D /* Pods-Multimer.debug.xcconfig */,
+				2BEC4EC1190913C1BEBECFB0 /* Pods-Multimer.release.xcconfig */,
+				300EFED6221501D7A2950A30 /* Pods-Multimer-MultimerUITests.debug.xcconfig */,
+				999250D5CDA06D7B2B9E50C0 /* Pods-Multimer-MultimerUITests.release.xcconfig */,
+				E1396C04C55B114656AC65EF /* Pods-MultimerTests.debug.xcconfig */,
+				5D140FFB983D91D026427EA6 /* Pods-MultimerTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -273,7 +273,7 @@
 				1E48FEB82911F9250090B246 /* MultimerUITests */,
 				1E48FE962911F9240090B246 /* Products */,
 				1397467FE4826333247004CD /* Pods */,
-				2A02E7B4D6C69D3D3E63182E /* Frameworks */,
+				C8E2B4B7ECC9EE1DA8BEA678 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -446,12 +446,12 @@
 			path = TimerTableView;
 			sourceTree = "<group>";
 		};
-		2A02E7B4D6C69D3D3E63182E /* Frameworks */ = {
+		C8E2B4B7ECC9EE1DA8BEA678 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6BFF2E31EE050AF1DE4A2DA4 /* Pods_Multimer.framework */,
-				7C8B8D20E646F7DD1F545138 /* Pods_Multimer_MultimerUITests.framework */,
-				346163D03C21E772E515BAF0 /* Pods_MultimerTests.framework */,
+				B80B6067A5C1875BB8B4F48F /* Pods_Multimer.framework */,
+				00E7486D72F69F4E04BD7AC0 /* Pods_Multimer_MultimerUITests.framework */,
+				7C11A9853753021830CBA321 /* Pods_MultimerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -463,11 +463,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1E48FEBF2911F9250090B246 /* Build configuration list for PBXNativeTarget "Multimer" */;
 			buildPhases = (
-				28AC3F186ED1108433A23338 /* [CP] Check Pods Manifest.lock */,
+				571A68AAE317BBBC527CC86D /* [CP] Check Pods Manifest.lock */,
 				1E48FE912911F9240090B246 /* Sources */,
 				1E48FE922911F9240090B246 /* Frameworks */,
 				1E48FE932911F9240090B246 /* Resources */,
-				80EB4D384335900274A40EC7 /* [CP] Embed Pods Frameworks */,
+				1D7D6AB7840813761DDB7874 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -482,7 +482,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1E48FEC22911F9250090B246 /* Build configuration list for PBXNativeTarget "MultimerTests" */;
 			buildPhases = (
-				D8A727EE12C2BEF7B2D186C2 /* [CP] Check Pods Manifest.lock */,
+				2BAF1B4B083303DF4E3312AD /* [CP] Check Pods Manifest.lock */,
 				1E48FEA72911F9250090B246 /* Sources */,
 				1E48FEA82911F9250090B246 /* Frameworks */,
 				1E48FEA92911F9250090B246 /* Resources */,
@@ -501,11 +501,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1E48FEC52911F9250090B246 /* Build configuration list for PBXNativeTarget "MultimerUITests" */;
 			buildPhases = (
-				7B228F9D543C93422D9E69A5 /* [CP] Check Pods Manifest.lock */,
+				C9E0803DB0740EC45E6593E6 /* [CP] Check Pods Manifest.lock */,
 				1E48FEB12911F9250090B246 /* Sources */,
 				1E48FEB22911F9250090B246 /* Frameworks */,
 				1E48FEB32911F9250090B246 /* Resources */,
-				6285067C9F19EC682C0F06D3 /* [CP] Embed Pods Frameworks */,
+				0F960F03597C840DF72DFECC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -592,7 +592,63 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		28AC3F186ED1108433A23338 /* [CP] Check Pods Manifest.lock */ = {
+		0F960F03597C840DF72DFECC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Multimer-MultimerUITests/Pods-Multimer-MultimerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Multimer-MultimerUITests/Pods-Multimer-MultimerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Multimer-MultimerUITests/Pods-Multimer-MultimerUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1D7D6AB7840813761DDB7874 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Multimer/Pods-Multimer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Multimer/Pods-Multimer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Multimer/Pods-Multimer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2BAF1B4B083303DF4E3312AD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MultimerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		571A68AAE317BBBC527CC86D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -614,24 +670,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6285067C9F19EC682C0F06D3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Multimer-MultimerUITests/Pods-Multimer-MultimerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Multimer-MultimerUITests/Pods-Multimer-MultimerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Multimer-MultimerUITests/Pods-Multimer-MultimerUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7B228F9D543C93422D9E69A5 /* [CP] Check Pods Manifest.lock */ = {
+		C9E0803DB0740EC45E6593E6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -647,45 +686,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Multimer-MultimerUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		80EB4D384335900274A40EC7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Multimer/Pods-Multimer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Multimer/Pods-Multimer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Multimer/Pods-Multimer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D8A727EE12C2BEF7B2D186C2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MultimerTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -868,6 +868,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -929,6 +930,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -951,7 +953,7 @@
 		};
 		1E48FEC02911F9250090B246 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8851057CAD49B29FD8BFD2F1 /* Pods-Multimer.debug.xcconfig */;
+			baseConfigurationReference = 1114132F9A6FA51595E52B8D /* Pods-Multimer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -979,7 +981,7 @@
 		};
 		1E48FEC12911F9250090B246 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 051C07479B9CAD8F97E05F93 /* Pods-Multimer.release.xcconfig */;
+			baseConfigurationReference = 2BEC4EC1190913C1BEBECFB0 /* Pods-Multimer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1007,7 +1009,7 @@
 		};
 		1E48FEC32911F9250090B246 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F81EE9151F6254F328C1CCCD /* Pods-MultimerTests.debug.xcconfig */;
+			baseConfigurationReference = E1396C04C55B114656AC65EF /* Pods-MultimerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1028,7 +1030,7 @@
 		};
 		1E48FEC42911F9250090B246 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 04CDA14847C6962719D7A162 /* Pods-MultimerTests.release.xcconfig */;
+			baseConfigurationReference = 5D140FFB983D91D026427EA6 /* Pods-MultimerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1049,7 +1051,7 @@
 		};
 		1E48FEC62911F9250090B246 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 491019F0D2FC373C78F40E85 /* Pods-Multimer-MultimerUITests.debug.xcconfig */;
+			baseConfigurationReference = 300EFED6221501D7A2950A30 /* Pods-Multimer-MultimerUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1068,7 +1070,7 @@
 		};
 		1E48FEC72911F9250090B246 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27CD492903CB856CACDA9E64 /* Pods-Multimer-MultimerUITests.release.xcconfig */;
+			baseConfigurationReference = 999250D5CDA06D7B2B9E50C0 /* Pods-Multimer-MultimerUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
