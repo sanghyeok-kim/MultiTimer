@@ -11,7 +11,7 @@ target 'Multimer' do
   pod 'RxCocoa'
   pod 'RxAppState'
   pod 'RxAnimated'
-
+  pod 'Google-Mobile-Ads-SDK'
 
   target 'MultimerTests' do
     inherit! :search_paths
