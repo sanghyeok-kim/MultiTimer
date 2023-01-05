@@ -125,16 +125,7 @@ enum CustomColor {
             case .dark:
                 return UIColor(red: 244 / 255, green: 172 / 255, blue: 208 / 255, alpha: 1.0)
             default:
-                return UIColor(red: 255 / 255, green: 75 / 255, blue: 132 / 255, alpha: 1.0)
-            }
-        }
-        
-        static let restartImage = UIColor { traitCollection in
-            switch traitCollection.userInterfaceStyle {
-            case .dark:
-                return UIColor(red: 100 / 255, green: 156 / 255, blue: 255 / 255, alpha: 1.0)
-            default:
-                return UIColor(red: 47 / 255, green: 85 / 255, blue: 150 / 255, alpha: 1.0)
+                return UIColor(red: 255 / 255, green: 122 / 255, blue: 178 / 255, alpha: 1.0)
             }
         }
         
