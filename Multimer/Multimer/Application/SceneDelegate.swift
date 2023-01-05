@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let initialViewController = MainViewController()
         let navVC = UINavigationController(rootViewController: initialViewController)
         let viewModel = MainViewModel(
-            mainUseCase: MainUseCase(timerPersistentRepository: CoreDataTimerRepository())
+            mainUseCase: DefaultMainUseCase(timerPersistentRepository: CoreDataTimerRepository())
         )
         initialViewController.bind(viewModel: viewModel)
         guard let windowScene = (scene as? UIWindowScene) else { return }
