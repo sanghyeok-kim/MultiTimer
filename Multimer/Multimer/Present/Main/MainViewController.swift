@@ -298,7 +298,7 @@ private extension MainViewController {
         adBannerPlaceholderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: adBannerPlaceholderView.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: adBannerPlaceholderView.bottomAnchor, constant: 2).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
