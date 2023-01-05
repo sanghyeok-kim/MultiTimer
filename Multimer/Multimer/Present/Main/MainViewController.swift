@@ -276,7 +276,7 @@ private extension MainViewController {
     
     func loadAdMobBannerView() {
         adBannerView.delegate = self
-        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716" //testID
+        adBannerView.adUnitID = "ca-app-pub-4763251014395621/8038914763"
         adBannerView.rootViewController = self
         adBannerView.load(GADRequest())
     }
@@ -298,7 +298,7 @@ private extension MainViewController {
         adBannerPlaceholderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: adBannerPlaceholderView.bottomAnchor, constant: 2).isActive = true
+        tableView.topAnchor.constraint(equalTo: adBannerPlaceholderView.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
