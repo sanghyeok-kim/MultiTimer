@@ -7,7 +7,6 @@
 
 import UIKit
 import UserNotifications
-import GoogleMobileAds
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,8 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 UNUserNotificationCenter.current().delegate = self
             }
         }
-        
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
         return true
     }
     

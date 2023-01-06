@@ -8,19 +8,10 @@
 import RxSwift
 import RxRelay
 import RxAppState
-import GoogleMobileAds
 
 final class MainViewController: UIViewController, ViewType {
     
     private let filteringNavigationTitleView = FilteringNavigationTitleView()
-    
-    private lazy var adBannerPlaceholderView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        return stackView
-    }()
-    
-    private let adBannerView = GADBannerView(adSize: GADAdSizeBanner)
     
     private lazy var tableViewDelegate = TimerTableViewDelegate()
     private lazy var tableViewDiffableDataSource = TimerTableViewDiffableDataSource(tableView: tableView)
@@ -82,7 +73,6 @@ final class MainViewController: UIViewController, ViewType {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadAdMobBannerView()
         configureUI()
         layout()
     }
@@ -253,18 +243,6 @@ private extension MainViewController {
     }
 }
 
-// MARK: - Adopt GADBannerViewDelegate
-
-extension MainViewController: GADBannerViewDelegate {
-    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-        adBannerPlaceholderView.addArrangedSubview(adBannerView)
-        adBannerView.alpha = 0
-        UIView.animate(withDuration: 1, animations: {
-            self.adBannerView.alpha = 1
-        })
-    }
-}
-
 // MARK: - UI Configuration
 
 private extension MainViewController {
@@ -274,34 +252,19 @@ private extension MainViewController {
         navigationItem.rightBarButtonItem = timerAddBarButtonItem
         navigationItem.leftBarButtonItem = timerEditBarButtonItem
     }
-    
-    func loadAdMobBannerView() {
-        adBannerView.delegate = self
-        // TODO: Constant 따로 관리하기
-        adBannerView.adUnitID = "ca-app-pub-4763251014395621/8038914763"
-//        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716" //testID
-        adBannerView.rootViewController = self
-        adBannerView.load(GADRequest())
-    }
 }
 
 // MARK: - UI Layout
 
 private extension MainViewController {
     func layout() {
-        view.addSubview(adBannerPlaceholderView)
         view.addSubview(tableView)
         view.addSubview(emptyTimerView)
         view.addSubview(emptyActiveTimerView)
         view.addSubview(timerEditingView)
         
-        adBannerPlaceholderView.translatesAutoresizingMaskIntoConstraints = false
-        adBannerPlaceholderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        adBannerPlaceholderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        adBannerPlaceholderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: adBannerPlaceholderView.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
