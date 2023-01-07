@@ -76,7 +76,7 @@ final class TimerEditingView: UIView {
 
 private extension TimerEditingView {
     func configureUI() {
-        backgroundColor = .systemGray5
+        backgroundColor = CustomColor.View.timerEditing
     }
     
     func layout() {

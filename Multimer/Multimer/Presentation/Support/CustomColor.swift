@@ -59,7 +59,7 @@ enum CustomColor {
             case .dark:
                 return UIColor(red: 163 / 255, green: 247 / 255, blue: 227 / 255, alpha: 1.0)
             default:
-                return UIColor(red: 123 / 255, green: 207 / 255, blue: 187 / 255, alpha: 1.0)
+                return UIColor(red: 100 / 255, green: 206 / 255, blue: 186 / 255, alpha: 1.0)
             }
         }
         
@@ -88,7 +88,8 @@ enum CustomColor {
             case .dark:
                 return UIColor(red: 80 / 255, green: 90 / 255, blue: 120 / 255, alpha: 1.0)
             default:
-                return UIColor(red: 210 / 255, green: 220 / 255, blue: 240 / 255, alpha: 1.0)
+                return UIColor(red: 203 / 255, green: 213 / 255, blue: 235 / 255, alpha: 0.8)
+                
             }
         }
         static let trackTint = UIColor { traitCollection in
@@ -96,7 +97,7 @@ enum CustomColor {
             case .dark:
                 return UIColor(red: 32 / 255, green: 31 / 255, blue: 35 / 255, alpha: 1.0)
             default:
-                return UIColor(red: 230 / 255, green: 230 / 255, blue: 240 / 255, alpha: 1.0)
+                return UIColor(red: 220 / 255, green: 230 / 255, blue: 240 / 255, alpha: 0.8)
             }
         }
     }
@@ -125,10 +126,21 @@ enum CustomColor {
             case .dark:
                 return UIColor(red: 244 / 255, green: 172 / 255, blue: 208 / 255, alpha: 1.0)
             default:
-                return UIColor(red: 255 / 255, green: 122 / 255, blue: 178 / 255, alpha: 1.0)
+                return UIColor(red: 255 / 255, green: 112 / 255, blue: 168 / 255, alpha: 1.0)
             }
         }
         
         static let deleteImage = UIColor(red: 234 / 255, green: 4 / 255, blue: 126 / 255, alpha: 1.0)
+    }
+    
+    enum View {
+        static let timerEditing = UIColor { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return .systemGray5
+            default:
+                return UIColor(red: 224 / 255, green: 230 / 255, blue: 238 / 255, alpha: 1.0)
+            }
+        }
     }
 }
