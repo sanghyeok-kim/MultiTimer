@@ -30,4 +30,4 @@
 "onlyActiveTimersAppearMessage" = "Timers in the run, pause, and complete states appear.";
 "settingTimer" = "Setting %@";
 "timerExpired" = "Timer Expired - %@";
-"appTitle" = "MultiTimer";
+"appTitle" = "Multi+Timer";

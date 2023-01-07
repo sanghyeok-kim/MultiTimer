@@ -30,4 +30,4 @@
 "onlyActiveTimersAppearMessage" = "実行、一時停止、および完了状態のタイマーが表示されます。";
 "settingTimer" = "%@ 設定";
 "timerExpired" = "タイマー 終了 '%@'";
-"appTitle" = "マルチタイマー";
+"appTitle" = "マルチ+タイマー";
