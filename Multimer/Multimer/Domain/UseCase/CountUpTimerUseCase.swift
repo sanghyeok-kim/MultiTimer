@@ -13,8 +13,7 @@ final class CountUpTimerUseCase: TimerUseCase {
     let timer: BehaviorRelay<Timer>
     let timerState: BehaviorRelay<TimerState>
     
-    // TODO: TimerPersistentRepository 프로토콜 타입으로 변경
-    private let timerPersistentRepository: CoreDataTimerRepository
+    private let timerPersistentRepository: TimerPersistentRepository
     private let timerIdentifier: UUID
     private var dispatchSourceTimer: DispatchSourceTimer? = nil
     private let disposeBag = DisposeBag()
@@ -23,7 +22,7 @@ final class CountUpTimerUseCase: TimerUseCase {
         return timer.value
     }
     
-    init(timer: Timer, timerPersistentRepository: CoreDataTimerRepository) {
+    init(timer: Timer, timerPersistentRepository: TimerPersistentRepository) {
         self.timer = BehaviorRelay<Timer>(value: timer)
         self.timerState = BehaviorRelay<TimerState>(value: timer.state)
         self.timerPersistentRepository = timerPersistentRepository
