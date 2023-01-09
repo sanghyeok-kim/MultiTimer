@@ -11,8 +11,6 @@ final class DefaultMainUseCase: MainUseCase {
     
     let fetchedUserTimers = PublishSubject<[Timer]>()
     let fetchErrorMessage = PublishSubject<String>()
-//    let cannotCreateMoreMessage = PublishSubject<String>()
-//    let deleteErrorMessage = PublishSubject<String>()
     
     private let timerPersistentRepository: CoreDataTimerRepository
     private let disposeBag = DisposeBag()
@@ -50,11 +48,6 @@ final class DefaultMainUseCase: MainUseCase {
     }
     
     func appendTimer(_ timer: Timer) {
-        // TODO: 추가할 수 있는 최대 타이머 개수 확인 로직 추가 - 더 이상 추가할 수 없다는 message accept 보내고 return
-//        if !timerPersistentRepository.canCreate() {
-//            cannotCreateMoreMessage.onNext(<#T##element: String##String#>)
-//            return
-//        }
         timerPersistentRepository.create(timer: timer)
     }
 }
