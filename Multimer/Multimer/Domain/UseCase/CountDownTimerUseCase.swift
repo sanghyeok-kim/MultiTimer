@@ -138,8 +138,6 @@ final class CountDownTimerUseCase: TimerUseCase {
         let content = UNMutableNotificationContent()
         content.title = LocalizableString.appTitle.localized
         content.body = LocalizableString.timerExpired(timerName: currentTimer.name).localized
-//        let badge = (content.badge ?? 0) + 1
-//        content.badge = badge
         content.sound = .default
         
         if currentTimer.remainingSeconds <= .zero { return }
