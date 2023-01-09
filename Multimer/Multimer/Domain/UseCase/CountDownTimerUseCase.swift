@@ -75,7 +75,6 @@ final class CountDownTimerUseCase: TimerUseCase {
             return
         }
         
-        //순서 주의 - removeNoti 먼저 하고 나서 suspend 해야함
         removeNotification()
         dispatchSourceTimer?.suspend()
         

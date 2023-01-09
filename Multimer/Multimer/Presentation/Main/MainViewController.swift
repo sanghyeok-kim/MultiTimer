@@ -22,7 +22,6 @@ final class MainViewController: UIViewController, ViewType {
         tableView.separatorStyle = .none
         tableView.allowsMultipleSelectionDuringEditing = true
         tableView.register(TimerViewCell.self, forCellReuseIdentifier: TimerViewCell.identifier)
-//        tableView.register(TimerTableFooterView.self, forHeaderFooterViewReuseIdentifier: TimerTableFooterView.identifier)
         tableView.sectionFooterHeight = ViewSize.tableViewSectionFooterHeight
         tableView.sectionHeaderHeight = .zero
         tableView.backgroundColor = .systemBackground
@@ -290,8 +289,6 @@ private extension MainViewController {
     }
     
     func presentTimerEditingView(by isEditing: Bool) {
-        // updateCycle상 아직 업데이트 되지 않은 layout이 있다면 animate 블록 안에서 layoutIfNeeded를 호출할 때 같이 업데이트 되므로,
-        // 그 전에 한 번 layoutIfNeeded를 호출해서 의도치않은 애니메이션을 방지
         view.layoutIfNeeded()
         
         UIView.animate(withDuration: 0.3) {

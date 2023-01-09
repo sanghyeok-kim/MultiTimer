@@ -63,7 +63,6 @@ final class MainViewModel: ViewModelType {
         // MARK: - Handle Event from UseCase
         
         handleFetchedUserTimer()
-//        handleUseCaseError()
         
         // MARK: - Handle Event from FetchedTimerCellViewModels
         
@@ -236,12 +235,12 @@ private extension MainViewModel {
                     }
                 }
             }
-            .bind(to: fetchedTimerCellViewModels) // FIXME: VC에게 전달하지말고 Coordinator에게 전달
+            .bind(to: fetchedTimerCellViewModels)
             .disposed(by: disposeBag)
     }
     
     func handleEventFromFetchedTimerCellViewModels() {
-        fetchedTimerCellViewModels // cellVM의 isActive 상태가 변경될 시, 현재 filtering 조건에 따라 화면에 나타나는 cell을 갱신
+        fetchedTimerCellViewModels
             .flatMapLatest { Observable<Bool>.merge($0.map { $0.output.isActive.skip(1).asObservable() }) }
             .withLatestFrom(fetchedTimerCellViewModels)
             .bind(to: fetchedTimerCellViewModels)
