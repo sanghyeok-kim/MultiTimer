@@ -60,7 +60,7 @@ final class TagButton: UIButton {
 private extension TagButton {
     func configureUI(with tag: Tag) {
         let checkmarkImage = UIImage(
-            systemName: "checkmark"
+            systemName: Constant.SFSymbolName.checkmark
         )?.withTintColor(CustomColor.Tag.checkmarkImage, renderingMode: .alwaysOriginal)
         setImage(checkmarkImage, for: .selected)
         backgroundColor = TagColorFactory.generateUIColor(of: tag.color)

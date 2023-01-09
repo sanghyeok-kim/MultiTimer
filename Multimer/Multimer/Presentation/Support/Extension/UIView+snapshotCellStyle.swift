@@ -12,7 +12,7 @@ extension UIView {
         let image = snapshot()
         let cellSnapshot = UIImageView(image: image)
         cellSnapshot.layer.masksToBounds = false
-        cellSnapshot.layer.cornerRadius = 0.0
+        cellSnapshot.layer.cornerRadius = .zero
         return cellSnapshot
     }
     

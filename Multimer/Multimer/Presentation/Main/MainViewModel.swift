@@ -351,7 +351,7 @@ private extension MainViewModel {
         let sourceViewModel = currentTimerCellViewModels[source]
         let destinationViewModel = currentTimerCellViewModels[destination]
         
-        let destIndex = fetchedTimerCellViewModels.firstIndex(of: destinationViewModel) ?? 0
+        let destIndex = fetchedTimerCellViewModels.firstIndex(of: destinationViewModel) ?? .zero
         var newCellViewModels = fetchedTimerCellViewModels.filter { $0 != sourceViewModel }
         newCellViewModels.insert(sourceViewModel, at: destIndex)
         

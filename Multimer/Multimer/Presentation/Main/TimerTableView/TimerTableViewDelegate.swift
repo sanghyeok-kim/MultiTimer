@@ -20,7 +20,11 @@ final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
             self?.cellDidSwipeFromTrailing.accept(indexPath.row)
         }
         
-        let actionImage = UIImage.makeSFSymbolImage(size: 38, systemName: "trash.circle", color: CustomColor.Button.deleteImage)
+        let actionImage = UIImage.makeSFSymbolImage(
+            size: ViewSize.swipeActionImage,
+            systemName: Constant.SFSymbolName.trashCircle,
+            color: CustomColor.Button.deleteImage
+        )
         deleteAction.image = actionImage
         deleteAction.backgroundColor = .systemBackground
         
@@ -36,7 +40,11 @@ final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
             completion(true)
         }
         
-        let actionImage = UIImage.makeSFSymbolImage(size: 38, systemName: "stop.circle", color: CustomColor.Button.resetImage)
+        let actionImage = UIImage.makeSFSymbolImage(
+            size: ViewSize.swipeActionImage,
+            systemName: Constant.SFSymbolName.stopCircle,
+            color: CustomColor.Button.resetImage
+        )
         resetAction.image = actionImage
         resetAction.backgroundColor = .systemBackground
         
@@ -65,5 +73,13 @@ final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
         // TODO: FooterViewModel 적용
         
         return footerView
+    }
+}
+
+// MARK: - Name Space
+
+private extension TimerTableViewDelegate {
+    enum ViewSize {
+        static let swipeActionImage: CGFloat = 38.0
     }
 }

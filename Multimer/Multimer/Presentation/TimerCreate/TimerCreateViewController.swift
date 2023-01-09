@@ -61,7 +61,7 @@ final class TimerCreateViewController: UIViewController, ViewType {
         button.setTitle(LocalizableString.done.localized, for: .normal)
         button.setTitleColor(UIColor.label, for: .normal)
         button.setTitleColor(UIColor.systemGray3, for: .disabled)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: ViewSize.buttonFont, weight: .semibold)
         return button
     }()
     
@@ -72,7 +72,7 @@ final class TimerCreateViewController: UIViewController, ViewType {
         button.layer.borderColor = UIColor.systemGray.cgColor
         button.setTitle(LocalizableString.cancel.localized, for: .normal)
         button.setTitleColor(UIColor.label, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: ViewSize.buttonFont)
         return button
     }()
     
@@ -220,3 +220,10 @@ private extension TimerCreateViewController {
     }
 }
 
+// MARK: - Name Space
+
+private extension TimerCreateViewController {
+    enum ViewSize {
+        static let buttonFont = 18.0
+    }
+}

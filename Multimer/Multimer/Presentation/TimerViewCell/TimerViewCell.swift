@@ -16,7 +16,7 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.systemFont(ofSize: ViewSize.titleLabelFont)
         return label
     }()
     
@@ -33,13 +33,13 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 32, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: ViewSize.timeLabelFont, weight: .medium)
         return label
     }()
     
     private lazy var initialTimeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.systemFont(ofSize: ViewSize.initialTimeLabel)
         label.alpha = 0.65
         label.isHidden = true
         return label
@@ -48,7 +48,7 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     private lazy var timerStackView: UIStackView = {
         let timerStackView = UIStackView(arrangedSubviews: [titleStackView, timeLabel, initialTimeLabel])
         timerStackView.axis = .vertical
-        timerStackView.spacing = 0
+        timerStackView.spacing = .zero
         timerStackView.distribution = .equalSpacing
         timerStackView.alignment = .leading
         return timerStackView
@@ -72,7 +72,11 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     private lazy var resetButton: UIButton = {
         let button = UIButton()
         let resetImageColor = CustomColor.Button.resetImage
-        let resetImage = UIImage.makeSFSymbolImage(size: 50, systemName: "checkmark.circle", color: resetImageColor)
+        let resetImage = UIImage.makeSFSymbolImage(
+            size: ViewSize.buttonImage,
+            systemName: Constant.SFSymbolName.checkmarkCircle,
+            color: resetImageColor
+        )
         button.setImage(resetImage, for: .normal)
         applyImpactFeedbackGenerator(to: button)
         return button
@@ -224,14 +228,14 @@ private extension TimerViewCell {
         switch timer.type {
         case .countDown:
             timerTypeSymbolImageView.image = UIImage.makeSFSymbolImage(
-                size: 17,
-                systemName: "hourglass.tophalf.filled",
+                size: ViewSize.timerTypeSymbolImage,
+                systemName: Constant.SFSymbolName.hourglassTophalfFilled,
                 color: TagColorFactory.generateUIColor(of: timer.tag?.color)
             )
         case .countUp:
             timerTypeSymbolImageView.image = UIImage.makeSFSymbolImage(
-                size: 17,
-                systemName: "stopwatch.fill",
+                size: ViewSize.timerTypeSymbolImage,
+                systemName: Constant.SFSymbolName.stopwatchFill,
                 color: TagColorFactory.generateUIColor(of: timer.tag?.color)
             )
         }
@@ -242,13 +246,29 @@ private extension TimerViewCell {
         let pauseImageDynamicColor = CustomColor.Button.pauseImage
         switch timer.type {
         case .countDown:
-            let playImage = UIImage.makeSFSymbolImage(size: 50, systemName: "play.circle", color: startImageDynamicColor)
-            let pauseImage = UIImage.makeSFSymbolImage(size: 50, systemName: "pause.circle", color: pauseImageDynamicColor)
+            let playImage = UIImage.makeSFSymbolImage(
+                size: ViewSize.buttonImage,
+                systemName: Constant.SFSymbolName.playCircle,
+                color: startImageDynamicColor
+            )
+            let pauseImage = UIImage.makeSFSymbolImage(
+                size: ViewSize.buttonImage,
+                systemName: Constant.SFSymbolName.pauseCircle,
+                color: pauseImageDynamicColor
+            )
             toggleButton.setImage(playImage, for: .normal)
             toggleButton.setImage(pauseImage, for: .selected)
         case .countUp:
-            let playImage = UIImage.makeSFSymbolImage(size: 50, systemName: "play.circle.fill", color: startImageDynamicColor)
-            let pauseImage = UIImage.makeSFSymbolImage(size: 50, systemName: "pause.circle.fill", color: pauseImageDynamicColor)
+            let playImage = UIImage.makeSFSymbolImage(
+                size: ViewSize.buttonImage,
+                systemName: Constant.SFSymbolName.playCircleFill,
+                color: startImageDynamicColor
+            )
+            let pauseImage = UIImage.makeSFSymbolImage(
+                size: ViewSize.buttonImage,
+                systemName: Constant.SFSymbolName.pauseCircleFill,
+                color: pauseImageDynamicColor
+            )
             toggleButton.setImage(playImage, for: .normal)
             toggleButton.setImage(pauseImage, for: .selected)
         }
@@ -284,5 +304,17 @@ private extension TimerViewCell {
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
         buttonStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+    }
+}
+
+// MARK: - Name Space
+
+private extension TimerViewCell {
+    enum ViewSize {
+        static let titleLabelFont: CGFloat = 17.0
+        static let timeLabelFont: CGFloat = 32.0
+        static let initialTimeLabel: CGFloat = 18.0
+        static let buttonImage: CGFloat = 50.0
+        static let timerTypeSymbolImage: CGFloat = 17.0
     }
 }

@@ -18,34 +18,35 @@ final class MainViewController: UIViewController, ViewType {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.delegate = tableViewDelegate
-        tableView.rowHeight = 100
+        tableView.rowHeight = ViewSize.tableViewRowHeight
         tableView.separatorStyle = .none
         tableView.allowsMultipleSelectionDuringEditing = true
         tableView.register(TimerViewCell.self, forCellReuseIdentifier: TimerViewCell.identifier)
-        //        tableView.register(TimerTableFooterView.self, forHeaderFooterViewReuseIdentifier: TimerTableFooterView.identifier)
-        tableView.sectionFooterHeight = 50
+//        tableView.register(TimerTableFooterView.self, forHeaderFooterViewReuseIdentifier: TimerTableFooterView.identifier)
+        tableView.sectionFooterHeight = ViewSize.tableViewSectionFooterHeight
         tableView.sectionHeaderHeight = .zero
+        tableView.backgroundColor = .systemBackground
         return tableView
     }()
     
     private lazy var emptyTimerView: EmptyTimerView = {
         let view = EmptyTimerView(timerFilteringCondition: .all)
-        view.alpha = 0
+        view.alpha = .zero
         return view
     }()
     
     private lazy var emptyActiveTimerView: EmptyTimerView = {
         let view = EmptyTimerView(timerFilteringCondition: .active)
-        view.alpha = 0
+        view.alpha = .zero
         return view
     }()
     
     private lazy var timerAddBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 18)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: ViewSize.timerAddBarButtonItemSize)
         
         let plusImage = UIImage(
-            systemName: "plus",
+            systemName: Constant.SFSymbolName.plus,
             withConfiguration: imageConfig
         )
         
@@ -204,12 +205,12 @@ private extension MainViewController {
             switch filteringCondition {
             case .all:
                 self.emptyActiveTimerView.isHidden = true
-                self.emptyActiveTimerView.alpha = 0
+                self.emptyActiveTimerView.alpha = .zero
                 self.emptyTimerView.isHidden = false
                 self.emptyTimerView.alpha = 1.0
             case .active:
                 self.emptyTimerView.isHidden = true
-                self.emptyTimerView.alpha = 0
+                self.emptyTimerView.alpha = .zero
                 self.emptyActiveTimerView.isHidden = false
                 self.emptyActiveTimerView.alpha = 1.0
             }
@@ -304,5 +305,15 @@ private extension MainViewController {
             }
             self.view.layoutIfNeeded()
         }
+    }
+}
+
+// MARK: - Name Space
+
+private extension MainViewController {
+    enum ViewSize {
+        static let tableViewRowHeight: CGFloat = 100.0
+        static let tableViewSectionFooterHeight: CGFloat = 50.0
+        static let timerAddBarButtonItemSize = 18.0
     }
 }

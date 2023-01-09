@@ -334,7 +334,6 @@
 		1E4CB4CC2966BAEA00FC918E /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				1E4CB48C295C0DF100FC918E /* Constant.swift */,
 				1E4CB4E1296734C400FC918E /* Support */,
 				1E4CB4CF2966BC9900FC918E /* Main */,
 				1E4CB4D22966BD0A00FC918E /* TimerViewCell */,
@@ -445,6 +444,7 @@
 		1E4CB4E1296734C400FC918E /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				1E4CB48C295C0DF100FC918E /* Constant.swift */,
 				1EBFEE102917888300747606 /* Protocol */,
 				1E4CB4E62967385600FC918E /* Factory */,
 				1E4CB4E42967359C00FC918E /* Enum */,

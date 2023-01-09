@@ -11,14 +11,13 @@ final class EmptyTimerView: UIView {
     
     private lazy var emptyTimerLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: ViewSize.emptyTimerLabelFont, weight: .semibold)
         return label
     }()
     
     private lazy var addTimerLabel: UILabel = {
         let label = UILabel()
-        
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: ViewSize.addTimerLabelFont)
         return label
     }()
     
@@ -75,4 +74,11 @@ private extension EmptyTimerView {
     }
 }
 
+// MARK: - Name Space
 
+private extension EmptyTimerView {
+    enum ViewSize {
+        static let emptyTimerLabelFont: CGFloat = 24.0
+        static let addTimerLabelFont: CGFloat = 14.0
+    }
+}

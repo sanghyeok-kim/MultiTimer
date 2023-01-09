@@ -15,7 +15,11 @@ final class TimerEditingView: UIView {
     let enableButtons = BehaviorRelay<Bool>(value: false)
     
     private lazy var startButton: SymbolImageButton = {
-        let button = SymbolImageButton(size: 24, systemName: "play.fill", color: CustomColor.Button.startImage)
+        let button = SymbolImageButton(
+            size: ViewSize.symbolImageButton,
+            systemName: Constant.SFSymbolName.playFill,
+            color: CustomColor.Button.startImage
+        )
         button.rx.tap
             .map { .start }
             .bind(to: buttonInEditViewDidTap)
@@ -24,7 +28,11 @@ final class TimerEditingView: UIView {
     }()
     
     private lazy var pauseButton: SymbolImageButton = {
-        let button = SymbolImageButton(size: 24, systemName: "pause.fill", color: CustomColor.Button.pauseImage)
+        let button = SymbolImageButton(
+            size: ViewSize.symbolImageButton,
+            systemName: Constant.SFSymbolName.pauseFill,
+            color: CustomColor.Button.pauseImage
+        )
         button.rx.tap
             .map { .pause }
             .bind(to: buttonInEditViewDidTap)
@@ -33,7 +41,11 @@ final class TimerEditingView: UIView {
     }()
     
     private lazy var resetButton: SymbolImageButton = {
-        let button = SymbolImageButton(size: 24, systemName: "stop.fill", color: CustomColor.Button.resetImage)
+        let button = SymbolImageButton(
+            size: ViewSize.symbolImageButton,
+            systemName: Constant.SFSymbolName.stopFill,
+            color: CustomColor.Button.resetImage
+        )
         button.rx.tap
             .map { .reset }
             .bind(to: buttonInEditViewDidTap)
@@ -42,7 +54,7 @@ final class TimerEditingView: UIView {
     }()
     
     private lazy var deleteButton: SymbolImageButton = {
-        let button = SymbolImageButton(size: 24, systemName: "trash.fill", color: CustomColor.Button.deleteImage)
+        let button = SymbolImageButton(size: ViewSize.symbolImageButton, systemName: Constant.SFSymbolName.trashFill, color: CustomColor.Button.deleteImage)
         button.rx.tap
             .bind(to: deleteButtonDidTap)
             .disposed(by: disposeBag)
@@ -86,5 +98,13 @@ private extension TimerEditingView {
         timerEditingButtonStackView.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
         timerEditingButtonStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 42).isActive = true
         timerEditingButtonStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -42).isActive = true
+    }
+}
+
+// MARK: - Name Space
+
+private extension TimerEditingView {
+    enum ViewSize {
+        static let symbolImageButton: CGFloat = 24.0
     }
 }
