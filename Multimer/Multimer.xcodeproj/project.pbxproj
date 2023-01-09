@@ -67,8 +67,6 @@
 		1E744BB9296C488A00CD824D /* TagColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744BA6296C488A00CD824D /* TagColorFactory.swift */; };
 		1E86F1E9293627950067CA28 /* DefaultMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E86F1E8293627950067CA28 /* DefaultMainUseCase.swift */; };
 		1E86F1EB29364AE10067CA28 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E86F1EA29364AE10067CA28 /* CoreDataError.swift */; };
-		1E9BA3C32914CDC600B39E9C /* TimerTableViewDragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C22914CDC600B39E9C /* TimerTableViewDragDelegate.swift */; };
-		1E9BA3C52914CDCE00B39E9C /* TimerTableViewDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C42914CDCE00B39E9C /* TimerTableViewDropDelegate.swift */; };
 		1E9BA3C72914CEFB00B39E9C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */; };
 		1E9BA3C92914CF5400B39E9C /* TimerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C82914CF5400B39E9C /* TimerCellViewModel.swift */; };
 		1EA3FCDE292E41940073560D /* ModelConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3FCDD292E41940073560D /* ModelConvertible.swift */; };
@@ -181,8 +179,6 @@
 		1E744BA6296C488A00CD824D /* TagColorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagColorFactory.swift; sourceTree = "<group>"; };
 		1E86F1E8293627950067CA28 /* DefaultMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainUseCase.swift; sourceTree = "<group>"; };
 		1E86F1EA29364AE10067CA28 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
-		1E9BA3C22914CDC600B39E9C /* TimerTableViewDragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableViewDragDelegate.swift; sourceTree = "<group>"; };
-		1E9BA3C42914CDCE00B39E9C /* TimerTableViewDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableViewDropDelegate.swift; sourceTree = "<group>"; };
 		1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		1E9BA3C82914CF5400B39E9C /* TimerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCellViewModel.swift; sourceTree = "<group>"; };
 		1EA3FCDD292E41940073560D /* ModelConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelConvertible.swift; sourceTree = "<group>"; };
@@ -607,8 +603,6 @@
 			children = (
 				1EBEEFDB292105F500299CE7 /* TimerTableViewDiffableDataSource.swift */,
 				1E482BDF2913551700175B78 /* TimerTableViewDelegate.swift */,
-				1E9BA3C22914CDC600B39E9C /* TimerTableViewDragDelegate.swift */,
-				1E9BA3C42914CDCE00B39E9C /* TimerTableViewDropDelegate.swift */,
 			);
 			path = TimerTableView;
 			sourceTree = "<group>";
@@ -901,7 +895,6 @@
 				1E9BA3C92914CF5400B39E9C /* TimerCellViewModel.swift in Sources */,
 				1E744BAB296C488A00CD824D /* UITextField+Rx+textChanged.swift in Sources */,
 				1E744BAF296C488A00CD824D /* CustomColor.swift in Sources */,
-				1E9BA3C52914CDCE00B39E9C /* TimerTableViewDropDelegate.swift in Sources */,
 				1EBEF029292909DD00299CE7 /* TimerModel.xcdatamodeld in Sources */,
 				1EA3FCE8292E4B730073560D /* CoreDataStorage+TagMO.swift in Sources */,
 				1EA3FCE0292E43520073560D /* ManagedObjectConvertible.swift in Sources */,
@@ -921,7 +914,6 @@
 				1E482BD02912887B00175B78 /* TimerSettingViewController.swift in Sources */,
 				1EA3FCEA292E4BBD0073560D /* CoreDataStorage+TagColorMO.swift in Sources */,
 				1EBEF02C292C803400299CE7 /* EnvironmentSettingViewController.swift in Sources */,
-				1E9BA3C32914CDC600B39E9C /* TimerTableViewDragDelegate.swift in Sources */,
 				1E4CB4F329673DD000FC918E /* TimerPersistentRepository.swift in Sources */,
 				1E4CB48F295D28A400FC918E /* EmptyTimerView.swift in Sources */,
 				1E482BE62913558D00175B78 /* Tag.swift in Sources */,
