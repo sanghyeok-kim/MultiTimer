@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/11/17.
 //
 
-import UIKit
+import Foundation
 import CoreData
 
 enum TagColor: Int, CaseIterable, Codable {
