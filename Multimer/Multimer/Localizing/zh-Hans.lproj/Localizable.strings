@@ -8,13 +8,13 @@
 
 "timer" = "计时器";
 "stopwatch" = "秒表";
-"countDownTimer" = "⏳ 计时器";
-"countUpStopwatch" = "⏱ 秒表";
+"countDownTimer" = "⏳ 倒数计时器";
+"countUpStopwatch" = "⏱ 计数秒表";
 "hour" = "小时";
 "minute" = "分";
 "second" = "秒";
 "all" = "整体";
-"activated" = "运行中";
+"activated" = "活化中";
 "enterTimerNameToCreate" = "请输入计时器的名称。";
 "enterStopwatchNameToCreate" = "请输入秒表名称。";
 "createTimer" = "创建计时器";
@@ -25,9 +25,9 @@
 "cancel" = "取消";
 "delete" = "删除";
 "noTimerCreatedMessage" = "无创建定时器";
-"addTimerMessage" = "+ 请按按钮添加计时器。";
-"noTimerActivatedMessage" = "无运行中的计时器";
-"onlyActiveTimersAppearMessage" = "出现运行、暂停、完成状态的计时器。";
+"addTimerMessage" = "请按+按钮添加计时器。";
+"noTimerActivatedMessage" = "无活化中的计时器";
+"onlyActiveTimersAppearMessage" = "只显示正在活化中或暂停的计时器。";
 "settingTimer" = "设定 %@";
 "timerExpired" = "计时器 完了 '%@'";
 "appTitle" = "多重计时器";
