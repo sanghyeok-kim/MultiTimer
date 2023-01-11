@@ -16,7 +16,7 @@
 
 ## 📌 Features
 
-|타이머(스톱워치) 생성 및 삭제|시작 / 일시정지 / 정지|완료 / 재시작|정렬|
+|타이머(스톱워치) 생성 / 삭제|시작 / 일시정지 / 정지|완료 / 재시작|정렬|
 |----|----|----|----|
 |![CleanShot 2023-01-11 at 00 04 54](https://user-images.githubusercontent.com/57667738/211587047-f2213555-416f-486a-92b6-8f53b6057f83.gif)|![CleanShot 2023-01-10 at 18 20 40](https://user-images.githubusercontent.com/57667738/211511748-80131701-1831-4ecd-b4e9-30e72ad50d69.gif)|![CleanShot 2023-01-10 at 18 22 16](https://user-images.githubusercontent.com/57667738/211512102-2ef86af2-4183-4b2b-9fe2-f297cc396b31.gif)|![CleanShot 2023-01-11 at 00 06 40](https://user-images.githubusercontent.com/57667738/211587345-a7e395cd-8f81-4914-903a-5842a08cb5b0.gif)|
 
@@ -29,7 +29,7 @@
 <br>
 
 ## 🛠 Project Tech Stack
-### MVVM Pattern - RxSwift
+### Design Pattern - MVVM
 - MVVM binding tool로 RxSwift 사용 (+ RxCocoa, RxAppState)
 - ViewType, ViewModelType을 추상화한 [MVVMInterface](https://github.com/sanghyeok-kim/MultiTimer/blob/main/Multimer/Multimer/Presentation/Support/Protocol/MVVMInterface.swift) 프로토콜 적용하여 Input - Output 구조 통일
 
