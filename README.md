@@ -16,12 +16,12 @@
 
 ## 📌 Features
 
-|타이머(스톱워치) 생성 / 삭제|시작 / 일시정지 / 정지|완료 / 재시작|정렬|
+|생성 / 삭제|시작 / 일시정지 / 정지|완료 / 재시작|정렬|
 |----|----|----|----|
 |![CleanShot 2023-01-11 at 00 04 54](https://user-images.githubusercontent.com/57667738/211587047-f2213555-416f-486a-92b6-8f53b6057f83.gif)|![CleanShot 2023-01-10 at 18 20 40](https://user-images.githubusercontent.com/57667738/211511748-80131701-1831-4ecd-b4e9-30e72ad50d69.gif)|![CleanShot 2023-01-10 at 18 22 16](https://user-images.githubusercontent.com/57667738/211512102-2ef86af2-4183-4b2b-9fe2-f297cc396b31.gif)|![CleanShot 2023-01-11 at 00 06 40](https://user-images.githubusercontent.com/57667738/211587345-a7e395cd-8f81-4914-903a-5842a08cb5b0.gif)|
 
 
-|다중 시작 / 일시정지 / 정지 / 삭제|활성화된 타이머 필터링|재시작시 남은 시간 불러오기|다크모드 커스텀 컬러 적용|
+|다중 선택|활성화된 타이머 필터링|재시작시 상태 복구|다크모드 커스텀 컬러|
 |----|----|----|----|
 |![CleanShot 2023-01-11 at 00 26 48](https://user-images.githubusercontent.com/57667738/211592449-e1cb3bcb-4f73-4434-afb9-25fb90ebfd53.gif)|![CleanShot 2023-01-11 at 00 31 30](https://user-images.githubusercontent.com/57667738/211593606-a766ac02-0194-47d9-84d4-be6ac1655ca8.gif)|![CleanShot 2023-01-11 at 00 15 15](https://user-images.githubusercontent.com/57667738/211590194-96c03884-65ba-41f3-9c4f-eea769b8ecbf.gif)|![CleanShot 2023-01-11 at 00 23 22](https://user-images.githubusercontent.com/57667738/211591819-12a1965f-0b22-4d19-b5e3-4567ed502315.gif)|
 
