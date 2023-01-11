@@ -557,7 +557,7 @@
 			path = CoreDataStorage;
 			sourceTree = "<group>";
 		};
-		1EA3FCEC292E4D9C0073560D /* ManagedObjectSubClass */ = {
+		1EA3FCEC292E4D9C0073560D /* ManagedObjectSubclass */ = {
 			isa = PBXGroup;
 			children = (
 				1E4CB4D82966BE9000FC918E /* TagColorMO+CoreDataClass.swift */,
@@ -565,7 +565,7 @@
 				1E4CB4DB2966BE9000FC918E /* TimeMO+CoreDataClass.swift */,
 				1E4CB4DA2966BE9000FC918E /* TimerMO+CoreDataClass.swift */,
 			);
-			path = ManagedObjectSubClass;
+			path = ManagedObjectSubclass;
 			sourceTree = "<group>";
 		};
 		1EA3FCED292E4DB40073560D /* Protocol */ = {
@@ -582,7 +582,7 @@
 			children = (
 				1EBEF027292909DD00299CE7 /* TimerModel.xcdatamodeld */,
 				1EA3FCED292E4DB40073560D /* Protocol */,
-				1EA3FCEC292E4D9C0073560D /* ManagedObjectSubClass */,
+				1EA3FCEC292E4D9C0073560D /* ManagedObjectSubclass */,
 				1EA3FCEB292E4D850073560D /* CoreDataStorage */,
 			);
 			path = CoreData;
