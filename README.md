@@ -1,5 +1,12 @@
-## 멀티 타이머
-- [앱스토어 바로가기](https://apps.apple.com/kr/app/%EB%A9%80%ED%8B%B0-%ED%83%80%EC%9D%B4%EB%A8%B8/id1663431308)
+<div align="center">
+<img src="https://user-images.githubusercontent.com/57667738/211710982-9acc94d6-b49b-48fd-833c-b21e96941835.png" width="100" height="100">
+
+# [멀티 타이머](https://apps.apple.com/kr/app/%EB%A9%80%ED%8B%B0-%ED%83%80%EC%9D%B4%EB%A8%B8/id1663431308)
+
+
+### 직관적인 다중 타이머 & 스톱워치
+
+</div>
 
 ||||||
 |----|----|----|----|----|
