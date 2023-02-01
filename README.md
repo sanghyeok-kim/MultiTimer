@@ -1,7 +1,13 @@
 <div align="center">
-<img src="https://user-images.githubusercontent.com/57667738/211710982-9acc94d6-b49b-48fd-833c-b21e96941835.png" width="100" height="100">
 
-# [멀티 타이머](https://apps.apple.com/kr/app/%EB%A9%80%ED%8B%B0-%ED%83%80%EC%9D%B4%EB%A8%B8/id1663431308)
+# 멀티 타이머
+
+[<img src="https://user-images.githubusercontent.com/57667738/211710982-9acc94d6-b49b-48fd-833c-b21e96941835.png" width=150 height=150>](https://apps.apple.com/kr/app/%EB%A9%80%ED%8B%B0-%ED%83%80%EC%9D%B4%EB%A8%B8/id1663431308?itsct=apps_box_link&itscg=30200)
+
+[<img src="https://user-images.githubusercontent.com/52783516/149344077-32d9e68e-79bb-4d24-aab4-8c320a241d7c.png" width=20%>](https://apps.apple.com/kr/app/%EB%A9%80%ED%8B%B0-%ED%83%80%EC%9D%B4%EB%A8%B8/id1663431308?itsct=apps_box_link&itscg=30200)
+
+
+
 
 
 ### 직관적인 다중 타이머 & 스톱워치
@@ -105,25 +111,25 @@ Multimer/
 │   │   │   ├── EmptyTimerView.swift
 │   │   │   ├── FilteringNavigationTitleView.swift
 │   │   │   └── TimerEditingView.swift
+│   │   ├── TimerViewCell/
+│   │   │   ├── TimerCellViewModel.swift
+│   │   │   └── TimerViewCell.swift
 │   │   └── TimerTableView/
 │   │       ├── TimerTableViewDelegate.swift
 │   │       └── TimerTableViewDiffableDataSource.swift
 │   ├── TimerCreate/
 │   │   ├── TimerCreateViewController.swift
 │   │   └── TimerCreateViewModel.swift
-│   ├── TimerSetting/
-│   │   ├── TimerSettingViewController.swift
-│   │   ├── TimerSettingViewModel.swift
-│   │   ├── CustomView/
-│   │   │   ├── TagButton.swift
-│   │   │   └── TagScrollView.swift
-│   │   └── TimePickerView/
-│   │       ├── TimePickerView.swift
-│   │       ├── TimePickerViewDataSource.swift
-│   │       └── TimePickerViewDelegate.swift
-│   └── TimerViewCell/
-│       ├── TimerCellViewModel.swift
-│       └── TimerViewCell.swift
+│   └── TimerSetting/
+│       ├── TimerSettingViewController.swift
+│       ├── TimerSettingViewModel.swift
+│       ├── CustomView/
+│       │   ├── TagButton.swift
+│       │   └── TagScrollView.swift
+│       └── TimePickerView/
+│           ├── TimePickerView.swift
+│           ├── TimePickerViewDataSource.swift
+│           └── TimePickerViewDelegate.swift
 ├── Localizing/
 │   ├── en.lproj/
 │   │   ├── InfoPlist.strings
