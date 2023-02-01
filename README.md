@@ -6,8 +6,7 @@
 
 [<img src="https://user-images.githubusercontent.com/52783516/149344077-32d9e68e-79bb-4d24-aab4-8c320a241d7c.png" width=20%>](https://apps.apple.com/kr/app/%EB%A9%80%ED%8B%B0-%ED%83%80%EC%9D%B4%EB%A8%B8/id1663431308?itsct=apps_box_link&itscg=30200)
 
-
-
+<img src="https://user-images.githubusercontent.com/57667738/215927346-2bff9839-4625-4df9-8119-e48c32269430.jpg" width=15%>
 
 
 ### 직관적인 다중 타이머 & 스톱워치
