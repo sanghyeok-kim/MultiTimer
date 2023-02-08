@@ -12,10 +12,10 @@ final class DefaultMainUseCase: MainUseCase {
     let fetchedUserTimers = PublishSubject<[Timer]>()
     let fetchErrorMessage = PublishSubject<String>()
     
-    private let timerPersistentRepository: CoreDataTimerRepository
+    private let timerPersistentRepository: TimerPersistentRepository
     private let disposeBag = DisposeBag()
     
-    init(timerPersistentRepository: CoreDataTimerRepository) {
+    init(timerPersistentRepository: TimerPersistentRepository) {
         self.timerPersistentRepository = timerPersistentRepository
     }
     
