@@ -32,19 +32,6 @@ final class TimerCreateViewController: UIViewController, ViewType {
         nameTextField.becomeFirstResponder()
         return nameTextField
     }()
-        let textField = UITextField()
-        textField.layer.borderWidth = 0.5
-        textField.layer.cornerRadius = 8
-        textField.layer.borderColor = UIColor.systemGray.cgColor
-        textField.clearButtonMode = .whileEditing
-        textField.autocapitalizationType = .none
-        textField.spellCheckingType = .no
-        textField.smartDashesType = .no
-        textField.autocorrectionType = .no
-        textField.addLeftPadding(inset: 12)
-        textField.becomeFirstResponder()
-        return textField
-    }()
     
     private lazy var completeButton: PaddingButton = {
         let button = PaddingButton(padding: UIEdgeInsets(top: 10, left: .zero, bottom: 10, right: .zero))
