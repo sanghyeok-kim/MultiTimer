@@ -318,7 +318,6 @@
 			children = (
 				1E744B8E296C488A00CD824D /* Support */,
 				1E4CB4CF2966BC9900FC918E /* Main */,
-				1E4CB4D22966BD0A00FC918E /* TimerViewCell */,
 				1E4CB4D12966BCD800FC918E /* TimerCreate */,
 				1E4CB4D02966BCA400FC918E /* TimerSetting */,
 			);
@@ -348,6 +347,7 @@
 			children = (
 				1E48FE9C2911F9240090B246 /* MainViewController.swift */,
 				1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */,
+				1E4CB4D22966BD0A00FC918E /* TimerViewCell */,
 				1EBFEE11291788A000747606 /* TimerTableView */,
 				1EBFEE0E2917884600747606 /* CustomView */,
 			);
@@ -1125,7 +1125,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = MPN6WL3W3U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Multimer/Info.plist;
@@ -1138,7 +1138,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanghyeok.Multimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = MultimerProvisioningProfileForDevelopment;
@@ -1156,7 +1156,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = MPN6WL3W3U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Multimer/Info.plist;
@@ -1169,7 +1169,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanghyeok.Multimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = MultimerProvisioningProfileForAppStoreDistribution;
