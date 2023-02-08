@@ -65,6 +65,15 @@ final class TimerCreateViewController: UIViewController, ViewType {
         return stackView
     }()
     
+    private lazy var timePickerViewDataSource = TimePickerViewDataSource()
+    private lazy var tiemPickerViewDelegate = TimePickerViewDelegate()
+    private lazy var timePickerView: TimePickerView = {
+        let pickerView = TimePickerView()
+        pickerView.dataSource = timePickerViewDataSource
+        pickerView.delegate = tiemPickerViewDelegate
+        return pickerView
+    }()
+    
     private lazy var timePickerButtonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [timePickerView, buttonStackView])
         stackView.axis = .vertical
