@@ -193,7 +193,6 @@ private extension TimerCreateViewController {
         view.addSubview(timerTypeSegmentControl)
         view.addSubview(tagScrollView)
         view.addSubview(nameTextField)
-        view.addSubview(buttonStackView)
         view.addSubview(timePickerButtonStackView)
         
         timerTypeSegmentControl.translatesAutoresizingMaskIntoConstraints = false

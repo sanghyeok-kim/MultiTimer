@@ -175,7 +175,6 @@ private extension TimerSettingViewController {
         view.addSubview(tagScrollView)
         view.addSubview(nameTextField)
         view.addSubview(timePickerView)
-        view.addSubview(buttonStackView)
         view.addSubview(timePickerButtonStackView)
         
         tagScrollView.translatesAutoresizingMaskIntoConstraints = false
