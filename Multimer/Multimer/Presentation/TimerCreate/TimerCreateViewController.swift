@@ -17,27 +17,21 @@ final class TimerCreateViewController: UIViewController, ViewType {
         return segmentControl
     }()
     
-    private lazy var timePickerViewDataSource = TimePickerViewDataSource()
-    private lazy var tiemPickerViewDelegate = TimePickerViewDelegate()
-    private lazy var timePickerView: TimePickerView = {
-        let pickerView = TimePickerView()
-        pickerView.dataSource = timePickerViewDataSource
-        pickerView.delegate = tiemPickerViewDelegate
-        pickerView.setFixedLabels(with: TimeType.allCases.map { $0.title })
-        return pickerView
-    }()
-    
     private lazy var tagScrollView: TagScrollView = {
         let scrollView = TagScrollView()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
-        scrollView.layer.borderWidth = 0.5
+        scrollView.layer.borderWidth = 1
         scrollView.layer.cornerRadius = 8
         scrollView.layer.borderColor = UIColor.systemGray.cgColor
         return scrollView
     }()
     
-    private lazy var nameTextField: UITextField = {
+    private lazy var nameTextField: NameTextField = {
+        let nameTextField = NameTextField()
+        nameTextField.becomeFirstResponder()
+        return nameTextField
+    }()
         let textField = UITextField()
         textField.layer.borderWidth = 0.5
         textField.layer.cornerRadius = 8
@@ -55,7 +49,7 @@ final class TimerCreateViewController: UIViewController, ViewType {
     private lazy var completeButton: PaddingButton = {
         let button = PaddingButton(padding: UIEdgeInsets(top: 10, left: .zero, bottom: 10, right: .zero))
         button.isEnabled = false
-        button.layer.borderWidth = 0.5
+        button.layer.borderWidth = 1
         button.layer.cornerRadius = 8
         button.layer.borderColor = UIColor.systemGray.cgColor
         button.setTitle(LocalizableString.done.localized, for: .normal)
@@ -67,7 +61,7 @@ final class TimerCreateViewController: UIViewController, ViewType {
     
     private lazy var cancelButton: PaddingButton = {
         let button = PaddingButton(padding: UIEdgeInsets(top: 10, left: .zero, bottom: 10, right: .zero))
-        button.layer.borderWidth = 0.5
+        button.layer.borderWidth = 1
         button.layer.cornerRadius = 8
         button.layer.borderColor = UIColor.systemGray.cgColor
         button.setTitle(LocalizableString.cancel.localized, for: .normal)
@@ -189,7 +183,6 @@ private extension TimerCreateViewController {
         view.addSubview(timerTypeSegmentControl)
         view.addSubview(tagScrollView)
         view.addSubview(nameTextField)
-        view.addSubview(buttonStackView)
         view.addSubview(timePickerButtonStackView)
         
         timerTypeSegmentControl.translatesAutoresizingMaskIntoConstraints = false
@@ -206,9 +199,9 @@ private extension TimerCreateViewController {
         
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.topAnchor.constraint(equalTo: tagScrollView.bottomAnchor, constant: 20).isActive = true
-        nameTextField.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.12).isActive = true
         nameTextField.leadingAnchor.constraint(equalTo: tagScrollView.leadingAnchor).isActive = true
         nameTextField.trailingAnchor.constraint(equalTo: tagScrollView.trailingAnchor).isActive = true
+        nameTextField.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.12).isActive = true
         
         timePickerButtonStackView.translatesAutoresizingMaskIntoConstraints = false
         timePickerButtonStackView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20).isActive = true

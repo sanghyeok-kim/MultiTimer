@@ -11,12 +11,16 @@ final class EmptyTimerView: UIView {
     
     private lazy var emptyTimerLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: ViewSize.emptyTimerLabelFont, weight: .semibold)
         return label
     }()
     
     private lazy var addTimerLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: ViewSize.addTimerLabelFont)
         return label
     }()
@@ -71,6 +75,7 @@ private extension EmptyTimerView {
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         labelStackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         labelStackView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -48).isActive = true
+        labelStackView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
     }
 }
 

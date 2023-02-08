@@ -30,19 +30,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
         return scrollView
     }()
     
-    private lazy var nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.layer.borderWidth = 0.5
-        textField.layer.cornerRadius = 8
-        textField.layer.borderColor = UIColor.systemGray.cgColor
-        textField.clearButtonMode = .whileEditing
-        textField.autocapitalizationType = .none
-        textField.spellCheckingType = .no
-        textField.smartDashesType = .no
-        textField.autocorrectionType = .no
-        textField.addLeftPadding(inset: 12)
-        return textField
-    }()
+    private lazy var nameTextField = NameTextField()
     
     private lazy var completeButton: PaddingButton = {
         let button = PaddingButton(padding: UIEdgeInsets(top: 10, left: .zero, bottom: 10, right: .zero))
@@ -187,7 +175,6 @@ private extension TimerSettingViewController {
         view.addSubview(tagScrollView)
         view.addSubview(nameTextField)
         view.addSubview(timePickerView)
-        view.addSubview(buttonStackView)
         view.addSubview(timePickerButtonStackView)
         
         tagScrollView.translatesAutoresizingMaskIntoConstraints = false
