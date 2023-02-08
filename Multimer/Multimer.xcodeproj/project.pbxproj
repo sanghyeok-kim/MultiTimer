@@ -45,6 +45,7 @@
 		1E651DAE2953168900B4F321 /* TimerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DAD2953168900B4F321 /* TimerUseCase.swift */; };
 		1E651DB0295342BA00B4F321 /* TimerCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DAF295342BA00B4F321 /* TimerCreateViewController.swift */; };
 		1E651DB229534CEE00B4F321 /* TimerCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DB129534CEE00B4F321 /* TimerCreateViewModel.swift */; };
+		1E6A19C329937FE8001FA3ED /* NameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6A19C229937FE8001FA3ED /* NameTextField.swift */; };
 		1E6FAD9729403F900021B845 /* CoreDataTimerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FAD9629403F900021B845 /* CoreDataTimerRepository.swift */; };
 		1E744BA7296C488A00CD824D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744B8F296C488A00CD824D /* Constant.swift */; };
 		1E744BA8296C488A00CD824D /* UIPickerView+setFixedLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744B91296C488A00CD824D /* UIPickerView+setFixedLabels.swift */; };
@@ -157,6 +158,7 @@
 		1E651DAD2953168900B4F321 /* TimerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerUseCase.swift; sourceTree = "<group>"; };
 		1E651DAF295342BA00B4F321 /* TimerCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCreateViewController.swift; sourceTree = "<group>"; };
 		1E651DB129534CEE00B4F321 /* TimerCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCreateViewModel.swift; sourceTree = "<group>"; };
+		1E6A19C229937FE8001FA3ED /* NameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextField.swift; sourceTree = "<group>"; };
 		1E6FAD9629403F900021B845 /* CoreDataTimerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTimerRepository.swift; sourceTree = "<group>"; };
 		1E744B8F296C488A00CD824D /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		1E744B91296C488A00CD824D /* UIPickerView+setFixedLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPickerView+setFixedLabels.swift"; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 			children = (
 				1E744BA3296C488A00CD824D /* PaddingButton.swift */,
 				1E744BA4296C488A00CD824D /* SymbolImageButton.swift */,
+				1E6A19C229937FE8001FA3ED /* NameTextField.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -877,6 +880,7 @@
 				1E4CB4DC2966BE9000FC918E /* TagColorMO+CoreDataClass.swift in Sources */,
 				1EA3FCE6292E4B360073560D /* CoreDataStorage+TimeMO.swift in Sources */,
 				1E651DAE2953168900B4F321 /* TimerUseCase.swift in Sources */,
+				1E6A19C329937FE8001FA3ED /* NameTextField.swift in Sources */,
 				1E744BB1296C488A00CD824D /* TimerTableViewSection.swift in Sources */,
 				1EBEEFEA2925B85700299CE7 /* TagButton.swift in Sources */,
 				1E6FAD9729403F900021B845 /* CoreDataTimerRepository.swift in Sources */,

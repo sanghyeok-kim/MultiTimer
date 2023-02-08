@@ -37,7 +37,11 @@ final class TimerCreateViewController: UIViewController, ViewType {
         return scrollView
     }()
     
-    private lazy var nameTextField: UITextField = {
+    private lazy var nameTextField: NameTextField = {
+        let nameTextField = NameTextField()
+        nameTextField.becomeFirstResponder()
+        return nameTextField
+    }()
         let textField = UITextField()
         textField.layer.borderWidth = 0.5
         textField.layer.cornerRadius = 8
@@ -206,9 +210,9 @@ private extension TimerCreateViewController {
         
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.topAnchor.constraint(equalTo: tagScrollView.bottomAnchor, constant: 20).isActive = true
-        nameTextField.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.12).isActive = true
         nameTextField.leadingAnchor.constraint(equalTo: tagScrollView.leadingAnchor).isActive = true
         nameTextField.trailingAnchor.constraint(equalTo: tagScrollView.trailingAnchor).isActive = true
+        nameTextField.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.12).isActive = true
         
         timePickerButtonStackView.translatesAutoresizingMaskIntoConstraints = false
         timePickerButtonStackView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20).isActive = true
