@@ -41,7 +41,7 @@ extension TimePickerView {
 
 private extension TimePickerView {
     func configureUI() {
-        layer.borderWidth = 0.5
+        layer.borderWidth = 1
         layer.cornerRadius = 8
         layer.borderColor = UIColor.systemGray.cgColor
         setFixedLabels(with: TimeType.allCases.map { $0.title })

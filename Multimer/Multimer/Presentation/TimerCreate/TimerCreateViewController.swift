@@ -17,21 +17,11 @@ final class TimerCreateViewController: UIViewController, ViewType {
         return segmentControl
     }()
     
-    private lazy var timePickerViewDataSource = TimePickerViewDataSource()
-    private lazy var tiemPickerViewDelegate = TimePickerViewDelegate()
-    private lazy var timePickerView: TimePickerView = {
-        let pickerView = TimePickerView()
-        pickerView.dataSource = timePickerViewDataSource
-        pickerView.delegate = tiemPickerViewDelegate
-        pickerView.setFixedLabels(with: TimeType.allCases.map { $0.title })
-        return pickerView
-    }()
-    
     private lazy var tagScrollView: TagScrollView = {
         let scrollView = TagScrollView()
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
-        scrollView.layer.borderWidth = 0.5
+        scrollView.layer.borderWidth = 1
         scrollView.layer.cornerRadius = 8
         scrollView.layer.borderColor = UIColor.systemGray.cgColor
         return scrollView
@@ -59,7 +49,7 @@ final class TimerCreateViewController: UIViewController, ViewType {
     private lazy var completeButton: PaddingButton = {
         let button = PaddingButton(padding: UIEdgeInsets(top: 10, left: .zero, bottom: 10, right: .zero))
         button.isEnabled = false
-        button.layer.borderWidth = 0.5
+        button.layer.borderWidth = 1
         button.layer.cornerRadius = 8
         button.layer.borderColor = UIColor.systemGray.cgColor
         button.setTitle(LocalizableString.done.localized, for: .normal)
@@ -71,7 +61,7 @@ final class TimerCreateViewController: UIViewController, ViewType {
     
     private lazy var cancelButton: PaddingButton = {
         let button = PaddingButton(padding: UIEdgeInsets(top: 10, left: .zero, bottom: 10, right: .zero))
-        button.layer.borderWidth = 0.5
+        button.layer.borderWidth = 1
         button.layer.cornerRadius = 8
         button.layer.borderColor = UIColor.systemGray.cgColor
         button.setTitle(LocalizableString.cancel.localized, for: .normal)
