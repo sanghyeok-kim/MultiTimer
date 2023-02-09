@@ -10,8 +10,8 @@
 		1E23D5352994B9F9008FD287 /* ToolbarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D5342994B9F9008FD287 /* ToolbarType.swift */; };
 		1E23D5372994BCF8008FD287 /* NotificationName+CustomName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D5362994BCF8008FD287 /* NotificationName+CustomName.swift */; };
 		1E23D53D2994F8FB008FD287 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D53C2994F8FB008FD287 /* CoreDataError.swift */; };
-		1E23D5522995020E008FD287 /* swipe-right-to-stop-timer.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E23D5502995020E008FD287 /* swipe-right-to-stop-timer.json */; };
-		1E23D5532995020E008FD287 /* tap.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E23D5512995020E008FD287 /* tap.json */; };
+		1E23D568299518F2008FD287 /* tap.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E23D566299518F2008FD287 /* tap.json */; };
+		1E23D569299518F2008FD287 /* swipe-right-to-stop-timer.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E23D567299518F2008FD287 /* swipe-right-to-stop-timer.json */; };
 		1E4159EE29485C6900EDA065 /* TimerEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159ED29485C6900EDA065 /* TimerEditingView.swift */; };
 		1E4159F02948E7DF00EDA065 /* SettingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159EF2948E7DF00EDA065 /* SettingFooterView.swift */; };
 		1E4159F2294C0BDB00EDA065 /* TimeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */; };
@@ -117,8 +117,8 @@
 		1E23D53A2994EEF3008FD287 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1E23D53B2994EEF3008FD287 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1E23D53C2994F8FB008FD287 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
-		1E23D5502995020E008FD287 /* swipe-right-to-stop-timer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "swipe-right-to-stop-timer.json"; sourceTree = "<group>"; };
-		1E23D5512995020E008FD287 /* tap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tap.json; sourceTree = "<group>"; };
+		1E23D566299518F2008FD287 /* tap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tap.json; sourceTree = "<group>"; };
+		1E23D567299518F2008FD287 /* swipe-right-to-stop-timer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "swipe-right-to-stop-timer.json"; sourceTree = "<group>"; };
 		1E4159ED29485C6900EDA065 /* TimerEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEditingView.swift; sourceTree = "<group>"; };
 		1E4159EF2948E7DF00EDA065 /* SettingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFooterView.swift; sourceTree = "<group>"; };
 		1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFactory.swift; sourceTree = "<group>"; };
@@ -265,8 +265,8 @@
 		1E23D54F29950195008FD287 /* LottieAssets */ = {
 			isa = PBXGroup;
 			children = (
-				1E23D5502995020E008FD287 /* swipe-right-to-stop-timer.json */,
-				1E23D5512995020E008FD287 /* tap.json */,
+				1E23D567299518F2008FD287 /* swipe-right-to-stop-timer.json */,
+				1E23D566299518F2008FD287 /* tap.json */,
 			);
 			path = LottieAssets;
 			sourceTree = "<group>";
@@ -759,10 +759,10 @@
 			files = (
 				1E48FEA52911F9250090B246 /* LaunchScreen.storyboard in Resources */,
 				1E4CB4B4295F258500FC918E /* InfoPlist.strings in Resources */,
+				1E23D569299518F2008FD287 /* swipe-right-to-stop-timer.json in Resources */,
 				1E4CB4A9295EAB6000FC918E /* Localizable.strings in Resources */,
+				1E23D568299518F2008FD287 /* tap.json in Resources */,
 				1E48FEA22911F9250090B246 /* Assets.xcassets in Resources */,
-				1E23D5522995020E008FD287 /* swipe-right-to-stop-timer.json in Resources */,
-				1E23D5532995020E008FD287 /* tap.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1158,7 +1158,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = MPN6WL3W3U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Multimer/Info.plist;
@@ -1189,7 +1189,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = MPN6WL3W3U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Multimer/Info.plist;
