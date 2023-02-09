@@ -12,7 +12,7 @@
 		1E23D5392994DFA6008FD287 /* tap.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E23D5382994DFA6008FD287 /* tap.json */; };
 		1E23D53D2994F8FB008FD287 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D53C2994F8FB008FD287 /* CoreDataError.swift */; };
 		1E4159EE29485C6900EDA065 /* TimerEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159ED29485C6900EDA065 /* TimerEditingView.swift */; };
-		1E4159F02948E7DF00EDA065 /* TimerTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159EF2948E7DF00EDA065 /* TimerTableFooterView.swift */; };
+		1E4159F02948E7DF00EDA065 /* SettingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159EF2948E7DF00EDA065 /* SettingFooterView.swift */; };
 		1E4159F2294C0BDB00EDA065 /* TimeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */; };
 		1E4159F5294CCA8400EDA065 /* FilteringNavigationTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159F4294CCA8400EDA065 /* FilteringNavigationTitleView.swift */; };
 		1E482BD02912887B00175B78 /* TimerSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BCF2912887B00175B78 /* TimerSettingViewController.swift */; };
@@ -119,7 +119,7 @@
 		1E23D53B2994EEF3008FD287 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1E23D53C2994F8FB008FD287 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		1E4159ED29485C6900EDA065 /* TimerEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEditingView.swift; sourceTree = "<group>"; };
-		1E4159EF2948E7DF00EDA065 /* TimerTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableFooterView.swift; sourceTree = "<group>"; };
+		1E4159EF2948E7DF00EDA065 /* SettingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFooterView.swift; sourceTree = "<group>"; };
 		1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFactory.swift; sourceTree = "<group>"; };
 		1E4159F4294CCA8400EDA065 /* FilteringNavigationTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringNavigationTitleView.swift; sourceTree = "<group>"; };
 		1E482BCF2912887B00175B78 /* TimerSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSettingViewController.swift; sourceTree = "<group>"; };
@@ -254,6 +254,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		1E23D53F2994FA17008FD287 /* SettingFooterView */ = {
+			isa = PBXGroup;
+			children = (
+				1E4159EF2948E7DF00EDA065 /* SettingFooterView.swift */,
+			);
+			path = SettingFooterView;
+			sourceTree = "<group>";
+		};
 		1E482BE42913556100175B78 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,6 +361,7 @@
 				1E48FE9C2911F9240090B246 /* MainViewController.swift */,
 				1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */,
 				1E4CB4D22966BD0A00FC918E /* TimerViewCell */,
+				1E23D53F2994FA17008FD287 /* SettingFooterView */,
 				1EBFEE11291788A000747606 /* TimerTableView */,
 				1EBFEE0E2917884600747606 /* CustomView */,
 			);
@@ -384,7 +393,6 @@
 			children = (
 				1E482BD12913538800175B78 /* TimerViewCell.swift */,
 				1E9BA3C82914CF5400B39E9C /* TimerCellViewModel.swift */,
-				1E4159EF2948E7DF00EDA065 /* TimerTableFooterView.swift */,
 			);
 			path = TimerViewCell;
 			sourceTree = "<group>";
@@ -882,7 +890,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E4159F02948E7DF00EDA065 /* TimerTableFooterView.swift in Sources */,
+				1E4159F02948E7DF00EDA065 /* SettingFooterView.swift in Sources */,
 				1E744BB7296C488A00CD824D /* PaddingButton.swift in Sources */,
 				1EBEEFDC292105F500299CE7 /* TimerTableViewDiffableDataSource.swift in Sources */,
 				1E651DB0295342BA00B4F321 /* TimerCreateViewController.swift in Sources */,

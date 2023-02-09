@@ -67,8 +67,8 @@ final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: TimerTableFooterView.identifier
-        ) as? TimerTableFooterView else { return UIView() }
+            withIdentifier: SettingFooterView.identifier
+        ) as? SettingFooterView else { return UIView() }
         
         // TODO: FooterViewModel 적용
         

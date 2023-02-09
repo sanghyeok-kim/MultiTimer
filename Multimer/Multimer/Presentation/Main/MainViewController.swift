@@ -23,6 +23,7 @@ final class MainViewController: UIViewController, ViewType {
         tableView.separatorStyle = .none
         tableView.allowsMultipleSelectionDuringEditing = true
         tableView.register(TimerViewCell.self, forCellReuseIdentifier: TimerViewCell.identifier)
+//        tableView.register(SettingFooterView.self, forHeaderFooterViewReuseIdentifier: SettingFooterView.identifier)
         tableView.sectionFooterHeight = ViewSize.tableViewSectionFooterHeight
         tableView.sectionHeaderHeight = .zero
         tableView.backgroundColor = .systemBackground
