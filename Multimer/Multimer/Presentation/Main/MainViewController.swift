@@ -76,7 +76,7 @@ final class MainViewController: UIViewController, ViewType {
         super.viewDidLoad()
         configureUI()
         layout()
-//        addShowSwipeToStopNoticeObserver()
+        addShowSwipeToStopNoticeObserver()
     }
     
     func bindInput(to viewModel: MainViewModel) {
