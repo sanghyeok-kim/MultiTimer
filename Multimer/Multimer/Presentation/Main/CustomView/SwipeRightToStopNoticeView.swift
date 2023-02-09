@@ -19,14 +19,12 @@ final class SwipeRightToStopNoticeView: UIView {
     
     private lazy var swipeAnimationView: LottieAnimationView = {
         let lottieView = LottieAnimationView(name: Constant.LottieAnimationName.swipeRightToStopTimer)
-        lottieView.animationSpeed = 1.2
         lottieView.loopMode = .repeat(2)
         return lottieView
     }()
     
     private lazy var tapAnimationView: LottieAnimationView = {
         let lottieView = LottieAnimationView(name: Constant.LottieAnimationName.tap)
-        lottieView.animationSpeed = 1.5
         lottieView.loopMode = .repeat(1)
         lottieView.isHidden = true
         return lottieView
