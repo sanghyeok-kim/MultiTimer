@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E23D5372994BCF8008FD287 /* NotificationName+CustomName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D5362994BCF8008FD287 /* NotificationName+CustomName.swift */; };
+		1E23D5392994DFA6008FD287 /* tap.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E23D5382994DFA6008FD287 /* tap.json */; };
 		1E4159EE29485C6900EDA065 /* TimerEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159ED29485C6900EDA065 /* TimerEditingView.swift */; };
 		1E4159F02948E7DF00EDA065 /* TimerTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159EF2948E7DF00EDA065 /* TimerTableFooterView.swift */; };
 		1E4159F2294C0BDB00EDA065 /* TimeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */; };
@@ -46,6 +48,8 @@
 		1E651DB0295342BA00B4F321 /* TimerCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DAF295342BA00B4F321 /* TimerCreateViewController.swift */; };
 		1E651DB229534CEE00B4F321 /* TimerCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DB129534CEE00B4F321 /* TimerCreateViewModel.swift */; };
 		1E6A19C329937FE8001FA3ED /* NameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6A19C229937FE8001FA3ED /* NameTextField.swift */; };
+		1E6A19C6299397E5001FA3ED /* swipe-right-to-stop-timer.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E6A19C5299397E5001FA3ED /* swipe-right-to-stop-timer.json */; };
+		1E6A19C82993AF21001FA3ED /* SwipeToStopNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6A19C72993AF21001FA3ED /* SwipeToStopNoticeView.swift */; };
 		1E6FAD9729403F900021B845 /* CoreDataTimerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FAD9629403F900021B845 /* CoreDataTimerRepository.swift */; };
 		1E744BA7296C488A00CD824D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744B8F296C488A00CD824D /* Constant.swift */; };
 		1E744BA8296C488A00CD824D /* UIPickerView+setFixedLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744B91296C488A00CD824D /* UIPickerView+setFixedLabels.swift */; };
@@ -110,6 +114,8 @@
 /* Begin PBXFileReference section */
 		00E7486D72F69F4E04BD7AC0 /* Pods_Multimer_MultimerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multimer_MultimerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1114132F9A6FA51595E52B8D /* Pods-Multimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer.debug.xcconfig"; path = "Target Support Files/Pods-Multimer/Pods-Multimer.debug.xcconfig"; sourceTree = "<group>"; };
+		1E23D5362994BCF8008FD287 /* NotificationName+CustomName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+CustomName.swift"; sourceTree = "<group>"; };
+		1E23D5382994DFA6008FD287 /* tap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = tap.json; path = ../../../../../sanghyeok/.Trash/tap.json; sourceTree = "<group>"; };
 		1E4159ED29485C6900EDA065 /* TimerEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEditingView.swift; sourceTree = "<group>"; };
 		1E4159EF2948E7DF00EDA065 /* TimerTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableFooterView.swift; sourceTree = "<group>"; };
 		1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFactory.swift; sourceTree = "<group>"; };
@@ -159,6 +165,8 @@
 		1E651DAF295342BA00B4F321 /* TimerCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCreateViewController.swift; sourceTree = "<group>"; };
 		1E651DB129534CEE00B4F321 /* TimerCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCreateViewModel.swift; sourceTree = "<group>"; };
 		1E6A19C229937FE8001FA3ED /* NameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextField.swift; sourceTree = "<group>"; };
+		1E6A19C5299397E5001FA3ED /* swipe-right-to-stop-timer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "swipe-right-to-stop-timer.json"; path = "../../../../../sanghyeok/Downloads/swipe-right-to-stop-timer.json"; sourceTree = "<group>"; };
+		1E6A19C72993AF21001FA3ED /* SwipeToStopNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeToStopNoticeView.swift; sourceTree = "<group>"; };
 		1E6FAD9629403F900021B845 /* CoreDataTimerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTimerRepository.swift; sourceTree = "<group>"; };
 		1E744B8F296C488A00CD824D /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		1E744B91296C488A00CD824D /* UIPickerView+setFixedLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPickerView+setFixedLabels.swift"; sourceTree = "<group>"; };
@@ -285,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				1E48FEA62911F9250090B246 /* Info.plist */,
+				1E6A19C4299397D1001FA3ED /* LottieAssets */,
 				1E4CB4E32967353E00FC918E /* Localizing */,
 				1E482BE42913556100175B78 /* Application */,
 				1E4CB4CC2966BAEA00FC918E /* Presentation */,
@@ -480,6 +489,15 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		1E6A19C4299397D1001FA3ED /* LottieAssets */ = {
+			isa = PBXGroup;
+			children = (
+				1E6A19C5299397E5001FA3ED /* swipe-right-to-stop-timer.json */,
+				1E23D5382994DFA6008FD287 /* tap.json */,
+			);
+			path = LottieAssets;
+			sourceTree = "<group>";
+		};
 		1E744B8E296C488A00CD824D /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,6 +521,7 @@
 				1E744B95296C488A00CD824D /* UIImage+makeSFSymbolImage.swift */,
 				1E744B96296C488A00CD824D /* UIView+snapshotCellStyle.swift */,
 				1E744B97296C488A00CD824D /* UIStackView+addArrangedSubviews.swift */,
+				1E23D5362994BCF8008FD287 /* NotificationName+CustomName.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -594,6 +613,7 @@
 		1EBFEE0E2917884600747606 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				1E6A19C72993AF21001FA3ED /* SwipeToStopNoticeView.swift */,
 				1E4CB48E295D28A400FC918E /* EmptyTimerView.swift */,
 				1E4159F4294CCA8400EDA065 /* FilteringNavigationTitleView.swift */,
 				1E4159ED29485C6900EDA065 /* TimerEditingView.swift */,
@@ -736,6 +756,8 @@
 				1E4CB4B4295F258500FC918E /* InfoPlist.strings in Resources */,
 				1E4CB4A9295EAB6000FC918E /* Localizable.strings in Resources */,
 				1E48FEA22911F9250090B246 /* Assets.xcassets in Resources */,
+				1E6A19C6299397E5001FA3ED /* swipe-right-to-stop-timer.json in Resources */,
+				1E23D5392994DFA6008FD287 /* tap.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +905,7 @@
 				1E6A19C329937FE8001FA3ED /* NameTextField.swift in Sources */,
 				1E744BB1296C488A00CD824D /* TimerTableViewSection.swift in Sources */,
 				1EBEEFEA2925B85700299CE7 /* TagButton.swift in Sources */,
+				1E6A19C82993AF21001FA3ED /* SwipeToStopNoticeView.swift in Sources */,
 				1E6FAD9729403F900021B845 /* CoreDataTimerRepository.swift in Sources */,
 				1E744BA9296C488A00CD824D /* UITextField+addLeftPadding.swift in Sources */,
 				1E651DAC2953165800B4F321 /* CountUpTimerUseCase.swift in Sources */,
@@ -918,6 +941,7 @@
 				1E482BD02912887B00175B78 /* TimerSettingViewController.swift in Sources */,
 				1EA3FCEA292E4BBD0073560D /* CoreDataStorage+TagColorMO.swift in Sources */,
 				1EBEF02C292C803400299CE7 /* EnvironmentSettingViewController.swift in Sources */,
+				1E23D5372994BCF8008FD287 /* NotificationName+CustomName.swift in Sources */,
 				1E4CB4F329673DD000FC918E /* TimerPersistentRepository.swift in Sources */,
 				1E4CB48F295D28A400FC918E /* EmptyTimerView.swift in Sources */,
 				1E482BE62913558D00175B78 /* Tag.swift in Sources */,
