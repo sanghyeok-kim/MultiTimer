@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		1E23D5352994B9F9008FD287 /* ToolbarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D5342994B9F9008FD287 /* ToolbarType.swift */; };
 		1E23D5372994BCF8008FD287 /* NotificationName+CustomName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D5362994BCF8008FD287 /* NotificationName+CustomName.swift */; };
-		1E23D5392994DFA6008FD287 /* tap.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E23D5382994DFA6008FD287 /* tap.json */; };
 		1E23D53D2994F8FB008FD287 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D53C2994F8FB008FD287 /* CoreDataError.swift */; };
+		1E23D5522995020E008FD287 /* swipe-right-to-stop-timer.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E23D5502995020E008FD287 /* swipe-right-to-stop-timer.json */; };
+		1E23D5532995020E008FD287 /* tap.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E23D5512995020E008FD287 /* tap.json */; };
 		1E4159EE29485C6900EDA065 /* TimerEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159ED29485C6900EDA065 /* TimerEditingView.swift */; };
 		1E4159F02948E7DF00EDA065 /* SettingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159EF2948E7DF00EDA065 /* SettingFooterView.swift */; };
 		1E4159F2294C0BDB00EDA065 /* TimeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */; };
@@ -48,7 +49,6 @@
 		1E651DB0295342BA00B4F321 /* TimerCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DAF295342BA00B4F321 /* TimerCreateViewController.swift */; };
 		1E651DB229534CEE00B4F321 /* TimerCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DB129534CEE00B4F321 /* TimerCreateViewModel.swift */; };
 		1E6A19C329937FE8001FA3ED /* NameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6A19C229937FE8001FA3ED /* NameTextField.swift */; };
-		1E6A19C6299397E5001FA3ED /* swipe-right-to-stop-timer.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E6A19C5299397E5001FA3ED /* swipe-right-to-stop-timer.json */; };
 		1E6A19C82993AF21001FA3ED /* SwipeRightToStopNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6A19C72993AF21001FA3ED /* SwipeRightToStopNoticeView.swift */; };
 		1E6FAD9729403F900021B845 /* CoreDataTimerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FAD9629403F900021B845 /* CoreDataTimerRepository.swift */; };
 		1E744BA7296C488A00CD824D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744B8F296C488A00CD824D /* Constant.swift */; };
@@ -114,10 +114,11 @@
 		09D9588E5DAECA7EB7A30024 /* Pods_Multimer_MultimerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multimer_MultimerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E23D5342994B9F9008FD287 /* ToolbarType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarType.swift; sourceTree = "<group>"; };
 		1E23D5362994BCF8008FD287 /* NotificationName+CustomName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+CustomName.swift"; sourceTree = "<group>"; };
-		1E23D5382994DFA6008FD287 /* tap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = tap.json; path = ../../../../../sanghyeok/.Trash/tap.json; sourceTree = "<group>"; };
 		1E23D53A2994EEF3008FD287 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1E23D53B2994EEF3008FD287 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1E23D53C2994F8FB008FD287 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
+		1E23D5502995020E008FD287 /* swipe-right-to-stop-timer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "swipe-right-to-stop-timer.json"; sourceTree = "<group>"; };
+		1E23D5512995020E008FD287 /* tap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tap.json; sourceTree = "<group>"; };
 		1E4159ED29485C6900EDA065 /* TimerEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEditingView.swift; sourceTree = "<group>"; };
 		1E4159EF2948E7DF00EDA065 /* SettingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFooterView.swift; sourceTree = "<group>"; };
 		1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFactory.swift; sourceTree = "<group>"; };
@@ -165,7 +166,6 @@
 		1E651DAF295342BA00B4F321 /* TimerCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCreateViewController.swift; sourceTree = "<group>"; };
 		1E651DB129534CEE00B4F321 /* TimerCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCreateViewModel.swift; sourceTree = "<group>"; };
 		1E6A19C229937FE8001FA3ED /* NameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextField.swift; sourceTree = "<group>"; };
-		1E6A19C5299397E5001FA3ED /* swipe-right-to-stop-timer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "swipe-right-to-stop-timer.json"; path = "../../../../../sanghyeok/Downloads/swipe-right-to-stop-timer.json"; sourceTree = "<group>"; };
 		1E6A19C72993AF21001FA3ED /* SwipeRightToStopNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeRightToStopNoticeView.swift; sourceTree = "<group>"; };
 		1E6FAD9629403F900021B845 /* CoreDataTimerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTimerRepository.swift; sourceTree = "<group>"; };
 		1E744B8F296C488A00CD824D /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -262,6 +262,15 @@
 			path = SettingFooterView;
 			sourceTree = "<group>";
 		};
+		1E23D54F29950195008FD287 /* LottieAssets */ = {
+			isa = PBXGroup;
+			children = (
+				1E23D5502995020E008FD287 /* swipe-right-to-stop-timer.json */,
+				1E23D5512995020E008FD287 /* tap.json */,
+			);
+			path = LottieAssets;
+			sourceTree = "<group>";
+		};
 		1E482BE42913556100175B78 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,12 +308,12 @@
 			isa = PBXGroup;
 			children = (
 				1E48FEA62911F9250090B246 /* Info.plist */,
-				1E6A19C4299397D1001FA3ED /* LottieAssets */,
 				1E4CB4E32967353E00FC918E /* Localizing */,
 				1E482BE42913556100175B78 /* Application */,
 				1E4CB4CC2966BAEA00FC918E /* Presentation */,
 				1E4CB4CD2966BC7B00FC918E /* Domain */,
 				1E4CB4CE2966BC8400FC918E /* Data */,
+				1E23D54F29950195008FD287 /* LottieAssets */,
 			);
 			path = Multimer;
 			sourceTree = "<group>";
@@ -490,15 +499,6 @@
 				1E4CB4F229673DD000FC918E /* TimerPersistentRepository.swift */,
 			);
 			path = Protocol;
-			sourceTree = "<group>";
-		};
-		1E6A19C4299397D1001FA3ED /* LottieAssets */ = {
-			isa = PBXGroup;
-			children = (
-				1E6A19C5299397E5001FA3ED /* swipe-right-to-stop-timer.json */,
-				1E23D5382994DFA6008FD287 /* tap.json */,
-			);
-			path = LottieAssets;
 			sourceTree = "<group>";
 		};
 		1E744B8E296C488A00CD824D /* Support */ = {
@@ -761,8 +761,8 @@
 				1E4CB4B4295F258500FC918E /* InfoPlist.strings in Resources */,
 				1E4CB4A9295EAB6000FC918E /* Localizable.strings in Resources */,
 				1E48FEA22911F9250090B246 /* Assets.xcassets in Resources */,
-				1E6A19C6299397E5001FA3ED /* swipe-right-to-stop-timer.json in Resources */,
-				1E23D5392994DFA6008FD287 /* tap.json in Resources */,
+				1E23D5522995020E008FD287 /* swipe-right-to-stop-timer.json in Resources */,
+				1E23D5532995020E008FD287 /* tap.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
