@@ -25,7 +25,7 @@ final class SwipeRightToStopNoticeView: UIView {
     
     private lazy var tapAnimationView: LottieAnimationView = {
         let lottieView = LottieAnimationView(name: Constant.LottieAnimationName.tap)
-        lottieView.loopMode = .repeat(1)
+        lottieView.loopMode = .playOnce
         lottieView.isHidden = true
         return lottieView
     }()
