@@ -14,6 +14,7 @@ final class TimerCreateViewModel: ViewModelType {
         let viewDidLoad = PublishRelay<Void>()
         let tagDidSelect = PublishRelay<Tag?>()
         let nameTextFieldDidEdit = PublishRelay<String>()
+        let defaultNameBarButtonDidTap = PublishRelay<Void>()
         let timePickerViewDidEdit = BehaviorRelay<Time>(value: TimeFactory.createDefaultTime())
         let cancelButtonDidTap = PublishRelay<Void>()
         let completeButtonDidTap = PublishRelay<Void>()
@@ -22,6 +23,7 @@ final class TimerCreateViewModel: ViewModelType {
     
     struct Output {
         let completeButtonEnable = PublishRelay<Bool>()
+        let defaultName = PublishRelay<String>()
         let timer: BehaviorRelay<Timer>
         let newTimer = PublishRelay<Timer>()
         let timePickerViewIsHidden = PublishRelay<Bool>()
@@ -38,6 +40,7 @@ final class TimerCreateViewModel: ViewModelType {
         self.output = Output(timer: BehaviorRelay<Timer>(value: timer))
         
         handleSelectedTimerType()
+        defaultNameBarButtonDidTap()
         handleNewTimer(with: timer)
         handleCancelButtonDidTap()
     }
@@ -57,6 +60,14 @@ private extension TimerCreateViewModel {
         selectedTimerType
             .map { $0.placeholder }
             .bind(to: output.placeholder)
+            .disposed(by: disposeBag)
+    }
+    
+    func defaultNameBarButtonDidTap() {
+        input.defaultNameBarButtonDidTap
+            .withLatestFrom(input.selectedTimerType)
+            .map { $0.title }
+            .bind(to: output.defaultName, input.nameTextFieldDidEdit)
             .disposed(by: disposeBag)
     }
     

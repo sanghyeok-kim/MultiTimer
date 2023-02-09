@@ -28,7 +28,7 @@ final class TimerCreateViewController: UIViewController, ViewType {
     }()
     
     private lazy var nameTextField: NameTextField = {
-        let nameTextField = NameTextField()
+        let nameTextField = NameTextField(toolbarType: .create)
         nameTextField.becomeFirstResponder()
         return nameTextField
     }()
@@ -110,6 +110,10 @@ final class TimerCreateViewController: UIViewController, ViewType {
             .bind(to: input.tagDidSelect)
             .disposed(by: disposeBag)
         
+        nameTextField.defaultNameBarButtonDidTap
+            .bind(to: input.defaultNameBarButtonDidTap)
+            .disposed(by: disposeBag)
+        
         cancelButton.rx.tap
             .bind(to: input.cancelButtonDidTap)
             .disposed(by: disposeBag)
@@ -160,6 +164,10 @@ final class TimerCreateViewController: UIViewController, ViewType {
         
         output.placeholder
             .bind(to: nameTextField.rx.placeholder)
+            .disposed(by: disposeBag)
+        
+        output.defaultName
+            .bind(to: nameTextField.defaultName)
             .disposed(by: disposeBag)
     }
 }
