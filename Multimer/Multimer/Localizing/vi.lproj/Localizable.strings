@@ -1,0 +1,35 @@
+/*
+  Localizable.strings
+  Multimer
+
+  Created by 김상혁 on 2022/12/30.
+  
+*/
+
+"timer" = "Hẹn giờ";
+"stopwatch" = "Bấm giờ";
+"countDownTimer" = "⏳ Hẹn giờ";
+"countUpStopwatch" = "⏱ Bấm giờ";
+"hour" = "h";
+"minute" = "m";
+"second" = "s";
+"all" = "Tất cả";
+"activated" = "Đã kích hoạt";
+"enterTimerNameToCreate" = "Nhập tên đồng hồ hẹn giờ để tạo.";
+"enterStopwatchNameToCreate" = "Nhập tên đồng hồ bấm giờ để tạo.";
+"createTimer" = "Tạo hẹn giờ";
+"edit" = "Chỉnh sửa";
+"done" = "Xong";
+"deleteConfirmMessage" = "Bạn có chắc chắn muốn xóa %d cái hẹn giờ đã chọn không?";
+"deleteTimer" = "Xóa hẹn giờ";
+"cancel" = "Hủy";
+"delete" = "Xóa";
+"noTimerCreatedMessage" = "Không có bộ hẹn giờ nào\nđã được tạo";
+"addTimerMessage" = "+ Bấm để tạo hẹn giờ.";
+"noTimerActivatedMessage" = "Không có bộ hẹn giờ nào\nđang chạy";
+"onlyActiveTimersAppearMessage" = "Đồng hồ hẹn giờ có trạng thái\nđang chạy / tạm dừng / kết thúc sẽ xuất hiện.";
+"settingTimer" = "%@ Cài đặt";
+"timerExpired" = "Hẹn giờ kết thúc - %@";
+"appTitle" = "Multi Timer";
+"defaultName" = "Tên mặc định";
+"swipeRightToStop" = "Vuốt sang phải để dừng hẹn giờ";

@@ -118,6 +118,8 @@
 		1E23D5342994B9F9008FD287 /* ToolbarType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarType.swift; sourceTree = "<group>"; };
 		1E23D5362994BCF8008FD287 /* NotificationName+CustomName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+CustomName.swift"; sourceTree = "<group>"; };
 		1E23D5382994DFA6008FD287 /* tap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = tap.json; path = ../../../../../sanghyeok/.Trash/tap.json; sourceTree = "<group>"; };
+		1E23D53A2994EEF3008FD287 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1E23D53B2994EEF3008FD287 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1E4159ED29485C6900EDA065 /* TimerEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEditingView.swift; sourceTree = "<group>"; };
 		1E4159EF2948E7DF00EDA065 /* TimerTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTableFooterView.swift; sourceTree = "<group>"; };
 		1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFactory.swift; sourceTree = "<group>"; };
@@ -737,6 +739,7 @@
 				ko,
 				ja,
 				"zh-Hans",
+				vi,
 			);
 			mainGroup = 1E48FE8C2911F9240090B246;
 			productRefGroup = 1E48FE962911F9240090B246 /* Products */;
@@ -1013,6 +1016,7 @@
 				1E4CB4AC295EAB8D00FC918E /* ko */,
 				1E4CB4B0295EC3A800FC918E /* ja */,
 				1E4CB4B1295ECA6200FC918E /* zh-Hans */,
+				1E23D53B2994EEF3008FD287 /* vi */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1024,6 +1028,7 @@
 				1E4CB4B7295F258600FC918E /* zh-Hans */,
 				1E4CB4B8295F258B00FC918E /* ja */,
 				1E4CB4B9295F258B00FC918E /* ko */,
+				1E23D53A2994EEF3008FD287 /* vi */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1157,7 +1162,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = MPN6WL3W3U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Multimer/Info.plist;
@@ -1188,7 +1193,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = MPN6WL3W3U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Multimer/Info.plist;
