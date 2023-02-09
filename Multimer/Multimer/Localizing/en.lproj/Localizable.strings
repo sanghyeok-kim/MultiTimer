@@ -31,4 +31,5 @@
 "settingTimer" = "Setting %@";
 "timerExpired" = "Timer Expired - %@";
 "appTitle" = "Multi+Timer";
+"defaultName" = "Default Name";
 "swipeRightToStop" = "Swipe right to stop the timer.";

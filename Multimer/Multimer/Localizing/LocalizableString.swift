@@ -33,6 +33,7 @@ enum LocalizableString {
     case onlyActiveTimersAppearMessage
     case settingTimer(timerType: TimerType)
     case timerExpired(timerName: String)
+    case defaultName
     case swipeRightToStop
     
     var localized: String {
@@ -87,6 +88,8 @@ enum LocalizableString {
             return String(format: NSLocalizedString("settingTimer", comment: ""), arguments: [timerType.title])
         case .timerExpired(let timerName):
             return String(format: NSLocalizedString("timerExpired", comment: ""), arguments: [timerName])
+        case .defaultName:
+            return String(format: NSLocalizedString("defaultName", comment: ""))
         case .swipeRightToStop:
             return String(format: NSLocalizedString("swipeRightToStop", comment: ""))
         }
