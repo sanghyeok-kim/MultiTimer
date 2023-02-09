@@ -31,4 +31,13 @@ enum Constant {
         static let hourglassTophalfFilled = "hourglass.tophalf.filled"
         static let stopwatchFill = "stopwatch.fill"
     }
+    
+    
+    enum NotificationCenter {
+        static let showSwipeToStopNotice = "showSwipeToStopNotice"
+    }
+    
+    enum UserDefaultsKey {
+        static let isFirstRun = "isFirstRun"
+    }
 }
