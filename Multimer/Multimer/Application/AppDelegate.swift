@@ -15,10 +15,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.isIdleTimerDisabled = true
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (didAllow, error) in
-            if didAllow {
+            switch didAllow {
+            case true:
                 UNUserNotificationCenter.current().delegate = self
+            case false:
+                //TODO: 알람 울리지 않음 경고 출력
+                break
+            }
+            
+            let isFirstRun = !UserDefaults.standard.bool(forKey: Constant.UserDefaultsKey.isFirstRun)
+            
+            switch isFirstRun {
+            case true:
+                UserDefaults.standard.set(true, forKey: Constant.UserDefaultsKey.isFirstRun)
+                NotificationCenter.default.post(name: .showSwipeToStopNotice, object: nil, userInfo: nil)
+            case false:
+                break
             }
         }
+        
         return true
     }
     

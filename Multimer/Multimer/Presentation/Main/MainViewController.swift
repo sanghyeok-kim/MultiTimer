@@ -11,6 +11,7 @@ import RxAppState
 
 final class MainViewController: UIViewController, ViewType {
     
+    private let swipeToStopNoticeView = SwipeRightToStopNoticeView()
     private let filteringNavigationTitleView = FilteringNavigationTitleView()
     
     private lazy var tableViewDelegate = TimerTableViewDelegate()
@@ -75,6 +76,7 @@ final class MainViewController: UIViewController, ViewType {
         super.viewDidLoad()
         configureUI()
         layout()
+        addShowSwipeToStopNoticeObserver()
     }
     
     func bindInput(to viewModel: MainViewModel) {
@@ -241,6 +243,29 @@ private extension MainViewController {
         alert.addAction(UIAlertAction(title: deleteString, style: .destructive, handler: confirmHandler))
         present(alert, animated: true, completion: nil)
     }
+    
+    func addShowSwipeToStopNoticeObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showSwipeToStopNotice),
+            name: Notification.Name.showSwipeToStopNotice,
+            object: nil
+        )
+    }
+}
+
+// MARK: - Objc Selector Methods
+
+private extension MainViewController {
+    @objc func showSwipeToStopNotice() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+            UIView.animate(withDuration: 0.75) {
+                self.swipeToStopNoticeView.isHidden = false
+                self.swipeToStopNoticeView.alpha = 1.0
+                self.swipeToStopNoticeView.playAnimation()
+            }
+        }
+    }
 }
 
 // MARK: - UI Configuration
@@ -262,6 +287,7 @@ private extension MainViewController {
         view.addSubview(emptyTimerView)
         view.addSubview(emptyActiveTimerView)
         view.addSubview(timerEditingView)
+        view.addSubview(swipeToStopNoticeView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -286,6 +312,12 @@ private extension MainViewController {
         timerEditingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         timerEditingView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         timerEditingView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        
+        swipeToStopNoticeView.translatesAutoresizingMaskIntoConstraints = false
+        swipeToStopNoticeView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        swipeToStopNoticeView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        swipeToStopNoticeView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        swipeToStopNoticeView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
     func presentTimerEditingView(by isEditing: Bool) {

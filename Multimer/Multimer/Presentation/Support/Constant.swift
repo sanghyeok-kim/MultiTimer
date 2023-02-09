@@ -31,4 +31,21 @@ enum Constant {
         static let hourglassTophalfFilled = "hourglass.tophalf.filled"
         static let stopwatchFill = "stopwatch.fill"
     }
+    
+    enum AssetImageName {
+        static let swipeCellRightToStop = "swipe-cell-right-to-stop.png"
+    }
+    
+    enum NotificationCenter {
+        static let showSwipeToStopNotice = "showSwipeToStopNotice"
+    }
+    
+    enum LottieAnimationName {
+        static let swipeRightToStopTimer = "swipe-right-to-stop-timer"
+        static let tap = "tap"
+    }
+    
+    enum UserDefaultsKey {
+        static let isFirstRun = "isFirstRun"
+    }
 }
