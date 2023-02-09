@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E23D5352994B9F9008FD287 /* ToolbarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D5342994B9F9008FD287 /* ToolbarType.swift */; };
 		1E23D5372994BCF8008FD287 /* NotificationName+CustomName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D5362994BCF8008FD287 /* NotificationName+CustomName.swift */; };
 		1E23D5392994DFA6008FD287 /* tap.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E23D5382994DFA6008FD287 /* tap.json */; };
 		1E4159EE29485C6900EDA065 /* TimerEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159ED29485C6900EDA065 /* TimerEditingView.swift */; };
@@ -114,6 +115,7 @@
 /* Begin PBXFileReference section */
 		00E7486D72F69F4E04BD7AC0 /* Pods_Multimer_MultimerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multimer_MultimerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1114132F9A6FA51595E52B8D /* Pods-Multimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer.debug.xcconfig"; path = "Target Support Files/Pods-Multimer/Pods-Multimer.debug.xcconfig"; sourceTree = "<group>"; };
+		1E23D5342994B9F9008FD287 /* ToolbarType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarType.swift; sourceTree = "<group>"; };
 		1E23D5362994BCF8008FD287 /* NotificationName+CustomName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+CustomName.swift"; sourceTree = "<group>"; };
 		1E23D5382994DFA6008FD287 /* tap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = tap.json; path = ../../../../../sanghyeok/.Trash/tap.json; sourceTree = "<group>"; };
 		1E4159ED29485C6900EDA065 /* TimerEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEditingView.swift; sourceTree = "<group>"; };
@@ -535,6 +537,7 @@
 				1E744B9C296C488A00CD824D /* TimerFilteringCondition.swift */,
 				1E744B9D296C488A00CD824D /* EditViewButtonType.swift */,
 				1E744B9E296C488A00CD824D /* TimeType.swift */,
+				1E23D5342994B9F9008FD287 /* ToolbarType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -935,6 +938,7 @@
 				1E4CB4DF2966BE9000FC918E /* TimeMO+CoreDataClass.swift in Sources */,
 				1E744BB4296C488A00CD824D /* TimeType.swift in Sources */,
 				1E744BB8296C488A00CD824D /* SymbolImageButton.swift in Sources */,
+				1E23D5352994B9F9008FD287 /* ToolbarType.swift in Sources */,
 				1EBEEFE62925451E00299CE7 /* TagScrollView.swift in Sources */,
 				1E4CB4EE29673D0200FC918E /* NotificationManager.swift in Sources */,
 				1EA3FCE2292E48BE0073560D /* CoreDataStorage.swift in Sources */,
