@@ -72,7 +72,7 @@ final class NameTextField: UITextField {
         case .setting:
             toolbar.setItems([flexibleSpaceButton, doneBarButton], animated: false)
         }
-        inputAccessoryView = toolbar
+//        inputAccessoryView = toolbar
     }
 }
 
