@@ -31,3 +31,4 @@
 "settingTimer" = "%@ 設定";
 "timerExpired" = "タイマー 終了 '%@'";
 "appTitle" = "マルチ+タイマー";
+"swipeRightToStop" = "右にスワイプしてタイマーを停止します。";
