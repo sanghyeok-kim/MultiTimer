@@ -30,7 +30,7 @@ final class TimerSettingViewController: UIViewController, ViewType {
         return scrollView
     }()
     
-    private lazy var nameTextField = NameTextField()
+    private lazy var nameTextField = NameTextField(toolbarType: .setting)
     
     private lazy var completeButton: PaddingButton = {
         let button = PaddingButton(padding: UIEdgeInsets(top: 10, left: .zero, bottom: 10, right: .zero))
