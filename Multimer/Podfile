@@ -6,7 +6,6 @@ target 'Multimer' do
   use_frameworks!
 
   # Pods for Multimer
-  pod 'SwiftLint'
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'RxAppState'
