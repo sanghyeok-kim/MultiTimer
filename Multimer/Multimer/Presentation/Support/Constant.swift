@@ -42,7 +42,6 @@ enum Constant {
     
     enum LottieAnimationName {
         static let swipeRightToStopTimer = "swipe-right-to-stop-timer"
-        static let tap = "tap"
     }
     
     enum UserDefaultsKey {

@@ -23,13 +23,6 @@ final class SwipeRightToStopNoticeView: UIView {
         return lottieView
     }()
     
-    private lazy var tapAnimationView: LottieAnimationView = {
-        let lottieView = LottieAnimationView(name: Constant.LottieAnimationName.tap)
-        lottieView.loopMode = .playOnce
-        lottieView.isHidden = true
-        return lottieView
-    }()
-    
     private lazy var cellImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: Constant.AssetImageName.swipeCellRightToStop))
         imageView.contentMode = .scaleAspectFit
@@ -62,13 +55,10 @@ final class SwipeRightToStopNoticeView: UIView {
 extension SwipeRightToStopNoticeView {
     func playAnimation() {
         swipeAnimationView.play { [weak self] _ in
-            self?.tapAnimationView.isHidden = false
-            self?.tapAnimationView.play { _ in
-                UIView.animate(withDuration: 0.75) {
-                    self?.alpha = .zero
-                } completion: { _ in
-                    self?.isHidden = true
-                }
+            UIView.animate(withDuration: 0.75) {
+                self?.alpha = .zero
+            } completion: { _ in
+                self?.isHidden = true
             }
         }
     }
@@ -90,7 +80,6 @@ private extension SwipeRightToStopNoticeView {
         addSubview(backgroundView)
         addSubview(cellImageView)
         addSubview(swipeAnimationView)
-        addSubview(tapAnimationView)
         addSubview(noticeLabel)
         
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -110,12 +99,6 @@ private extension SwipeRightToStopNoticeView {
         swipeAnimationView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6).isActive = true
         swipeAnimationView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 20).isActive = true
         swipeAnimationView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 40).isActive = true
-        
-        tapAnimationView.translatesAutoresizingMaskIntoConstraints = false
-        tapAnimationView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3).isActive = true
-        tapAnimationView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3).isActive = true
-        tapAnimationView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        tapAnimationView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 20).isActive = true
         
         noticeLabel.translatesAutoresizingMaskIntoConstraints = false
         noticeLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
