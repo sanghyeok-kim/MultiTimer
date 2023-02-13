@@ -49,7 +49,7 @@ final class TimerTableViewDelegate: NSObject, UITableViewDelegate {
         resetAction.backgroundColor = .systemBackground
         
         let config = UISwipeActionsConfiguration(actions: [resetAction])
-        config.performsFirstActionWithFullSwipe = false
+        config.performsFirstActionWithFullSwipe = true
         return config
     }
     
