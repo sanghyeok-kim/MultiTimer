@@ -33,3 +33,4 @@
 "appTitle" = "멀티 타이머";
 "defaultName" = "기본 이름";
 "swipeRightToStop" = "오른쪽으로 밀어서 중지할 수 있습니다.";
+"resetAll" = "모두 중지";

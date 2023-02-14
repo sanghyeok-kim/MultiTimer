@@ -33,3 +33,4 @@
 "appTitle" = "マルチ+タイマー";
 "defaultName" = "デフォルト名";
 "swipeRightToStop" = "右にスワイプしてタイマーを停止します。";
+"resetAll" = "すべてリセット";
