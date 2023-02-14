@@ -61,6 +61,7 @@ final class MainViewController: UIViewController, ViewType {
         button.backgroundColor = CustomColor.Button.resetAllActiveTimersButton
         button.isHidden = true
         button.alpha = .zero
+        applyImpactFeedbackGenerator(to: button)
         return button
     }()
     
@@ -79,14 +80,16 @@ final class MainViewController: UIViewController, ViewType {
         equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50
     )
     
+    private var impactFeedbackGenerator: UIImpactFeedbackGenerator? = .init(style: .medium)
     private let disposeBag = DisposeBag()
-    var viewModel: MainViewModel?
+    var viewModel: MainViewModel? 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         layout()
         addShowSwipeToStopNoticeObserver()
+        prepareFeedbackImpactGenerator()
     }
     
     func bindInput(to viewModel: MainViewModel) {
@@ -217,6 +220,10 @@ final class MainViewController: UIViewController, ViewType {
             }
             .disposed(by: disposeBag)
     }
+    
+    deinit {
+        impactFeedbackGenerator = nil
+    }
 }
 
 // MARK: - Helper Methods
@@ -289,6 +296,22 @@ private extension MainViewController {
         }
     }
 }
+
+// MARK: - Feedback Generators
+
+private extension MainViewController {
+    func prepareFeedbackImpactGenerator() {
+        impactFeedbackGenerator = UIImpactFeedbackGenerator()
+        impactFeedbackGenerator?.prepare()
+    }
+    
+    func applyImpactFeedbackGenerator(to button: UIButton) {
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.impactFeedbackGenerator?.impactOccurred()
+        }), for: .touchUpInside)
+    }
+}
+
 
 // MARK: - UI Configuration
 
