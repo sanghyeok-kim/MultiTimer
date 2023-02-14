@@ -55,6 +55,15 @@ final class MainViewController: UIViewController, ViewType {
         return barButtonItem
     }()
     
+    private lazy var resetAllActiveTimersButton: PaddingButton = {
+        let button = PaddingButton(padding: UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12), isRounded: true)
+        button.setTitle(LocalizableString.resetAll.localized, for: .normal)
+        button.backgroundColor = CustomColor.Button.resetAllActiveTimersButton
+        button.isHidden = true
+        button.alpha = .zero
+        return button
+    }()
+    
     private lazy var timerEditBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
         barButtonItem.title = LocalizableString.edit.localized
@@ -118,6 +127,10 @@ final class MainViewController: UIViewController, ViewType {
             .bind(to: input.filteringSegmentControlDidTap)
             .disposed(by: disposeBag)
         
+        resetAllActiveTimersButton.rx.tap
+            .bind(to: input.resetAllActiveTimersButtonDidTap)
+            .disposed(by: disposeBag)
+        
         timerEditingView.buttonInEditViewDidTap
             .bind(to: input.timerControlButtonInEditViewDidTap)
             .disposed(by: disposeBag)
@@ -177,6 +190,14 @@ final class MainViewController: UIViewController, ViewType {
             .withUnretained(self)
             .bind { `self`, rows in
                 rows.forEach { self.tableView.deselectRow(at: IndexPath(row: $0, section: .zero), animated: true) }
+            }
+            .disposed(by: disposeBag)
+        
+        output.hideResetAllActiveTimersButton
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .bind { `self`, isHidden in
+                self.resetAllActiveTimersButton.shouldFadeIn(bool: !isHidden, withDuration: 0.25)
             }
             .disposed(by: disposeBag)
         
@@ -289,6 +310,7 @@ private extension MainViewController {
         view.addSubview(emptyActiveTimerView)
         view.addSubview(timerEditingView)
         view.addSubview(swipeToStopNoticeView)
+        view.addSubview(resetAllActiveTimersButton)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -319,6 +341,10 @@ private extension MainViewController {
         swipeToStopNoticeView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         swipeToStopNoticeView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         swipeToStopNoticeView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        
+        resetAllActiveTimersButton.translatesAutoresizingMaskIntoConstraints = false
+        resetAllActiveTimersButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        resetAllActiveTimersButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
     }
     
     func presentTimerEditingView(by isEditing: Bool) {

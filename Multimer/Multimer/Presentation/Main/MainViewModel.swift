@@ -23,6 +23,7 @@ final class MainViewModel: ViewModelType {
         let timerControlButtonInEditViewDidTap = PublishRelay<EditViewButtonType>()
         let deleteButtonInEditViewDidTap = PublishRelay<Void>()
         let confirmDeleteButtonDidTap = PublishRelay<Void>()
+        let resetAllActiveTimersButtonDidTap = PublishRelay<Void>()
     }
     
     struct Output {
@@ -33,6 +34,7 @@ final class MainViewModel: ViewModelType {
         let enableEditViewButtons = PublishRelay<Bool>()
         let showDeleteConfirmAlert = PublishRelay<Int>()
         let deselectRows = PublishRelay<[Int]>()
+        let hideResetAllActiveTimersButton = BehaviorRelay<Bool>(value: true)
         let showEmptyTimerView = PublishRelay<TimerFilteringCondition>()
         let hideEmptyTimerView = PublishRelay<Void>()
     }
@@ -57,6 +59,7 @@ final class MainViewModel: ViewModelType {
         handleCellDidSwipeFromTrailing()
         handleCellDidMove()
         handleAddTimerButtonDidTap()
+        handleResetAllActiveTimersButton()
         handleEditButtonDidTap()
         handleEventFromEditView(with: mainUseCase)
         
@@ -81,7 +84,8 @@ private extension MainViewModel {
     
     func handleFilteringSegmentDidTapOrFilteredTimerCellViewModels() {
         let filteredTimersToShow = Observable
-            .combineLatest(input.filteringSegmentControlDidTap, output.filteredTimerCellViewModels) { ($0, $1) }
+            .combineLatest(input.filteringSegmentControlDidTap, output.filteredTimerCellViewModels)
+            .share()
         
         filteredTimersToShow
             .filter { $1.isEmpty }
@@ -93,6 +97,14 @@ private extension MainViewModel {
             .filter { !$1.isEmpty }
             .map { _ in }
             .bind(to: output.hideEmptyTimerView)
+            .disposed(by: disposeBag)
+        
+        output.filteredTimerCellViewModels
+            .withLatestFrom(input.filteringSegmentControlDidTap) { ($0, $1) }
+            .map { (filteredViewModels, condition) in
+                !(condition == .active && !filteredViewModels.isEmpty)
+            }
+            .bind(to: output.hideResetAllActiveTimersButton)
             .disposed(by: disposeBag)
     }
     
@@ -126,9 +138,7 @@ private extension MainViewModel {
             .withLatestFrom(output.filteredTimerCellViewModels) { index, viewModels in
                 viewModels[index]
             }
-            .bind {
-                $0.input.resetButtonDidTap.accept(())
-            }
+            .bind { $0.resetTimer() }
             .disposed(by: disposeBag)
     }
     
@@ -249,9 +259,18 @@ private extension MainViewModel {
         fetchedTimerCellViewModels
             .flatMapLatest { cellViewModels -> Observable<TimerSettingViewModel> in
                 let timerSettingViewModel = cellViewModels.map { $0.output.timerSettingViewModel.asObservable() }
-                return .merge(timerSettingViewModel)
+                return .merge(timerSettingViewModel).share()
             }
             .bind(to: output.pushTimerSettingViewController)
+            .disposed(by: disposeBag)
+    }
+    
+    func handleResetAllActiveTimersButton() {
+        input.resetAllActiveTimersButtonDidTap
+            .withLatestFrom(output.filteredTimerCellViewModels)
+            .bind { filteredCellViewModels in
+                filteredCellViewModels.forEach { $0.resetTimer() }
+            }
             .disposed(by: disposeBag)
     }
     
