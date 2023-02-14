@@ -35,6 +35,7 @@ enum LocalizableString {
     case timerExpired(timerName: String)
     case defaultName
     case swipeRightToStop
+    case resetAll
     
     var localized: String {
         switch self {
@@ -92,6 +93,8 @@ enum LocalizableString {
             return String(format: NSLocalizedString("defaultName", comment: ""))
         case .swipeRightToStop:
             return String(format: NSLocalizedString("swipeRightToStop", comment: ""))
+        case .resetAll:
+            return String(format: NSLocalizedString("resetAll", comment: ""))
         }
     }
 }

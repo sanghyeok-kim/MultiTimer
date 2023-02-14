@@ -131,6 +131,8 @@ enum CustomColor {
         }
         
         static let deleteImage = UIColor(red: 234 / 255, green: 4 / 255, blue: 126 / 255, alpha: 1.0)
+        
+        static let resetAllActiveTimersButton = UIColor(red: 235 / 255, green: 82 / 255, blue: 138 / 255, alpha: 0.5)
     }
     
     enum View {

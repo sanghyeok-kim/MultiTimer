@@ -33,3 +33,4 @@
 "appTitle" = "多重计时器";
 "defaultName" = "默认名称";
 "swipeRightToStop" = "向右滑动以停止计时器。"; 
+"resetAll" = "全部重设";

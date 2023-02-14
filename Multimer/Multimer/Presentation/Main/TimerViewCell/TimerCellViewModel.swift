@@ -76,6 +76,10 @@ extension TimerCellViewModel {
     func enableCellTapButton(by isEditing: Bool) {
         output.cellCanTap.accept(isEditing)
     }
+    
+    func resetTimer() {
+        timerUseCase.resetTimer()
+    }
 }
 
 // MARK: - Event Handling Methods
