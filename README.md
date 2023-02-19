@@ -156,4 +156,4 @@ Multimer/
 <br>
 
 ## 📝 Latest Release
-- [1.1.0](https://github.com/sanghyeok-kim/MultiTimer/releases/tag/1.1.0)
+- [1.2.0](https://github.com/sanghyeok-kim/MultiTimer/releases/tag/1.2.0)
