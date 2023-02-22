@@ -24,6 +24,7 @@ final class TimerEditingView: UIView {
             .map { .start }
             .bind(to: buttonInEditViewDidTap)
             .disposed(by: disposeBag)
+        applyImpactFeedbackGenerator(to: button)
         return button
     }()
     
@@ -37,6 +38,7 @@ final class TimerEditingView: UIView {
             .map { .pause }
             .bind(to: buttonInEditViewDidTap)
             .disposed(by: disposeBag)
+        applyImpactFeedbackGenerator(to: button)
         return button
     }()
     
@@ -50,6 +52,7 @@ final class TimerEditingView: UIView {
             .map { .reset }
             .bind(to: buttonInEditViewDidTap)
             .disposed(by: disposeBag)
+        applyImpactFeedbackGenerator(to: button)
         return button
     }()
     
@@ -58,6 +61,7 @@ final class TimerEditingView: UIView {
         button.rx.tap
             .bind(to: deleteButtonDidTap)
             .disposed(by: disposeBag)
+        applyImpactFeedbackGenerator(to: button)
         return button
     }()
     
@@ -69,6 +73,7 @@ final class TimerEditingView: UIView {
         return stackView
     }()
     
+    private var impactFeedbackGenerator: UIImpactFeedbackGenerator? = .init(style: .medium)
     private let disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
@@ -83,6 +88,10 @@ final class TimerEditingView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        impactFeedbackGenerator = nil
     }
 }
 
@@ -106,5 +115,20 @@ private extension TimerEditingView {
 private extension TimerEditingView {
     enum ViewSize {
         static let symbolImageButton: CGFloat = 24.0
+    }
+}
+
+// MARK: - Feedback Generators
+
+private extension TimerEditingView {
+    func prepareFeedbackImpactGenerator() {
+        impactFeedbackGenerator = UIImpactFeedbackGenerator()
+        impactFeedbackGenerator?.prepare()
+    }
+    
+    func applyImpactFeedbackGenerator(to button: UIButton) {
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.impactFeedbackGenerator?.impactOccurred()
+        }), for: .touchUpInside)
     }
 }
