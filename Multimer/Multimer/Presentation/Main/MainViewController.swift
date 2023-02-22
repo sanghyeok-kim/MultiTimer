@@ -312,7 +312,6 @@ private extension MainViewController {
     }
 }
 
-
 // MARK: - UI Configuration
 
 private extension MainViewController {
