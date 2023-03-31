@@ -133,7 +133,7 @@ final class CountDownTimerUseCase: TimerUseCase {
     }
     
     // TODO: Notification Manager 구현
-    func registerNotification() {
+    private func registerNotification() {
         let content = UNMutableNotificationContent()
         content.title = LocalizableString.appTitle.localized
         content.body = LocalizableString.timerExpired(timerName: currentTimer.name).localized
@@ -160,15 +160,19 @@ final class CountDownTimerUseCase: TimerUseCase {
             let remainingTimeInterval = -(Date().timeIntervalSince(expirationDate))
             
             if remainingTimeInterval <= .zero {
-                let expiredTime = TimeFactory.createExpiredTime(of: self.currentTimer.time)
-                self.timer.accept(Timer(timer: self.currentTimer, time: expiredTime))
-                self.timerPersistentRepository.saveTimeOfTimer(target: self.timerIdentifier, time: expiredTime)
+                self.expireTimer()
                 self.stopTimer()
             } else {
                 let remainingTime = Time(totalSeconds: self.currentTimer.totalSeconds, remainingSeconds: remainingTimeInterval)
                 self.timer.accept(Timer(timer: self.currentTimer, time: remainingTime))
             }
         }
+    }
+    
+    private func expireTimer() {
+        let expiredTime = TimeFactory.createExpiredTime(of: currentTimer.time)
+        timer.accept(Timer(timer: currentTimer, time: expiredTime))
+        timerPersistentRepository.saveTimeOfTimer(target: timerIdentifier, time: expiredTime)
     }
     
     deinit {
