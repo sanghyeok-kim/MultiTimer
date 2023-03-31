@@ -119,9 +119,7 @@ final class CountUpTimerUseCase: TimerUseCase {
         self.dispatchSourceTimer?.schedule(deadline: .now(), repeating: 0.1)
         self.dispatchSourceTimer?.setEventHandler { [weak self] in
             guard let self = self else { return }
-            
             let timeIntervalSinceStartDate = Date().timeIntervalSince(startDate) + elapsedTime
-            
             let totalElapsedTime = Time(totalSeconds: Int(timeIntervalSinceStartDate), remainingSeconds: timeIntervalSinceStartDate)
             self.timer.accept(Timer(timer: self.currentTimer, time: totalElapsedTime))
         }
