@@ -14,7 +14,8 @@ extension Reactive where Base: UITextField {
             editingEvents: [.editingChanged, .valueChanged],
             getter: { textField in
                 textField.text
-            }, setter: { textField, value in
+            },
+            setter: { textField, value in
                 if textField.text != value {
                     textField.text = value
                 }
