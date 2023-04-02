@@ -234,26 +234,39 @@ final class MainViewController: UIViewController, ViewType {
 private extension MainViewController {
     func showEmptyTimerView(of filteringCondition: TimerFilteringCondition) {
         view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.5) {
+        
+        UIView.animate(withDuration: 0.5) { [weak self] in
             switch filteringCondition {
             case .all:
-                self.emptyActiveTimerView.isHidden = true
-                self.emptyActiveTimerView.alpha = .zero
-                self.emptyTimerView.isHidden = false
-                self.emptyTimerView.alpha = 1.0
+                self?.emptyActiveTimerView.isHidden = true
+                self?.emptyActiveTimerView.alpha = .zero
+                self?.emptyTimerView.isHidden = false
+                self?.emptyTimerView.alpha = 1.0
             case .active:
-                self.emptyTimerView.isHidden = true
-                self.emptyTimerView.alpha = .zero
-                self.emptyActiveTimerView.isHidden = false
-                self.emptyActiveTimerView.alpha = 1.0
+                self?.emptyTimerView.isHidden = true
+                self?.emptyTimerView.alpha = .zero
+                self?.emptyActiveTimerView.isHidden = false
+                self?.emptyActiveTimerView.alpha = 1.0
             }
-            self.view.layoutIfNeeded()
+            self?.view.layoutIfNeeded()
         }
     }
     
     func hideEmptyTimerView() {
         self.emptyTimerView.isHidden = true
         self.emptyActiveTimerView.isHidden = true
+    }
+    
+    func presentTimerEditingView(by isEditing: Bool) {
+        view.layoutIfNeeded()
+        
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.timerEditingViewTopAnchor.isActive = !isEditing
+            self?.resetAllActiveTimersButtonBottonAnchor.isActive = !isEditing
+            self?.timerEditingViewTopAnchorWhileEditing.isActive = isEditing
+            self?.resetAllActiveTimersButtonBottonAnchorWhileEditing.isActive = isEditing
+            self?.view.layoutIfNeeded()
+        }
     }
     
     func enterEditingMode(by isEditing: Bool) {
@@ -370,18 +383,6 @@ private extension MainViewController {
         resetAllActiveTimersButton.translatesAutoresizingMaskIntoConstraints = false
         resetAllActiveTimersButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         resetAllActiveTimersButtonBottonAnchor.isActive = true
-    }
-    
-    func presentTimerEditingView(by isEditing: Bool) {
-        view.layoutIfNeeded()
-        
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.timerEditingViewTopAnchor.isActive = !isEditing
-            self?.resetAllActiveTimersButtonBottonAnchor.isActive = !isEditing
-            self?.timerEditingViewTopAnchorWhileEditing.isActive = isEditing
-            self?.resetAllActiveTimersButtonBottonAnchorWhileEditing.isActive = isEditing
-            self?.view.layoutIfNeeded()
-        }
     }
 }
 
