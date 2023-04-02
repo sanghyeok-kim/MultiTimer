@@ -303,11 +303,11 @@ private extension MainViewController {
 
 private extension MainViewController {
     @objc func showSwipeToStopNotice() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [weak self] in
             UIView.animate(withDuration: 0.75) {
-                self.swipeToStopNoticeView.isHidden = false
-                self.swipeToStopNoticeView.alpha = 1.0
-                self.swipeToStopNoticeView.playAnimation()
+                self?.swipeToStopNoticeView.isHidden = false
+                self?.swipeToStopNoticeView.alpha = 1.0
+                self?.swipeToStopNoticeView.playAnimation()
             }
         }
     }
