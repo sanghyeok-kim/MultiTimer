@@ -71,7 +71,6 @@
 		1E744BB7296C488A00CD824D /* PaddingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744BA3296C488A00CD824D /* PaddingButton.swift */; };
 		1E744BB8296C488A00CD824D /* SymbolImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744BA4296C488A00CD824D /* SymbolImageButton.swift */; };
 		1E744BB9296C488A00CD824D /* TagColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744BA6296C488A00CD824D /* TagColorFactory.swift */; };
-		1E79BF1D29BEBCA000617B28 /* RepeatCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E79BF1C29BEBCA000617B28 /* RepeatCountView.swift */; };
 		1E86F1E9293627950067CA28 /* DefaultMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E86F1E8293627950067CA28 /* DefaultMainUseCase.swift */; };
 		1E9BA3C72914CEFB00B39E9C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */; };
 		1E9BA3C92914CF5400B39E9C /* TimerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C82914CF5400B39E9C /* TimerCellViewModel.swift */; };
@@ -190,7 +189,6 @@
 		1E744BA3296C488A00CD824D /* PaddingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingButton.swift; sourceTree = "<group>"; };
 		1E744BA4296C488A00CD824D /* SymbolImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymbolImageButton.swift; sourceTree = "<group>"; };
 		1E744BA6296C488A00CD824D /* TagColorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagColorFactory.swift; sourceTree = "<group>"; };
-		1E79BF1C29BEBCA000617B28 /* RepeatCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatCountView.swift; sourceTree = "<group>"; };
 		1E86F1E8293627950067CA28 /* DefaultMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainUseCase.swift; sourceTree = "<group>"; };
 		1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		1E9BA3C82914CF5400B39E9C /* TimerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCellViewModel.swift; sourceTree = "<group>"; };
@@ -463,7 +461,6 @@
 		1E4CB4E7296738C100FC918E /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				1E79BF1C29BEBCA000617B28 /* RepeatCountView.swift */,
 				1EBEEFE52925451E00299CE7 /* TagScrollView.swift */,
 				1EBEEFE92925B85700299CE7 /* TagButton.swift */,
 			);
@@ -945,7 +942,6 @@
 				1E744BB4296C488A00CD824D /* TimeType.swift in Sources */,
 				1E744BB8296C488A00CD824D /* SymbolImageButton.swift in Sources */,
 				1E23D56B299A1110008FD287 /* UIView+Fade.swift in Sources */,
-				1E79BF1D29BEBCA000617B28 /* RepeatCountView.swift in Sources */,
 				1E23D5352994B9F9008FD287 /* ToolbarType.swift in Sources */,
 				1EBEEFE62925451E00299CE7 /* TagScrollView.swift in Sources */,
 				1EA3FCE2292E48BE0073560D /* CoreDataStorage.swift in Sources */,
