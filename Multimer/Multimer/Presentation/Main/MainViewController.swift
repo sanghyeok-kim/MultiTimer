@@ -72,12 +72,16 @@ final class MainViewController: UIViewController, ViewType {
     }()
     
     private lazy var timerEditingView = TimerEditingView()
-    private lazy var timerEditingViewTopAnchor = timerEditingView.topAnchor.constraint(
-        equalTo: view.bottomAnchor
-    )
-    private lazy var timerViewTopAnchorWhileEditing = timerEditingView.topAnchor.constraint(
-        equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50
-    )
+    
+    private lazy var timerEditingViewTopAnchor = timerEditingView.topAnchor
+        .constraint(equalTo: view.bottomAnchor)
+    private lazy var timerEditingViewTopAnchorWhileEditing = timerEditingView.topAnchor
+        .constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50)
+    
+    private lazy var resetAllActiveTimersButtonBottonAnchor = resetAllActiveTimersButton.bottomAnchor
+        .constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+    private lazy var resetAllActiveTimersButtonBottonAnchorWhileEditing = resetAllActiveTimersButton.bottomAnchor
+        .constraint(equalTo: timerEditingView.topAnchor, constant: -16)
     
     private var impactFeedbackGenerator: UIImpactFeedbackGenerator? = .init(style: .medium)
     private let disposeBag = DisposeBag()
@@ -365,22 +369,18 @@ private extension MainViewController {
         
         resetAllActiveTimersButton.translatesAutoresizingMaskIntoConstraints = false
         resetAllActiveTimersButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        resetAllActiveTimersButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
+        resetAllActiveTimersButtonBottonAnchor.isActive = true
     }
     
     func presentTimerEditingView(by isEditing: Bool) {
         view.layoutIfNeeded()
         
-        UIView.animate(withDuration: 0.3) {
-            switch isEditing {
-            case true:
-                self.timerEditingViewTopAnchor.isActive = false
-                self.timerViewTopAnchorWhileEditing.isActive = true
-            case false:
-                self.timerViewTopAnchorWhileEditing.isActive = false
-                self.timerEditingViewTopAnchor.isActive = true
-            }
-            self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.timerEditingViewTopAnchor.isActive = !isEditing
+            self?.resetAllActiveTimersButtonBottonAnchor.isActive = !isEditing
+            self?.timerEditingViewTopAnchorWhileEditing.isActive = isEditing
+            self?.resetAllActiveTimersButtonBottonAnchorWhileEditing.isActive = isEditing
+            self?.view.layoutIfNeeded()
         }
     }
 }
