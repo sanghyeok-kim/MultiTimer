@@ -12,7 +12,7 @@
 		1E23D53D2994F8FB008FD287 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D53C2994F8FB008FD287 /* CoreDataError.swift */; };
 		1E23D568299518F2008FD287 /* tap.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E23D566299518F2008FD287 /* tap.json */; };
 		1E23D569299518F2008FD287 /* swipe-right-to-stop-timer.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E23D567299518F2008FD287 /* swipe-right-to-stop-timer.json */; };
-		1E23D56B299A1110008FD287 /* UIView+Fade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D56A299A1110008FD287 /* UIView+Fade.swift */; };
+		1E23D56B299A1110008FD287 /* UIView+shouldFadeIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D56A299A1110008FD287 /* UIView+shouldFadeIn.swift */; };
 		1E4159EE29485C6900EDA065 /* TimerEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159ED29485C6900EDA065 /* TimerEditingView.swift */; };
 		1E4159F02948E7DF00EDA065 /* SettingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159EF2948E7DF00EDA065 /* SettingFooterView.swift */; };
 		1E4159F2294C0BDB00EDA065 /* TimeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */; };
@@ -120,7 +120,7 @@
 		1E23D53C2994F8FB008FD287 /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		1E23D566299518F2008FD287 /* tap.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tap.json; sourceTree = "<group>"; };
 		1E23D567299518F2008FD287 /* swipe-right-to-stop-timer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "swipe-right-to-stop-timer.json"; sourceTree = "<group>"; };
-		1E23D56A299A1110008FD287 /* UIView+Fade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Fade.swift"; sourceTree = "<group>"; };
+		1E23D56A299A1110008FD287 /* UIView+shouldFadeIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+shouldFadeIn.swift"; sourceTree = "<group>"; };
 		1E4159ED29485C6900EDA065 /* TimerEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEditingView.swift; sourceTree = "<group>"; };
 		1E4159EF2948E7DF00EDA065 /* SettingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFooterView.swift; sourceTree = "<group>"; };
 		1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFactory.swift; sourceTree = "<group>"; };
@@ -525,7 +525,7 @@
 				1E744B94296C488A00CD824D /* UITextField+Rx+textChanged.swift */,
 				1E744B95296C488A00CD824D /* UIImage+makeSFSymbolImage.swift */,
 				1E744B96296C488A00CD824D /* UIView+snapshotCellStyle.swift */,
-				1E23D56A299A1110008FD287 /* UIView+Fade.swift */,
+				1E23D56A299A1110008FD287 /* UIView+shouldFadeIn.swift */,
 				1E744B97296C488A00CD824D /* UIStackView+addArrangedSubviews.swift */,
 				1E23D5362994BCF8008FD287 /* NotificationName+CustomName.swift */,
 			);
@@ -941,7 +941,7 @@
 				1E4CB4DF2966BE9000FC918E /* TimeMO+CoreDataClass.swift in Sources */,
 				1E744BB4296C488A00CD824D /* TimeType.swift in Sources */,
 				1E744BB8296C488A00CD824D /* SymbolImageButton.swift in Sources */,
-				1E23D56B299A1110008FD287 /* UIView+Fade.swift in Sources */,
+				1E23D56B299A1110008FD287 /* UIView+shouldFadeIn.swift in Sources */,
 				1E23D5352994B9F9008FD287 /* ToolbarType.swift in Sources */,
 				1EBEEFE62925451E00299CE7 /* TagScrollView.swift in Sources */,
 				1EA3FCE2292E48BE0073560D /* CoreDataStorage.swift in Sources */,
