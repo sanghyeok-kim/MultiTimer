@@ -17,6 +17,7 @@
 		1E4159F02948E7DF00EDA065 /* SettingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159EF2948E7DF00EDA065 /* SettingFooterView.swift */; };
 		1E4159F2294C0BDB00EDA065 /* TimeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */; };
 		1E4159F5294CCA8400EDA065 /* FilteringNavigationTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4159F4294CCA8400EDA065 /* FilteringNavigationTitleView.swift */; };
+		1E43BF3829D986C900C718D4 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E43BF3729D986C900C718D4 /* SeparatorView.swift */; };
 		1E482BD02912887B00175B78 /* TimerSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BCF2912887B00175B78 /* TimerSettingViewController.swift */; };
 		1E482BD22913538800175B78 /* TimerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BD12913538800175B78 /* TimerViewCell.swift */; };
 		1E482BD4291353F400175B78 /* TimePickerViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E482BD3291353F400175B78 /* TimePickerViewDataSource.swift */; };
@@ -71,6 +72,7 @@
 		1E744BB7296C488A00CD824D /* PaddingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744BA3296C488A00CD824D /* PaddingButton.swift */; };
 		1E744BB8296C488A00CD824D /* SymbolImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744BA4296C488A00CD824D /* SymbolImageButton.swift */; };
 		1E744BB9296C488A00CD824D /* TagColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744BA6296C488A00CD824D /* TagColorFactory.swift */; };
+		1E79BF1D29BEBCA000617B28 /* RepeatCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E79BF1C29BEBCA000617B28 /* RepeatCountView.swift */; };
 		1E86F1E9293627950067CA28 /* DefaultMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E86F1E8293627950067CA28 /* DefaultMainUseCase.swift */; };
 		1E9BA3C72914CEFB00B39E9C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */; };
 		1E9BA3C92914CF5400B39E9C /* TimerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C82914CF5400B39E9C /* TimerCellViewModel.swift */; };
@@ -125,6 +127,7 @@
 		1E4159EF2948E7DF00EDA065 /* SettingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFooterView.swift; sourceTree = "<group>"; };
 		1E4159F1294C0BDB00EDA065 /* TimeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFactory.swift; sourceTree = "<group>"; };
 		1E4159F4294CCA8400EDA065 /* FilteringNavigationTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringNavigationTitleView.swift; sourceTree = "<group>"; };
+		1E43BF3729D986C900C718D4 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		1E482BCF2912887B00175B78 /* TimerSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSettingViewController.swift; sourceTree = "<group>"; };
 		1E482BD12913538800175B78 /* TimerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewCell.swift; sourceTree = "<group>"; };
 		1E482BD3291353F400175B78 /* TimePickerViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewDataSource.swift; sourceTree = "<group>"; };
@@ -189,6 +192,7 @@
 		1E744BA3296C488A00CD824D /* PaddingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingButton.swift; sourceTree = "<group>"; };
 		1E744BA4296C488A00CD824D /* SymbolImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymbolImageButton.swift; sourceTree = "<group>"; };
 		1E744BA6296C488A00CD824D /* TagColorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagColorFactory.swift; sourceTree = "<group>"; };
+		1E79BF1C29BEBCA000617B28 /* RepeatCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatCountView.swift; sourceTree = "<group>"; };
 		1E86F1E8293627950067CA28 /* DefaultMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainUseCase.swift; sourceTree = "<group>"; };
 		1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		1E9BA3C82914CF5400B39E9C /* TimerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCellViewModel.swift; sourceTree = "<group>"; };
@@ -461,6 +465,8 @@
 		1E4CB4E7296738C100FC918E /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				1E79BF1C29BEBCA000617B28 /* RepeatCountView.swift */,
+				1E43BF3729D986C900C718D4 /* SeparatorView.swift */,
 				1EBEEFE52925451E00299CE7 /* TagScrollView.swift */,
 				1EBEEFE92925B85700299CE7 /* TagButton.swift */,
 			);
@@ -901,6 +907,7 @@
 				1E651DB229534CEE00B4F321 /* TimerCreateViewModel.swift in Sources */,
 				1E482BD22913538800175B78 /* TimerViewCell.swift in Sources */,
 				1E744BAC296C488A00CD824D /* UIImage+makeSFSymbolImage.swift in Sources */,
+				1E43BF3829D986C900C718D4 /* SeparatorView.swift in Sources */,
 				1E4CB4DE2966BE9000FC918E /* TimerMO+CoreDataClass.swift in Sources */,
 				1E4CB4AF295EB5EA00FC918E /* LocalizableString.swift in Sources */,
 				1E482BDC291354F500175B78 /* Time.swift in Sources */,
@@ -942,6 +949,7 @@
 				1E744BB4296C488A00CD824D /* TimeType.swift in Sources */,
 				1E744BB8296C488A00CD824D /* SymbolImageButton.swift in Sources */,
 				1E23D56B299A1110008FD287 /* UIView+Fade.swift in Sources */,
+				1E79BF1D29BEBCA000617B28 /* RepeatCountView.swift in Sources */,
 				1E23D5352994B9F9008FD287 /* ToolbarType.swift in Sources */,
 				1EBEEFE62925451E00299CE7 /* TagScrollView.swift in Sources */,
 				1EA3FCE2292E48BE0073560D /* CoreDataStorage.swift in Sources */,
