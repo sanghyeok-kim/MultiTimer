@@ -40,7 +40,7 @@ final class TimerCreateViewModel: ViewModelType {
         self.output = Output(timer: BehaviorRelay<Timer>(value: timer))
         
         handleSelectedTimerType()
-        defaultNameBarButtonDidTap()
+        handleDefaultNameBarButtonDidTap()
         handleNewTimer(with: timer)
         handleCancelButtonDidTap()
     }
@@ -63,7 +63,7 @@ private extension TimerCreateViewModel {
             .disposed(by: disposeBag)
     }
     
-    func defaultNameBarButtonDidTap() {
+    func handleDefaultNameBarButtonDidTap() {
         input.defaultNameBarButtonDidTap
             .withLatestFrom(input.selectedTimerType)
             .map { $0.title }
@@ -94,7 +94,7 @@ private extension TimerCreateViewModel {
             .map { timer in
                 switch timer.type {
                 case .countDown:
-                    return !timer.name.isEmpty && timer.totalSeconds > 0
+                    return !timer.name.isEmpty && timer.totalSeconds > .zero
                 case .countUp:
                     return !timer.name.isEmpty
                 }
