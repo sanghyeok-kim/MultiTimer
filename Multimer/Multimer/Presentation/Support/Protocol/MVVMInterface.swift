@@ -27,7 +27,7 @@ protocol ViewType: AnyObject {
 extension ViewType {
     func bind(viewModel: ViewModel) {
         self.viewModel = viewModel
-        bindInput(to: viewModel)
         bindOutput(from: viewModel)
+        bindInput(to: viewModel)
     }
 }
