@@ -40,7 +40,7 @@
 
 |||
 |---|---|
-|Design Patttern|**MVVM**|
+|Design Pattern|**MVVM**|
 |Asynchronous & Reactive Programming|**RxSwift**|
 |Permanent Storage|**Core Data**|
 |Localizing|**Korean, English, Chinese(Simplified), Japanese, Vietnamese**|
