@@ -71,7 +71,12 @@
 		1E744BB7296C488A00CD824D /* PaddingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744BA3296C488A00CD824D /* PaddingButton.swift */; };
 		1E744BB8296C488A00CD824D /* SymbolImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744BA4296C488A00CD824D /* SymbolImageButton.swift */; };
 		1E744BB9296C488A00CD824D /* TagColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E744BA6296C488A00CD824D /* TagColorFactory.swift */; };
+		1E7A781A2A6EA6F900E120E6 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7A78192A6EA6F900E120E6 /* Coordinator.swift */; };
 		1E86F1E9293627950067CA28 /* DefaultMainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E86F1E8293627950067CA28 /* DefaultMainUseCase.swift */; };
+		1E8C28F42A73C0C100935C5E /* CoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8C28F32A73C0C100935C5E /* CoordinatorType.swift */; };
+		1E8C28F62A73C0D800935C5E /* HomeCoordinatorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8C28F52A73C0D800935C5E /* HomeCoordinatorAction.swift */; };
+		1E8C28F82A73C0F000935C5E /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8C28F72A73C0F000935C5E /* HomeCoordinator.swift */; };
+		1E8C28FA2A73C11A00935C5E /* DefaultHomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8C28F92A73C11A00935C5E /* DefaultHomeCoordinator.swift */; };
 		1E9BA3C72914CEFB00B39E9C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */; };
 		1E9BA3C92914CF5400B39E9C /* TimerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9BA3C82914CF5400B39E9C /* TimerCellViewModel.swift */; };
 		1EA3FCDE292E41940073560D /* ModelConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA3FCDD292E41940073560D /* ModelConvertible.swift */; };
@@ -189,7 +194,12 @@
 		1E744BA3296C488A00CD824D /* PaddingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingButton.swift; sourceTree = "<group>"; };
 		1E744BA4296C488A00CD824D /* SymbolImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymbolImageButton.swift; sourceTree = "<group>"; };
 		1E744BA6296C488A00CD824D /* TagColorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagColorFactory.swift; sourceTree = "<group>"; };
+		1E7A78192A6EA6F900E120E6 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		1E86F1E8293627950067CA28 /* DefaultMainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainUseCase.swift; sourceTree = "<group>"; };
+		1E8C28F32A73C0C100935C5E /* CoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorType.swift; sourceTree = "<group>"; };
+		1E8C28F52A73C0D800935C5E /* HomeCoordinatorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorAction.swift; sourceTree = "<group>"; };
+		1E8C28F72A73C0F000935C5E /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		1E8C28F92A73C11A00935C5E /* DefaultHomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHomeCoordinator.swift; sourceTree = "<group>"; };
 		1E9BA3C62914CEFB00B39E9C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		1E9BA3C82914CF5400B39E9C /* TimerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCellViewModel.swift; sourceTree = "<group>"; };
 		1EA3FCDD292E41940073560D /* ModelConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelConvertible.swift; sourceTree = "<group>"; };
@@ -340,6 +350,7 @@
 		1E4CB4CC2966BAEA00FC918E /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				1E8C28F22A73C0B000935C5E /* Coordinator */,
 				1E744B8E296C488A00CD824D /* Support */,
 				1E4CB4CF2966BC9900FC918E /* Main */,
 				1E4CB4D12966BCD800FC918E /* TimerCreate */,
@@ -571,6 +582,26 @@
 				1E744BA6296C488A00CD824D /* TagColorFactory.swift */,
 			);
 			path = Factory;
+			sourceTree = "<group>";
+		};
+		1E8C28F22A73C0B000935C5E /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				1E8C28FB2A73C12A00935C5E /* Home */,
+				1E7A78192A6EA6F900E120E6 /* Coordinator.swift */,
+				1E8C28F32A73C0C100935C5E /* CoordinatorType.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		1E8C28FB2A73C12A00935C5E /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1E8C28F92A73C11A00935C5E /* DefaultHomeCoordinator.swift */,
+				1E8C28F72A73C0F000935C5E /* HomeCoordinator.swift */,
+				1E8C28F52A73C0D800935C5E /* HomeCoordinatorAction.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		1EA3FCEB292E4D850073560D /* CoreDataStorage */ = {
@@ -917,6 +948,7 @@
 				1E6FAD9729403F900021B845 /* CoreDataTimerRepository.swift in Sources */,
 				1E744BA9296C488A00CD824D /* UITextField+addLeftPadding.swift in Sources */,
 				1E651DAC2953165800B4F321 /* CountUpTimerUseCase.swift in Sources */,
+				1E8C28F62A73C0D800935C5E /* HomeCoordinatorAction.swift in Sources */,
 				1E482BE82913559600175B78 /* Timer.swift in Sources */,
 				1EBEEFE82925B73000299CE7 /* TagColor.swift in Sources */,
 				1E744BAA296C488A00CD824D /* TimerTableViewDiffableDataSource+Rx+update.swift in Sources */,
@@ -929,6 +961,7 @@
 				1E9BA3C92914CF5400B39E9C /* TimerCellViewModel.swift in Sources */,
 				1E744BAB296C488A00CD824D /* UITextField+Rx+textChanged.swift in Sources */,
 				1E744BAF296C488A00CD824D /* CustomColor.swift in Sources */,
+				1E8C28F82A73C0F000935C5E /* HomeCoordinator.swift in Sources */,
 				1EBEF029292909DD00299CE7 /* TimerModel.xcdatamodeld in Sources */,
 				1EA3FCE8292E4B730073560D /* CoreDataStorage+TagMO.swift in Sources */,
 				1EA3FCE0292E43520073560D /* ManagedObjectConvertible.swift in Sources */,
@@ -941,9 +974,11 @@
 				1E4CB4DF2966BE9000FC918E /* TimeMO+CoreDataClass.swift in Sources */,
 				1E744BB4296C488A00CD824D /* TimeType.swift in Sources */,
 				1E744BB8296C488A00CD824D /* SymbolImageButton.swift in Sources */,
+				1E8C28F42A73C0C100935C5E /* CoordinatorType.swift in Sources */,
 				1E23D56B299A1110008FD287 /* UIView+shouldFadeIn.swift in Sources */,
 				1E23D5352994B9F9008FD287 /* ToolbarType.swift in Sources */,
 				1EBEEFE62925451E00299CE7 /* TagScrollView.swift in Sources */,
+				1E7A781A2A6EA6F900E120E6 /* Coordinator.swift in Sources */,
 				1EA3FCE2292E48BE0073560D /* CoreDataStorage.swift in Sources */,
 				1E482BD02912887B00175B78 /* TimerSettingViewController.swift in Sources */,
 				1EA3FCEA292E4BBD0073560D /* CoreDataStorage+TagColorMO.swift in Sources */,
@@ -952,6 +987,7 @@
 				1E4CB48F295D28A400FC918E /* EmptyTimerView.swift in Sources */,
 				1E23D53D2994F8FB008FD287 /* CoreDataError.swift in Sources */,
 				1E482BE62913558D00175B78 /* Tag.swift in Sources */,
+				1E8C28FA2A73C11A00935C5E /* DefaultHomeCoordinator.swift in Sources */,
 				1E744BAE296C488A00CD824D /* UIStackView+addArrangedSubviews.swift in Sources */,
 				1E9BA3C72914CEFB00B39E9C /* MainViewModel.swift in Sources */,
 				1E744BA7296C488A00CD824D /* Constant.swift in Sources */,
