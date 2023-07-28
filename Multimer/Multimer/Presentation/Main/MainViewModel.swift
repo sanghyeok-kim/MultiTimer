@@ -28,8 +28,6 @@ final class MainViewModel: ViewModelType {
     
     struct Output {
         let filteredTimerCellViewModels = BehaviorRelay<[TimerCellViewModel]>(value: [])
-        let pushTimerSettingViewController = PublishRelay<TimerSettingViewModel>()
-        let presentTimerCreateViewController = PublishRelay<TimerCreateViewModel>()
         let maintainEditingMode = PublishRelay<Bool>()
         let enableEditViewButtons = PublishRelay<Bool>()
         let showDeleteConfirmAlert = PublishRelay<Int>()
@@ -45,9 +43,12 @@ final class MainViewModel: ViewModelType {
     let output = Output()
     
     private let disposeBag = DisposeBag()
+    
+    private weak var coordinator: HomeCoordinator?
     private let mainUseCase: MainUseCase
     
-    init(mainUseCase: MainUseCase) {
+    init(coordinator: HomeCoordinator?, mainUseCase: MainUseCase) {
+        self.coordinator = coordinator
         self.mainUseCase = mainUseCase
         
         // MARK: - Handle Event from Input
@@ -187,17 +188,13 @@ private extension MainViewModel {
     }
     
     func handleAddTimerButtonDidTap() {
-        let timerCreateViewModel = input.timerAddButtonDidTap
-            .map { TimerCreateViewModel(timer: Timer(time: TimeFactory.createDefaultTime())) }
-            .share()
+        let createdTimerRelay = PublishRelay<Timer>()
         
-        timerCreateViewModel
-            .bind(to: output.presentTimerCreateViewController)
+        input.timerAddButtonDidTap
+            .bind(with: self) { `self`, _ in
+                self.coordinator?.coordinate(by: .showTimerCreateScene(createdTimerRelay: createdTimerRelay))
+            }
             .disposed(by: disposeBag)
-        
-        let createdTimer = timerCreateViewModel
-            .flatMapLatest { $0.output.newTimer }
-            .share()
         
         createdTimer
             .map { timer -> TimerCellViewModel in
@@ -222,7 +219,7 @@ private extension MainViewModel {
             .bind(to: fetchedTimerCellViewModels)
             .disposed(by: disposeBag)
         
-        createdTimer
+        createdTimerRelay
             .bind(onNext: mainUseCase.appendTimer)
             .disposed(by: disposeBag)
     }
@@ -251,17 +248,11 @@ private extension MainViewModel {
     
     func handleEventFromFetchedTimerCellViewModels() {
         fetchedTimerCellViewModels
-            .flatMapLatest { Observable<Bool>.merge($0.map { $0.output.isActive.skip(1).asObservable() }) }
+            .flatMapLatest {
+                Observable<Bool>.merge($0.map { $0.output.isActive.skip(1).asObservable() })
+            }
             .withLatestFrom(fetchedTimerCellViewModels)
             .bind(to: fetchedTimerCellViewModels)
-            .disposed(by: disposeBag)
-        
-        fetchedTimerCellViewModels
-            .flatMapLatest { cellViewModels -> Observable<TimerSettingViewModel> in
-                let timerSettingViewModel = cellViewModels.map { $0.output.timerSettingViewModel.asObservable() }
-                return .merge(timerSettingViewModel).share()
-            }
-            .bind(to: output.pushTimerSettingViewController)
             .disposed(by: disposeBag)
     }
     

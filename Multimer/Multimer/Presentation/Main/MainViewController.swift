@@ -154,24 +154,6 @@ final class MainViewController: UIViewController, ViewType {
             .bind(onNext: tableViewDiffableDataSource.update)
             .disposed(by: disposeBag)
         
-        output.pushTimerSettingViewController
-            .withUnretained(self)
-            .bind { `self`, viewModel in
-                let timerSettingViewController = TimerSettingViewController()
-                timerSettingViewController.bind(viewModel: viewModel)
-                self.navigationController?.pushViewController(timerSettingViewController, animated: true)
-            }
-            .disposed(by: disposeBag)
-        
-        output.presentTimerCreateViewController
-            .withUnretained(self)
-            .bind { `self`, viewModel in
-                let timerCreateViewController = TimerCreateViewController()
-                timerCreateViewController.bind(viewModel: viewModel)
-                self.present(timerCreateViewController, animated: true)
-            }
-            .disposed(by: disposeBag)
-        
         output.maintainEditingMode
             .withUnretained(self)
             .bind { `self`, isEditing in
