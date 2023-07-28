@@ -5,11 +5,10 @@
 //  Created by 김상혁 on 2022/11/02.
 //
 
-import RxSwift
-import RxRelay
+import ReactorKit
 import RxAppState
 
-final class TimerSettingViewController: UIViewController, ViewType {
+final class TimerSettingViewController: UIViewController, View {
     
     private lazy var timePickerViewDataSource = TimePickerViewDataSource()
     private lazy var tiemPickerViewDelegate = TimePickerViewDelegate()
@@ -71,8 +70,12 @@ final class TimerSettingViewController: UIViewController, ViewType {
         return stackView
     }()
     
-    private let disposeBag = DisposeBag()
-    var viewModel: TimerSettingViewModel?
+    var disposeBag = DisposeBag()
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,33 +83,29 @@ final class TimerSettingViewController: UIViewController, ViewType {
         layout()
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-        self.view.endEditing(true)
+    func bind(reactor: TimerSettingViewModel) {
+        bindAction(reactor: reactor)
+        bindState(reactor: reactor)
     }
-    
-    func bindInput(to viewModel: TimerSettingViewModel) {
-        let input = viewModel.input
-        
+}
+
+// MARK: - Bind Reactor
+
+private extension TimerSettingViewController {
+    func bindAction(reactor: TimerSettingViewModel) {
         rx.viewDidLoad
-            .bind(to: input.viewDidLoad)
+            .map { Reactor.Action.viewDidLoad }
+            .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        tagScrollView.tagDidSelect
-            .bind(to: input.tagDidSelect)
-            .disposed(by: disposeBag)
-        
-        cancelButton.rx.tap
-            .bind(to: input.cancelButtonDidTap)
-            .disposed(by: disposeBag)
-        
-        completeButton.rx.tap
-            .bind(to: input.completeButtonDidTap)
+        tagScrollView.rx.tagDidSelect
+            .map { Reactor.Action.tagDidSelect($0) }
+            .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         nameTextField.rx.textChanged
-            .orEmpty
-            .skip(1)
-            .bind(to: input.nameTextFieldDidEdit)
+            .map { Reactor.Action.nameTextFieldDidEdit($0) }
+            .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         nameTextField.rx.controlEvent(.editingDidEndOnExit)
@@ -116,37 +115,49 @@ final class TimerSettingViewController: UIViewController, ViewType {
             }
             .disposed(by: disposeBag)
         
+        cancelButton.rx.tap
+            .map { Reactor.Action.cancelButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        completeButton.rx.tap
+            .map { Reactor.Action.completeButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         timePickerView.rx.itemSelected
             .withUnretained(self)
             .map { `self`, _ -> Time in
                 return self.timePickerView.configureTime()
             }
-            .bind(to: input.timePickerViewDidEdit)
+            .map { Reactor.Action.timePickerViewDidEdit($0) }
+            .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
     
-    func bindOutput(from viewModel: TimerSettingViewModel) {
-        let output = viewModel.output
-        
-        output.timer
+    func bindState(reactor: TimerSettingViewModel) {
+        reactor.state.map { $0.initialTimer }
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .bind { `self`, timer in
                 self.configureUI(with: timer)
             }
             .disposed(by: disposeBag)
         
-        output.exitScene
-            .withUnretained(self)
-            .bind { `self`, _ in
-                self.navigationController?.popViewController(animated: true)
-            }
+        reactor.state.map { $0.editedTimer.tag }
+            .distinctUntilChanged()
+            .compactMap { $0 }
+            .bind(to: tagScrollView.rx.selectTag)
             .disposed(by: disposeBag)
         
-        output.completeButtonEnable
+        reactor.state.map { $0.isCompleteButtonEnable }
+            .distinctUntilChanged()
             .bind(to: completeButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        output.timePickerViewIsHidden
+        reactor.state.map { $0.isTimePickerViewHidden }
+            .distinctUntilChanged()
             .bind(to: timePickerView.rx.isHidden)
             .disposed(by: disposeBag)
     }
@@ -164,7 +175,6 @@ private extension TimerSettingViewController {
         nameTextField.placeholder = timer.name
         nameTextField.text = timer.name
         timePickerView.selectRows(by: timer.time, animated: true)
-        tagScrollView.tagDidSelect.accept(timer.tag)
     }
 }
 

@@ -5,106 +5,122 @@
 //  Created by 김상혁 on 2022/11/07.
 //
 
-import RxSwift
+import ReactorKit
 import RxRelay
 
-final class TimerSettingViewModel: ViewModelType {
+final class TimerSettingViewModel: Reactor {
     
-    struct Input {
-        let viewDidLoad = PublishRelay<Void>()
-        let tagDidSelect = PublishRelay<Tag?>()
-        let nameTextFieldDidEdit = PublishRelay<String>()
-        let timePickerViewDidEdit = PublishRelay<Time>()
-        let cancelButtonDidTap = PublishRelay<Void>()
-        let completeButtonDidTap = PublishRelay<Void>()
+    enum Action {
+        case cancelButtonDidTap
+        case completeButtonDidTap
+        case nameTextFieldDidEdit(String)
+        case tagDidSelect(Tag?)
+        case timePickerViewDidEdit(Time)
+        case viewDidLoad
     }
     
-    struct Output {
-        let completeButtonEnable = PublishRelay<Bool>()
-        let timer: BehaviorRelay<Timer>
-        let newTimer = PublishRelay<Timer>()
-        let timePickerViewIsHidden = PublishRelay<Bool>()
-        let exitScene = PublishRelay<Void>()
+    enum Mutation {
+        case setTimePickerViewIsHidden(Bool)
+        case editTimer(Timer)
     }
     
-    let output: Output
-    let input = Input()
+    struct State {
+        var editedTimer: Timer
+        var initialTimer: Timer
+        var isCompleteButtonEnable: Bool = false
+        var isTimePickerViewHidden: Bool = false
+        var shouldExitScene: Bool = false
+    }
     
-    private let disposeBag = DisposeBag()
+    let initialState: State
     
-    init(timer: Timer) {
-        self.output = Output(timer: BehaviorRelay<Timer>(value: timer))
-        
-        handleViewDidLoad(with: timer)
-        handleNewTimer(with: timer)
-        handleCancelButtonDidTap()
+    private weak var coordinator: HomeCoordinator?
+    private let editedTimerRelay: PublishRelay<Timer>
+    
+    init(
+        initialTimer: Timer,
+        coordinator: HomeCoordinator?,
+        editedTimerRelay: PublishRelay<Timer>
+    ) {
+        initialState = State(editedTimer: initialTimer, initialTimer: initialTimer)
+        self.coordinator = coordinator
+        self.editedTimerRelay = editedTimerRelay
+    }
+    
+    func mutate(action: Action) -> Observable<Mutation> {
+        switch action {
+        case .cancelButtonDidTap:
+            return exitScene()
+            
+        case .completeButtonDidTap:
+            let editedTimer = currentState.editedTimer
+            return .concat(
+                acceptEditedTimerRelay(editedTimer: editedTimer),
+                exitScene()
+            )
+            
+        case .nameTextFieldDidEdit(let newName):
+            var editedTimer = currentState.editedTimer
+            editedTimer.name = newName
+            return .just(.editTimer(editedTimer))
+            
+        case .tagDidSelect(let newTag):
+            var editedTimer = currentState.editedTimer
+            editedTimer.tag = newTag
+            return .just(.editTimer(editedTimer))
+            
+        case .timePickerViewDidEdit(let newTime):
+            var editedTimer = currentState.editedTimer
+            editedTimer.time = newTime
+            return .just(.editTimer(editedTimer))
+            
+        case .viewDidLoad:
+            let initialTimer = currentState.initialTimer
+            let isTimePickerViewHidden = !initialTimer.type.shouldSetTime
+            return .just(.setTimePickerViewIsHidden(isTimePickerViewHidden))
+        }
+    }
+    
+    func reduce(state: State, mutation: Mutation) -> State {
+        var newState = state
+        switch mutation {
+        case .setTimePickerViewIsHidden(let isHidden):
+            newState.isTimePickerViewHidden = isHidden
+            
+        case .editTimer(let editedTimer):
+            newState.editedTimer = editedTimer
+            newState.isCompleteButtonEnable = validateCompleteButtonIsEnable(
+                currentTimer: state.initialTimer,
+                newTimer: editedTimer
+            )
+        }
+        return newState
     }
 }
 
-// MARK: - Event Handling Methods
+// MARK: - Supporting Methods
 
 private extension TimerSettingViewModel {
-    func handleViewDidLoad(with timer: Timer) {
-        input.viewDidLoad
-            .map { timer.name }
-            .bind(to: input.nameTextFieldDidEdit)
-            .disposed(by: disposeBag)
-        
-        input.viewDidLoad
-            .map { timer.time }
-            .bind(to: input.timePickerViewDidEdit)
-            .disposed(by: disposeBag)
-        
-        input.viewDidLoad
-            .map { !timer.type.shouldSetTime }
-            .bind(to: output.timePickerViewIsHidden)
-            .disposed(by: disposeBag)
+    func validateCompleteButtonIsEnable(currentTimer: Timer, newTimer: Timer) -> Bool {
+        switch newTimer.type {
+        case .countDown:
+            return currentTimer != newTimer && newTimer.totalSeconds > 0
+        case .countUp:
+            return currentTimer != newTimer
+        }
+    }
+}
+
+// MARK: - Side Effect Methods
+
+private extension TimerSettingViewModel {
+    func exitScene() -> Observable<Mutation> {
+        coordinator?.coordinate(by: .finishTimerEditScene)
+        return .empty()
     }
     
-    func handleNewTimer(with timer: Timer) {
-        let newTimer = Observable
-            .combineLatest(
-                input.nameTextFieldDidEdit,
-                input.tagDidSelect,
-                input.timePickerViewDidEdit
-            )
-            .map { (name, tag, time) in
-                Timer(
-                    identifier: timer.identifier,
-                    name: name,
-                    tag: tag,
-                    time: time,
-                    type: timer.type
-                )
-            }
-            .share()
-        
-        newTimer
-            .withLatestFrom(output.timer) { newTimer, currentTimer in
-                switch newTimer.type {
-                case .countDown:
-                    return currentTimer != newTimer && newTimer.totalSeconds > 0
-                case .countUp:
-                    return currentTimer != newTimer
-                }
-            }
-            .bind(to: output.completeButtonEnable)
-            .disposed(by: disposeBag)
-        
-        input.completeButtonDidTap
-            .withLatestFrom(newTimer)
-            .bind(to: output.newTimer)
-            .disposed(by: disposeBag)
-    
-        output.newTimer
-            .map { _ in }
-            .bind(to: output.exitScene)
-            .disposed(by: disposeBag)
-    }
-    
-    func handleCancelButtonDidTap() {
-        input.cancelButtonDidTap
-            .bind(to: output.exitScene)
-            .disposed(by: disposeBag)
+    func acceptEditedTimerRelay(editedTimer: Timer) -> Observable<Mutation> {
+        editedTimerRelay.accept(editedTimer)
+        return .empty()
     }
 }
