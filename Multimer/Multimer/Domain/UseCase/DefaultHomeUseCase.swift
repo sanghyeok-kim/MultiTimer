@@ -1,5 +1,5 @@
 //
-//  MainUseCase.swift
+//  DefaultHomeUseCase.swift
 //  Multimer
 //
 //  Created by 김상혁 on 2022/11/29.
@@ -7,7 +7,7 @@
 
 import RxSwift
 
-final class DefaultMainUseCase: MainUseCase {
+final class DefaultHomeUseCase: HomeUseCase {
     
     let fetchedUserTimers = PublishSubject<[Timer]>()
     let fetchErrorMessage = PublishSubject<String>()

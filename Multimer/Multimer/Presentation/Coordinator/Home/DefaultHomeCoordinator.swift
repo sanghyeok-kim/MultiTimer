@@ -41,10 +41,10 @@ final class DefaultHomeCoordinator: HomeCoordinator {
 
 private extension DefaultHomeCoordinator {
     func pushHomeViewController() {
-        let homeViewController = MainViewController()
-        let homeViewReactor = MainViewModel(
+        let homeViewController = HomeViewController()
+        let homeViewReactor = HomeViewModel(
             coordinator: self,
-            mainUseCase: DefaultMainUseCase(
+            homeUseCase: DefaultHomeUseCase(
                 timerPersistentRepository: CoreDataTimerRepository()
             )
         )

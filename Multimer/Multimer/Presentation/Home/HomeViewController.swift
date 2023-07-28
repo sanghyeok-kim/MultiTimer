@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  HomeViewController.swift
 //  Multimer
 //
 //  Created by 김상혁 on 2022/11/02.
@@ -9,7 +9,7 @@ import RxSwift
 import RxRelay
 import RxAppState
 
-final class MainViewController: UIViewController, ViewType {
+final class HomeViewController: UIViewController, ViewType {
     
     private let swipeToStopNoticeView = SwipeRightToStopNoticeView()
     private let filteringNavigationTitleView = FilteringNavigationTitleView()
@@ -85,7 +85,7 @@ final class MainViewController: UIViewController, ViewType {
     
     private var impactFeedbackGenerator: UIImpactFeedbackGenerator? = .init(style: .medium)
     private let disposeBag = DisposeBag()
-    var viewModel: MainViewModel? 
+    var viewModel: HomeViewModel? 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,7 +95,7 @@ final class MainViewController: UIViewController, ViewType {
         prepareFeedbackImpactGenerator()
     }
     
-    func bindInput(to viewModel: MainViewModel) {
+    func bindInput(to viewModel: HomeViewModel) {
         let input = viewModel.input
         
         rx.viewDidLoad
@@ -146,7 +146,7 @@ final class MainViewController: UIViewController, ViewType {
             .disposed(by: disposeBag)
     }
     
-    func bindOutput(from viewModel: MainViewModel) {
+    func bindOutput(from viewModel: HomeViewModel) {
         let output = viewModel.output
         
         output.filteredTimerCellViewModels
@@ -213,7 +213,7 @@ final class MainViewController: UIViewController, ViewType {
 
 // MARK: - Helper Methods
 
-private extension MainViewController {
+private extension HomeViewController {
     func showEmptyTimerView(of filteringCondition: TimerFilteringCondition) {
         view.layoutIfNeeded()
         
@@ -283,7 +283,7 @@ private extension MainViewController {
 
 // MARK: - Objc Selector Methods
 
-private extension MainViewController {
+private extension HomeViewController {
     @objc func showSwipeToStopNotice() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [weak self] in
             UIView.animate(withDuration: 0.75) {
@@ -297,7 +297,7 @@ private extension MainViewController {
 
 // MARK: - Feedback Generators
 
-private extension MainViewController {
+private extension HomeViewController {
     func prepareFeedbackImpactGenerator() {
         impactFeedbackGenerator = UIImpactFeedbackGenerator()
         impactFeedbackGenerator?.prepare()
@@ -312,7 +312,7 @@ private extension MainViewController {
 
 // MARK: - UI Configuration
 
-private extension MainViewController {
+private extension HomeViewController {
     func configureUI() {
         view.backgroundColor = .systemBackground
         navigationItem.titleView = filteringNavigationTitleView
@@ -323,7 +323,7 @@ private extension MainViewController {
 
 // MARK: - UI Layout
 
-private extension MainViewController {
+private extension HomeViewController {
     func layout() {
         view.addSubview(tableView)
         view.addSubview(emptyTimerView)
@@ -370,7 +370,7 @@ private extension MainViewController {
 
 // MARK: - Name Space
 
-private extension MainViewController {
+private extension HomeViewController {
     enum ViewSize {
         static let tableViewRowHeight: CGFloat = 100.0
         static let tableViewSectionFooterHeight: CGFloat = 50.0

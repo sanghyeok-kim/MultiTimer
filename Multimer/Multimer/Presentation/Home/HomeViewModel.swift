@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  HomeViewModel.swift
 //  Multimer
 //
 //  Created by 김상혁 on 2022/11/04.
@@ -8,7 +8,7 @@
 import RxSwift
 import RxRelay
 
-final class MainViewModel: ViewModelType {
+final class HomeViewModel: ViewModelType {
     
     struct Input {
         let viewDidLoad = PublishRelay<Void>()
@@ -45,11 +45,11 @@ final class MainViewModel: ViewModelType {
     private let disposeBag = DisposeBag()
     
     private weak var coordinator: HomeCoordinator?
-    private let mainUseCase: MainUseCase
+    private let homeUseCase: HomeUseCase
     
-    init(coordinator: HomeCoordinator?, mainUseCase: MainUseCase) {
+    init(coordinator: HomeCoordinator?, homeUseCase: HomeUseCase) {
         self.coordinator = coordinator
-        self.mainUseCase = mainUseCase
+        self.homeUseCase = homeUseCase
         
         // MARK: - Handle Event from Input
         
@@ -62,7 +62,7 @@ final class MainViewModel: ViewModelType {
         handleAddTimerButtonDidTap()
         handleResetAllActiveTimersButton()
         handleEditButtonDidTap()
-        handleEventFromEditView(with: mainUseCase)
+        handleEventFromEditView(with: homeUseCase)
         
         // MARK: - Handle Event from UseCase
         
@@ -76,10 +76,10 @@ final class MainViewModel: ViewModelType {
 
 // MARK: - Event Handling Methods
 
-private extension MainViewModel {
+private extension HomeViewModel {
     func handleViewDidLoad() {
         input.viewDidLoad
-            .bind(onNext: mainUseCase.fetchUserTimers)
+            .bind(onNext: homeUseCase.fetchUserTimers)
             .disposed(by: disposeBag)
     }
     
@@ -153,7 +153,7 @@ private extension MainViewModel {
         cellViewModelToDelete
             .do { $0.removeNotification() }
             .map { $0.identifier }
-            .bind(onNext: mainUseCase.deleteTimer)
+            .bind(onNext: homeUseCase.deleteTimer)
             .disposed(by: disposeBag)
         
         cellViewModelToDelete
@@ -177,7 +177,7 @@ private extension MainViewModel {
             .withUnretained(self)
             .bind { `self`, cellViewModels in
                 cellViewModels.enumerated().forEach { index, cellViewModel in
-                    self.mainUseCase.moveTimer(target: cellViewModel.identifier, to: index)
+                    self.homeUseCase.moveTimer(target: cellViewModel.identifier, to: index)
                 }
             }
             .disposed(by: disposeBag)
@@ -210,12 +210,12 @@ private extension MainViewModel {
             .disposed(by: disposeBag)
         
         createdTimerRelay
-            .bind(onNext: mainUseCase.appendTimer)
+            .bind(onNext: homeUseCase.appendTimer)
             .disposed(by: disposeBag)
     }
     
     func handleFetchedUserTimer() {
-        mainUseCase.fetchedUserTimers
+        homeUseCase.fetchedUserTimers
             .withUnretained(self)
             .map { `self`, fetchedUserTimers in
                 fetchedUserTimers.map { self.createTimerCellViewModel(from: $0) }
@@ -260,7 +260,7 @@ private extension MainViewModel {
             .disposed(by: disposeBag)
     }
     
-    func handleEventFromEditView(with mainUseCase: MainUseCase) {
+    func handleEventFromEditView(with homeUseCase: HomeUseCase) {
         let selectedTimerCellViewModels = input.selectedRows
             .withLatestFrom(output.filteredTimerCellViewModels) { ($0, $1) }
             .map { (selectedRows, filteredCellViewModels) in
@@ -316,7 +316,7 @@ private extension MainViewModel {
             .bind {
                 $0.forEach { deleteTarget in
                     deleteTarget.removeNotification()
-                    mainUseCase.deleteTimer(target: deleteTarget.identifier)
+                    homeUseCase.deleteTimer(target: deleteTarget.identifier)
                 }
             }
             .disposed(by: disposeBag)
@@ -330,7 +330,7 @@ private extension MainViewModel {
 
 // MARK: - Helper Methods
 
-private extension MainViewModel {
+private extension HomeViewModel {
     func moveTimerCellViewModel(from source: Int, to destination: Int) -> [TimerCellViewModel] {
         let currentTimerCellViewModels = output.filteredTimerCellViewModels.value
         let fetchedTimerCellViewModels = fetchedTimerCellViewModels.value
