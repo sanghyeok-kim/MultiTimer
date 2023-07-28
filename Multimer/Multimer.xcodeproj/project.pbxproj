@@ -532,8 +532,8 @@
 			children = (
 				1E744B91296C488A00CD824D /* UIPickerView+setFixedLabels.swift */,
 				1E744B92296C488A00CD824D /* UITextField+addLeftPadding.swift */,
-				1E744B93296C488A00CD824D /* TimerTableViewDiffableDataSource+Rx+update.swift */,
 				1E744B94296C488A00CD824D /* UITextField+Rx+textChanged.swift */,
+				1E744B93296C488A00CD824D /* TimerTableViewDiffableDataSource+Rx+update.swift */,
 				1E744B95296C488A00CD824D /* UIImage+makeSFSymbolImage.swift */,
 				1E744B96296C488A00CD824D /* UIView+snapshotCellStyle.swift */,
 				1E23D56A299A1110008FD287 /* UIView+shouldFadeIn.swift */,

@@ -6,13 +6,11 @@
 //
 
 import RxSwift
-import RxRelay
+import RxCocoa
 
 final class TagScrollView: UIScrollView {
     
-    let tagDidSelect = BehaviorRelay<Tag?>(value: Tag(color: .label))
-    
-    private lazy var tagButtons = TagColor.allCases.map { TagButton(tag: Tag(color: $0)) }
+    fileprivate let tagButtons = TagColor.allCases.map { TagButton(tag: Tag(color: $0)) }
     
     private lazy var contentView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: tagButtons)
@@ -22,12 +20,8 @@ final class TagScrollView: UIScrollView {
         return stackView
     }()
     
-    private let disposeBag = DisposeBag()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        bindTagButtonsDidTap(from: tagButtons)
-        bindTagDidSelect(to: tagButtons)
         layout()
     }
     
@@ -35,23 +29,9 @@ final class TagScrollView: UIScrollView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private func bindTagButtonsDidTap(from tagButtons: [TagButton]) {
-        Observable<Tag>
-            .merge(tagButtons.map { $0.didTap.asObservable() })
-            .bind(to: tagDidSelect)
-            .disposed(by: disposeBag)
-    }
-    
-    private func bindTagDidSelect(to tagButtons: [TagButton]) {
-        tagDidSelect
-            .compactMap { $0?.color }
-            .bind { color in
-                tagButtons.forEach { $0.selectedButtonColor.accept(color) }
-            }
-            .disposed(by: disposeBag)
-    }
 }
+
+// MARK: - UI Layout
 
 private extension TagScrollView {
     func layout() {
@@ -67,6 +47,23 @@ private extension TagScrollView {
         
         tagButtons.forEach {
             $0.widthAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
+        }
+    }
+}
+
+// MARK: - Reactive Extension
+
+extension Reactive where Base: TagScrollView {
+    var tagDidSelect: ControlEvent<Tag> {
+        let source = Observable<Tag>.merge(base.tagButtons.map { $0.rx.tagDidSelect.asObservable() })
+        return ControlEvent(events: source)
+    }
+    
+    var selectTag: Binder<Tag> {
+        return Binder(base) { tagScrollView, tag in
+            tagScrollView.tagButtons.forEach {
+                $0.rx.selectTag.onNext(tag.color)
+            }
         }
     }
 }
