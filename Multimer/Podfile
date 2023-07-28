@@ -12,6 +12,7 @@ target 'Multimer' do
   pod 'RxAnimated'
   pod 'Google-Mobile-Ads-SDK'
   pod 'lottie-ios'
+  pod 'ReactorKit'
 
   target 'MultimerTests' do
     inherit! :search_paths
