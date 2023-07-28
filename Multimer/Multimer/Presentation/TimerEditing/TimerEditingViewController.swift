@@ -1,5 +1,5 @@
 //
-//  TimerSettingViewController.swift
+//  TimerEditingViewController.swift
 //  Multimer
 //
 //  Created by 김상혁 on 2022/11/02.
@@ -8,7 +8,7 @@
 import ReactorKit
 import RxAppState
 
-final class TimerSettingViewController: UIViewController, View {
+final class TimerEditingViewController: UIViewController, View {
     
     private lazy var timePickerViewDataSource = TimePickerViewDataSource()
     private lazy var tiemPickerViewDelegate = TimePickerViewDelegate()
@@ -83,7 +83,7 @@ final class TimerSettingViewController: UIViewController, View {
         layout()
     }
     
-    func bind(reactor: TimerSettingViewModel) {
+    func bind(reactor: TimerEditingViewModel) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
@@ -91,8 +91,8 @@ final class TimerSettingViewController: UIViewController, View {
 
 // MARK: - Bind Reactor
 
-private extension TimerSettingViewController {
-    func bindAction(reactor: TimerSettingViewModel) {
+private extension TimerEditingViewController {
+    func bindAction(reactor: TimerEditingViewModel) {
         rx.viewDidLoad
             .map { Reactor.Action.viewDidLoad }
             .bind(to: reactor.action)
@@ -135,7 +135,7 @@ private extension TimerSettingViewController {
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: TimerSettingViewModel) {
+    func bindState(reactor: TimerEditingViewModel) {
         reactor.state.map { $0.initialTimer }
             .distinctUntilChanged()
             .observe(on: MainScheduler.asyncInstance)
@@ -165,7 +165,7 @@ private extension TimerSettingViewController {
 
 // MARK: - UI Configuration
 
-private extension TimerSettingViewController {
+private extension TimerEditingViewController {
     func configureUI() {
         view.backgroundColor = .systemBackground
     }
@@ -180,7 +180,7 @@ private extension TimerSettingViewController {
 
 // MARK: - UI Layout
 
-private extension TimerSettingViewController {
+private extension TimerEditingViewController {
     func layout() {
         view.addSubview(tagScrollView)
         view.addSubview(nameTextField)
@@ -208,7 +208,7 @@ private extension TimerSettingViewController {
 
 // MARK: - Name Space
 
-private extension TimerSettingViewController {
+private extension TimerEditingViewController {
     enum ViewSize {
         static let buttonFont = 18.0
     }

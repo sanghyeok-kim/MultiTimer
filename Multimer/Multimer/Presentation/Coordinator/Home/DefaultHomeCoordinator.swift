@@ -63,13 +63,13 @@ private extension DefaultHomeCoordinator {
     }
     
     func pushTimerEditViewController(initialTimer: Timer, editedTimerRelay: PublishRelay<Timer>) {
-        let timerEditViewController = TimerSettingViewController()
-        let timerEditReactor = TimerSettingViewModel(
+        let timerEditingViewController = TimerEditingViewController()
+        let timerEditingReactor = TimerEditingViewModel(
             initialTimer: initialTimer,
             coordinator: self,
             editedTimerRelay: editedTimerRelay
         )
-        timerEditViewController.reactor = timerEditReactor
-        navigationController.pushViewController(timerEditViewController, animated: true)
+        timerEditingViewController.reactor = timerEditingReactor
+        navigationController.pushViewController(timerEditingViewController, animated: true)
     }
 }
