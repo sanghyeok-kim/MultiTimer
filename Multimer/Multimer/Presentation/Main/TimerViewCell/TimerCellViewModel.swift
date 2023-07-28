@@ -22,7 +22,6 @@ final class TimerCellViewModel: ViewModelType {
         let toggleButtonIsSelected = BehaviorRelay<Bool>(value: false)
         let toggleButtonIsHidden = BehaviorRelay<Bool>(value: false)
         let resetButtonIsHidden = BehaviorRelay<Bool>(value: true)
-        let timerSettingViewModel = PublishRelay<TimerSettingViewModel>()
         let progessRatio = BehaviorRelay<Float>(value: .zero)
         let isActive = BehaviorRelay<Bool>(value: false)
         let timerState = PublishRelay<TimerState>()
@@ -34,11 +33,13 @@ final class TimerCellViewModel: ViewModelType {
     let output = Output()
     
     let identifier: UUID
+    private weak var coordinator: HomeCoordinator?
     private let timerUseCase: TimerUseCase
     private let disposeBag = DisposeBag()
     
-    init(identifier: UUID, timerUseCase: TimerUseCase) {
+    init(identifier: UUID, coordinator: HomeCoordinator?, timerUseCase: TimerUseCase) {
         self.identifier = identifier
+        self.coordinator = coordinator
         self.timerUseCase = timerUseCase
         
         // MARK: - Handle Event from Input
@@ -102,16 +103,18 @@ private extension TimerCellViewModel {
     }
     
     func handleCellDidTap(with timerUseCase: TimerUseCase) {
-        let settingViewModel = input.cellDidTap
-            .map { TimerSettingViewModel(timer: timerUseCase.currentTimer) }
-            .share()
+        let editedTimerRelay = PublishRelay<Timer>()
         
-        settingViewModel
-            .bind(to: output.timerSettingViewModel)
+        input.cellDidTap
+            .bind(with: self) { `self`, _ in
+                self.coordinator?.coordinate(by: .showTimerEditScene(
+                    initialTimer: self.timerUseCase.currentTimer,
+                    editedTimerRelay: editedTimerRelay
+                ))
+            }
             .disposed(by: disposeBag)
         
-        settingViewModel
-            .flatMapLatest { $0.output.newTimer }
+        editedTimerRelay
             .bind(onNext: timerUseCase.updateTimer)
             .disposed(by: disposeBag)
     }
