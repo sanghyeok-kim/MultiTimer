@@ -7,13 +7,11 @@
 
 import RxSwift
 import RxRelay
+import RxCocoa
 
 final class NameTextField: UITextField {
     
-    let defaultNameBarButtonDidTap = PublishRelay<Void>()
-    let defaultName = PublishRelay<String>()
-    
-    private lazy var flexibleSpaceButton: UIBarButtonItem = {
+    private let flexibleSpaceButton: UIBarButtonItem = {
         return UIBarButtonItem(
             barButtonSystemItem: .flexibleSpace,
             target: nil,
@@ -21,7 +19,7 @@ final class NameTextField: UITextField {
         )
     }()
     
-    private lazy var defaultNameBarButton: UIBarButtonItem = {
+    private(set) lazy var defaultNameBarButton: UIBarButtonItem = {
         return UIBarButtonItem(
             title: LocalizableString.defaultName.localized,
             style: .done,
@@ -38,7 +36,7 @@ final class NameTextField: UITextField {
         )
     }()
     
-    private lazy var toolbar: UIToolbar = {
+    private let toolbar: UIToolbar = {
         let toolbar = UIToolbar()
         toolbar.backgroundColor = .systemBackground
         toolbar.sizeToFit()
@@ -51,18 +49,11 @@ final class NameTextField: UITextField {
         super.init(frame: .zero)
         configureUI()
         setToolbarItems(by: toolbarType)
-        bindDefaultName()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func bindDefaultName() {
-        defaultName
-            .bind(to: rx.text)
-            .disposed(by: disposeBag)
     }
     
     private func setToolbarItems(by toolbarType: ToolbarType) {
@@ -82,9 +73,8 @@ private extension NameTextField {
     @objc private func tapDoneBarButton() {
         resignFirstResponder()
     }
-    
+
     @objc private func tapDefaultNameBarButton() {
-        defaultNameBarButtonDidTap.accept(())
         resignFirstResponder()
     }
 }
