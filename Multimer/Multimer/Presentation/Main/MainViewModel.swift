@@ -196,20 +196,10 @@ private extension MainViewModel {
             }
             .disposed(by: disposeBag)
         
-        createdTimer
-            .map { timer -> TimerCellViewModel in
-                switch timer.type {
-                case .countDown:
-                    return TimerCellViewModel(
-                        identifier: timer.identifier,
-                        timerUseCase: CountDownTimerUseCase(timer: timer, timerPersistentRepository: CoreDataTimerRepository())
-                    )
-                case .countUp:
-                    return TimerCellViewModel(
-                        identifier: timer.identifier,
-                        timerUseCase: CountUpTimerUseCase(timer: timer, timerPersistentRepository: CoreDataTimerRepository())
-                    )
-                }
+        createdTimerRelay
+            .withUnretained(self)
+            .map { `self`, timer in
+                self.createTimerCellViewModel(from: timer)
             }
             .withLatestFrom(fetchedTimerCellViewModels) { newTimerCellViewModel, currentCellViewModels in
                 var currentCellViewModels = currentCellViewModels
@@ -226,21 +216,9 @@ private extension MainViewModel {
     
     func handleFetchedUserTimer() {
         mainUseCase.fetchedUserTimers
-            .map {
-                $0.map { timer -> TimerCellViewModel in
-                    switch timer.type {
-                    case .countDown:
-                        return TimerCellViewModel(
-                            identifier: timer.identifier,
-                            timerUseCase: CountDownTimerUseCase(timer: timer, timerPersistentRepository: CoreDataTimerRepository())
-                        )
-                    case .countUp:
-                        return TimerCellViewModel(
-                            identifier: timer.identifier,
-                            timerUseCase: CountUpTimerUseCase(timer: timer, timerPersistentRepository: CoreDataTimerRepository())
-                        )
-                    }
-                }
+            .withUnretained(self)
+            .map { `self`, fetchedUserTimers in
+                fetchedUserTimers.map { self.createTimerCellViewModel(from: $0) }
             }
             .bind(to: fetchedTimerCellViewModels)
             .disposed(by: disposeBag)
@@ -365,5 +343,28 @@ private extension MainViewModel {
         newCellViewModels.insert(sourceViewModel, at: destIndex)
         
         return newCellViewModels
+    }
+    
+    func createTimerCellViewModel(from timer: Timer) -> TimerCellViewModel {
+        switch timer.type {
+        case .countDown:
+            return TimerCellViewModel(
+                identifier: timer.identifier,
+                coordinator: self.coordinator,
+                timerUseCase: CountDownTimerUseCase(
+                    timer: timer,
+                    timerPersistentRepository: CoreDataTimerRepository()
+                )
+            )
+        case .countUp:
+            return TimerCellViewModel(
+                identifier: timer.identifier,
+                coordinator: self.coordinator,
+                timerUseCase: CountUpTimerUseCase(
+                    timer: timer,
+                    timerPersistentRepository: CoreDataTimerRepository()
+                )
+            )
+        }
     }
 }
