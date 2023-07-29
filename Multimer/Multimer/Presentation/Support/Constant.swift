@@ -45,6 +45,7 @@ enum Constant {
     }
     
     enum UserDefaultsKey {
-        static let isFirstRun = "isFirstRun"
+        static let isFirstLaunch = "isFirstLaunch"
+        static let isNotificationAllowed = "isNotificationAllowed"
     }
 }
