@@ -350,7 +350,7 @@ private extension HomeViewModel {
         case .countDown:
             return TimerCellViewModel(
                 identifier: timer.identifier,
-                coordinator: self.coordinator,
+                coordinator: coordinator,
                 timerUseCase: CountDownTimerUseCase(
                     timer: timer,
                     timerPersistentRepository: CoreDataTimerRepository()
@@ -359,7 +359,7 @@ private extension HomeViewModel {
         case .countUp:
             return TimerCellViewModel(
                 identifier: timer.identifier,
-                coordinator: self.coordinator,
+                coordinator: coordinator,
                 timerUseCase: CountUpTimerUseCase(
                     timer: timer,
                     timerPersistentRepository: CoreDataTimerRepository()
