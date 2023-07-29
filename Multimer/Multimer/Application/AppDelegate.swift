@@ -11,39 +11,37 @@ import UserNotifications
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         UIApplication.shared.isIdleTimerDisabled = true
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (didAllow, error) in
-            switch didAllow {
-            case true:
-                UNUserNotificationCenter.current().delegate = self
-            case false:
-                //TODO: 알람 울리지 않음 경고 출력
-                break
-            }
-            
-            let isFirstRun = !UserDefaults.standard.bool(forKey: Constant.UserDefaultsKey.isFirstRun)
-            
-            switch isFirstRun {
-            case true:
-                UserDefaults.standard.set(true, forKey: Constant.UserDefaultsKey.isFirstRun)
-                NotificationCenter.default.post(name: .showSwipeToStopNotice, object: nil, userInfo: nil)
-            case false:
-                break
-            }
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound])
+        { [weak self] (didAllow, error) in
+            UNUserNotificationCenter.current().delegate = self
+            self?.setNotificationAuthAlertPreference(didAllow: didAllow)
+            self?.postNotificationIfFirstLaunch()
         }
-        
         return true
     }
     
     // MARK: UISceneSession Lifecycle
     
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    func application(
+        _ application: UIApplication,
+        configurationForConnecting connectingSceneSession: UISceneSession,
+        options: UIScene.ConnectionOptions
+    ) -> UISceneConfiguration {
+        return UISceneConfiguration(
+            name: "Default Configuration",
+            sessionRole: connectingSceneSession.role
+        )
     }
     
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+    func application(
+        _ application: UIApplication,
+        supportedInterfaceOrientationsFor window: UIWindow?
+    ) -> UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.portrait
     }
 }
@@ -56,5 +54,27 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
         completionHandler([.banner, .sound])
+    }
+}
+
+// MARK: - Supporting Methods
+
+private extension AppDelegate {
+    func setNotificationAuthAlertPreference(didAllow: Bool) {
+        let isFirstLaunch = !UserDefaults.standard.bool(forKey: Constant.UserDefaultsKey.isFirstLaunch)
+        let shouldShowNotificationAuthAlert = !isFirstLaunch && !didAllow
+        UserDefaults.standard.set(shouldShowNotificationAuthAlert, forKey: Constant.UserDefaultsKey.isNotificationAllowed)
+    }
+    
+    func postNotificationIfFirstLaunch() {
+        let isFirstLaunch = !UserDefaults.standard.bool(forKey: Constant.UserDefaultsKey.isFirstLaunch)
+        if isFirstLaunch {
+            UserDefaults.standard.set(true, forKey: Constant.UserDefaultsKey.isFirstLaunch)
+            NotificationCenter.default.post(
+                name: .showSwipeToStopNotice,
+                object: nil,
+                userInfo: nil
+            )
+        }
     }
 }
