@@ -9,13 +9,13 @@
 [<img src="https://user-images.githubusercontent.com/57667738/215927346-2bff9839-4625-4df9-8119-e48c32269430.jpg" width=15%>](https://apps.apple.com/kr/app/%EB%A9%80%ED%8B%B0-%ED%83%80%EC%9D%B4%EB%A8%B8/id1663431308?itsct=apps_box_link&itscg=30200)
 
 
-### 직관적인 다중 타이머 & 스톱워치
+## 직관적인 다중 타이머 & 스톱워치
 
 </div>
 
 ||||||
 |----|----|----|----|----|
-|![Apple iPhone 11 Pro Max Screenshot 0](https://user-images.githubusercontent.com/57667738/211595215-3d369b57-4aab-4f40-a49a-5f25e3e340ae.png)|![Apple iPhone 11 Pro Max Screenshot 1](https://user-images.githubusercontent.com/57667738/211595224-333bcefb-49e9-4be4-91ae-a72943e12c30.png)|![Apple iPhone 11 Pro Max Screenshot 2](https://user-images.githubusercontent.com/57667738/211595229-22140915-c00c-42a4-a366-acc723b63049.png)|![Apple iPhone 11 Pro Max Screenshot 3](https://user-images.githubusercontent.com/57667738/211595234-5dfbc463-db69-45db-98c4-1b18ce19e036.png)|![Apple iPhone 11 Pro Max Screenshot 4](https://user-images.githubusercontent.com/57667738/211595237-3389f136-01bf-4ca3-8953-025ca820bf13.png)|
+|![Apple iPhone 11 Pro Max Screenshot 0](https://github.com/sanghyeok-kim/MultiTimer/assets/57667738/122b3e74-69cf-4661-829f-1ada1dcbacf9)|![Apple iPhone 11 Pro Max Screenshot 1](https://github.com/sanghyeok-kim/MultiTimer/assets/57667738/1407e3f7-b076-4e6b-896b-48c8353a1d00)|![Apple iPhone 11 Pro Max Screenshot 2](https://github.com/sanghyeok-kim/MultiTimer/assets/57667738/1d6fe13d-bf68-431d-81f0-a4a8599acc4f)|![Apple iPhone 11 Pro Max Screenshot 3](https://github.com/sanghyeok-kim/MultiTimer/assets/57667738/9fc5a3ef-2557-4200-a4bb-886a3596986a)|![Apple iPhone 11 Pro Max Screenshot 4](https://github.com/sanghyeok-kim/MultiTimer/assets/57667738/58e7f1dc-b321-44de-a4d9-171da44af3db)|
 
 <br>
 
@@ -30,128 +30,22 @@
 |----|----|----|----|
 |![CleanShot 2023-01-11 at 00 26 48](https://user-images.githubusercontent.com/57667738/211592449-e1cb3bcb-4f73-4434-afb9-25fb90ebfd53.gif)|![CleanShot 2023-01-11 at 00 31 30](https://user-images.githubusercontent.com/57667738/211593606-a766ac02-0194-47d9-84d4-be6ac1655ca8.gif)|![CleanShot 2023-01-11 at 00 15 15](https://user-images.githubusercontent.com/57667738/211590194-96c03884-65ba-41f3-9c4f-eea769b8ecbf.gif)|![CleanShot 2023-01-11 at 00 23 22](https://user-images.githubusercontent.com/57667738/211591819-12a1965f-0b22-4d19-b5e3-4567ed502315.gif)|
 
+|'오른쪽으로 밀어서 중지' 튜토리얼 ([1.1.0](https://github.com/sanghyeok-kim/MultiTimer/releases/tag/1.1.0) 추가)|활성화된 타이머 전체 중지 ([1.2.0](https://github.com/sanghyeok-kim/MultiTimer/releases/tag/1.2.0) 추가)|
+|---|---|
+|<img src="https://github.com/sanghyeok-kim/MultiTimer/assets/57667738/2b6c5dc8-3848-49a5-a755-23586f723831" width=50%>|<img src="https://github.com/sanghyeok-kim/MultiTimer/assets/57667738/d0b681a6-d079-4acc-b4b6-2cb7c369ec0c" width=50%>|
+
 <br>
 
-## 🗂 System Structure
+## Tech Stacks
 
-```swift
-Multimer/
-├── Application/
-│   ├── AppDelegate.swift
-│   └── SceneDelegate.swift
-├── Presentation/
-│   ├── Support/
-│   │   ├── Constant.swift
-│   │   ├── Common/
-│   │   │   ├── PaddingButton.swift
-│   │   │   ├── SymbolImageButton.swift
-│   │   │   └── NameTextField.swift
-│   │   ├── Enum/
-│   │   │   ├── CustomColor.swift
-│   │   │   ├── EditViewButtonType.swift
-│   │   │   ├── TimeType.swift
-│   │   │   ├── TimerFilteringCondition.swift
-│   │   │   ├── TimerTableViewSection.swift
-│   │   │   ├── TimerType.swift
-│   │   │   └── ToolbarType.swift
-│   │   ├── Extension/
-│   │   │   ├── TimerTableViewDiffableDataSource+Rx+update.swift
-│   │   │   ├── UIImage+makeSFSymbolImage.swift
-│   │   │   ├── UIPickerView+setFixedLabels.swift
-│   │   │   ├── UIStackView+addArrangedSubviews.swift
-│   │   │   ├── UITextField+Rx+textChanged.swift
-│   │   │   ├── UITextField+addLeftPadding.swift
-│   │   │   └── UIView+snapshotCellStyle.swift
-│   │   ├── Factory/
-│   │   │   └── TagColorFactory.swift
-│   │   └── Protocol/
-│   │       ├── CellIdentifiable.swift
-│   │       └── MVVMInterface.swift      
-│   ├── Main/
-│   │   ├── MainViewController.swift
-│   │   ├── MainViewModel.swift
-│   │   ├── TimerViewCell/
-│   │   │   ├── TimerCellViewModel.swift
-│   │   │   └── TimerViewCell.swift
-│   │   ├── TimerTableView/
-│   │   │   ├── TimerTableViewDelegate.swift
-│   │   │   └── TimerTableViewDiffableDataSource.swift
-│   │   └── CustomView/
-│   │       ├── SwipeRightToStopNoticeView.swift
-│   │       ├── EmptyTimerView.swift
-│   │       ├── FilteringNavigationTitleView.swift
-│   │       └── TimerEditingView.swift
-│   ├── TimerCreate/
-│   │   ├── TimerCreateViewController.swift
-│   │   └── TimerCreateViewModel.swift
-│   └── TimerSetting/
-│       ├── TimerSettingViewController.swift
-│       ├── TimerSettingViewModel.swift
-│       ├── CustomView/
-│       │   ├── TagButton.swift
-│       │   └── TagScrollView.swift
-│       └── TimePickerView/
-│           ├── TimePickerView.swift
-│           ├── TimePickerViewDataSource.swift
-│           └── TimePickerViewDelegate.swift
-├── Domain/
-│   ├── Model/
-│   │   ├── Factory/
-│   │   │   ├── TimeFactory.swift
-│   │   │   └── TimerFactory.swift
-│   │   ├── Tag.swift
-│   │   ├── TagColor.swift
-│   │   ├── Time.swift
-│   │   └── Timer.swift
-│   └── UseCase/
-│       ├── Protocol/
-│       │   ├── MainUseCase.swift
-│       │   └── TimerUseCase.swift
-│       ├── CountDownTimerUseCase.swift
-│       ├── CountUpTimerUseCase.swift
-│       └── DefaultMainUseCase.swift
-├── Data/
-│   ├── Persistence/
-│   │   └── CoreData/
-│   │       ├── CoreDataStorage/
-│   │       │   ├── CoreDataStorage+TagColorMO.swift
-│   │       │   ├── CoreDataStorage+TagMO.swift
-│   │       │   ├── CoreDataStorage+TimeMO.swift
-│   │       │   ├── CoreDataStorage+TimerMO.swift
-│   │       │   ├── CoreDataStorage.swift
-│   │       │   └── CoreDatError.swift
-│   │       ├── ManagedObjectSubclass/
-│   │       │   ├── TagColorMO+CoreDataClass.swift
-│   │       │   ├── TagMO+CoreDataClass.swift
-│   │       │   ├── TimeMO+CoreDataClass.swift
-│   │       │   └── TimerMO+CoreDataClass.swift
-│   │       ├── Protocol/
-│   │       │   ├── ManagedObjectConvertible.swift
-│   │       │   └── ModelConvertible.swift  
-│   │       └── TimerModel.xcdatamodeld/TimerModel.xcdatamodel    
-│   └── Repository/
-│       ├── Protocol/
-│       │   └── TimerPersistentRepository.swift    
-│       └── CoreDataTimerRepository.swift
-├── Localizing/
-│   ├── LocalizableString.swift
-│   ├── en.lproj/
-│   │   ├── InfoPlist.strings
-│   │   └── Localizable.strings
-│   ├── ja.lproj/
-│   │   ├── InfoPlist.strings
-│   │   └── Localizable.strings
-│   ├── ko.lproj/
-│   │   ├── InfoPlist.strings
-│   │   └── Localizable.strings
-│   ├── vi.lproj/
-│   │   ├── InfoPlist.strings
-│   │   └── Localizable.strings
-│   └── zh-Hans.lproj/
-│       ├── InfoPlist.strings
-│       └── Localizable.strings
-└── Info.plist
-```
+|||
+|---|---|
+|Design Pattern|**MVVM**|
+|Asynchronous & Reactive Programming|**RxSwift**|
+|Permanent Storage|**Core Data**|
+|Localizing|**Korean, English, Chinese(Simplified), Japanese, Vietnamese**|
+|User Experience|**RxAnimated, DiffableDataSource**|
+|Tutorial|**lottie-ios**|
 
 <br>
 

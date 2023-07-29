@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  HomeViewModel.swift
 //  Multimer
 //
 //  Created by 김상혁 on 2022/11/04.
@@ -8,7 +8,7 @@
 import RxSwift
 import RxRelay
 
-final class MainViewModel: ViewModelType {
+final class HomeViewModel: ViewModelType {
     
     struct Input {
         let viewDidLoad = PublishRelay<Void>()
@@ -28,8 +28,6 @@ final class MainViewModel: ViewModelType {
     
     struct Output {
         let filteredTimerCellViewModels = BehaviorRelay<[TimerCellViewModel]>(value: [])
-        let pushTimerSettingViewController = PublishRelay<TimerSettingViewModel>()
-        let presentTimerCreateViewController = PublishRelay<TimerCreateViewModel>()
         let maintainEditingMode = PublishRelay<Bool>()
         let enableEditViewButtons = PublishRelay<Bool>()
         let showDeleteConfirmAlert = PublishRelay<Int>()
@@ -45,10 +43,13 @@ final class MainViewModel: ViewModelType {
     let output = Output()
     
     private let disposeBag = DisposeBag()
-    private let mainUseCase: MainUseCase
     
-    init(mainUseCase: MainUseCase) {
-        self.mainUseCase = mainUseCase
+    private weak var coordinator: HomeCoordinator?
+    private let homeUseCase: HomeUseCase
+    
+    init(coordinator: HomeCoordinator?, homeUseCase: HomeUseCase) {
+        self.coordinator = coordinator
+        self.homeUseCase = homeUseCase
         
         // MARK: - Handle Event from Input
         
@@ -61,7 +62,7 @@ final class MainViewModel: ViewModelType {
         handleAddTimerButtonDidTap()
         handleResetAllActiveTimersButton()
         handleEditButtonDidTap()
-        handleEventFromEditView(with: mainUseCase)
+        handleEventFromEditView(with: homeUseCase)
         
         // MARK: - Handle Event from UseCase
         
@@ -75,10 +76,10 @@ final class MainViewModel: ViewModelType {
 
 // MARK: - Event Handling Methods
 
-private extension MainViewModel {
+private extension HomeViewModel {
     func handleViewDidLoad() {
         input.viewDidLoad
-            .bind(onNext: mainUseCase.fetchUserTimers)
+            .bind(onNext: homeUseCase.fetchUserTimers)
             .disposed(by: disposeBag)
     }
     
@@ -152,7 +153,7 @@ private extension MainViewModel {
         cellViewModelToDelete
             .do { $0.removeNotification() }
             .map { $0.identifier }
-            .bind(onNext: mainUseCase.deleteTimer)
+            .bind(onNext: homeUseCase.deleteTimer)
             .disposed(by: disposeBag)
         
         cellViewModelToDelete
@@ -176,7 +177,7 @@ private extension MainViewModel {
             .withUnretained(self)
             .bind { `self`, cellViewModels in
                 cellViewModels.enumerated().forEach { index, cellViewModel in
-                    self.mainUseCase.moveTimer(target: cellViewModel.identifier, to: index)
+                    self.homeUseCase.moveTimer(target: cellViewModel.identifier, to: index)
                 }
             }
             .disposed(by: disposeBag)
@@ -187,32 +188,18 @@ private extension MainViewModel {
     }
     
     func handleAddTimerButtonDidTap() {
-        let timerCreateViewModel = input.timerAddButtonDidTap
-            .map { TimerCreateViewModel(timer: Timer(time: TimeFactory.createDefaultTime())) }
-            .share()
+        let createdTimerRelay = PublishRelay<Timer>()
         
-        timerCreateViewModel
-            .bind(to: output.presentTimerCreateViewController)
+        input.timerAddButtonDidTap
+            .bind(with: self) { `self`, _ in
+                self.coordinator?.coordinate(by: .showTimerCreateScene(createdTimerRelay: createdTimerRelay))
+            }
             .disposed(by: disposeBag)
         
-        let createdTimer = timerCreateViewModel
-            .flatMapLatest { $0.output.newTimer }
-            .share()
-        
-        createdTimer
-            .map { timer -> TimerCellViewModel in
-                switch timer.type {
-                case .countDown:
-                    return TimerCellViewModel(
-                        identifier: timer.identifier,
-                        timerUseCase: CountDownTimerUseCase(timer: timer, timerPersistentRepository: CoreDataTimerRepository())
-                    )
-                case .countUp:
-                    return TimerCellViewModel(
-                        identifier: timer.identifier,
-                        timerUseCase: CountUpTimerUseCase(timer: timer, timerPersistentRepository: CoreDataTimerRepository())
-                    )
-                }
+        createdTimerRelay
+            .withUnretained(self)
+            .map { `self`, timer in
+                self.createTimerCellViewModel(from: timer)
             }
             .withLatestFrom(fetchedTimerCellViewModels) { newTimerCellViewModel, currentCellViewModels in
                 var currentCellViewModels = currentCellViewModels
@@ -222,28 +209,16 @@ private extension MainViewModel {
             .bind(to: fetchedTimerCellViewModels)
             .disposed(by: disposeBag)
         
-        createdTimer
-            .bind(onNext: mainUseCase.appendTimer)
+        createdTimerRelay
+            .bind(onNext: homeUseCase.appendTimer)
             .disposed(by: disposeBag)
     }
     
     func handleFetchedUserTimer() {
-        mainUseCase.fetchedUserTimers
-            .map {
-                $0.map { timer -> TimerCellViewModel in
-                    switch timer.type {
-                    case .countDown:
-                        return TimerCellViewModel(
-                            identifier: timer.identifier,
-                            timerUseCase: CountDownTimerUseCase(timer: timer, timerPersistentRepository: CoreDataTimerRepository())
-                        )
-                    case .countUp:
-                        return TimerCellViewModel(
-                            identifier: timer.identifier,
-                            timerUseCase: CountUpTimerUseCase(timer: timer, timerPersistentRepository: CoreDataTimerRepository())
-                        )
-                    }
-                }
+        homeUseCase.fetchedUserTimers
+            .withUnretained(self)
+            .map { `self`, fetchedUserTimers in
+                fetchedUserTimers.map { self.createTimerCellViewModel(from: $0) }
             }
             .bind(to: fetchedTimerCellViewModels)
             .disposed(by: disposeBag)
@@ -251,17 +226,11 @@ private extension MainViewModel {
     
     func handleEventFromFetchedTimerCellViewModels() {
         fetchedTimerCellViewModels
-            .flatMapLatest { Observable<Bool>.merge($0.map { $0.output.isActive.skip(1).asObservable() }) }
+            .flatMapLatest {
+                Observable<Bool>.merge($0.map { $0.output.isActive.skip(1).asObservable() })
+            }
             .withLatestFrom(fetchedTimerCellViewModels)
             .bind(to: fetchedTimerCellViewModels)
-            .disposed(by: disposeBag)
-        
-        fetchedTimerCellViewModels
-            .flatMapLatest { cellViewModels -> Observable<TimerSettingViewModel> in
-                let timerSettingViewModel = cellViewModels.map { $0.output.timerSettingViewModel.asObservable() }
-                return .merge(timerSettingViewModel).share()
-            }
-            .bind(to: output.pushTimerSettingViewController)
             .disposed(by: disposeBag)
     }
     
@@ -291,7 +260,7 @@ private extension MainViewModel {
             .disposed(by: disposeBag)
     }
     
-    func handleEventFromEditView(with mainUseCase: MainUseCase) {
+    func handleEventFromEditView(with homeUseCase: HomeUseCase) {
         let selectedTimerCellViewModels = input.selectedRows
             .withLatestFrom(output.filteredTimerCellViewModels) { ($0, $1) }
             .map { (selectedRows, filteredCellViewModels) in
@@ -347,7 +316,7 @@ private extension MainViewModel {
             .bind {
                 $0.forEach { deleteTarget in
                     deleteTarget.removeNotification()
-                    mainUseCase.deleteTimer(target: deleteTarget.identifier)
+                    homeUseCase.deleteTimer(target: deleteTarget.identifier)
                 }
             }
             .disposed(by: disposeBag)
@@ -361,7 +330,7 @@ private extension MainViewModel {
 
 // MARK: - Helper Methods
 
-private extension MainViewModel {
+private extension HomeViewModel {
     func moveTimerCellViewModel(from source: Int, to destination: Int) -> [TimerCellViewModel] {
         let currentTimerCellViewModels = output.filteredTimerCellViewModels.value
         let fetchedTimerCellViewModels = fetchedTimerCellViewModels.value
@@ -374,5 +343,28 @@ private extension MainViewModel {
         newCellViewModels.insert(sourceViewModel, at: destIndex)
         
         return newCellViewModels
+    }
+    
+    func createTimerCellViewModel(from timer: Timer) -> TimerCellViewModel {
+        switch timer.type {
+        case .countDown:
+            return TimerCellViewModel(
+                identifier: timer.identifier,
+                coordinator: coordinator,
+                timerUseCase: CountDownTimerUseCase(
+                    timer: timer,
+                    timerPersistentRepository: CoreDataTimerRepository()
+                )
+            )
+        case .countUp:
+            return TimerCellViewModel(
+                identifier: timer.identifier,
+                coordinator: coordinator,
+                timerUseCase: CountUpTimerUseCase(
+                    timer: timer,
+                    timerPersistentRepository: CoreDataTimerRepository()
+                )
+            )
+        }
     }
 }

@@ -28,7 +28,7 @@
 "addTimerMessage" = "Tap + Button To Add a Timer";
 "noTimerActivatedMessage" = "No Timer Activated";
 "onlyActiveTimersAppearMessage" = "Timers in the run, pause, and complete states appear.";
-"settingTimer" = "Setting %@";
+"settingTimer" = "Editing %@";
 "timerExpired" = "Timer Expired - %@";
 "appTitle" = "Multi+Timer";
 "defaultName" = "Default Name";

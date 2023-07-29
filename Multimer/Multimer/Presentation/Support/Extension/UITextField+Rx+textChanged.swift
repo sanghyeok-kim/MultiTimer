@@ -9,17 +9,11 @@ import RxSwift
 import RxCocoa
 
 extension Reactive where Base: UITextField {
-    public var textChanged: ControlProperty<String?> {
-        return base.rx.controlProperty(
-            editingEvents: [.editingChanged, .valueChanged],
-            getter: { textField in
-                textField.text
-            },
-            setter: { textField, value in
-                if textField.text != value {
-                    textField.text = value
-                }
+    var textChanged: ControlEvent<String> {
+        let source: Observable<String> = base.rx.controlEvent(.editingChanged)
+            .compactMap { _ in
+                return self.base.text
             }
-        )
+        return ControlEvent(events: source)
     }
 }
