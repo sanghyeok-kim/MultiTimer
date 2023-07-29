@@ -34,3 +34,6 @@
 "defaultName" = "Default Name";
 "swipeRightToStop" = "Swipe right to stop the timer.";
 "resetAll" = "Reset All";
+"checkNotificationPermissions" = "Check Notification Permissions";
+"allowNotificationAuthorizationAlert" = "The alarm is not sounding because you have not allowed notification permissions. Please allow notification permissions in Settings.";
+"goToSettings" = "Go to Settings";

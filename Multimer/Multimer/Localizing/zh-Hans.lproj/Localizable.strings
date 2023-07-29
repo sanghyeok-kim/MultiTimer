@@ -34,3 +34,6 @@
 "defaultName" = "默认名称";
 "swipeRightToStop" = "向右滑动以停止计时器。"; 
 "resetAll" = "全部重设";
+"checkNotificationPermissions" = "检查通知权限";
+"allowNotificationAuthorizationAlert" = "警报未响是因为您未允许通知权限。请在设置中允许通知权限。";
+"goToSettings" = "转到设置";
