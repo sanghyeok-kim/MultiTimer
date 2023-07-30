@@ -34,3 +34,6 @@
 "defaultName" = "デフォルト名";
 "swipeRightToStop" = "右にスワイプしてタイマーを停止します。";
 "resetAll" = "すべてリセット";
+"checkNotificationPermissions" = "通知許可の確認";
+"allowNotificationAuthorizationAlert" = "通知許可を許可していないため、アラームが鳴りません。設定で通知許可を許可してください。";
+"goToSettings" = "設定";

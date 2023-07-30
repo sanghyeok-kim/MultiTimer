@@ -31,6 +31,7 @@ final class HomeViewModel: ViewModelType {
         let maintainEditingMode = PublishRelay<Bool>()
         let enableEditViewButtons = PublishRelay<Bool>()
         let showDeleteConfirmAlert = PublishRelay<Int>()
+        let showNotificationAuthAlert = PublishRelay<Void>()
         let deselectRows = PublishRelay<[Int]>()
         let hideResetAllActiveTimersButton = BehaviorRelay<Bool>(value: true)
         let showEmptyTimerView = PublishRelay<TimerFilteringCondition>()
@@ -80,6 +81,11 @@ private extension HomeViewModel {
     func handleViewDidLoad() {
         input.viewDidLoad
             .bind(onNext: homeUseCase.fetchUserTimers)
+            .disposed(by: disposeBag)
+        
+        input.viewDidLoad
+            .filter { UserDefaults.standard.bool(forKey: Constant.UserDefaultsKey.isNotificationAllowed) }
+            .bind(to: output.showNotificationAuthAlert)
             .disposed(by: disposeBag)
     }
     

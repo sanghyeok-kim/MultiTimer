@@ -85,13 +85,13 @@ final class HomeViewController: UIViewController, ViewType {
     
     private var impactFeedbackGenerator: UIImpactFeedbackGenerator? = .init(style: .medium)
     private let disposeBag = DisposeBag()
-    var viewModel: HomeViewModel? 
+    var viewModel: HomeViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         layout()
-        addShowSwipeToStopNoticeObserver()
+        addNotificationCenterObservers()
         prepareFeedbackImpactGenerator()
     }
     
@@ -204,6 +204,13 @@ final class HomeViewController: UIViewController, ViewType {
                 self.hideEmptyTimerView()
             }
             .disposed(by: disposeBag)
+        
+        output.showNotificationAuthAlert
+            .withUnretained(self)
+            .bind { `self`, _ in
+                self.showNotificationAuthAlert()
+            }
+            .disposed(by: disposeBag)
     }
     
     deinit {
@@ -269,6 +276,33 @@ private extension HomeViewController {
         alert.addAction(UIAlertAction(title: cancelString, style: .default))
         alert.addAction(UIAlertAction(title: deleteString, style: .destructive, handler: confirmHandler))
         present(alert, animated: true, completion: nil)
+    }
+    
+    func showNotificationAuthAlert() {
+        let settingsAction = UIAlertAction(title: LocalizableString.goToSettings.localized, style: .default) { _ in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl)
+            }
+        }
+        let cancelAction = UIAlertAction(title: LocalizableString.cancel.localized, style: .default, handler: nil)
+        
+        let alert = UIAlertController (
+            title: LocalizableString.checkNotificationPermissions.localized,
+            message: LocalizableString.allowNotificationAuthorizationAlert.localized,
+            preferredStyle: .alert
+        )
+        alert.addAction(settingsAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: - Notification Center Methods
+
+private extension HomeViewController {
+    func addNotificationCenterObservers() {
+        addShowSwipeToStopNoticeObserver()
     }
     
     func addShowSwipeToStopNoticeObserver() {

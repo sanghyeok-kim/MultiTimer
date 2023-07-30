@@ -36,6 +36,9 @@ enum LocalizableString {
     case defaultName
     case swipeRightToStop
     case resetAll
+    case checkNotificationPermissions
+    case allowNotificationAuthorizationAlert
+    case goToSettings
     
     var localized: String {
         switch self {
@@ -95,6 +98,12 @@ enum LocalizableString {
             return String(format: NSLocalizedString("swipeRightToStop", comment: ""))
         case .resetAll:
             return String(format: NSLocalizedString("resetAll", comment: ""))
+        case .checkNotificationPermissions:
+            return String(format: NSLocalizedString("checkNotificationPermissions", comment: ""))
+        case .allowNotificationAuthorizationAlert:
+            return String(format: NSLocalizedString("allowNotificationAuthorizationAlert", comment: ""))
+        case .goToSettings:
+            return String(format: NSLocalizedString("goToSettings", comment: ""))
         }
     }
 }

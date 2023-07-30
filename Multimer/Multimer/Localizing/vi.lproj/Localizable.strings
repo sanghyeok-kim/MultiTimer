@@ -34,3 +34,6 @@
 "defaultName" = "Tên mặc định";
 "swipeRightToStop" = "Vuốt sang phải để dừng hẹn giờ";
 "resetAll" = "Cài đặt lại tất cả";
+"checkNotificationPermissions" = "Kiểm tra quyền thông báo";
+"allowNotificationAuthorizationAlert" = "Thông báo không hiện vì bạn chưa cho phép quyền thông báo. Vui lòng cho phép quyền thông báo trong Cài đặt.";
+"goToSettings" = "Tới thiết lập";
