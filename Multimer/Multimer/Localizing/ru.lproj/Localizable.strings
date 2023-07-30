@@ -1,0 +1,39 @@
+/* 
+  Localizable.strings
+  Multimer
+
+  Created by 김상혁 on 2022/12/30.
+  
+*/
+
+"timer" = "Таймер";
+"stopwatch" = "Секундомер";
+"countDownTimer" = "⏳ Обратный отсчет";
+"countUpStopwatch" = "⏱ Секундомер";
+"hour" = "h";
+"minute" = "m";
+"second" = "s";
+"all" = "Все";
+"activated" = "Активные";
+"enterTimerNameToCreate" = "Ввод имени таймера";
+"enterStopwatchNameToCreate" = "Ввод имени секундомера";
+"createTimer" = "Создать таймер";
+"edit" = "Правка";
+"done" = "Готово";
+"deleteConfirmMessage" = "Вы уверены, что хотите удалить выбранные %d таймеров?";
+"deleteTimer" = "Удалить таймер";
+"cancel" = "Отменить";
+"delete" = "Удалить";
+"noTimerCreatedMessage" = "Таймер не создан";
+"addTimerMessage" = "Нажмите + чтобы добавить таймер";
+"noTimerActivatedMessage" = "Таймер не активирован";
+"onlyActiveTimersAppearMessage" = "Таймеры в состояниях запуска,\nпаузы и завершения появляются.";
+"settingTimer" = "Настройка %@";
+"timerExpired" = "Время таймера истекло - %@";
+"appTitle" = "Мульти таймер";
+"defaultName" = "Имя по умолчанию";
+"swipeRightToStop" = "Свайпните вправо, чтобы остановить таймер.";
+"resetAll" = "Сбросить все";
+"checkNotificationPermissions" = "Проверить разрешения на уведомления";
+"allowNotificationAuthorizationAlert" = "Сигнал тревоги не звучит, потому что вы не разрешили уведомления. Пожалуйста, разрешите уведомления в настройках.";
+"goToSettings" = "Настройки";
