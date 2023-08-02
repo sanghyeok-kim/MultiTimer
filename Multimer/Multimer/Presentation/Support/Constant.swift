@@ -50,4 +50,8 @@ enum Constant {
         static let isFirstLaunch = "isFirstLaunch"
         static let isNotificationAllowed = "isNotificationAllowed"
     }
+    
+    enum Ringtone {
+        static let `extension` = "aiff"
+    }
 }
