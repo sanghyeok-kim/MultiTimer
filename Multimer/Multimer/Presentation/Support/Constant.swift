@@ -30,6 +30,8 @@ enum Constant {
         
         static let hourglassTophalfFilled = "hourglass.tophalf.filled"
         static let stopwatchFill = "stopwatch.fill"
+        
+        static let bellFill = "bell.fill"
     }
     
     enum AssetImageName {
