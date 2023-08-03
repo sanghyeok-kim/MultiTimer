@@ -29,7 +29,7 @@
 "noTimerActivatedMessage" = "无活化中的计时器";
 "onlyActiveTimersAppearMessage" = "只显示正在活化中或暂停的计时器。";
 "settingTimer" = "设定 %@";
-"timerExpired" = "计时器 完了 '%@'";
+"timerExpired" = "[计时器 完了] %@";
 "appTitle" = "多重计时器";
 "defaultName" = "默认名称";
 "swipeRightToStop" = "向右滑动以停止计时器。"; 
@@ -37,3 +37,36 @@
 "checkNotificationPermissions" = "检查通知权限";
 "allowNotificationAuthorizationAlert" = "警报未响是因为您未允许通知权限。请在设置中允许通知权限。";
 "goToSettings" = "转到设置";
+
+// MARK: - Ringtones
+
+"alertTones" = "警报音调";
+"ringtones" = "铃声";
+
+"default1" = "默认警报声 1";
+"default2" = "默认警报声 2";
+"default3" = "默认警报声 3";
+"default4" = "默认警报声 4";
+"default5" = "默认警报声 5";
+"default6" = "默认警报声 6";
+"default7" = "默认警报声 7";
+"default8" = "默认警报声 8";
+"alarm" = "警报声";
+"bark" = "吠叫";
+"beacon" = "渐弱的蜂鸣声";
+"bulletin" = "公告声音";
+"duck" = "鸭子";
+"illuminate" = "照明";
+"marimba" = "马林巴琴";
+"oldPhone" = "旧电话";
+"pianoRiff" = "钢琴";
+"pinball" = "弹球";
+"presto" = "普雷斯托";
+"radar" = "雷达";
+"reflection" = "反照";
+"sencha" = "绿茶";
+"signal" = "信号音";
+"stargaze" = "音调";
+"strum" = "吉他弹奏";
+"trill" = "颤音";
+"xylophone" = "木琴";

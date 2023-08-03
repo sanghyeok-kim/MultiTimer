@@ -7,6 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E1C42E22A765844003CC427 /* RingtoneSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C42E12A765844003CC427 /* RingtoneSelectViewController.swift */; };
+		1E1C43662A7681FA003CC427 /* radar.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43522A7681F8003CC427 /* radar.aiff */; };
+		1E1C43672A7681FA003CC427 /* alarm.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43532A7681F9003CC427 /* alarm.aiff */; };
+		1E1C43682A7681FA003CC427 /* presto.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43542A7681F9003CC427 /* presto.aiff */; };
+		1E1C43692A7681FA003CC427 /* marimba.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43552A7681F9003CC427 /* marimba.aiff */; };
+		1E1C436A2A7681FA003CC427 /* sencha.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43562A7681F9003CC427 /* sencha.aiff */; };
+		1E1C436B2A7681FA003CC427 /* signal.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43572A7681F9003CC427 /* signal.aiff */; };
+		1E1C436C2A7681FA003CC427 /* trill.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43582A7681F9003CC427 /* trill.aiff */; };
+		1E1C436D2A7681FA003CC427 /* xylophone.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43592A7681F9003CC427 /* xylophone.aiff */; };
+		1E1C436E2A7681FA003CC427 /* stargaze.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C435A2A7681F9003CC427 /* stargaze.aiff */; };
+		1E1C43702A7681FA003CC427 /* illuminate.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C435C2A7681F9003CC427 /* illuminate.aiff */; };
+		1E1C43712A7681FA003CC427 /* pianoRiff.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C435D2A7681F9003CC427 /* pianoRiff.aiff */; };
+		1E1C43722A7681FA003CC427 /* bulletin.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C435E2A7681F9003CC427 /* bulletin.aiff */; };
+		1E1C43732A7681FA003CC427 /* pinball.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C435F2A7681F9003CC427 /* pinball.aiff */; };
+		1E1C43742A7681FA003CC427 /* beacon.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43602A7681FA003CC427 /* beacon.aiff */; };
+		1E1C43752A7681FA003CC427 /* bark.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43612A7681FA003CC427 /* bark.aiff */; };
+		1E1C43762A7681FA003CC427 /* oldPhone.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43622A7681FA003CC427 /* oldPhone.aiff */; };
+		1E1C43772A7681FA003CC427 /* duck.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43632A7681FA003CC427 /* duck.aiff */; };
+		1E1C43782A7681FA003CC427 /* reflection.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43642A7681FA003CC427 /* reflection.aiff */; };
+		1E1C43792A7681FA003CC427 /* strum.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43652A7681FA003CC427 /* strum.aiff */; };
+		1E1C437B2A768626003CC427 /* Ringtone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C437A2A768626003CC427 /* Ringtone.swift */; };
+		1E1C43A22A76A36B003CC427 /* default7.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C439A2A76A36A003CC427 /* default7.aiff */; };
+		1E1C43A32A76A36B003CC427 /* default1.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C439B2A76A36A003CC427 /* default1.aiff */; };
+		1E1C43A42A76A36B003CC427 /* default6.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C439C2A76A36A003CC427 /* default6.aiff */; };
+		1E1C43A52A76A36B003CC427 /* default8.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C439D2A76A36A003CC427 /* default8.aiff */; };
+		1E1C43A72A76A36B003CC427 /* default2.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C439F2A76A36A003CC427 /* default2.aiff */; };
+		1E1C43A82A76A36B003CC427 /* default4.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43A02A76A36B003CC427 /* default4.aiff */; };
+		1E1C43A92A76A36B003CC427 /* default5.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43A12A76A36B003CC427 /* default5.aiff */; };
+		1E1C43AB2A76A39F003CC427 /* default3.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43AA2A76A39F003CC427 /* default3.aiff */; };
+		1E1C43AD2A77B801003CC427 /* RingtoneSelectReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C43AC2A77B801003CC427 /* RingtoneSelectReactor.swift */; };
+		1E1C43B02A7A7775003CC427 /* RingtoneCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C43AF2A7A7775003CC427 /* RingtoneCellModel.swift */; };
+		1E1C43B22A7A7781003CC427 /* RingtoneSelectTableViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C43B12A7A7781003CC427 /* RingtoneSelectTableViewDiffableDataSource.swift */; };
+		1E1C43B42A7A77A0003CC427 /* RingtoneType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C43B32A7A77A0003CC427 /* RingtoneType.swift */; };
+		1E1C43B62A7A8EB8003CC427 /* RingtoneViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C43B52A7A8EB8003CC427 /* RingtoneViewCell.swift */; };
+		1E1C43B92A7A8F16003CC427 /* UserNotificationCenterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C43B82A7A8F16003CC427 /* UserNotificationCenterService.swift */; };
+		1E1C43BB2A7A904E003CC427 /* RingtoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C43BA2A7A904E003CC427 /* RingtoneButton.swift */; };
+		1E1C43BD2A7A90E7003CC427 /* UIButton+Rx+configurationTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C43BC2A7A90E7003CC427 /* UIButton+Rx+configurationTitle.swift */; };
 		1E23D5352994B9F9008FD287 /* ToolbarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D5342994B9F9008FD287 /* ToolbarType.swift */; };
 		1E23D5372994BCF8008FD287 /* NotificationName+CustomName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D5362994BCF8008FD287 /* NotificationName+CustomName.swift */; };
 		1E23D53D2994F8FB008FD287 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E23D53C2994F8FB008FD287 /* CoreDataError.swift */; };
@@ -48,7 +85,7 @@
 		1E651DAC2953165800B4F321 /* CountUpTimerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DAB2953165800B4F321 /* CountUpTimerUseCase.swift */; };
 		1E651DAE2953168900B4F321 /* TimerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DAD2953168900B4F321 /* TimerUseCase.swift */; };
 		1E651DB0295342BA00B4F321 /* TimerCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DAF295342BA00B4F321 /* TimerCreateViewController.swift */; };
-		1E651DB229534CEE00B4F321 /* TimerCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DB129534CEE00B4F321 /* TimerCreateViewModel.swift */; };
+		1E651DB229534CEE00B4F321 /* TimerCreateReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E651DB129534CEE00B4F321 /* TimerCreateReactor.swift */; };
 		1E6A19C329937FE8001FA3ED /* NameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6A19C229937FE8001FA3ED /* NameTextField.swift */; };
 		1E6A19C82993AF21001FA3ED /* SwipeRightToStopNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6A19C72993AF21001FA3ED /* SwipeRightToStopNoticeView.swift */; };
 		1E6FAD9729403F900021B845 /* CoreDataTimerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FAD9629403F900021B845 /* CoreDataTimerRepository.swift */; };
@@ -92,7 +129,7 @@
 		1EBEEFE82925B73000299CE7 /* TagColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEEFE72925B73000299CE7 /* TagColor.swift */; };
 		1EBEEFEA2925B85700299CE7 /* TagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEEFE92925B85700299CE7 /* TagButton.swift */; };
 		1EBEF029292909DD00299CE7 /* TimerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1EBEF027292909DD00299CE7 /* TimerModel.xcdatamodeld */; };
-		1EBFEE152919270D00747606 /* TimerEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBFEE142919270D00747606 /* TimerEditingViewModel.swift */; };
+		1EBFEE152919270D00747606 /* TimerEditingReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBFEE142919270D00747606 /* TimerEditingReactor.swift */; };
 		7DE0DCB2BD437A3652CA4266 /* Pods_Multimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB67573CFCDE896B6E52525A /* Pods_Multimer.framework */; };
 		8C88084EF84FB8081FC09CDE /* Pods_MultimerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A9A991A8E30450D4458665 /* Pods_MultimerTests.framework */; };
 		C60ADD68060EFDAE377DA4B2 /* Pods_Multimer_MultimerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D9588E5DAECA7EB7A30024 /* Pods_Multimer_MultimerUITests.framework */; };
@@ -120,6 +157,43 @@
 		09D9588E5DAECA7EB7A30024 /* Pods_Multimer_MultimerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multimer_MultimerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E1C42DF2A760939003CC427 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1E1C42E02A760939003CC427 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1E1C42E12A765844003CC427 /* RingtoneSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneSelectViewController.swift; sourceTree = "<group>"; };
+		1E1C43522A7681F8003CC427 /* radar.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = radar.aiff; sourceTree = "<group>"; };
+		1E1C43532A7681F9003CC427 /* alarm.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = alarm.aiff; sourceTree = "<group>"; };
+		1E1C43542A7681F9003CC427 /* presto.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = presto.aiff; sourceTree = "<group>"; };
+		1E1C43552A7681F9003CC427 /* marimba.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = marimba.aiff; sourceTree = "<group>"; };
+		1E1C43562A7681F9003CC427 /* sencha.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = sencha.aiff; sourceTree = "<group>"; };
+		1E1C43572A7681F9003CC427 /* signal.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = signal.aiff; sourceTree = "<group>"; };
+		1E1C43582A7681F9003CC427 /* trill.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = trill.aiff; sourceTree = "<group>"; };
+		1E1C43592A7681F9003CC427 /* xylophone.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = xylophone.aiff; sourceTree = "<group>"; };
+		1E1C435A2A7681F9003CC427 /* stargaze.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = stargaze.aiff; sourceTree = "<group>"; };
+		1E1C435C2A7681F9003CC427 /* illuminate.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = illuminate.aiff; sourceTree = "<group>"; };
+		1E1C435D2A7681F9003CC427 /* pianoRiff.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = pianoRiff.aiff; sourceTree = "<group>"; };
+		1E1C435E2A7681F9003CC427 /* bulletin.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = bulletin.aiff; sourceTree = "<group>"; };
+		1E1C435F2A7681F9003CC427 /* pinball.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = pinball.aiff; sourceTree = "<group>"; };
+		1E1C43602A7681FA003CC427 /* beacon.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = beacon.aiff; sourceTree = "<group>"; };
+		1E1C43612A7681FA003CC427 /* bark.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = bark.aiff; sourceTree = "<group>"; };
+		1E1C43622A7681FA003CC427 /* oldPhone.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = oldPhone.aiff; sourceTree = "<group>"; };
+		1E1C43632A7681FA003CC427 /* duck.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = duck.aiff; sourceTree = "<group>"; };
+		1E1C43642A7681FA003CC427 /* reflection.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = reflection.aiff; sourceTree = "<group>"; };
+		1E1C43652A7681FA003CC427 /* strum.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = strum.aiff; sourceTree = "<group>"; };
+		1E1C437A2A768626003CC427 /* Ringtone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ringtone.swift; sourceTree = "<group>"; };
+		1E1C439A2A76A36A003CC427 /* default7.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = default7.aiff; sourceTree = "<group>"; };
+		1E1C439B2A76A36A003CC427 /* default1.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = default1.aiff; sourceTree = "<group>"; };
+		1E1C439C2A76A36A003CC427 /* default6.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = default6.aiff; sourceTree = "<group>"; };
+		1E1C439D2A76A36A003CC427 /* default8.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = default8.aiff; sourceTree = "<group>"; };
+		1E1C439F2A76A36A003CC427 /* default2.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = default2.aiff; sourceTree = "<group>"; };
+		1E1C43A02A76A36B003CC427 /* default4.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = default4.aiff; sourceTree = "<group>"; };
+		1E1C43A12A76A36B003CC427 /* default5.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = default5.aiff; sourceTree = "<group>"; };
+		1E1C43AA2A76A39F003CC427 /* default3.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = default3.aiff; sourceTree = "<group>"; };
+		1E1C43AC2A77B801003CC427 /* RingtoneSelectReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneSelectReactor.swift; sourceTree = "<group>"; };
+		1E1C43AF2A7A7775003CC427 /* RingtoneCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneCellModel.swift; sourceTree = "<group>"; };
+		1E1C43B12A7A7781003CC427 /* RingtoneSelectTableViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneSelectTableViewDiffableDataSource.swift; sourceTree = "<group>"; };
+		1E1C43B32A7A77A0003CC427 /* RingtoneType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneType.swift; sourceTree = "<group>"; };
+		1E1C43B52A7A8EB8003CC427 /* RingtoneViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneViewCell.swift; sourceTree = "<group>"; };
+		1E1C43B82A7A8F16003CC427 /* UserNotificationCenterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationCenterService.swift; sourceTree = "<group>"; };
+		1E1C43BA2A7A904E003CC427 /* RingtoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneButton.swift; sourceTree = "<group>"; };
+		1E1C43BC2A7A90E7003CC427 /* UIButton+Rx+configurationTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Rx+configurationTitle.swift"; sourceTree = "<group>"; };
 		1E23D5342994B9F9008FD287 /* ToolbarType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarType.swift; sourceTree = "<group>"; };
 		1E23D5362994BCF8008FD287 /* NotificationName+CustomName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+CustomName.swift"; sourceTree = "<group>"; };
 		1E23D53A2994EEF3008FD287 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -173,7 +247,7 @@
 		1E651DAB2953165800B4F321 /* CountUpTimerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountUpTimerUseCase.swift; sourceTree = "<group>"; };
 		1E651DAD2953168900B4F321 /* TimerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerUseCase.swift; sourceTree = "<group>"; };
 		1E651DAF295342BA00B4F321 /* TimerCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCreateViewController.swift; sourceTree = "<group>"; };
-		1E651DB129534CEE00B4F321 /* TimerCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCreateViewModel.swift; sourceTree = "<group>"; };
+		1E651DB129534CEE00B4F321 /* TimerCreateReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCreateReactor.swift; sourceTree = "<group>"; };
 		1E6A19C229937FE8001FA3ED /* NameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextField.swift; sourceTree = "<group>"; };
 		1E6A19C72993AF21001FA3ED /* SwipeRightToStopNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeRightToStopNoticeView.swift; sourceTree = "<group>"; };
 		1E6FAD9629403F900021B845 /* CoreDataTimerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTimerRepository.swift; sourceTree = "<group>"; };
@@ -217,7 +291,7 @@
 		1EBEEFE72925B73000299CE7 /* TagColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagColor.swift; sourceTree = "<group>"; };
 		1EBEEFE92925B85700299CE7 /* TagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButton.swift; sourceTree = "<group>"; };
 		1EBEF028292909DD00299CE7 /* TimerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimerModel.xcdatamodel; sourceTree = "<group>"; };
-		1EBFEE142919270D00747606 /* TimerEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEditingViewModel.swift; sourceTree = "<group>"; };
+		1EBFEE142919270D00747606 /* TimerEditingReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEditingReactor.swift; sourceTree = "<group>"; };
 		2487B77C56F24FE0EFA05BD4 /* Pods-Multimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer.release.xcconfig"; path = "Target Support Files/Pods-Multimer/Pods-Multimer.release.xcconfig"; sourceTree = "<group>"; };
 		50F7E195491911071C2CCC09 /* Pods-MultimerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultimerTests.debug.xcconfig"; path = "Target Support Files/Pods-MultimerTests/Pods-MultimerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6AE47EFBE8192C59957931B9 /* Pods-Multimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Multimer.debug.xcconfig"; path = "Target Support Files/Pods-Multimer/Pods-Multimer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -266,6 +340,60 @@
 				D7E24C3208D599653D72FD17 /* Pods-MultimerTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		1E1C42E52A766C28003CC427 /* Ringtones */ = {
+			isa = PBXGroup;
+			children = (
+				1E1C43532A7681F9003CC427 /* alarm.aiff */,
+				1E1C43612A7681FA003CC427 /* bark.aiff */,
+				1E1C43602A7681FA003CC427 /* beacon.aiff */,
+				1E1C435E2A7681F9003CC427 /* bulletin.aiff */,
+				1E1C439B2A76A36A003CC427 /* default1.aiff */,
+				1E1C439F2A76A36A003CC427 /* default2.aiff */,
+				1E1C43AA2A76A39F003CC427 /* default3.aiff */,
+				1E1C43A02A76A36B003CC427 /* default4.aiff */,
+				1E1C43A12A76A36B003CC427 /* default5.aiff */,
+				1E1C439C2A76A36A003CC427 /* default6.aiff */,
+				1E1C439A2A76A36A003CC427 /* default7.aiff */,
+				1E1C439D2A76A36A003CC427 /* default8.aiff */,
+				1E1C43632A7681FA003CC427 /* duck.aiff */,
+				1E1C435C2A7681F9003CC427 /* illuminate.aiff */,
+				1E1C43552A7681F9003CC427 /* marimba.aiff */,
+				1E1C43622A7681FA003CC427 /* oldPhone.aiff */,
+				1E1C435D2A7681F9003CC427 /* pianoRiff.aiff */,
+				1E1C435F2A7681F9003CC427 /* pinball.aiff */,
+				1E1C43542A7681F9003CC427 /* presto.aiff */,
+				1E1C43522A7681F8003CC427 /* radar.aiff */,
+				1E1C43642A7681FA003CC427 /* reflection.aiff */,
+				1E1C43562A7681F9003CC427 /* sencha.aiff */,
+				1E1C43572A7681F9003CC427 /* signal.aiff */,
+				1E1C435A2A7681F9003CC427 /* stargaze.aiff */,
+				1E1C43652A7681FA003CC427 /* strum.aiff */,
+				1E1C43582A7681F9003CC427 /* trill.aiff */,
+				1E1C43592A7681F9003CC427 /* xylophone.aiff */,
+			);
+			path = Ringtones;
+			sourceTree = "<group>";
+		};
+		1E1C43AE2A79030B003CC427 /* RingtoneSelect */ = {
+			isa = PBXGroup;
+			children = (
+				1E1C42E12A765844003CC427 /* RingtoneSelectViewController.swift */,
+				1E1C43AC2A77B801003CC427 /* RingtoneSelectReactor.swift */,
+				1E1C43AF2A7A7775003CC427 /* RingtoneCellModel.swift */,
+				1E1C43B12A7A7781003CC427 /* RingtoneSelectTableViewDiffableDataSource.swift */,
+				1E1C43B52A7A8EB8003CC427 /* RingtoneViewCell.swift */,
+			);
+			path = RingtoneSelect;
+			sourceTree = "<group>";
+		};
+		1E1C43B72A7A8F0E003CC427 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				1E1C43B82A7A8F16003CC427 /* UserNotificationCenterService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		1E23D53F2994FA17008FD287 /* SettingFooterView */ = {
@@ -322,6 +450,7 @@
 			isa = PBXGroup;
 			children = (
 				1E48FEA62911F9250090B246 /* Info.plist */,
+				1E1C42E52A766C28003CC427 /* Ringtones */,
 				1E4CB4E32967353E00FC918E /* Localizing */,
 				1E482BE42913556100175B78 /* Application */,
 				1E4CB4CC2966BAEA00FC918E /* Presentation */,
@@ -357,6 +486,7 @@
 				1E4CB4CF2966BC9900FC918E /* Home */,
 				1E4CB4D12966BCD800FC918E /* TimerCreate */,
 				1E4CB4D02966BCA400FC918E /* TimerEditing */,
+				1E1C43AE2A79030B003CC427 /* RingtoneSelect */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -373,6 +503,7 @@
 		1E4CB4CE2966BC8400FC918E /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				1E1C43B72A7A8F0E003CC427 /* Service */,
 				1E4CB4D62966BD9B00FC918E /* Repository */,
 				1E4CB4D72966BE0700FC918E /* Persistence */,
 			);
@@ -396,7 +527,7 @@
 			isa = PBXGroup;
 			children = (
 				1E482BCF2912887B00175B78 /* TimerEditingViewController.swift */,
-				1EBFEE142919270D00747606 /* TimerEditingViewModel.swift */,
+				1EBFEE142919270D00747606 /* TimerEditingReactor.swift */,
 				1E4CB4E82967395200FC918E /* TimePickerView */,
 				1E4CB4E7296738C100FC918E /* CustomView */,
 			);
@@ -407,7 +538,7 @@
 			isa = PBXGroup;
 			children = (
 				1E651DAF295342BA00B4F321 /* TimerCreateViewController.swift */,
-				1E651DB129534CEE00B4F321 /* TimerCreateViewModel.swift */,
+				1E651DB129534CEE00B4F321 /* TimerCreateReactor.swift */,
 			);
 			path = TimerCreate;
 			sourceTree = "<group>";
@@ -535,6 +666,7 @@
 				1E744B91296C488A00CD824D /* UIPickerView+setFixedLabels.swift */,
 				1E744B92296C488A00CD824D /* UITextField+addLeftPadding.swift */,
 				1E744B94296C488A00CD824D /* UITextField+Rx+textChanged.swift */,
+				1E1C43BC2A7A90E7003CC427 /* UIButton+Rx+configurationTitle.swift */,
 				1E744B93296C488A00CD824D /* TimerTableViewDiffableDataSource+Rx+update.swift */,
 				1E744B95296C488A00CD824D /* UIImage+makeSFSymbolImage.swift */,
 				1E744B96296C488A00CD824D /* UIView+snapshotCellStyle.swift */,
@@ -555,6 +687,8 @@
 				1E744B9D296C488A00CD824D /* EditViewButtonType.swift */,
 				1E744B9E296C488A00CD824D /* TimeType.swift */,
 				1E23D5342994B9F9008FD287 /* ToolbarType.swift */,
+				1E1C43B32A7A77A0003CC427 /* RingtoneType.swift */,
+				1E1C437A2A768626003CC427 /* Ringtone.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -574,6 +708,7 @@
 				1E744BA3296C488A00CD824D /* PaddingButton.swift */,
 				1E744BA4296C488A00CD824D /* SymbolImageButton.swift */,
 				1E6A19C229937FE8001FA3ED /* NameTextField.swift */,
+				1E1C43BA2A7A904E003CC427 /* RingtoneButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -795,11 +930,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E48FEA52911F9250090B246 /* LaunchScreen.storyboard in Resources */,
+				1E1C43732A7681FA003CC427 /* pinball.aiff in Resources */,
+				1E1C43792A7681FA003CC427 /* strum.aiff in Resources */,
+				1E1C43752A7681FA003CC427 /* bark.aiff in Resources */,
+				1E1C43702A7681FA003CC427 /* illuminate.aiff in Resources */,
+				1E1C43A92A76A36B003CC427 /* default5.aiff in Resources */,
 				1E4CB4B4295F258500FC918E /* InfoPlist.strings in Resources */,
+				1E1C43A72A76A36B003CC427 /* default2.aiff in Resources */,
+				1E1C43762A7681FA003CC427 /* oldPhone.aiff in Resources */,
+				1E1C43A42A76A36B003CC427 /* default6.aiff in Resources */,
 				1E23D569299518F2008FD287 /* swipe-right-to-stop-timer.json in Resources */,
+				1E1C43672A7681FA003CC427 /* alarm.aiff in Resources */,
+				1E1C436D2A7681FA003CC427 /* xylophone.aiff in Resources */,
+				1E1C43712A7681FA003CC427 /* pianoRiff.aiff in Resources */,
+				1E1C43662A7681FA003CC427 /* radar.aiff in Resources */,
+				1E1C436A2A7681FA003CC427 /* sencha.aiff in Resources */,
 				1E4CB4A9295EAB6000FC918E /* Localizable.strings in Resources */,
+				1E1C436E2A7681FA003CC427 /* stargaze.aiff in Resources */,
 				1E23D568299518F2008FD287 /* tap.json in Resources */,
+				1E1C43742A7681FA003CC427 /* beacon.aiff in Resources */,
 				1E48FEA22911F9250090B246 /* Assets.xcassets in Resources */,
+				1E1C43A32A76A36B003CC427 /* default1.aiff in Resources */,
+				1E1C436B2A7681FA003CC427 /* signal.aiff in Resources */,
+				1E1C436C2A7681FA003CC427 /* trill.aiff in Resources */,
+				1E1C43A82A76A36B003CC427 /* default4.aiff in Resources */,
+				1E1C43782A7681FA003CC427 /* reflection.aiff in Resources */,
+				1E1C43772A7681FA003CC427 /* duck.aiff in Resources */,
+				1E1C43722A7681FA003CC427 /* bulletin.aiff in Resources */,
+				1E1C43682A7681FA003CC427 /* presto.aiff in Resources */,
+				1E1C43A22A76A36B003CC427 /* default7.aiff in Resources */,
+				1E1C43A52A76A36B003CC427 /* default8.aiff in Resources */,
+				1E1C43692A7681FA003CC427 /* marimba.aiff in Resources */,
+				1E1C43AB2A76A39F003CC427 /* default3.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -927,30 +1089,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E1C43B02A7A7775003CC427 /* RingtoneCellModel.swift in Sources */,
 				1E4159F02948E7DF00EDA065 /* SettingFooterView.swift in Sources */,
+				1E1C43B62A7A8EB8003CC427 /* RingtoneViewCell.swift in Sources */,
 				1E744BB7296C488A00CD824D /* PaddingButton.swift in Sources */,
 				1EBEEFDC292105F500299CE7 /* TimerTableViewDiffableDataSource.swift in Sources */,
+				1E1C43BB2A7A904E003CC427 /* RingtoneButton.swift in Sources */,
 				1E651DB0295342BA00B4F321 /* TimerCreateViewController.swift in Sources */,
 				1E482BD6291353FF00175B78 /* TimePickerViewDelegate.swift in Sources */,
-				1E651DB229534CEE00B4F321 /* TimerCreateViewModel.swift in Sources */,
+				1E651DB229534CEE00B4F321 /* TimerCreateReactor.swift in Sources */,
 				1E482BD22913538800175B78 /* TimerViewCell.swift in Sources */,
 				1E744BAC296C488A00CD824D /* UIImage+makeSFSymbolImage.swift in Sources */,
 				1E4CB4DE2966BE9000FC918E /* TimerMO+CoreDataClass.swift in Sources */,
 				1E4CB4AF295EB5EA00FC918E /* LocalizableString.swift in Sources */,
 				1E482BDC291354F500175B78 /* Time.swift in Sources */,
 				1E744BB6296C488A00CD824D /* CellIdentifiable.swift in Sources */,
+				1E1C43AD2A77B801003CC427 /* RingtoneSelectReactor.swift in Sources */,
 				1E4CB4CB2961E24500FC918E /* TimePickerView.swift in Sources */,
 				1EA3FCE4292E49440073560D /* CoreDataStorage+TimerMO.swift in Sources */,
 				1E4CB4DC2966BE9000FC918E /* TagColorMO+CoreDataClass.swift in Sources */,
 				1EA3FCE6292E4B360073560D /* CoreDataStorage+TimeMO.swift in Sources */,
 				1E651DAE2953168900B4F321 /* TimerUseCase.swift in Sources */,
 				1E6A19C329937FE8001FA3ED /* NameTextField.swift in Sources */,
+				1E1C43B92A7A8F16003CC427 /* UserNotificationCenterService.swift in Sources */,
 				1E744BB1296C488A00CD824D /* TimerTableViewSection.swift in Sources */,
 				1EBEEFEA2925B85700299CE7 /* TagButton.swift in Sources */,
 				1E6A19C82993AF21001FA3ED /* SwipeRightToStopNoticeView.swift in Sources */,
 				1E6FAD9729403F900021B845 /* CoreDataTimerRepository.swift in Sources */,
 				1E744BA9296C488A00CD824D /* UITextField+addLeftPadding.swift in Sources */,
 				1E651DAC2953165800B4F321 /* CountUpTimerUseCase.swift in Sources */,
+				1E1C42E22A765844003CC427 /* RingtoneSelectViewController.swift in Sources */,
 				1E8C28F62A73C0D800935C5E /* HomeCoordinatorAction.swift in Sources */,
 				1E482BE82913559600175B78 /* Timer.swift in Sources */,
 				1EBEEFE82925B73000299CE7 /* TagColor.swift in Sources */,
@@ -960,6 +1128,7 @@
 				1E4CB4F529673E3E00FC918E /* HomeUseCase.swift in Sources */,
 				1EBEEFE02922446A00299CE7 /* CountDownTimerUseCase.swift in Sources */,
 				1E482BD4291353F400175B78 /* TimePickerViewDataSource.swift in Sources */,
+				1E1C43BD2A7A90E7003CC427 /* UIButton+Rx+configurationTitle.swift in Sources */,
 				1E4159F5294CCA8400EDA065 /* FilteringNavigationTitleView.swift in Sources */,
 				1E9BA3C92914CF5400B39E9C /* TimerCellViewModel.swift in Sources */,
 				1E744BAB296C488A00CD824D /* UITextField+Rx+textChanged.swift in Sources */,
@@ -968,11 +1137,14 @@
 				1EBEF029292909DD00299CE7 /* TimerModel.xcdatamodeld in Sources */,
 				1EA3FCE8292E4B730073560D /* CoreDataStorage+TagMO.swift in Sources */,
 				1EA3FCE0292E43520073560D /* ManagedObjectConvertible.swift in Sources */,
+				1E1C43B42A7A77A0003CC427 /* RingtoneType.swift in Sources */,
 				1E4159EE29485C6900EDA065 /* TimerEditingView.swift in Sources */,
-				1EBFEE152919270D00747606 /* TimerEditingViewModel.swift in Sources */,
+				1EBFEE152919270D00747606 /* TimerEditingReactor.swift in Sources */,
 				1E4159F2294C0BDB00EDA065 /* TimeFactory.swift in Sources */,
 				1E48FE992911F9240090B246 /* AppDelegate.swift in Sources */,
 				1E744BB3296C488A00CD824D /* EditViewButtonType.swift in Sources */,
+				1E1C43B22A7A7781003CC427 /* RingtoneSelectTableViewDiffableDataSource.swift in Sources */,
+				1E1C437B2A768626003CC427 /* Ringtone.swift in Sources */,
 				1E744BB2296C488A00CD824D /* TimerFilteringCondition.swift in Sources */,
 				1E4CB4DF2966BE9000FC918E /* TimeMO+CoreDataClass.swift in Sources */,
 				1E744BB4296C488A00CD824D /* TimeType.swift in Sources */,
@@ -1218,7 +1390,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanghyeok.Multimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1252,7 +1424,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanghyeok.Multimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -18,7 +18,8 @@ protocol TimerPersistentRepository {
         state: TimerState?,
         expireDate: Date?,
         startDate: Date?,
-        type: TimerType?
+        type: TimerType?,
+        ringtone: Ringtone?
     ) -> Completable
     func saveTimeOfTimer(
         target identifier: UUID,
@@ -42,16 +43,19 @@ extension TimerPersistentRepository {
         state: TimerState? = nil,
         expireDate: Date? = nil,
         startDate: Date? = nil,
-        type: TimerType? = nil
+        type: TimerType? = nil,
+        ringtone: Ringtone? = nil
     ) -> Completable {
-        updateTimer(target: identifier,
-                    name: name,
-                    tag: tag,
-                    time: time,
-                    state: state,
-                    expireDate: expireDate,
-                    startDate: startDate,
-                    type: type
+        updateTimer(
+            target: identifier,
+            name: name,
+            tag: tag,
+            time: time,
+            state: state,
+            expireDate: expireDate,
+            startDate: startDate,
+            type: type,
+            ringtone: ringtone
         )
     }
     

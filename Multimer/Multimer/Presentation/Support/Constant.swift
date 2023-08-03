@@ -30,6 +30,8 @@ enum Constant {
         
         static let hourglassTophalfFilled = "hourglass.tophalf.filled"
         static let stopwatchFill = "stopwatch.fill"
+        
+        static let bellFill = "bell.fill"
     }
     
     enum AssetImageName {
@@ -47,5 +49,9 @@ enum Constant {
     enum UserDefaultsKey {
         static let isFirstLaunch = "isFirstLaunch"
         static let isNotificationAllowed = "isNotificationAllowed"
+    }
+    
+    enum Ringtone {
+        static let `extension` = "aiff"
     }
 }

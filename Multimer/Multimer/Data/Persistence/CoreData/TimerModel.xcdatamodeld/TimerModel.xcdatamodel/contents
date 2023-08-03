@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Tag" representedClassName="TagMO" syncable="YES" codeGenerationType="category">
         <attribute name="isSelected" attributeType="Boolean" usesScalarValueType="YES"/>
         <relationship name="color" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TagColor"/>
@@ -19,17 +19,11 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="notificationIdentifier" optional="YES" attributeType="String"/>
         <attribute name="repeatCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="soundValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="ringtoneValue" optional="YES" attributeType="String"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="stateValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="typeValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag"/>
         <relationship name="time" maxCount="1" deletionRule="Nullify" destinationEntity="Time"/>
     </entity>
-    <elements>
-        <element name="Tag" positionX="-518.3515625" positionY="-274.8671875" width="128" height="59"/>
-        <element name="TagColor" positionX="-396.00390625" positionY="-144.3125" width="128" height="44"/>
-        <element name="Time" positionX="-821.26953125" positionY="-276.1484375" width="128" height="59"/>
-        <element name="Timer" positionX="-638.5390625" positionY="-406.37890625" width="128" height="224"/>
-    </elements>
 </model>

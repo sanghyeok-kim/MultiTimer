@@ -18,6 +18,7 @@ struct Timer {
     var startDate: Date?
     var notificationIdentifier: String?
     var type: TimerType
+    var ringtone: Ringtone?
     var index: Int
     
     // TODO: Sound, RepeatCount
@@ -38,6 +39,7 @@ struct Timer {
          expireDate: Date? = nil,
          startDate: Date? = nil,
          type: TimerType = .countDown,
+         ringtone: Ringtone? = .default1,
          index: Int = .zero) {
         self.identifier = identifier
         self.name = name
@@ -48,6 +50,7 @@ struct Timer {
         self.startDate = startDate
         self.notificationIdentifier = identifier.uuidString
         self.type = type
+        self.ringtone = ringtone
         self.index = index
     }
     
@@ -61,6 +64,7 @@ struct Timer {
         self.startDate = timer.startDate
         self.notificationIdentifier = timer.identifier.uuidString
         self.type = timer.type
+        self.ringtone = timer.ringtone
         self.index = timer.index
     }
     
@@ -74,7 +78,10 @@ struct Timer {
 
 extension Timer: Equatable {
     static func == (lhs: Timer, rhs: Timer) -> Bool {
-        return (lhs.name == rhs.name) && (lhs.tag == rhs.tag) && (lhs.time == rhs.time)
+        return (lhs.name == rhs.name)
+        && (lhs.tag == rhs.tag)
+        && (lhs.time == rhs.time)
+        && (lhs.ringtone == rhs.ringtone)
     }
 }
 
@@ -91,6 +98,7 @@ extension Timer: ManagedObjectConvertible {
             startDate: startDate,
             notificationIdentifier: notificationIdentifier,
             type: type,
+            ringtone: ringtone,
             index: index,
             context: context
         )

@@ -58,7 +58,12 @@ final class CountDownTimerUseCase: TimerUseCase {
             resetTimer()
         }
         
-        registerNotification()
+        UserNotificationCenterService.registerNotification(
+            ringtone: timer.value.ringtone,
+            remainingSeconds: currentTimer.remainingSeconds,
+            timerName: currentTimer.name,
+            notificationIdentifier: currentTimer.notificationIdentifier
+        )
         
         let expireDate = Date(timeInterval: currentTimer.remainingSeconds, since: .now)
         timerPersistentRepository
@@ -112,7 +117,13 @@ final class CountDownTimerUseCase: TimerUseCase {
         }
         
         timerPersistentRepository
-            .updateTimer(target: newTimer.identifier, name: newTimer.name, tag: newTimer.tag, time: newTimer.time)
+            .updateTimer(
+                target: newTimer.identifier,
+                name: newTimer.name,
+                tag: newTimer.tag,
+                time: newTimer.time,
+                ringtone: newTimer.ringtone
+            )
             .subscribe(onCompleted: { [weak self] in
                 guard let self = self else { return }
                 self.timer.accept(newTimer)
@@ -129,24 +140,18 @@ final class CountDownTimerUseCase: TimerUseCase {
         dispatchSourceTimer = nil
         
         guard let notificationIdentifier = currentTimer.notificationIdentifier else { return }
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
+        UserNotificationCenterService.removeNotification(withIdentifiers: [notificationIdentifier])
     }
     
-    // TODO: Notification Manager 구현
-    private func registerNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = LocalizableString.appTitle.localized
-        content.body = LocalizableString.timerExpired(timerName: currentTimer.name).localized
-        content.sound = .default
-        
-        if currentTimer.remainingSeconds <= .zero { return }
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(currentTimer.remainingSeconds), repeats: false)
-        guard let notificationIdentifier = currentTimer.notificationIdentifier else { return }
-        let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request)
+    deinit {
+        stopTimer()
     }
-    
-    private func runTimer(by expirationDate: Date) {
+}
+
+// MARK: - Supporting Methods
+
+private extension CountDownTimerUseCase {
+    func runTimer(by expirationDate: Date) {
         if dispatchSourceTimer == nil {
             dispatchSourceTimer = DispatchSource.makeTimerSource(queue: .global())
         }
@@ -163,19 +168,18 @@ final class CountDownTimerUseCase: TimerUseCase {
                 self.expireTimer()
                 self.stopTimer()
             } else {
-                let remainingTime = Time(totalSeconds: self.currentTimer.totalSeconds, remainingSeconds: remainingTimeInterval)
+                let remainingTime = Time(
+                    totalSeconds: self.currentTimer.totalSeconds,
+                    remainingSeconds: remainingTimeInterval
+                )
                 self.timer.accept(Timer(timer: self.currentTimer, time: remainingTime))
             }
         }
     }
     
-    private func expireTimer() {
+    func expireTimer() {
         let expiredTime = TimeFactory.createExpiredTime(of: currentTimer.time)
         timer.accept(Timer(timer: currentTimer, time: expiredTime))
         timerPersistentRepository.saveTimeOfTimer(target: timerIdentifier, time: expiredTime)
-    }
-    
-    deinit {
-        stopTimer()
     }
 }

@@ -77,10 +77,16 @@ final class TimerCreateViewController: UIViewController, View {
     }()
     
     private lazy var timePickerButtonStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [timePickerView, buttonStackView])
+        let stackView = UIStackView(arrangedSubviews: [timePickerView, ringtoneButton, buttonStackView])
         stackView.axis = .vertical
         stackView.spacing = 24
         return stackView
+    }()
+    
+    private let ringtoneButton: RingtoneButton = {
+        let button = RingtoneButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: ViewSize.buttonFont)
+        return button
     }()
     
     var disposeBag = DisposeBag()
@@ -96,7 +102,7 @@ final class TimerCreateViewController: UIViewController, View {
         layout()
     }
     
-    func bind(reactor: TimerCreateViewModel) {
+    func bind(reactor: TimerCreateReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
@@ -105,7 +111,7 @@ final class TimerCreateViewController: UIViewController, View {
 // MARK: - Bind Reactor
 
 private extension TimerCreateViewController {
-    func bindAction(reactor: TimerCreateViewModel) {
+    func bindAction(reactor: TimerCreateReactor) {
         timerTypeSegmentControl.rx.selectedSegmentIndex
             .compactMap { TimerType(rawValue: $0) }
             .map { Reactor.Action.timerTypeDidSelect($0) }
@@ -151,9 +157,14 @@ private extension TimerCreateViewController {
             .map { Reactor.Action.timePickerViewDidEdit($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        ringtoneButton.rx.tap
+            .map { Reactor.Action.ringtoneButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: TimerCreateViewModel) {
+    func bindState(reactor: TimerCreateReactor) {
         reactor.state.map { $0.isCompleteButtonEnabled }
             .distinctUntilChanged()
             .bind(to: completeButton.rx.isEnabled)
@@ -177,7 +188,13 @@ private extension TimerCreateViewController {
         
         reactor.state.map { $0.isTimePickerViewHidden }
             .distinctUntilChanged()
-            .bind(to: timePickerView.rx.animated.flip(.top, duration: 0.35).isHidden)
+            .bind(to: timePickerView.rx.animated.flip(.top, duration: 0.35).isHidden, ringtoneButton.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.selectedRingtone }
+            .distinctUntilChanged()
+            .map { LocalizableString.ringtoneName(ringtone: $0).localized }
+            .bind(to: ringtoneButton.rx.configurationTitle)
             .disposed(by: disposeBag)
     }
 }
