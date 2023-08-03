@@ -39,6 +39,10 @@ enum LocalizableString {
     case checkNotificationPermissions
     case allowNotificationAuthorizationAlert
     case goToSettings
+    case alertTones
+    case ringtones
+    case ringtoneName(ringtone: Ringtone)
+
     
     var localized: String {
         switch self {
@@ -104,6 +108,12 @@ enum LocalizableString {
             return String(format: NSLocalizedString("allowNotificationAuthorizationAlert", comment: ""))
         case .goToSettings:
             return String(format: NSLocalizedString("goToSettings", comment: ""))
+        case .alertTones:
+            return String(format: NSLocalizedString("alertTones", comment: ""))
+        case .ringtones:
+            return String(format: NSLocalizedString("ringtones", comment: ""))
+        case .ringtoneName(let ringtone):
+            return String(format: NSLocalizedString("\(ringtone.name)", comment: ""))
         }
     }
 }

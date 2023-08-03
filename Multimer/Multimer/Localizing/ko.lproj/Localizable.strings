@@ -37,3 +37,36 @@
 "checkNotificationPermissions" = "알림 권한 확인";
 "allowNotificationAuthorizationAlert" = "알림 권한을 허용하지 않아 알람이 울리지 않습니다. 설정에서 알림 권한을 허용해 주세요.";
 "goToSettings" = "설정으로 이동";
+
+// MARK: - Ringtones
+
+"alertTones" = "알림 소리";
+"ringtones" = "벨소리";
+
+"default1" = "기본음1";
+"default2" = "기본음2";
+"default3" = "기본음3";
+"default4" = "기본음4";
+"default5" = "기본음5";
+"default6" = "기본음6";
+"default7" = "기본음7";
+"default8" = "기본음8";
+"alarm" = "경보기";
+"bark" = "개 짖는 소리";
+"beacon" = "옅어지는 신호음";
+"bulletin" = "공지음";
+"duck" = "오리 소리";
+"illuminate" = "조명";
+"marimba" = "마림바";
+"oldPhone" = "전화 벨소리";
+"pianoRiff" = "피아노 연주";
+"pinball" = "핀볼";
+"presto" = "프레스토";
+"radar" = "전파 탐지기";
+"reflection" = "반향";
+"sencha" = "녹차";
+"signal" = "신호음";
+"stargaze" = "공상음";
+"strum" = "기타 연주";
+"trill" = "떨리는 소리";
+"xylophone" = "실로폰";

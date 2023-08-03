@@ -37,3 +37,36 @@
 "checkNotificationPermissions" = "Kiểm tra quyền thông báo";
 "allowNotificationAuthorizationAlert" = "Thông báo không hiện vì bạn chưa cho phép quyền thông báo. Vui lòng cho phép quyền thông báo trong Cài đặt.";
 "goToSettings" = "Tới thiết lập";
+
+// MARK: - Ringtones
+
+"alertTones" = "ALERT TONES";
+"ringtones" = "RINGTONES";
+
+"default1" = "Alert Sound 1";
+"default2" = "Alert Sound 2";
+"default3" = "Alert Sound 3";
+"default4" = "Alert Sound 4";
+"default5" = "Alert Sound 5";
+"default6" = "Alert Sound 6";
+"default7" = "Alert Sound 7";
+"default8" = "Alert Sound 8";
+"alarm" = "Alarm";
+"bark" = "Bark";
+"beacon" = "Beacon";
+"bulletin" = "Bulletin";
+"duck" = "Duck";
+"illuminate" = "Illuminate";
+"marimba" = "Marimba";
+"oldPhone" = "Old Phone";
+"pianoRiff" = "Piano Riff";
+"pinball" = "Pinball";
+"presto" = "Presto";
+"radar" = "Radar";
+"reflection" = "Reflection";
+"sencha" = "Sencha";
+"signal" = "Signal";
+"stargaze" = "Stargaze";
+"strum" = "Strum";
+"trill" = "Trill";
+"xylophone" = "Xylophone";
