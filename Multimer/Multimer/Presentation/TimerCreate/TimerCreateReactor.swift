@@ -18,12 +18,14 @@ final class TimerCreateReactor: Reactor {
         case tagDidSelect(Tag?)
         case timePickerViewDidEdit(Time)
         case timerTypeDidSelect(TimerType)
+        case ringtoneButtonDidTap
     }
     
     enum Mutation {
         case setTimePickerViewHidden(Bool)
         case setTimer(Timer)
         case setTimerNamePlaceholder(String)
+        case updateSelectedRingtone(Ringtone)
     }
     
     struct State {
@@ -31,12 +33,14 @@ final class TimerCreateReactor: Reactor {
         var isTimePickerViewHidden: Bool = false
         var timer = Timer(tag: Tag(isSelected: true, color: .label))
         var timerNamePlaceholder: String = ""
+        var selectedRingtone: Ringtone = .default1
     }
     
     let initialState = State()
     
     private weak var coordinator: HomeCoordinator?
     private let createdTimerRelay: PublishRelay<Timer>
+    private let selectedRingtoneRelay = BehaviorRelay<Ringtone>(value: .default1)
     
     init(coordinator: HomeCoordinator?, createdTimerRelay: PublishRelay<Timer>) {
         self.coordinator = coordinator
@@ -87,6 +91,9 @@ final class TimerCreateReactor: Reactor {
                 .just(.setTimerNamePlaceholder(selectedType.placeholder)),
                 .just(.setTimer(timer))
             ])
+            
+        case .ringtoneButtonDidTap:
+            return showRingtoneSelectScene(selectedRingtoneRelay: selectedRingtoneRelay)
         }
     }
     
@@ -103,6 +110,10 @@ final class TimerCreateReactor: Reactor {
             
         case .setTimerNamePlaceholder(let placeholder):
             newState.timerNamePlaceholder = placeholder
+            
+        case .updateSelectedRingtone(let ringtone):
+            newState.selectedRingtone = ringtone
+            newState.timer.ringtone = ringtone
         }
         return newState
     }
@@ -126,6 +137,11 @@ private extension TimerCreateReactor {
     func exitScene() -> Observable<Mutation> {
         coordinator?.coordinate(by: .finishTimerCreateScene)
         return .empty()
+    }
+    
+    func showRingtoneSelectScene(selectedRingtoneRelay: BehaviorRelay<Ringtone>) -> Observable<Mutation> {
+        coordinator?.coordinate(by: .showRingtoneSelectScene(selectedRingtoneRelay: selectedRingtoneRelay))
+        return selectedRingtoneRelay.map { Mutation.updateSelectedRingtone($0) }
     }
     
     func acceptCreatedTimerRelay(createdTimer: Timer) -> Observable<Mutation> {

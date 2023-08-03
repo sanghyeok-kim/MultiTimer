@@ -77,10 +77,16 @@ final class TimerCreateViewController: UIViewController, View {
     }()
     
     private lazy var timePickerButtonStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [timePickerView, buttonStackView])
+        let stackView = UIStackView(arrangedSubviews: [timePickerView, ringtoneButton, buttonStackView])
         stackView.axis = .vertical
         stackView.spacing = 24
         return stackView
+    }()
+    
+    private let ringtoneButton: RingtoneButton = {
+        let button = RingtoneButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: ViewSize.buttonFont)
+        return button
     }()
     
     var disposeBag = DisposeBag()
@@ -151,6 +157,11 @@ private extension TimerCreateViewController {
             .map { Reactor.Action.timePickerViewDidEdit($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        ringtoneButton.rx.tap
+            .map { Reactor.Action.ringtoneButtonDidTap }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: TimerCreateReactor) {
@@ -177,7 +188,13 @@ private extension TimerCreateViewController {
         
         reactor.state.map { $0.isTimePickerViewHidden }
             .distinctUntilChanged()
-            .bind(to: timePickerView.rx.animated.flip(.top, duration: 0.35).isHidden)
+            .bind(to: timePickerView.rx.animated.flip(.top, duration: 0.35).isHidden, ringtoneButton.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.selectedRingtone }
+            .distinctUntilChanged()
+            .map { LocalizableString.ringtoneName(ringtone: $0).localized }
+            .bind(to: ringtoneButton.rx.configurationTitle)
             .disposed(by: disposeBag)
     }
 }

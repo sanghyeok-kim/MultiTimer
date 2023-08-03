@@ -17,11 +17,13 @@ final class TimerEditingReactor: Reactor {
         case tagDidSelect(Tag?)
         case timePickerViewDidEdit(Time)
         case viewDidLoad
+        case ringtoneButtonDidTap
     }
     
     enum Mutation {
         case setTimePickerViewIsHidden(Bool)
         case editTimer(Timer)
+        case updateSelectedRingtone(Ringtone)
     }
     
     struct State {
@@ -36,6 +38,7 @@ final class TimerEditingReactor: Reactor {
     
     private weak var coordinator: HomeCoordinator?
     private let editedTimerRelay: PublishRelay<Timer>
+    private let selectedRingtoneRelay: BehaviorRelay<Ringtone>
     
     init(
         initialTimer: Timer,
@@ -45,6 +48,7 @@ final class TimerEditingReactor: Reactor {
         initialState = State(editedTimer: initialTimer, initialTimer: initialTimer)
         self.coordinator = coordinator
         self.editedTimerRelay = editedTimerRelay
+        self.selectedRingtoneRelay = BehaviorRelay<Ringtone>(value: initialTimer.ringtone ?? .default1)
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -78,6 +82,9 @@ final class TimerEditingReactor: Reactor {
             let initialTimer = currentState.initialTimer
             let isTimePickerViewHidden = !initialTimer.type.shouldSetTime
             return .just(.setTimePickerViewIsHidden(isTimePickerViewHidden))
+            
+        case .ringtoneButtonDidTap:
+            return showRingtoneSelectScene(selectedRingtoneRelay: selectedRingtoneRelay)
         }
     }
     
@@ -90,8 +97,15 @@ final class TimerEditingReactor: Reactor {
         case .editTimer(let editedTimer):
             newState.editedTimer = editedTimer
             newState.isCompleteButtonEnable = validateCompleteButtonIsEnable(
-                currentTimer: state.initialTimer,
-                newTimer: editedTimer
+                initialTimer: state.initialTimer,
+                newTimer: newState.editedTimer
+            )
+            
+        case .updateSelectedRingtone(let ringtone):
+            newState.editedTimer.ringtone = ringtone
+            newState.isCompleteButtonEnable = validateCompleteButtonIsEnable(
+                initialTimer: state.initialTimer,
+                newTimer: newState.editedTimer
             )
         }
         return newState
@@ -101,12 +115,12 @@ final class TimerEditingReactor: Reactor {
 // MARK: - Supporting Methods
 
 private extension TimerEditingReactor {
-    func validateCompleteButtonIsEnable(currentTimer: Timer, newTimer: Timer) -> Bool {
+    func validateCompleteButtonIsEnable(initialTimer: Timer, newTimer: Timer) -> Bool {
         switch newTimer.type {
         case .countDown:
-            return currentTimer != newTimer && newTimer.totalSeconds > 0
+            return initialTimer != newTimer && newTimer.totalSeconds > 0
         case .countUp:
-            return currentTimer != newTimer
+            return initialTimer != newTimer
         }
     }
 }
@@ -117,6 +131,11 @@ private extension TimerEditingReactor {
     func exitScene() -> Observable<Mutation> {
         coordinator?.coordinate(by: .finishTimerEditScene)
         return .empty()
+    }
+    
+    func showRingtoneSelectScene(selectedRingtoneRelay: BehaviorRelay<Ringtone>) -> Observable<Mutation> {
+        coordinator?.coordinate(by: .showRingtoneSelectScene(selectedRingtoneRelay: selectedRingtoneRelay))
+        return selectedRingtoneRelay.map { Mutation.updateSelectedRingtone($0) }
     }
     
     func acceptEditedTimerRelay(editedTimer: Timer) -> Observable<Mutation> {
