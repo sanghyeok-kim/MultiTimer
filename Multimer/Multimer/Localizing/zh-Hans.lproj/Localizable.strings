@@ -29,7 +29,7 @@
 "noTimerActivatedMessage" = "无活化中的计时器";
 "onlyActiveTimersAppearMessage" = "只显示正在活化中或暂停的计时器。";
 "settingTimer" = "设定 %@";
-"timerExpired" = "计时器 完了 '%@'";
+"timerExpired" = "[计时器 完了] %@";
 "appTitle" = "多重计时器";
 "defaultName" = "默认名称";
 "swipeRightToStop" = "向右滑动以停止计时器。"; 

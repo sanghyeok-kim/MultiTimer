@@ -29,7 +29,7 @@
 "noTimerActivatedMessage" = "No Timer Activated";
 "onlyActiveTimersAppearMessage" = "Timers in the run, pause, and complete states appear.";
 "settingTimer" = "Editing %@";
-"timerExpired" = "Timer Expired - %@";
+"timerExpired" = "[Timer Expired] %@";
 "appTitle" = "Multi+Timer";
 "defaultName" = "Default Name";
 "swipeRightToStop" = "Swipe right to stop the timer.";

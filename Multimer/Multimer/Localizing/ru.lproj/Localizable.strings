@@ -8,7 +8,7 @@
 
 "timer" = "Таймер";
 "stopwatch" = "Секундомер";
-"countDownTimer" = "⏳ Обратный отсчет";
+"countDownTimer" = "⏳ Таймер";
 "countUpStopwatch" = "⏱ Секундомер";
 "hour" = "h";
 "minute" = "m";
@@ -29,7 +29,7 @@
 "noTimerActivatedMessage" = "Таймер не активирован";
 "onlyActiveTimersAppearMessage" = "Таймеры в состояниях запуска,\nпаузы и завершения появляются.";
 "settingTimer" = "Настройка %@";
-"timerExpired" = "Время таймера истекло - %@";
+"timerExpired" = "[Таймер истек] %@";
 "appTitle" = "Мульти таймер";
 "defaultName" = "Имя по умолчанию";
 "swipeRightToStop" = "Свайпните вправо, чтобы остановить таймер.";

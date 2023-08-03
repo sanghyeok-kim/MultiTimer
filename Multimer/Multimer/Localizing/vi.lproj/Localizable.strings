@@ -29,7 +29,7 @@
 "noTimerActivatedMessage" = "Không có bộ hẹn giờ nào\nđang chạy";
 "onlyActiveTimersAppearMessage" = "Đồng hồ hẹn giờ có trạng thái\nđang chạy / tạm dừng / kết thúc sẽ xuất hiện.";
 "settingTimer" = "%@ Cài đặt";
-"timerExpired" = "Hẹn giờ kết thúc - %@";
+"timerExpired" = "[Hẹn giờ kết thúc] %@";
 "appTitle" = "Multi Timer";
 "defaultName" = "Tên mặc định";
 "swipeRightToStop" = "Vuốt sang phải để dừng hẹn giờ";

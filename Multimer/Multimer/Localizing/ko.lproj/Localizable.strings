@@ -29,7 +29,7 @@
 "noTimerActivatedMessage" = "활성화된 타이머 없음";
 "onlyActiveTimersAppearMessage" = "실행 / 일시정지 / 완료 상태의 타이머가 나타납니다.";
 "settingTimer" = "%@ 설정";
-"timerExpired" = "타이머 종료 - %@";
+"timerExpired" = "[타이머 종료] %@";
 "appTitle" = "멀티 타이머";
 "defaultName" = "기본 이름";
 "swipeRightToStop" = "오른쪽으로 밀어서 중지할 수 있습니다.";
