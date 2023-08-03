@@ -112,7 +112,13 @@ final class CountDownTimerUseCase: TimerUseCase {
         }
         
         timerPersistentRepository
-            .updateTimer(target: newTimer.identifier, name: newTimer.name, tag: newTimer.tag, time: newTimer.time)
+            .updateTimer(
+                target: newTimer.identifier,
+                name: newTimer.name,
+                tag: newTimer.tag,
+                time: newTimer.time,
+                ringtone: newTimer.ringtone
+            )
             .subscribe(onCompleted: { [weak self] in
                 guard let self = self else { return }
                 self.timer.accept(newTimer)

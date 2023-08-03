@@ -20,6 +20,7 @@ extension CoreDataStorage {
         startDate: Date? = nil,
         notificationIdentifier: String? = nil,
         type: TimerType? = nil,
+        ringtone: Ringtone? = nil,
         index: Int? = nil
     ) {
         backgroundContext.perform { [weak self] in
@@ -34,6 +35,7 @@ extension CoreDataStorage {
                 startDate: startDate,
                 notificationIdentifier: notificationIdentifier,
                 type: type,
+                ringtone: ringtone,
                 context: self.backgroundContext
             )
             self.saveContext()

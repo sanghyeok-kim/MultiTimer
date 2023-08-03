@@ -52,7 +52,8 @@ final class CoreDataTimerRepository: TimerPersistentRepository {
         state: TimerState? = nil,
         expireDate: Date? = nil,
         startDate: Date? = nil,
-        type: TimerType? = nil
+        type: TimerType? = nil,
+        ringtone: Ringtone? = nil
     ) -> Completable {
         return Completable.create { [weak self] completable in
             guard let self = self else { return Disposables.create { } }
@@ -66,7 +67,8 @@ final class CoreDataTimerRepository: TimerPersistentRepository {
                         state: state,
                         expireDate: expireDate,
                         startDate: startDate,
-                        type: type
+                        type: type,
+                        ringtone: ringtone
                     )
                     completable(.completed)
                 }
