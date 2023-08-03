@@ -123,10 +123,9 @@ final class TimerCreateReactor: Reactor {
 
 private extension TimerCreateReactor {
     func validateCompleteButtonIsEnable(for timer: Timer) -> Bool {
-        let isNameEmpty = timer.name.isEmpty
         let isTypeCountUp = timer.type == .countUp
         let isTotalSecondsBiggerThanZero = timer.totalSeconds > .zero
-        let isCompleteButtonEnable = !isNameEmpty && (isTypeCountUp ? true : isTotalSecondsBiggerThanZero)
+        let isCompleteButtonEnable = isTypeCountUp ? true : isTotalSecondsBiggerThanZero
         return isCompleteButtonEnable
     }
 }
