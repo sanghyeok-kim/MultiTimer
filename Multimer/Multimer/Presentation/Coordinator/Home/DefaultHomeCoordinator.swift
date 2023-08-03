@@ -29,6 +29,8 @@ final class DefaultHomeCoordinator: HomeCoordinator {
             presentTimerCreateViewController(createdTimerRelay: createdTimerRelay)
         case .showTimerEditScene(let initialTimer, let editedTimerRelay):
             pushTimerEditViewController(initialTimer: initialTimer, editedTimerRelay: editedTimerRelay)
+        case .showRingtoneSelectScene(let selectedRingtoneRelay):
+            presentRingtoneSelectViewController(selectedRingtoneRelay: selectedRingtoneRelay)
         case .finishTimerCreateScene:
             navigationController.dismiss(animated: true)
         case .finishTimerEditScene:
@@ -71,5 +73,12 @@ private extension DefaultHomeCoordinator {
         )
         timerEditingViewController.reactor = timerEditingReactor
         navigationController.pushViewController(timerEditingViewController, animated: true)
+    }
+    
+    func presentRingtoneSelectViewController(selectedRingtoneRelay: BehaviorRelay<Ringtone>) {
+        let ringtoneSelectViewController = RingtoneSelectViewController()
+        let ringtoneSelectReactor = RingtoneSelectReactor(selectedRingtoneRelay: selectedRingtoneRelay)
+        ringtoneSelectViewController.reactor = ringtoneSelectReactor
+        navigationController.visibleViewController?.present(ringtoneSelectViewController, animated: true)
     }
 }

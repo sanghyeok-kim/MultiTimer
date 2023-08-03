@@ -11,6 +11,7 @@ enum HomeCoordinatorAction {
     case appDidStart
     case showTimerCreateScene(createdTimerRelay: PublishRelay<Timer>)
     case showTimerEditScene(initialTimer: Timer, editedTimerRelay: PublishRelay<Timer>)
+    case showRingtoneSelectScene(selectedRingtoneRelay: BehaviorRelay<Ringtone>)
     case finishTimerCreateScene
     case finishTimerEditScene
 }
