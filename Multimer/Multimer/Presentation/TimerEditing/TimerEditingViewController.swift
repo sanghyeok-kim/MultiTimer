@@ -83,7 +83,7 @@ final class TimerEditingViewController: UIViewController, View {
         layout()
     }
     
-    func bind(reactor: TimerEditingViewModel) {
+    func bind(reactor: TimerEditingReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
@@ -92,7 +92,7 @@ final class TimerEditingViewController: UIViewController, View {
 // MARK: - Bind Reactor
 
 private extension TimerEditingViewController {
-    func bindAction(reactor: TimerEditingViewModel) {
+    func bindAction(reactor: TimerEditingReactor) {
         rx.viewDidLoad
             .map { Reactor.Action.viewDidLoad }
             .bind(to: reactor.action)
@@ -135,7 +135,7 @@ private extension TimerEditingViewController {
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: TimerEditingViewModel) {
+    func bindState(reactor: TimerEditingReactor) {
         reactor.state.map { $0.initialTimer }
             .distinctUntilChanged()
             .observe(on: MainScheduler.asyncInstance)

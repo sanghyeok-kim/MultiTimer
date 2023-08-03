@@ -54,7 +54,7 @@ private extension DefaultHomeCoordinator {
     
     func presentTimerCreateViewController(createdTimerRelay: PublishRelay<Timer>) {
         let timerCreateViewController = TimerCreateViewController()
-        let timerCreateReactor = TimerCreateViewModel(
+        let timerCreateReactor = TimerCreateReactor(
             coordinator: self,
             createdTimerRelay: createdTimerRelay
         )
@@ -64,7 +64,7 @@ private extension DefaultHomeCoordinator {
     
     func pushTimerEditViewController(initialTimer: Timer, editedTimerRelay: PublishRelay<Timer>) {
         let timerEditingViewController = TimerEditingViewController()
-        let timerEditingReactor = TimerEditingViewModel(
+        let timerEditingReactor = TimerEditingReactor(
             initialTimer: initialTimer,
             coordinator: self,
             editedTimerRelay: editedTimerRelay

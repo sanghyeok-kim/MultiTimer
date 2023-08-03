@@ -96,7 +96,7 @@ final class TimerCreateViewController: UIViewController, View {
         layout()
     }
     
-    func bind(reactor: TimerCreateViewModel) {
+    func bind(reactor: TimerCreateReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
@@ -105,7 +105,7 @@ final class TimerCreateViewController: UIViewController, View {
 // MARK: - Bind Reactor
 
 private extension TimerCreateViewController {
-    func bindAction(reactor: TimerCreateViewModel) {
+    func bindAction(reactor: TimerCreateReactor) {
         timerTypeSegmentControl.rx.selectedSegmentIndex
             .compactMap { TimerType(rawValue: $0) }
             .map { Reactor.Action.timerTypeDidSelect($0) }
@@ -153,7 +153,7 @@ private extension TimerCreateViewController {
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: TimerCreateViewModel) {
+    func bindState(reactor: TimerCreateReactor) {
         reactor.state.map { $0.isCompleteButtonEnabled }
             .distinctUntilChanged()
             .bind(to: completeButton.rx.isEnabled)

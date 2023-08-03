@@ -1,5 +1,5 @@
 //
-//  TimerEditingViewModel.swift
+//  TimerEditingReactor.swift
 //  Multimer
 //
 //  Created by 김상혁 on 2022/11/07.
@@ -8,7 +8,7 @@
 import ReactorKit
 import RxRelay
 
-final class TimerEditingViewModel: Reactor {
+final class TimerEditingReactor: Reactor {
     
     enum Action {
         case cancelButtonDidTap
@@ -100,7 +100,7 @@ final class TimerEditingViewModel: Reactor {
 
 // MARK: - Supporting Methods
 
-private extension TimerEditingViewModel {
+private extension TimerEditingReactor {
     func validateCompleteButtonIsEnable(currentTimer: Timer, newTimer: Timer) -> Bool {
         switch newTimer.type {
         case .countDown:
@@ -113,7 +113,7 @@ private extension TimerEditingViewModel {
 
 // MARK: - Side Effect Methods
 
-private extension TimerEditingViewModel {
+private extension TimerEditingReactor {
     func exitScene() -> Observable<Mutation> {
         coordinator?.coordinate(by: .finishTimerEditScene)
         return .empty()
