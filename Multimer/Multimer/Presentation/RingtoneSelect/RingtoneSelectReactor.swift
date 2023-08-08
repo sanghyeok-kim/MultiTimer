@@ -26,9 +26,11 @@ final class RingtoneSelectReactor: Reactor {
     }
     
     var initialState = State()
+    private weak var coordinator: HomeCoordinator?
     private let selectedRingtoneRelay: BehaviorRelay<Ringtone>
     
-    init(selectedRingtoneRelay: BehaviorRelay<Ringtone>) {
+    init(coordinator: HomeCoordinator?, selectedRingtoneRelay: BehaviorRelay<Ringtone>) {
+        self.coordinator = coordinator
         self.selectedRingtoneRelay = selectedRingtoneRelay
     }
     
