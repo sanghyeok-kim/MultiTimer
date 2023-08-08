@@ -40,6 +40,8 @@
 
 // MARK: - Ringtones
 
+"selectRingtone" = "Select Alarm Sound";
+
 "alertTones" = "ALERT TONES";
 "ringtones" = "RINGTONES";
 

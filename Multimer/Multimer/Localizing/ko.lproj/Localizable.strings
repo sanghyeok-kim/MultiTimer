@@ -40,6 +40,8 @@
 
 // MARK: - Ringtones
 
+"selectRingtone" = "알람음 설정";
+
 "alertTones" = "알림 소리";
 "ringtones" = "벨소리";
 

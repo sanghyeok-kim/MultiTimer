@@ -40,6 +40,8 @@
 
 // MARK: - Ringtones
 
+"selectRingtone" = "Chọn Nhạc Chuông";
+
 "alertTones" = "ALERT TONES";
 "ringtones" = "RINGTONES";
 

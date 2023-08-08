@@ -39,6 +39,7 @@ enum LocalizableString {
     case checkNotificationPermissions
     case allowNotificationAuthorizationAlert
     case goToSettings
+    case selectRingtone
     case alertTones
     case ringtones
     case ringtoneName(ringtone: Ringtone)
@@ -108,6 +109,8 @@ enum LocalizableString {
             return String(format: NSLocalizedString("allowNotificationAuthorizationAlert", comment: ""))
         case .goToSettings:
             return String(format: NSLocalizedString("goToSettings", comment: ""))
+        case .selectRingtone:
+            return String(format: NSLocalizedString("selectRingtone", comment: ""))
         case .alertTones:
             return String(format: NSLocalizedString("alertTones", comment: ""))
         case .ringtones:

@@ -40,6 +40,8 @@
 
 // MARK: - Ringtones
 
+"selectRingtone" = "选择警报声";
+
 "alertTones" = "警报音调";
 "ringtones" = "铃声";
 
