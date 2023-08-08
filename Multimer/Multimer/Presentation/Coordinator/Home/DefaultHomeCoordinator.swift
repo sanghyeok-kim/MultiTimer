@@ -35,6 +35,8 @@ final class DefaultHomeCoordinator: HomeCoordinator {
             navigationController.dismiss(animated: true)
         case .finishTimerEditScene:
             navigationController.popViewController(animated: true)
+        case .finishRingtoneSelectScene:
+            navigationController.dismiss(animated: true)
         }
     }
 }
@@ -77,8 +79,12 @@ private extension DefaultHomeCoordinator {
     
     func presentRingtoneSelectViewController(selectedRingtoneRelay: BehaviorRelay<Ringtone>) {
         let ringtoneSelectViewController = RingtoneSelectViewController()
-        let ringtoneSelectReactor = RingtoneSelectReactor(selectedRingtoneRelay: selectedRingtoneRelay)
+        let ringtoneSelectReactor = RingtoneSelectReactor(
+            coordinator: self,
+            selectedRingtoneRelay: selectedRingtoneRelay
+        )
         ringtoneSelectViewController.reactor = ringtoneSelectReactor
-        navigationController.visibleViewController?.present(ringtoneSelectViewController, animated: true)
+        let containerNavigationController = UINavigationController(rootViewController: ringtoneSelectViewController)
+        navigationController.visibleViewController?.present(containerNavigationController, animated: true)
     }
 }
