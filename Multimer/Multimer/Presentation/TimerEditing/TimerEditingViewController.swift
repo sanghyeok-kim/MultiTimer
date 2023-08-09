@@ -177,6 +177,11 @@ private extension TimerEditingViewController {
             .map { LocalizableString.ringtoneName(ringtone: $0 ?? .default1).localized }
             .bind(to: ringtoneButton.rx.configurationTitle)
             .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.timerNamePlaceholder }
+            .distinctUntilChanged()
+            .bind(to: nameTextField.rx.placeholder)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -189,7 +194,6 @@ private extension TimerEditingViewController {
     
     func configureUI(with timer: Timer) {
         title = LocalizableString.settingTimer(timerType: timer.type).localized
-        nameTextField.placeholder = timer.name
         nameTextField.text = timer.name
         timePickerView.selectRows(by: timer.time, animated: true)
     }
