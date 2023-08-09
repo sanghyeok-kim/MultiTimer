@@ -40,6 +40,8 @@
 
 // MARK: - Ringtones
 
+"selectRingtone" = "アラーム音を選択";
+
 "alertTones" = "ALERT TONES";
 "ringtones" = "RINGTONES";
 

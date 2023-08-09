@@ -12,6 +12,7 @@ import ReactorKit
 import RxCocoa
 
 final class RingtoneSelectViewController: UIViewController, View {
+    
     private lazy var tableViewDiffableDataSource = RingtoneSelectTableViewDiffableDataSource(tableView: tableView)
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -20,7 +21,6 @@ final class RingtoneSelectViewController: UIViewController, View {
         return tableView
     }()
     
-    
     private let closeBarButton = UIBarButtonItem(systemItem: .close)
     
     private var audioPlayer: AVAudioPlayer?
@@ -28,9 +28,8 @@ final class RingtoneSelectViewController: UIViewController, View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
-        
-        navigationItem.rightBarButtonItem = closeBarButton
+        configureUI()
+        layoutUI()
     }
     
     func bind(reactor: RingtoneSelectReactor) {
@@ -50,6 +49,11 @@ private extension RingtoneSelectViewController {
         
         tableView.rx.itemSelected
             .map { Reactor.Action.ringtoneDidSelect($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        closeBarButton.rx.tap
+            .map { Reactor.Action.closeButtonDidTap }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
@@ -74,13 +78,20 @@ private extension RingtoneSelectViewController {
 // MARK: - UI Layout
 
 private extension RingtoneSelectViewController {
-    func setupTableView() {
+    func configureUI() {
+        view.backgroundColor = .systemGray5
+        title = LocalizableString.selectRingtone.localized
+        navigationController?.navigationBar.barTintColor = .systemGray5
+        navigationItem.rightBarButtonItem = closeBarButton
+    }
+    
+    func layoutUI() {
         view.addSubview(tableView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 6).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 6).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -6).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }

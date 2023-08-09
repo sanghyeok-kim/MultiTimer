@@ -13,6 +13,7 @@ final class RingtoneSelectReactor: Reactor {
     enum Action {
         case viewDidLoad
         case ringtoneDidSelect(IndexPath)
+        case closeButtonDidTap
     }
     
     enum Mutation {
@@ -26,9 +27,11 @@ final class RingtoneSelectReactor: Reactor {
     }
     
     var initialState = State()
+    private weak var coordinator: HomeCoordinator?
     private let selectedRingtoneRelay: BehaviorRelay<Ringtone>
     
-    init(selectedRingtoneRelay: BehaviorRelay<Ringtone>) {
+    init(coordinator: HomeCoordinator?, selectedRingtoneRelay: BehaviorRelay<Ringtone>) {
+        self.coordinator = coordinator
         self.selectedRingtoneRelay = selectedRingtoneRelay
     }
     
@@ -49,6 +52,9 @@ final class RingtoneSelectReactor: Reactor {
                 .just(.selectRingtone(selectedRingtone)),
                 acceptSelectedRingtone(selectedRingtone)
             )
+            
+        case .closeButtonDidTap:
+            return finishScene()
         }
     }
     
@@ -69,6 +75,11 @@ final class RingtoneSelectReactor: Reactor {
 private extension RingtoneSelectReactor {
     func acceptSelectedRingtone(_ ringtone: Ringtone) -> Observable<Mutation> {
         selectedRingtoneRelay.accept(ringtone)
+        return .empty()
+    }
+    
+    func finishScene() -> Observable<Mutation> {
+        coordinator?.coordinate(by: .finishRingtoneSelectScene)
         return .empty()
     }
 }
