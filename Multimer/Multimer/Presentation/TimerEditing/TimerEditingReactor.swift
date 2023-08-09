@@ -24,6 +24,7 @@ final class TimerEditingReactor: Reactor {
         case setTimePickerViewIsHidden(Bool)
         case editTimer(Timer)
         case updateSelectedRingtone(Ringtone)
+        case setTimerNamePlaceholder(String)
     }
     
     struct State {
@@ -32,6 +33,7 @@ final class TimerEditingReactor: Reactor {
         var isCompleteButtonEnable: Bool = false
         var isTimePickerViewHidden: Bool = false
         var shouldExitScene: Bool = false
+        var timerNamePlaceholder: String?
     }
     
     let initialState: State
@@ -81,7 +83,11 @@ final class TimerEditingReactor: Reactor {
         case .viewDidLoad:
             let initialTimer = currentState.initialTimer
             let isTimePickerViewHidden = !initialTimer.type.shouldSetTime
-            return .just(.setTimePickerViewIsHidden(isTimePickerViewHidden))
+            let placeholder = initialTimer.name.isEmpty ? initialTimer.type.placeholder : initialTimer.name
+            return .concat(
+                .just(.setTimePickerViewIsHidden(isTimePickerViewHidden)),
+                .just(.setTimerNamePlaceholder(placeholder))
+            )
             
         case .ringtoneButtonDidTap:
             return showRingtoneSelectScene(selectedRingtoneRelay: selectedRingtoneRelay)
@@ -107,6 +113,9 @@ final class TimerEditingReactor: Reactor {
                 initialTimer: state.initialTimer,
                 newTimer: newState.editedTimer
             )
+            
+        case .setTimerNamePlaceholder(let placeholder):
+            newState.timerNamePlaceholder = placeholder
         }
         return newState
     }
