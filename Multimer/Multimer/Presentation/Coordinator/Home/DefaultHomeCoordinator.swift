@@ -36,7 +36,7 @@ final class DefaultHomeCoordinator: HomeCoordinator {
         case .finishTimerEditScene:
             navigationController.popViewController(animated: true)
         case .finishRingtoneSelectScene:
-            navigationController.dismiss(animated: true)
+            navigationController.visibleViewController?.dismiss(animated: true)
         }
     }
 }
