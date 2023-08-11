@@ -13,7 +13,7 @@ final class UserNotificationCenterService {
         ringtone: Ringtone?,
         remainingSeconds: TimeInterval,
         timerName: String,
-        notificationIdentifier: String?
+        notificationIdentifier: String
     ) {
         let content = UNMutableNotificationContent()
         content.title = LocalizableString.appTitle.localized
@@ -28,12 +28,36 @@ final class UserNotificationCenterService {
         
         if remainingSeconds <= .zero { return }
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: remainingSeconds, repeats: false)
-        guard let notificationIdentifier = notificationIdentifier else { return }
         let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
     }
     
     static func removeNotification(withIdentifiers identifiers: [String]) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+    }
+
+    static func updateRingtone(for notificationIdentifier: String, remainingSeconds: Double, newRingtone: Ringtone?) {
+        let center = UNUserNotificationCenter.current()
+        
+        center.getPendingNotificationRequests { requests in
+            guard let matchingRequest = requests.first(where: { $0.identifier == notificationIdentifier }) else { return }
+            guard let updatedContent = matchingRequest.content.mutableCopy() as? UNMutableNotificationContent else { return }
+            
+            if let ringtoneFileName = newRingtone?.name, newRingtone != .default1 {
+                updatedContent.sound = UNNotificationSound(
+                    named: UNNotificationSoundName(rawValue: "\(ringtoneFileName).\(Constant.Ringtone.extension)")
+                )
+            }
+            
+            let updatedTrigger = UNTimeIntervalNotificationTrigger(timeInterval: remainingSeconds, repeats: false)
+            let updatedRequest = UNNotificationRequest(
+                identifier: notificationIdentifier,
+                content: updatedContent,
+                trigger: updatedTrigger
+            )
+            
+            center.removePendingNotificationRequests(withIdentifiers: [notificationIdentifier])
+            center.add(updatedRequest)
+        }
     }
 }
