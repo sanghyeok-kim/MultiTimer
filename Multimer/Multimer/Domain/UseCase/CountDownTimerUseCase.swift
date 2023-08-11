@@ -116,6 +116,14 @@ final class CountDownTimerUseCase: TimerUseCase {
             resetTimer()
         }
         
+        if newTimer.ringtone != currentTimer.ringtone {
+            UserNotificationCenterService.updateRingtone(
+                for: currentTimer.notificationIdentifier,
+                remainingSeconds: currentTimer.remainingSeconds,
+                newRingtone: newTimer.ringtone
+            )
+        }
+        
         timerPersistentRepository
             .updateTimer(
                 target: newTimer.identifier,
@@ -139,7 +147,7 @@ final class CountDownTimerUseCase: TimerUseCase {
         dispatchSourceTimer?.cancel()
         dispatchSourceTimer = nil
         
-        guard let notificationIdentifier = currentTimer.notificationIdentifier else { return }
+        let notificationIdentifier = currentTimer.notificationIdentifier
         UserNotificationCenterService.removeNotification(withIdentifiers: [notificationIdentifier])
     }
     

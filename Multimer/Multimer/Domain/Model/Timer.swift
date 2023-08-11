@@ -16,7 +16,7 @@ struct Timer {
     var state: TimerState
     var expireDate: Date?
     var startDate: Date?
-    var notificationIdentifier: String?
+    var notificationIdentifier: String
     var type: TimerType
     var ringtone: Ringtone?
     var index: Int
