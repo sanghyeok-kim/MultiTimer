@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E1869B32A8603D8000AFDC6 /* SKStoreReviewController+requestReviewInCurrentScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1869B22A8603D8000AFDC6 /* SKStoreReviewController+requestReviewInCurrentScene.swift */; };
 		1E1C42E22A765844003CC427 /* RingtoneSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C42E12A765844003CC427 /* RingtoneSelectViewController.swift */; };
 		1E1C43662A7681FA003CC427 /* radar.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43522A7681F8003CC427 /* radar.aiff */; };
 		1E1C43672A7681FA003CC427 /* alarm.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1E1C43532A7681F9003CC427 /* alarm.aiff */; };
@@ -155,6 +156,7 @@
 /* Begin PBXFileReference section */
 		02A9A991A8E30450D4458665 /* Pods_MultimerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MultimerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09D9588E5DAECA7EB7A30024 /* Pods_Multimer_MultimerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Multimer_MultimerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E1869B22A8603D8000AFDC6 /* SKStoreReviewController+requestReviewInCurrentScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKStoreReviewController+requestReviewInCurrentScene.swift"; sourceTree = "<group>"; };
 		1E1C42DF2A760939003CC427 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1E1C42E02A760939003CC427 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1E1C42E12A765844003CC427 /* RingtoneSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneSelectViewController.swift; sourceTree = "<group>"; };
@@ -673,6 +675,7 @@
 				1E23D56A299A1110008FD287 /* UIView+shouldFadeIn.swift */,
 				1E744B97296C488A00CD824D /* UIStackView+addArrangedSubviews.swift */,
 				1E23D5362994BCF8008FD287 /* NotificationName+CustomName.swift */,
+				1E1869B22A8603D8000AFDC6 /* SKStoreReviewController+requestReviewInCurrentScene.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1148,6 +1151,7 @@
 				1E744BB2296C488A00CD824D /* TimerFilteringCondition.swift in Sources */,
 				1E4CB4DF2966BE9000FC918E /* TimeMO+CoreDataClass.swift in Sources */,
 				1E744BB4296C488A00CD824D /* TimeType.swift in Sources */,
+				1E1869B32A8603D8000AFDC6 /* SKStoreReviewController+requestReviewInCurrentScene.swift in Sources */,
 				1E744BB8296C488A00CD824D /* SymbolImageButton.swift in Sources */,
 				1E8C28F42A73C0C100935C5E /* CoordinatorType.swift in Sources */,
 				1E23D56B299A1110008FD287 /* UIView+shouldFadeIn.swift in Sources */,
