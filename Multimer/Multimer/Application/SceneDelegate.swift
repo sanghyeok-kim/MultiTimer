@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StoreKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -24,6 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.rootViewController = rootNavigationController
         window?.makeKeyAndVisible()
+        
+        SKStoreReviewController.requestReviewInCurrentScene()
     }
 }
 
