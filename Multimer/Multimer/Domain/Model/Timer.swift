@@ -80,7 +80,7 @@ extension Timer: Equatable {
     static func == (lhs: Timer, rhs: Timer) -> Bool {
         return (lhs.name == rhs.name)
         && (lhs.tag == rhs.tag)
-        && (lhs.time == rhs.time)
+        && (lhs.time.totalSeconds == rhs.time.totalSeconds)
         && (lhs.ringtone == rhs.ringtone)
     }
 }
