@@ -107,7 +107,7 @@ final class TimerViewCell: UITableViewCell, CellIdentifiable, ViewType {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 2.5, left: 5.5, bottom: 2.5, right: 5.5))
     }
     
     override func prepareForReuse() {

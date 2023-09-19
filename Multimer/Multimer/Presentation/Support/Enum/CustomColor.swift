@@ -23,7 +23,7 @@ enum CustomColor {
             case .dark:
                 return UIColor(red: 234 / 255, green: 235 / 255, blue: 235 / 255, alpha: 1.0)
             default:
-                return UIColor(red: 55 / 255, green: 55 / 255, blue: 55 / 255, alpha: 1.0)
+                return UIColor(red: 75 / 255, green: 75 / 255, blue: 75 / 255, alpha: 1.0)
             }
         }
         
@@ -32,7 +32,7 @@ enum CustomColor {
             case .dark:
                 return UIColor(red: 245 / 255, green: 52 / 255, blue: 80 / 255, alpha: 1.0)
             default:
-                return UIColor(red: 235 / 255, green: 42 / 255, blue: 70 / 255, alpha: 1.0)
+                return UIColor(red: 215 / 255, green: 52 / 255, blue: 80 / 255, alpha: 1.0)
             }
         }
         
@@ -68,7 +68,7 @@ enum CustomColor {
             case .dark:
                 return UIColor(red: 106 / 255, green: 136 / 255, blue: 249 / 255, alpha: 1.0)
             default:
-                return UIColor(red: 96 / 255, green: 126 / 255, blue: 239 / 255, alpha: 1.0)
+                return UIColor(red: 96 / 255, green: 126 / 255, blue: 249 / 255, alpha: 1.0)
             }
         }
         
@@ -77,7 +77,7 @@ enum CustomColor {
             case .dark:
                 return UIColor(red: 171 / 255, green: 124 / 255, blue: 245 / 255, alpha: 1.0)
             default:
-                return UIColor(red: 161 / 255, green: 114 / 255, blue: 225 / 255, alpha: 1.0)
+                return UIColor(red: 161 / 255, green: 114 / 255, blue: 215 / 255, alpha: 1.0)
             }
         }
     }
@@ -97,7 +97,7 @@ enum CustomColor {
             case .dark:
                 return UIColor(red: 32 / 255, green: 31 / 255, blue: 35 / 255, alpha: 1.0)
             default:
-                return UIColor(red: 220 / 255, green: 230 / 255, blue: 240 / 255, alpha: 0.8)
+                return UIColor(red: 230 / 255, green: 240 / 255, blue: 250 / 255, alpha: 0.8)
             }
         }
     }
@@ -106,9 +106,9 @@ enum CustomColor {
         static let startImage = UIColor { traitCollection in
             switch traitCollection.userInterfaceStyle {
             case .dark:
-                return UIColor(red: 101 / 255, green: 156 / 255, blue: 255 / 255, alpha: 1.0)
+                return UIColor(red: 91 / 255, green: 146 / 255, blue: 255 / 255, alpha: 1.0)
             default:
-                return UIColor(red: 47 / 255, green: 85 / 255, blue: 150 / 255, alpha: 1.0)
+                return UIColor(red: 57 / 255, green: 95 / 255, blue: 170 / 255, alpha: 1.0)
             }
         }
         
