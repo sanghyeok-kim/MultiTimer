@@ -23,6 +23,7 @@ final class HomeViewModel: ViewModelType {
         let timerControlButtonInEditViewDidTap = PublishRelay<EditViewButtonType>()
         let deleteButtonInEditViewDidTap = PublishRelay<Void>()
         let confirmDeleteButtonDidTap = PublishRelay<Void>()
+        let confirmResetAllButtonDidTap = PublishRelay<Void>()
         let resetAllActiveTimersButtonDidTap = PublishRelay<Void>()
     }
     
@@ -31,6 +32,7 @@ final class HomeViewModel: ViewModelType {
         let maintainEditingMode = PublishRelay<Bool>()
         let enableEditViewButtons = PublishRelay<Bool>()
         let showDeleteConfirmAlert = PublishRelay<Int>()
+        let showResetAllConfirmAlert = PublishRelay<Void>()
         let showNotificationAuthAlert = PublishRelay<Void>()
         let deselectRows = PublishRelay<[Int]>()
         let hideResetAllActiveTimersButton = BehaviorRelay<Bool>(value: true)
@@ -62,6 +64,7 @@ final class HomeViewModel: ViewModelType {
         handleCellDidMove()
         handleAddTimerButtonDidTap()
         handleResetAllActiveTimersButton()
+        handleComfirmResetAllActiveTimersButton()
         handleEditButtonDidTap()
         handleEventFromEditView(with: homeUseCase)
         
@@ -242,6 +245,12 @@ private extension HomeViewModel {
     
     func handleResetAllActiveTimersButton() {
         input.resetAllActiveTimersButtonDidTap
+            .bind(to: output.showResetAllConfirmAlert)
+            .disposed(by: disposeBag)
+    }
+    
+    func handleComfirmResetAllActiveTimersButton() {
+        input.confirmResetAllButtonDidTap
             .withLatestFrom(output.filteredTimerCellViewModels)
             .bind { filteredCellViewModels in
                 filteredCellViewModels.forEach { $0.resetTimer() }

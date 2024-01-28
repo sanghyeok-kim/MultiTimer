@@ -5,9 +5,9 @@
 //  Created by 김상혁 on 2022/11/02.
 //
 
-import RxSwift
 import RxRelay
 import RxAppState
+import RxSwift
 
 final class HomeViewController: UIViewController, ViewType {
     
@@ -181,6 +181,15 @@ final class HomeViewController: UIViewController, ViewType {
             }
             .disposed(by: disposeBag)
         
+        output.showResetAllConfirmAlert
+            .withUnretained(self)
+            .bind { `self`, _ in
+                self.showResetAllTimersConfirmAlert(confirmHandler: { _ in
+                    viewModel.input.confirmResetAllButtonDidTap.accept(())
+                })
+            }
+            .disposed(by: disposeBag)
+        
         output.hideResetAllActiveTimersButton
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
@@ -295,6 +304,18 @@ private extension HomeViewController {
         alert.addAction(settingsAction)
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showResetAllTimersConfirmAlert(confirmHandler: @escaping (UIAlertAction) -> Void) {
+        let resetAllTimerString = LocalizableString.resetAll.localized
+        let resetConfirmMessageString = LocalizableString.resetConfirmMessage.localized
+        let cancelString = LocalizableString.cancel.localized
+        let resetString = LocalizableString.reset.localized
+        
+        let alert = UIAlertController(title: resetAllTimerString, message: resetConfirmMessageString, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: cancelString, style: .default))
+        alert.addAction(UIAlertAction(title: resetString, style: .destructive, handler: confirmHandler))
+        present(alert, animated: true, completion: nil)
     }
 }
 
