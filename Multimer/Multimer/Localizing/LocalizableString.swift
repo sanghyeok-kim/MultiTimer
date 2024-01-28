@@ -27,6 +27,8 @@ enum LocalizableString {
     case cancel
     case delete
     case deleteConfirmMessage(count: Int)
+    case reset
+    case resetConfirmMessage
     case noTimerCreatedMessage
     case addTimerMessage
     case noTimerActivatedMessage
@@ -69,7 +71,7 @@ enum LocalizableString {
             return String(format: NSLocalizedString("activated", comment: ""))
         case .enterTimerNameToCreate:
             return String(format: NSLocalizedString("enterTimerNameToCreate", comment: ""))
-        case . enterStopwatchNameToCreate:
+        case .enterStopwatchNameToCreate:
             return String(format: NSLocalizedString("enterStopwatchNameToCreate", comment: ""))
         case .createTimer:
             return String(format: NSLocalizedString("createTimer", comment: ""))
@@ -85,6 +87,10 @@ enum LocalizableString {
             return String(format: NSLocalizedString("delete", comment: ""))
         case .deleteConfirmMessage(let count):
             return String(format: NSLocalizedString("deleteConfirmMessage", comment: ""), arguments: [count])
+        case .reset:
+            return String(format: NSLocalizedString("reset", comment: ""))
+        case .resetConfirmMessage:
+            return String(format: NSLocalizedString("resetConfirmMessage", comment: ""))
         case .noTimerCreatedMessage:
             return String(format: NSLocalizedString("noTimerCreatedMessage", comment: ""))
         case .addTimerMessage:
