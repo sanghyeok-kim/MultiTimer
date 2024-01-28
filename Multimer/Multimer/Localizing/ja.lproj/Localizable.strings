@@ -22,6 +22,8 @@
 "done" = "完了";
 "deleteConfirmMessage" = "本当に%dつのタイマーを削除しますか？";
 "deleteTimer" = "タイマーを削除";
+"reset" = "リセット";
+"resetConfirmMessage" = "全ての%d個の活性化されたタイマーをリセットしますか?";
 "cancel" = "キャンセル";
 "delete" = "削除";
 "noTimerCreatedMessage" = "作成されたタイマーなし";

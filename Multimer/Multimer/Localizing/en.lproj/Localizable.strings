@@ -22,6 +22,8 @@
 "done" = "Done";
 "deleteConfirmMessage" = "Are you sure to delete the %d timer(s)?";
 "deleteTimer" = "Delete Timer";
+"reset" = "Reset";
+"resetConfirmMessage" = "Are you sure to reset all activated timers?";
 "cancel" = "Cancel";
 "delete" = "Delete";
 "noTimerCreatedMessage" = "No Timer Created";
