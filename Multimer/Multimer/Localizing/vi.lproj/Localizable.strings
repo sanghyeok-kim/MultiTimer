@@ -22,6 +22,8 @@
 "done" = "Xong";
 "deleteConfirmMessage" = "Bạn có chắc chắn muốn xóa %d cái hẹn giờ đã chọn không?";
 "deleteTimer" = "Xóa hẹn giờ";
+"reset" = "Đặt lại";
+"resetConfirmMessage" = "Bạn có chắc chắn muốn đặt lại tất cả bộ hẹn giờ đã kích hoạt không";
 "cancel" = "Hủy";
 "delete" = "Xóa";
 "noTimerCreatedMessage" = "Không có bộ hẹn giờ nào\nđã được tạo";
